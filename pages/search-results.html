@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — نتایج جستجو</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-sr-hero { background: var(--pa-surface); border: 1px solid var(--pa-border); border-radius: var(--pa-radius-lg); padding: 1.5rem; margin-bottom: 1rem; box-shadow: var(--pa-shadow); }
+    .pa-sr-hero h2 { margin: 0 0 1rem; font-size: 1.1rem; }
+    .pa-sr-searchbar { position: relative; }
+    .pa-sr-searchbar .pa-icon { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; color: var(--pa-text-muted); }
+    [dir="rtl"] .pa-sr-searchbar input { padding: .85rem 3rem .85rem 1rem; }
+    .pa-sr-searchbar input { width: 100%; border: 1px solid var(--pa-border); border-radius: var(--pa-radius-lg); background: var(--pa-surface); color: var(--pa-text); font-size: 1.05rem; }
+    .pa-sr-searchbar input:focus { outline: 0; border-color: var(--pa-primary); box-shadow: 0 0 0 .2rem rgba(13,110,253,.15); }
+    .pa-sr-searchbar .pa-sr-submit { position: absolute; left: .5rem; top: 50%; transform: translateY(-50%); }
+    .pa-sr-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding: .5rem 0; margin-bottom: 1rem; }
+    .pa-sr-meta-text { color: var(--pa-text-muted); font-size: .9rem; flex: 1; min-width: 200px; }
+    .pa-sr-result-card { background: var(--pa-surface); border: 1px solid var(--pa-border); border-radius: var(--pa-radius-lg); box-shadow: var(--pa-shadow); overflow: hidden; }
+    .pa-sr-result-card .pa-search-result { transition: background .15s; }
+    .pa-sr-result-card .pa-search-result:hover { background: var(--pa-surface-2); }
+    .pa-sr-result-type { display: inline-flex; align-items: center; gap: .3rem; padding: .15rem .5rem; border-radius: 1rem; font-size: .68rem; font-weight: 600; margin-right: .5rem; vertical-align: middle; }
+    .pa-sr-result-type.product { background: var(--pa-primary-soft); color: var(--pa-primary); }
+    .pa-sr-result-type.blog { background: var(--pa-success-soft); color: var(--pa-success); }
+    .pa-sr-result-type.user { background: var(--pa-warning-soft); color: var(--pa-warning); }
+    .pa-sr-result-type.page { background: var(--pa-purple-soft); color: var(--pa-purple); }
+    .pa-sr-pagination { display: flex; gap: .35rem; justify-content: center; padding: 1rem 0; flex-wrap: wrap; }
+    .pa-sr-page-btn { min-width: 38px; height: 38px; padding: 0 .6rem; border: 1px solid var(--pa-border); background: var(--pa-surface); color: var(--pa-text); border-radius: var(--pa-radius); cursor: pointer; font: inherit; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; transition: all .15s; }
+    .pa-sr-page-btn:hover { background: var(--pa-surface-3); }
+    .pa-sr-page-btn.is-active { background: var(--pa-primary); color: #fff; border-color: var(--pa-primary); }
+    .pa-sr-page-btn.is-disabled { color: var(--pa-text-soft); cursor: not-allowed; }
+    .pa-sr-page-ellipsis { padding: 0 .25rem; color: var(--pa-text-muted); align-self: center; }
+    .pa-sr-side-list { list-style: none; padding: 0; margin: 0; }
+    .pa-sr-side-list li { padding: .4rem 0; border-bottom: 1px solid var(--pa-border); }
+    .pa-sr-side-list li:last-child { border-bottom: 0; }
+    .pa-sr-side-list a { color: var(--pa-text); font-size: .85rem; display: flex; align-items: center; gap: .4rem; }
+    .pa-sr-side-list a:hover { color: var(--pa-primary); text-decoration: none; }
+    .pa-sr-radio { display: flex; align-items: center; gap: .5rem; padding: .3rem 0; font-size: .85rem; cursor: pointer; }
+    .pa-sr-radio input { width: 16px; height: 16px; accent-color: var(--pa-primary); }
+    .pa-sr-divider { border: 0; border-top: 1px solid var(--pa-border); margin: .85rem 0; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>نتایج جستجو</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>جستجو</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big search bar -->
+        <div class="pa-sr-hero pa-anim-slide-up">
+          <form class="pa-sr-searchbar" onsubmit="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی مجدد اجرا شد.'})">
+            <span data-pa-icon="search" data-pa-icon-size="22"></span>
+            <input type="search" value="react" aria-label="جستجو" placeholder="عبارت مورد نظر را جستجو کنید...">
+            <button type="submit" class="pa-btn pa-btn-primary pa-sr-submit" data-pa-icon="search" data-pa-icon-size="16"> جستجو</button>
+          </form>
+        </div>
+
+        <!-- Stats + sort + view toggle -->
+        <div class="pa-sr-meta">
+          <div class="pa-sr-meta-text">حدود <strong>۱٬۲۴۰٬۰۰۰</strong> نتیجه (۰.۴۲ ثانیه)</div>
+          <div class="pa-d-flex pa-align-center pa-gap-1">
+            <label class="pa-text-sm pa-text-muted" style="margin:0">مرتب‌سازی:</label>
+            <select class="pa-select" style="width:auto" onchange="PAdminLTE.toast({kind:'info',message:'مرتب‌سازی تغییر کرد.'})">
+              <option value="rel">مرتبط‌ترین</option>
+              <option value="date">جدیدترین</option>
+              <option value="rate">محبوب‌ترین</option>
+            </select>
+          </div>
+          <div class="pa-d-flex pa-align-center pa-gap-1">
+            <button class="pa-btn pa-btn-outline pa-btn-sm is-active" data-pa-icon="list" data-pa-icon-size="14" title="نمای لیست" onclick="PAdminLTE.toast({kind:'info',message:'نمای لیست.'})"></button>
+            <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="grid" data-pa-icon-size="14" title="نمای شبکه‌ای" onclick="PAdminLTE.toast({kind:'info',message:'نمای شبکه‌ای.'})"></button>
+          </div>
+        </div>
+
+        <div class="pa-row pa-anim-slide-up pa-anim-delay-1">
+
+          <!-- Main: results -->
+          <div class="pa-col-9">
+            <div class="pa-sr-result-card">
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type blog">مطلب وبلاگ</span>آموزش <mark>React</mark> از صفر تا صد</a>
+                </div>
+                <div class="pa-search-result-url">https://blog.example.com/react-tutorial-from-scratch</div>
+                <div class="pa-search-result-excerpt">در این آموزش جامع با <mark>React</mark> از مفاهیم پایه شروع می‌کنیم و تا موضوعات پیشرفته مثل Context API، Hooks و State Management پیش می‌رویم. مناسب برنامه‌نویسان فارسی‌زبانی که می‌خواهند کار با <mark>React</mark> را اصولی یاد بگیرند.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type blog">مطلب وبلاگ</span><mark>React</mark> vs Vue: مقایسه کامل</a>
+                </div>
+                <div class="pa-search-result-url">https://blog.example.com/react-vs-vue-comparison</div>
+                <div class="pa-search-result-excerpt">کدام فریم‌ورک برای پروژه شما مناسب‌تر است؟ در این مقاله <mark>React</mark> و Vue را از نظر کارایی، منحنی یادگیری، اکوسیستم و بازار کار مقایسه می‌کنیم تا انتخاب آسان‌تری داشته باشید.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type product">محصول</span>بهترین کتابخانه‌های <mark>React</mark> در ۲۰۲۴</a>
+                </div>
+                <div class="pa-search-result-url">https://shop.example.com/react-libraries-2024</div>
+                <div class="pa-search-result-excerpt">فهرست کامل و به‌روزرسانی‌شده‌ی بهترین کتابخانه‌های <mark>React</mark> برای سال ۲۰۲۴ شامل فرم‌سازها، روترها، ابزارهای تست و کامپوننت‌های آماده. شامل مقایسه و راهنمای انتخاب.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type blog">مطلب وبلاگ</span>آموزش <mark>React</mark> Hooks</a>
+                </div>
+                <div class="pa-search-result-url">https://blog.example.com/react-hooks-guide</div>
+                <div class="pa-search-result-excerpt">معرفی کامل <mark>React</mark> Hooks با مثال‌های کاربردی: useState، useEffect، useContext، useMemo، useCallback و ساخت هوک سفارشی. یاد بگیرید چطور منطق وضعیت (state) را تمیزتر بنویسید.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type page">صفحه</span><mark>React</mark> Native چیست؟</a>
+                </div>
+                <div class="pa-search-result-url">https://docs.example.com/what-is-react-native</div>
+                <div class="pa-search-result-excerpt"><mark>React</mark> Native فریم‌ورکی است که با استفاده از آن می‌توانید اپلیکیشن‌های موبایل بومی iOS و Android را با همان کد <mark>React</mark> بسازید. در این صفحه با معماری و مزایای آن آشنا می‌شوید.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type blog">مطلب وبلاگ</span>State Management در <mark>React</mark></a>
+                </div>
+                <div class="pa-search-result-url">https://blog.example.com/react-state-management</div>
+                <div class="pa-search-result-excerpt">مدیریت State یکی از مهم‌ترین موضوعات در <mark>React</mark> است. در این مقاله Redux، Zustand، Recoil و Context API را مقایسه می‌کنیم و بهترین روش برای پروژه‌های کوچک و بزرگ را معرفی می‌کنیم.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type user">کاربر</span>Testing در <mark>React</mark></a>
+                </div>
+                <div class="pa-search-result-url">https://example.com/users/react-tester</div>
+                <div class="pa-search-result-excerpt">پروفایل کاربری تخصصی در زمینه تست <mark>React</mark> با Jest و Testing Library. شامل نمونه‌کارهای تست واحد، تست یکپارچه‌سازی و تست کامپوننت‌های <mark>React</mark>.</div>
+              </div>
+
+              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
+                <div class="pa-search-result-title">
+                  <a href="#"><span class="pa-sr-result-type blog">مطلب وبلاگ</span><mark>React</mark> Performance Optimization</a>
+                </div>
+                <div class="pa-search-result-url">https://blog.example.com/react-performance</div>
+                <div class="pa-search-result-excerpt">تکنیک‌های بهینه‌سازی کارایی در <mark>React</mark>: استفاده از memo، useMemo، useCallback، code-splitting، lazy loading و virtualization برای کاهش زمان رندر و بهبود تجربه کاربری.</div>
+              </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <div class="pa-sr-pagination">
+              <button class="pa-sr-page-btn is-disabled" aria-label="قبلی" onclick="PAdminLTE.toast({kind:'warning',message:'شما در صفحه اول هستید.'})"><span data-pa-icon="chevron_right" data-pa-icon-size="16"></span></button>
+              <button class="pa-sr-page-btn is-active">۱</button>
+              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۲.'})">۲</button>
+              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۳.'})">۳</button>
+              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۴.'})">۴</button>
+              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۵.'})">۵</button>
+              <span class="pa-sr-page-ellipsis">…</span>
+              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه آخر.'})">۱۲۴٬۰۰۰</button>
+              <button class="pa-sr-page-btn" aria-label="بعدی" onclick="PAdminLTE.toast({kind:'info',message:'صفحه بعدی.'})"><span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+            </div>
+
+          </div>
+
+          <!-- Sidebar: filters -->
+          <div class="pa-col-3">
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>فیلترها</h3></div>
+              <div class="pa-card-body">
+
+                <h4 class="pa-text-sm pa-text-semibold pa-mb-1" style="margin:0 0 .5rem">نوع نتیجه</h4>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="f-all" checked>
+                  <label for="f-all">همه</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="f-products">
+                  <label for="f-products">محصولات</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="f-posts">
+                  <label for="f-posts">مطالب</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="f-users">
+                  <label for="f-users">کاربران</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="f-pages">
+                  <label for="f-pages">صفحات</label>
+                </div>
+
+                <hr class="pa-sr-divider">
+
+                <h4 class="pa-text-sm pa-text-semibold pa-mb-1" style="margin:0 0 .5rem">بازه زمانی</h4>
+                <label class="pa-sr-radio"><input type="radio" name="date" checked> هر زمان</label>
+                <label class="pa-sr-radio"><input type="radio" name="date"> ۲۴ ساعت اخیر</label>
+                <label class="pa-sr-radio"><input type="radio" name="date"> هفته اخیر</label>
+                <label class="pa-sr-radio"><input type="radio" name="date"> ماه اخیر</label>
+
+                <hr class="pa-sr-divider">
+
+                <h4 class="pa-text-sm pa-text-semibold pa-mb-1" style="margin:0 0 .5rem">نویسنده</h4>
+                <input class="pa-input" type="search" placeholder="نام نویسنده...">
+
+                <button class="pa-btn pa-btn-primary pa-btn-block pa-mt-2" data-pa-icon="filter" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'success',message:'فیلترها اعمال شد.'})"> اعمال فیلتر</button>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>جستجوهای مرتبط</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-tag-cloud">
+                  <a class="pa-tag pa-tag-size-md" href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: redux'})">redux</a>
+                  <a class="pa-tag pa-tag-size-md" href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: nextjs'})">nextjs</a>
+                  <a class="pa-tag pa-tag-size-sm" href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: typescript'})">typescript</a>
+                  <a class="pa-tag pa-tag-size-md" href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: javascript'})">javascript</a>
+                  <a class="pa-tag pa-tag-size-sm" href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: vue'})">vue</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>جستجوهای اخیر</h3></div>
+              <div class="pa-card-body" style="padding:.5rem 1rem">
+                <ul class="pa-sr-side-list">
+                  <li><a href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: react hooks'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> react hooks</a></li>
+                  <li><a href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: css grid'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> css grid</a></li>
+                  <li><a href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: tailwind'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> tailwind</a></li>
+                  <li><a href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: node.js'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> node.js</a></li>
+                  <li><a href="#" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: docker'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> docker</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Click result → toast with title
+    document.querySelectorAll('.pa-search-result').forEach(function (r) {
+      r.addEventListener('click', function () {
+        var t = (r.querySelector('.pa-search-result-title') || {}).textContent || 'نتیجه';
+        PAdminLTE.toast({ kind: 'info', message: 'باز کردن: ' + t.trim() });
+      });
+    });
+    // Search form: keep "react" as fallback value if cleared
+    document.querySelector('.pa-sr-searchbar').addEventListener('submit', function () {
+      var input = this.querySelector('input');
+      if (!input.value.trim()) input.value = 'react';
+    });
+  </script>
+</body>
+</html>

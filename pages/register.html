@@ -16,7 +16,10 @@
       <div class="pa-form-row">
         <div class="pa-form-group">
           <label for="firstname">نام</label>
-          <input class="pa-input" type="text" id="firstname" data-pa-validate="required" required>
+          <div class="pa-input-group">
+            <span class="pa-input-addon" data-pa-icon="user" data-pa-icon-size="16"></span>
+            <input class="pa-input" type="text" id="firstname" data-pa-validate="required" required>
+          </div>
           <div class="pa-form-feedback"></div>
         </div>
         <div class="pa-form-group">
@@ -26,14 +29,20 @@
         </div>
       </div>
       <div class="pa-form-group">
-        <label for="email">ایمیل</label>
-        <input class="pa-input" type="email" id="email" data-pa-validate="email" required>
-        <div class="pa-form-feedback"></div>
-      </div>
+          <label for="email">ایمیل</label>
+          <div class="pa-input-group">
+            <span class="pa-input-addon" data-pa-icon="envelope" data-pa-icon-size="16"></span>
+            <input class="pa-input" type="email" id="email" data-pa-validate="email" required>
+          </div>
+          <div class="pa-form-feedback"></div>
+        </div>
       <div class="pa-form-row">
         <div class="pa-form-group">
           <label for="password">رمز عبور</label>
-          <input class="pa-input" type="password" id="password" data-pa-validate="minlen" data-pa-minlen="6" required>
+          <div class="pa-input-group">
+            <span class="pa-input-addon" data-pa-icon="lock" data-pa-icon-size="16"></span>
+            <input class="pa-input" type="password" id="password" data-pa-validate="minlen" data-pa-minlen="6" required>
+          </div>
           <div class="pa-form-feedback"></div>
         </div>
         <div class="pa-form-group">

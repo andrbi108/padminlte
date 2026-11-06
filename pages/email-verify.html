@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تایید ایمیل</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body class="pa-auth-page">
+  <div class="pa-auth-card pa-anim-slide-up">
+    <div class="pa-auth-logo" data-pa-icon="mail_check" data-pa-icon-size="32"></div>
+    <h1>تایید آدرس ایمیل</h1>
+    <p class="pa-sub">کد ۶ رقمی ارسال شده به ایمیل you***@example.com را وارد کنید</p>
+
+    <div class="pa-alert pa-alert-info">
+      <span data-pa-icon="envelope" data-pa-icon-size="20"></span>
+      <div class="pa-alert-body">برای تکمیل ثبت‌نام، کد تأیید را وارد کنید. کد تا ۵ دقیقه معتبر است.</div>
+    </div>
+
+    <form data-pa-validate-form onsubmit="return false">
+      <div class="pa-form-group pa-text-center">
+        <div class="pa-otp-group" data-pa-otp="6" data-pa-otp-name="otp" style="justify-content:center;"></div>
+      </div>
+
+      <button type="button" class="pa-btn pa-btn-outline pa-btn-block" data-pa-otp-resend>ارسال مجدد کد</button>
+      <button type="submit" class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg" style="margin-top:.5rem;">تایید و ادامه</button>
+    </form>
+
+    <p class="pa-text-center pa-text-muted pa-fs-sm">
+      <a href="register.html">ایمیل دیگری استفاده کنید</a>
+    </p>
+    <p class="pa-text-center"><a href="login.html">← بازگشت به ورود</a></p>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script>
+    PAdminLTE.on('pa:otp:complete', function () {
+      PAdminLTE.toast({ kind: 'success', title: 'موفق', message: 'ایمیل شما با موفقیت تأیید شد.' });
+      setTimeout(function () { window.location.href = 'login.html'; }, 1000);
+    });
+  </script>
+</body>
+</html>

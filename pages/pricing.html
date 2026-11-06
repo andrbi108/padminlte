@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — قیمت‌گذاری</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-billing-toggle {
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .pa-billing-switch {
+      display: inline-flex; background: var(--pa-surface-3);
+      border-radius: 2rem; padding: .25rem; gap: .25rem;
+    }
+    .pa-billing-switch button {
+      background: transparent; border: 0; cursor: pointer; font: inherit;
+      padding: .5rem 1.25rem; border-radius: 2rem; font-weight: 600; font-size: .9rem;
+      color: var(--pa-text-muted); transition: all .15s;
+    }
+    .pa-billing-switch button.is-active {
+      background: var(--pa-primary); color: #fff;
+    }
+    .pa-billing-badge {
+      background: var(--pa-success-soft); color: var(--pa-success);
+      padding: .25rem .65rem; border-radius: 1rem; font-size: .8rem; font-weight: 700;
+    }
+
+    .pa-pricing-grid.pa-pricing-detailed {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: stretch;
+    }
+    @media (max-width: 768px) { .pa-pricing-grid.pa-pricing-detailed { grid-template-columns: 1fr; } }
+    .pa-pricing-grid.pa-pricing-detailed .pa-pricing-card {
+      display: flex; flex-direction: column;
+    }
+    .pa-pricing-grid.pa-pricing-detailed .pa-pricing-card .pa-btn { margin-top: auto; }
+
+    .pa-pricing-note { font-size: .75rem; color: var(--pa-text-muted); margin-top: .25rem; }
+
+    /* FAQ accordion */
+    .pa-faq-item {
+      border: 1px solid var(--pa-border); border-radius: var(--pa-radius);
+      margin-bottom: .5rem; overflow: hidden; background: var(--pa-surface);
+    }
+    .pa-faq-q {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: .85rem 1rem; cursor: pointer; font-weight: 600; font-size: .95rem;
+      background: transparent; border: 0; width: 100%; text-align: right; font-family: inherit;
+      color: var(--pa-text);
+    }
+    .pa-faq-q:hover { background: var(--pa-surface-2); }
+    .pa-faq-q .pa-icon { transition: transform .2s; flex-shrink: 0; color: var(--pa-primary); }
+    .pa-faq-item.is-open .pa-faq-q .pa-icon { transform: rotate(180deg); }
+    .pa-faq-a {
+      max-height: 0; overflow: hidden; transition: max-height .25s ease;
+      padding: 0 1rem; color: var(--pa-text-muted); font-size: .9rem; line-height: 1.8;
+    }
+    .pa-faq-item.is-open .pa-faq-a { max-height: 400px; padding: 0 1rem 1rem; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- Page header -->
+        <div class="pa-page-header pa-anim-slide-up">
+          <div>
+            <h1>قیمت‌گذاری</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>قیمت‌گذاری</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intro -->
+        <div class="pa-text-center pa-anim-slide-up pa-anim-delay-1" style="margin-bottom: 1.5rem;">
+          <p class="pa-text-muted pa-fs-lg" style="max-width: 600px; margin: 0 auto;">
+            پلنی ساده و شفاف برای هر اندازه تیم. بدون هزینهٔ پنهان، هر زمان بخواهید ارتقا یا降grade دهید.
+          </p>
+        </div>
+
+        <!-- Billing toggle -->
+        <div class="pa-billing-toggle pa-anim-slide-up pa-anim-delay-2">
+          <div class="pa-billing-switch">
+            <button type="button" class="is-active" data-billing="monthly">ماهانه</button>
+            <button type="button" data-billing="yearly">
+              سالانه <span class="pa-billing-badge">۲۰٪ تخفیف</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pricing cards -->
+        <div class="pa-pricing-grid pa-pricing-detailed pa-anim-slide-up pa-anim-delay-3" style="margin-bottom: 1.5rem;">
+
+          <!-- Free -->
+          <div class="pa-pricing-card" data-plan="free">
+            <div class="pa-pricing-name">رایگان</div>
+            <div class="pa-pricing-tagline">برای شروع و پروژه‌های کوچک</div>
+            <div class="pa-pricing-price">
+              <span data-price>۰</span> <small>تومان/ماه</small>
+            </div>
+            <ul class="pa-pricing-features">
+              <li><span data-pa-icon="check"></span> تا ۵ کاربر</li>
+              <li><span data-pa-icon="check"></span> ۱۰ صفحهٔ آماده</li>
+              <li><span data-pa-icon="check"></span> پشتیبانی انجمن</li>
+              <li class="is-disabled"><span data-pa-icon="x"></span> پشتیبانی اولویت‌دار</li>
+              <li class="is-disabled"><span data-pa-icon="x"></span> آپدیت رایگان</li>
+              <li class="is-disabled"><span data-pa-icon="x"></span> سفارشی‌سازی تم</li>
+            </ul>
+            <a href="register.html" class="pa-btn pa-btn-outline pa-btn-block pa-btn-lg">شروع کنید</a>
+            <div class="pa-pricing-note">بدون نیاز به کارت بانکی</div>
+          </div>
+
+          <!-- Professional (featured) -->
+          <div class="pa-pricing-card is-featured" data-plan="pro">
+            <div class="pa-pricing-name">حرفه‌ای</div>
+            <div class="pa-pricing-tagline">محبوب‌ترین انتخاب تیم‌ها</div>
+            <div class="pa-pricing-price">
+              <span data-price>۱۵۰٬۰۰۰</span> <small>تومان/ماه</small>
+            </div>
+            <ul class="pa-pricing-features">
+              <li><span data-pa-icon="check"></span> کاربر نامحدود</li>
+              <li><span data-pa-icon="check"></span> تمام صفحات آماده</li>
+              <li><span data-pa-icon="check"></span> پشتیبانی اولویت‌دار</li>
+              <li><span data-pa-icon="check"></span> آپدیت رایگان یک سال</li>
+              <li><span data-pa-icon="check"></span> سفارشی‌سازی رنگ و تم</li>
+              <li class="is-disabled"><span data-pa-icon="x"></span> SLA تضمین‌شده</li>
+            </ul>
+            <a href="register.html" class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg">انتخاب پلن حرفه‌ای</a>
+            <div class="pa-pricing-note">۷ روز ضمانت بازگشت وجه</div>
+          </div>
+
+          <!-- Enterprise -->
+          <div class="pa-pricing-card" data-plan="enterprise">
+            <div class="pa-pricing-name">سازمانی</div>
+            <div class="pa-pricing-tagline">برای سازمان‌های بزرگ</div>
+            <div class="pa-pricing-price">
+              <span data-price>۵۰۰٬۰۰۰</span> <small>تومان/ماه</small>
+            </div>
+            <ul class="pa-pricing-features">
+              <li><span data-pa-icon="check"></span> همهٔ امکانات حرفه‌ای</li>
+              <li><span data-pa-icon="check"></span> SLA تضمین‌شده ۹۹٫۹٪</li>
+              <li><span data-pa-icon="check"></span> نصب اختصاصی روی سرور</li>
+              <li><span data-pa-icon="check"></span> پشتیبانی ۲۴/۷</li>
+              <li><span data-pa-icon="check"></span> کد منبع کامل</li>
+              <li><span data-pa-icon="check"></span> مدیر اختصاصی حساب</li>
+            </ul>
+            <a href="contact.html" class="pa-btn pa-btn-outline pa-btn-block pa-btn-lg">تماس با فروش</a>
+            <div class="pa-pricing-note">قرارداد سالانه قابل مذاکره</div>
+          </div>
+        </div>
+
+        <!-- Comparison table -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>مقایسهٔ کامل امکانات</h3>
+            <div class="pa-tools">
+              <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+              <button data-pa-card-tool="remove" aria-label="حذف"></button>
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-table-wrap">
+              <table class="pa-table pa-table-sm">
+                <thead>
+                  <tr>
+                    <th>امکانات</th>
+                    <th class="pa-text-center">رایگان</th>
+                    <th class="pa-text-center">حرفه‌ای</th>
+                    <th class="pa-text-center">سازمانی</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>تعداد کاربر</td><td class="pa-text-center">۵</td><td class="pa-text-center">نامحدود</td><td class="pa-text-center">نامحدود</td></tr>
+                  <tr><td>صفحات آماده</td><td class="pa-text-center">۱۰</td><td class="pa-text-center">۲۰+</td><td class="pa-text-center">۲۰+</td></tr>
+                  <tr><td>تم تاریک</td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>پشتیبانی RTL</td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>آیکن‌های SVG</td><td class="pa-text-center">۱۰۰</td><td class="pa-text-center">۲۷۰+</td><td class="pa-text-center">۲۷۰+</td></tr>
+                  <tr><td>کامپوننت‌ها</td><td class="pa-text-center">۲۰</td><td class="pa-text-center">۵۰+</td><td class="pa-text-center">۵۰+</td></tr>
+                  <tr><td>نمودارهای بومی</td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>سفارشی‌سازی رنگ</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>برند اختصاصی</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>آپدیت‌های رایگان</td><td class="pa-text-center">۶ ماه</td><td class="pa-text-center">۱ سال</td><td class="pa-text-center">مادام‌العمر</td></tr>
+                  <tr><td>پشتیبانی انجمن</td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>پشتیبانی اولویت‌دار</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>پشتیبانی ۲۴/۷</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>SLA تضمین‌شده</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center">۹۹٫۹٪</td></tr>
+                  <tr><td>نصب اختصاصی</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>کد منبع کامل</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                  <tr><td>مدیر اختصاصی حساب</td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="x_circle" class="pa-text-muted"></span></td><td class="pa-text-center"><span data-pa-icon="check_circle" class="pa-text-success"></span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ -->
+        <h3 class="pa-section-divider pa-anim-slide-up" style="margin-top: 2rem;">
+          <span data-pa-icon="question" data-pa-icon-size="22"></span> سؤالات متداول
+        </h3>
+        <div class="pa-anim-slide-up pa-anim-delay-1" style="margin-bottom: 1.5rem;">
+          <div class="pa-faq-item">
+            <button type="button" class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+              آیا می‌توانم پلنم را ارتقا یا تنزل دهم؟
+              <span data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+            </button>
+            <div class="pa-faq-a">
+              بله، هر زمان بخواهید می‌توانید پلن خود را ارتقا یا تنزل دهید. مابه‌التفاوت هزینه به‌صورت روزشمار محاسبه و در صورتحساب بعدی اعمال می‌شود.
+            </div>
+          </div>
+          <div class="pa-faq-item">
+            <button type="button" class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+              آیا پلن رایگان محدودیت زمانی دارد؟
+              <span data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+            </button>
+            <div class="pa-faq-a">
+              خیر. پلن رایگان برای همیشه رایگان است و محدودیت زمانی ندارد. فقط در تعداد کاربر و صفحات محدودیت دارد.
+            </div>
+          </div>
+          <div class="pa-faq-item">
+            <button type="button" class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+              چه روش‌های پرداختی پشتیبانی می‌شود؟
+              <span data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+            </button>
+            <div class="pa-faq-a">
+              در حال حاضر تمام درگاه‌های شاپرک، کارت‌های بانکی ایرانی، کیف پول و رمزارزهای منتخب پشتیبانی می‌شوند. برای قراردادهای سالانه فاکتور رسمی صادر می‌شود.
+            </div>
+          </div>
+          <div class="pa-faq-item">
+            <button type="button" class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+              آیا کد منبع قالب دریافت می‌کنم؟
+              <span data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+            </button>
+            <div class="pa-faq-a">
+              در پلن سازمانی، کد منبع کامل قالب به همراه لایسنس سازمانی تحویل داده می‌شود. در پلن‌های دیگر، کد CSS و JS نهایی (minified و سورس) در اختیار شما قرار می‌گیرد.
+            </div>
+          </div>
+          <div class="pa-faq-item">
+            <button type="button" class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+              سیاست بازگشت وجه چگونه است؟
+              <span data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+            </button>
+            <div class="pa-faq-a">
+              در پلن حرفه‌ای ۷ روز و در پلن سازمانی ۳۰ روز ضمانت بازگشت وجه داریم. اگر راضی نبودید، کافی است یک ایمیل بزنید؛ بدون پرسش، وجه شما بازگردانده می‌شود.
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="pa-cta pa-anim-zoom-in" style="margin: 1rem 0;">
+          <h2>آمادهٔ شروع هستید؟</h2>
+          <p>به جمع ۲٬۵۰۰+ تیمی که با PAdminLTE داشبورد خود را ساخته‌اند بپیوندید. ثبت‌نام در کمتر از یک دقیقه.</p>
+          <a href="register.html" class="pa-btn pa-btn-lg" style="background:#fff;color:var(--pa-primary);" data-pa-icon="rocket" data-pa-icon-size="18"> شروع رایگان</a>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Billing toggle: switches monthly/yearly prices
+    (function () {
+      var PRICES = {
+        free:     { monthly: '۰',       yearly: '۰' },
+        pro:      { monthly: '۱۵۰٬۰۰۰', yearly: '۱۴۴٬۰۰۰' }, // 20% off → 120k, displayed monthly
+        enterprise:{ monthly: '۵۰۰٬۰۰۰', yearly: '۴۸۰٬۰۰۰' }
+      };
+      var buttons = document.querySelectorAll('.pa-billing-switch button');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var mode = btn.getAttribute('data-billing');
+          buttons.forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+          Object.keys(PRICES).forEach(function (plan) {
+            var card = document.querySelector('[data-plan="' + plan + '"]');
+            if (card) {
+              var priceEl = card.querySelector('[data-price]');
+              if (priceEl) priceEl.textContent = PRICES[plan][mode];
+            }
+          });
+          PAdminLTE.toast({
+            kind: 'info',
+            message: mode === 'yearly' ? '۲۰٪ تخفیف سالانه اعمال شد.' : 'قیمت ماهانه نمایش داده می‌شود.'
+          });
+        });
+      });
+    })();
+  </script>
+  <style>
+    .pa-section-divider {
+      font-size: 1.4rem; font-weight: 700; margin: 2rem 0 1rem; padding-bottom: .5rem;
+      border-bottom: 2px solid var(--pa-border); display: flex; align-items: center; gap: .5rem;
+    }
+    .pa-section-divider .pa-icon { color: var(--pa-primary); }
+  </style>
+</body>
+</html>

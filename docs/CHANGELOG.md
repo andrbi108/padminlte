@@ -7,6 +7,95 @@
 
 ---
 
+## [1.1.0] — 2026-11-07
+
+به‌روزرسانی بزرگ: افزودن ۲۶ صفحهٔ جدید، ۱۷۸ آیکون جدید، ۸ بخش CSS جدید، ۷ متد JavaScript جدید، و فعال‌سازی GitHub Pages.
+
+### Added — قابلیت‌های جدید
+
+#### آیکون‌ها
+- **۱۷۸ آیکون SVG inline جدید** به `pa-icons.js` اضافه شد (مجموعاً ۲۷۳ آیکون).
+- دسته‌بندی‌های جدید: بلاگ و محتوا (book, book_open, library, pen, highlighter, hashtag, message_circle, message_square, comments, thumbs_up, flame, pin, award, sparkles, zap, rocket)، فروشگاه (shopping_bag, shopping_cart, credit_card_alt, wallet, tag_alt, tags, percent, gift_alt, truck, package_alt, store)، امنیت و احراز هویت (key_alt, fingerprint, qr_code, scan, shield_check, shield_alt, lock_open, mail_check, mail_open, send_alt, inbox, reply, forward, archive_alt)، مدیریت فایل (folder_open, folder_plus, file_text, file_image, file_video, file_audio, file_pdf, file_code, file_archive, hard_drive, cloud, cloud_upload, cloud_download, upload_alt, camera, camera_off)، کانبان و وظایف (columns, grip, check_square, square, circle, check_check, bell_ring, alert_triangle, alert_circle, info_alt)، شبکه‌های اجتماعی (twitter, facebook, instagram, linkedin, youtube, telegram, whatsapp)، ارتباط (phone_call, video, video_off, mic, play, pause, skip_forward, volume)، توسعه (code_alt, terminal_alt, bug, cpu_alt, database_alt, server_alt, network, git_branch)، دستگاه‌ها (smartphone, tablet, monitor, tv, watch)، ویرایشگر زنده (pen_tool, paint_bucket, bold, italic, underline, strikethrough, quote, align_left, align_center, align_right, list_alt, list_ordered) و ده‌ها مورد دیگر.
+
+#### CSS — ۲۲ بخش جدید (sections 29-50)
+- **بخش ۲۹ — Extended palette**: ۷ رنگ برند جدید (purple, pink, indigo, teal, cyan, orange, brown) با gradient classes، badge variants، button variants و progress bar variants.
+- **بخش ۳۰ — Animations**: ۱۵ keyframe animation (slide-in-up/down/right/left, zoom-in, bounce, pulse, shake, spin, tada, flash, heartbeat, shimmer, float, glow, ripple) با utility classes و delay variants. شامل `prefers-reduced-motion` support.
+- **بخش ۳۱ — Hover effects**: ۷ الگوی hover (lift, glow, scale, rotate, shadow, overlay, underline) برای کارت‌ها و کامپوننت‌ها.
+- **بخش ۳۲ — Typography scale**: utility classes برای font-size (`pa-text-xs` تا `pa-text-5xl`)، weight، style، transform، line-clamp، leading.
+- **بخش ۳۳ — File upload**: dropzone با drag-and-drop، preview، progress bar، file items.
+- **بخش ۳۴ — OTP input**: ۶ ورودی جداگانه با حالت‌های filled/error/success.
+- **بخش ۳۵ — Notification items**: با icon backgrounds، unread state، time stamp.
+- **بخش ۳۶ — Blog & content cards**: blog-card با thumb/category/meta/excerpt/footer، article styles با blockquote/code/pre.
+- **بخش ۳۷ — Shop & product cards**: product-card با hover actions، badges، rating، price، cart-item با qty-stepper.
+- **بخش ۳۸ — Forum**: forum-topic، forum-post با author info، role badge، action buttons.
+- **بخش ۳۹ — Kanban board**: kanban-col با header/count، kanban-card با tags/priority/footer، add-card button.
+- **بخش ۴۰ — Landing & marketing**: landing-nav، hero با blobs، features-grid، pricing-grid با featured state، testimonial، CTA banner.
+- **بخش ۴۱ — Landing footer**: ۴ ستون با link lists، social icons.
+- **بخش ۴۲ — Search results**: result items با title/url/excerpt و `<mark>` highlighting.
+- **بخش ۴۳ — Mailbox**: ۳-column grid، folder list، mail row با avatar/star/time، unread state.
+- **بخش ۴۴ — User panel**: userpanel-sidebar با menu items، header با avatar.
+- **بخش ۴۵ — Tag cloud**: tags با ۵ اندازه (xs تا xl).
+- **بخش ۴۶ — Category list**: category-item با icon، name، count، chevron.
+- **بخش ۴۷ — Timeline**: vertical timeline با items و حالت‌های success/warning/danger.
+- **بخش ۴۸ — LiveEdit playground**: ۲-column grid با tabs، panes، و iframe preview.
+- **بخش ۴۹ — Stat list**: stat-card با icon backgrounds.
+- **بخش ۵۰ — Misc utilities**: ۳۰+ utility class جدید (cursor، position، overflow، rounded، shadow، opacity، border، background، padding/margin)، print styles، skeleton loading.
+
+#### JavaScript — ۷ متد جدید
+- `PAdminLTE.initFileUpload(root)` — auto-bind `[data-pa-file-upload]` با drag-and-drop، preview، multiple files، max-files، progress bar شبیه‌سازی شده.
+- `PAdminLTE.initOtpInputs(root)` — auto-bind `[data-pa-otp="6"]` با auto-advance، paste support، arrow navigation، Backspace handling، hidden input برای form submission.
+- `PAdminLTE.initLiveEdit(root)` — auto-bind `[data-pa-liveedit]` با HTML/CSS/JS panes، debounced live preview در iframe، run/reset buttons، tab switching.
+- `PAdminLTE.initQtySteppers(root)` — auto-bind `[data-pa-qty]` با +/- buttons و min/max enforcement.
+- `PAdminLTE.initKanban(root)` — auto-bind `[data-pa-kanban]` با native HTML5 drag-and-drop بین columns.
+- `PAdminLTE.countdown(element, seconds, opts)` — countdown timer با onTick/onComplete callbacks.
+- `PAdminLTE.copyToClipboard(text, opts)` — کپی به clipboard با fallback برای مرورگرهای قدیمی + toast.
+- `PAdminLTE.notify(opts)` — alias برای toast با options بیشتر.
+- `PAdminLTE.markAllNotificationsRead(selector)` — علامت‌گذاری همهٔ اعلان‌های خوانده‌نشده.
+- `PAdminLTE.initSearchableLists(root)` — auto-bind `[data-pa-searchable-list]` برای فیلتر زنده.
+
+#### Data attributes جدید برای auto-init
+- `data-pa-file-upload="#list-id"` + `data-pa-max-files="8"` — dropzone
+- `data-pa-otp="6"` + `data-pa-otp-name="otp"` — OTP group
+- `data-pa-liveedit` + `data-pa-liveedit-html/css/js/preview/run/reset/info/tab/pane` — LiveEdit
+- `data-pa-qty` + `data-pa-qty-min/max/step` + `data-pa-qty-dec/inc` — quantity stepper
+- `data-pa-kanban` — kanban board
+- `data-pa-searchable-list="#list"` — searchable list
+- `data-pa-copy="#selector"` یا `data-pa-copy-text="..."` — copy button
+- `data-pa-mark-all-read="#list"` — mark-all-read button
+- `data-pa-otp-resend` — OTP resend button با 30s countdown
+
+#### صفحات جدید — ۲۶ صفحه
+- **احراز هویت**: forgot-password, email-verify, otp
+- **محتوا**: blog-list, blog-post, categories, tags, forum-list, forum-topic
+- **فروشگاه**: shop, product, cart, checkout
+- **مارکتینگ**: landing, about, contact, pricing, maintenance
+- **اپ**: mailbox, file-manager, kanban, notifications, user-panel, search-results
+- **ابزار**: live-edit, file-upload
+
+#### GitHub Pages
+- فعال‌سازی GitHub Pages روی شاخهٔ `main` در مسیر `/`.
+- آدرس دمو آنلاین: <https://andrbi108.github.io/padminlte/>
+
+#### بهبودهای رابط کاربری
+- **ریسپانسیو موبایل**: تمام صفحات جدید responsive هستند. Sidebar در موبایل به‌صورت overlay باز می‌شود.
+- **انیمیشن**: ۱۵ keyframe animation + utility classes برای ورود و تعامل.
+- **hover گسترده**: ۷ الگوی hover برای کارت‌ها و دکمه‌ها.
+- **طیف گسترده‌تر رنگ‌بندی**: ۷ رنگ برند جدید + gradient/badge/button variants.
+- **فونت‌های پیش‌فرض**: Vazirmatn به‌عنوان فونت پیش‌فرض فارسی در CSS variables.
+
+### Tests
+- **۴۶/۴۶ صفحه PASS** با Playwright (تزریق خودکار sidebar/header، inject آیکون‌ها، بدون خطای console).
+- تست تعاملی: theme toggle، sidebar mini، modal open/close، toast، datatable filter/sort، chart rendering (line/bar/donut/sparkline)، form validation، OTP typing، LiveEdit iframe، cart qty stepper، kanban draggable، mark-all-read، countdown.
+
+### Stats
+- **۴۶ صفحهٔ HTML** (افزایش از ۲۰ به ۴۶)
+- **۲۷۳ آیکون SVG inline** (افزایش از ۹۵ به ۲۷۳)
+- **~۱٬۵۵۵ خط CSS** در ۵۰ بخش (افزایش از ۷۱۳ خط در ۲۸ بخش)
+- **~۱٬۱۴۷ خط JavaScript** (افزایش از ~۷۳۶ خط)
+- **حجم کل پروژه**: ~۱MB (افزایش از ۴۸۰KB به‌دلیل افزودن صفحات)
+
+---
+
 ## [1.0.0] — 2026-11-06
 
 اولین انتشار عمومی. هدف این نسخه، بازخلقی کامل AdminLTE v4 به‌صورت

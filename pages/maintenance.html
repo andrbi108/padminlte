@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — در حال تعمیر</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    body.pa-error-page { background: linear-gradient(135deg, rgba(13,110,253,.05), rgba(102,16,242,.05)); }
+    .pa-maintenance-wrap {
+      max-width: 560px; width: 100%; text-align: center;
+      background: var(--pa-surface); border: 1px solid var(--pa-border);
+      border-radius: var(--pa-radius-lg); box-shadow: var(--pa-shadow-lg);
+      padding: 3rem 2.5rem;
+    }
+    .pa-maintenance-logo {
+      width: 56px; height: 56px; margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, var(--pa-primary), var(--pa-indigo));
+      border-radius: 14px; display: grid; place-items: center;
+      color: #fff; font-weight: 800; font-size: 1.5rem;
+    }
+    .pa-maintenance-icon {
+      width: 96px; height: 96px; margin: 0 auto 1.5rem;
+      border-radius: 50%; background: var(--pa-primary-soft);
+      color: var(--pa-primary); display: grid; place-items: center;
+      position: relative;
+    }
+    .pa-maintenance-icon::before {
+      content: ''; position: absolute; inset: -6px;
+      border: 2px dashed var(--pa-primary); border-radius: 50%; opacity: .35;
+      animation: pa-spin 14s linear infinite;
+    }
+    .pa-maintenance-icon .pa-icon { animation: pa-anim-pulse 2s ease-in-out infinite; }
+
+    .pa-maintenance-wrap h1 {
+      font-size: 1.8rem; font-weight: 800; margin: 0 0 .75rem; color: var(--pa-text);
+    }
+    .pa-maintenance-wrap > p {
+      color: var(--pa-text-muted); font-size: 1rem; line-height: 1.7;
+      margin: 0 auto 1.5rem; max-width: 420px;
+    }
+
+    .pa-maintenance-countdown-wrap { margin: 1.5rem 0; }
+    .pa-maintenance-countdown-label {
+      font-size: .8rem; color: var(--pa-text-muted); margin-bottom: .35rem;
+    }
+    .pa-maintenance-progress-wrap { margin: 1.5rem 0; }
+    .pa-maintenance-progress-label {
+      display: flex; justify-content: space-between;
+      font-size: .85rem; color: var(--pa-text-muted); margin-bottom: .4rem;
+    }
+    .pa-maintenance-progress-label strong { color: var(--pa-text); }
+
+    .pa-maintenance-notify {
+      background: var(--pa-surface-2); border-radius: var(--pa-radius-lg);
+      padding: 1.25rem; margin: 1.5rem 0;
+    }
+    .pa-maintenance-notify h3 {
+      font-size: 1rem; margin: 0 0 .35rem; display: flex; align-items: center;
+      gap: .4rem; justify-content: center;
+    }
+    .pa-maintenance-notify h3 .pa-icon { color: var(--pa-primary); }
+    .pa-maintenance-notify p {
+      font-size: .85rem; color: var(--pa-text-muted); margin: 0 0 1rem;
+    }
+    .pa-maintenance-notify .pa-input-group { max-width: 100%; }
+    .pa-maintenance-notify .pa-input {
+      flex: 1; min-width: 0; border-radius: var(--pa-radius) 0 0 var(--pa-radius);
+    }
+    .pa-maintenance-notify .pa-btn { border-radius: 0 var(--pa-radius) var(--pa-radius) 0; }
+
+    .pa-maintenance-social {
+      display: flex; justify-content: center; gap: .5rem; margin: 1.5rem 0;
+    }
+    .pa-maintenance-social a {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--pa-surface-3); color: var(--pa-text-muted);
+      display: grid; place-items: center; transition: all .15s;
+    }
+    .pa-maintenance-social a:hover { background: var(--pa-primary); color: #fff; text-decoration: none; }
+
+    .pa-maintenance-copyright {
+      font-size: .8rem; color: var(--pa-text-muted); margin-top: 1rem;
+      padding-top: 1rem; border-top: 1px solid var(--pa-border);
+    }
+    .pa-maintenance-copyright a { color: var(--pa-primary); }
+  </style>
+</head>
+<body class="pa-error-page">
+  <div class="pa-maintenance-wrap pa-anim-zoom-in">
+
+    <!-- Logo -->
+    <div class="pa-maintenance-logo">P</div>
+
+    <!-- Large spinning icon -->
+    <div class="pa-maintenance-icon">
+      <span data-pa-icon="settings" data-pa-icon-size="44"></span>
+    </div>
+
+    <h1>در حال تعمیر و نگهداری</h1>
+    <p>ما در حال بهبود PAdminLTE هستیم. به زودی برمی‌گردیم!</p>
+
+    <!-- Countdown -->
+    <div class="pa-maintenance-countdown-wrap">
+      <div class="pa-maintenance-countdown-label">زمان باقی‌مانده تا پایان تعمیر:</div>
+      <div id="countdown" style="font-size: 2rem; font-weight: 700; color: var(--pa-primary);">۰۱:۰۰:۰۰</div>
+    </div>
+
+    <!-- Progress bar -->
+    <div class="pa-maintenance-progress-wrap">
+      <div class="pa-maintenance-progress-label">
+        <span>پیشرفت کار</span>
+        <strong>۶۵٪</strong>
+      </div>
+      <div class="pa-progress">
+        <div class="pa-progress-bar pa-primary" style="width: 65%"></div>
+      </div>
+    </div>
+
+    <!-- Notify form -->
+    <div class="pa-maintenance-notify">
+      <h3><span data-pa-icon="bell_ring" data-pa-icon-size="16"></span> اعلان پایان تعمیر</h3>
+      <p>ایمیل خود را وارد کنید تا به محض آماده شدن، به شما اطلاع دهیم.</p>
+      <form onsubmit="event.preventDefault(); this.querySelector('input').value=''; PAdminLTE.toast({kind:'success', message:'ایمیل شما ثبت شد. به محض پایان تعمیر اطلاع می‌دهیم.'});">
+        <div class="pa-input-group">
+          <input type="email" class="pa-input" placeholder="name@example.com" required>
+          <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="bell" data-pa-icon-size="16"> اعلان بگذار</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Social links -->
+    <div class="pa-maintenance-social">
+      <a href="#" aria-label="توییتر" data-pa-icon="twitter" data-pa-icon-size="16"></a>
+      <a href="#" aria-label="گیت‌هاب" data-pa-icon="github" data-pa-icon-size="16"></a>
+      <a href="#" aria-label="تلگرام" data-pa-icon="telegram" data-pa-icon-size="16"></a>
+      <a href="#" aria-label="اینستاگرام" data-pa-icon="instagram" data-pa-icon-size="16"></a>
+      <a href="contact.html" aria-label="تماس با ما" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="pa-maintenance-copyright">
+      © ۱۴۰۳ <a href="../index.html">PAdminLTE</a> — تمام حقوق محفوظ است.
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script>
+    // Start countdown (3600 seconds = 1 hour)
+    PAdminLTE.countdown('#countdown', 3600, {
+      onComplete: function () { PAdminLTE.toast({ kind: 'info', message: 'زمان به پایان رسید!' }); }
+    });
+  </script>
+</body>
+</html>

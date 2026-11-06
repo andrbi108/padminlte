@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — ویرایشگر زنده</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>ویرایشگر زنده</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>ویرایشگر زنده</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a class="pa-btn pa-btn-outline pa-btn-sm" href="file-upload.html"><span data-pa-icon="cloud_upload" data-pa-icon-size="14"></span> بارگذاری فایل</a>
+            <a class="pa-btn pa-btn-ghost pa-btn-sm" href="../index.html"><span data-pa-icon="external" data-pa-icon-size="14"></span> مستندات</a>
+          </div>
+        </div>
+
+        <!-- Intro card -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-body pa-d-flex" style="gap:1rem; align-items:flex-start">
+            <span data-pa-icon="code" data-pa-icon-size="28" style="color:var(--pa-primary); flex-shrink:0; margin-top:.15rem"></span>
+            <div>
+              <h3 style="margin:0 0 .35rem">زمینهٔ بازی HTML/CSS/JS</h3>
+              <p class="pa-text-muted pa-text-sm" style="margin:0">
+                کد HTML، CSS و JavaScript خود را در زبانه‌های مقابل وارد کنید؛ نتیجه به‌صورت زنده در پیش‌نمایش سمت چپ نمایش داده می‌شود.
+                دکمهٔ «اجرا» برای به‌روزرسانی دستی و «بازنشانی» برای بازگرداندن کد به حالت اولیه استفاده می‌شود.
+                می‌توانید یکی از قالب‌های آمادهٔ پایین صفحه را نیز امتحان کنید.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- LiveEdit playground -->
+        <div class="pa-card" data-pa-liveedit>
+          <div class="pa-card-header">
+            <div class="pa-liveedit-tabs">
+              <button class="pa-liveedit-tab is-active" data-pa-liveedit-tab="html">HTML</button>
+              <button class="pa-liveedit-tab" data-pa-liveedit-tab="css">CSS</button>
+              <button class="pa-liveedit-tab" data-pa-liveedit-tab="js">JavaScript</button>
+            </div>
+            <div class="pa-tools">
+              <button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-liveedit-run data-pa-icon="play" data-pa-icon-size="14" style="width:auto;height:auto"> اجرا</button>
+              <button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-liveedit-reset data-pa-icon="refresh_alt" data-pa-icon-size="14" style="width:auto;height:auto"> بازنشانی</button>
+              <span class="pa-liveedit-info" data-pa-liveedit-info>آماده</span>
+            </div>
+          </div>
+          <div class="pa-card-body" style="padding:0">
+            <div class="pa-liveedit">
+              <div class="pa-liveedit-pane is-active" data-pa-liveedit-pane="html">
+                <textarea data-pa-liveedit-html spellcheck="false">&lt;div class="demo"&gt;
+  &lt;h1&gt;سلام دنیا!&lt;/h1&gt;
+  &lt;p&gt;این یک ویرایشگر زنده است. کد را تغییر دهید و نتیجه را ببینید.&lt;/p&gt;
+  &lt;button onclick="hello()"&gt;کلیک کنید&lt;/button&gt;
+&lt;/div&gt;</textarea>
+              </div>
+              <div class="pa-liveedit-pane" data-pa-liveedit-pane="css">
+                <textarea data-pa-liveedit-css spellcheck="false">body { font-family: Vazirmatn, sans-serif; }
+.demo { text-align: center; padding: 2rem; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border-radius: 12px; }
+h1 { font-size: 2rem; margin: 0 0 1rem; }
+button { background: #fff; color: #667eea; border: 0; padding: .65rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; transition: transform .15s; }
+button:hover { transform: translateY(-2px); }</textarea>
+              </div>
+              <div class="pa-liveedit-pane" data-pa-liveedit-pane="js">
+                <textarea data-pa-liveedit-js spellcheck="false">function hello() {
+  alert('سلام از JavaScript!');
+}</textarea>
+              </div>
+              <div class="pa-liveedit-preview">
+                <iframe data-pa-liveedit-preview style="width:100%;height:100%;border:0;background:#fff" title="preview"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Templates row -->
+        <div class="pa-card">
+          <div class="pa-card-header">
+            <h3>قالب‌های آماده</h3>
+            <small class="pa-text-muted">برای بارگذاری در ویرایشگر، روی هر کارت کلیک کنید</small>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-row pa-mb-0">
+
+              <!-- Template 1: Product card -->
+              <div class="pa-col-3">
+                <button class="pa-card pa-hover-lift pa-anim-slide-up" onclick="loadTemplate(this)"
+                  style="font:inherit; text-align:right; color:inherit; cursor:pointer; width:100%; margin:0; padding:0; border:1px solid var(--pa-border)"
+                  data-template-html="&lt;div class=&quot;card&quot;&gt;
+  &lt;span class=&quot;badge&quot;&gt;تخفیف&lt;/span&gt;
+  &lt;div class=&quot;img&quot;&gt;🎧&lt;/div&gt;
+  &lt;h3&gt;هدفون بی‌سیم&lt;/h3&gt;
+  &lt;div class=&quot;price&quot;&gt;
+    &lt;s&gt;۸۹۰٬۰۰۰ ت&lt;/s&gt;
+    &lt;b&gt;۶۹۰٬۰۰۰ ت&lt;/b&gt;
+  &lt;/div&gt;
+  &lt;button onclick=&quot;add()&quot;&gt;افزودن به سبد&lt;/button&gt;
+&lt;/div&gt;"
+                  data-template-css="body{font-family:Vazirmatn,sans-serif}
+.card{max-width:260px;margin:1rem auto;background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.12);overflow:hidden;position:relative;padding:1rem}
+.badge{position:absolute;top:10px;left:10px;background:#ef4444;color:#fff;padding:3px 10px;border-radius:20px;font-size:12px}
+.img{height:140px;display:grid;place-items:center;font-size:64px;background:linear-gradient(135deg,#667eea,#764ba2)}
+h3{margin:.5rem 0}
+.price s{color:#9ca3af;font-size:13px}
+.price b{color:#1f2937;font-size:18px;display:block}
+button{width:100%;margin-top:.75rem;background:#4f46e5;color:#fff;border:0;padding:10px;border-radius:10px;font-weight:600;cursor:pointer}
+button:hover{background:#4338ca}"
+                  data-template-js="function add(){alert('به سبد اضافه شد!')}">
+                  <div class="pa-card-body">
+                    <span data-pa-icon="cart" data-pa-icon-size="28" style="color:var(--pa-primary)"></span>
+                    <h4 style="margin:.5rem 0 .25rem">قالب کارت محصول</h4>
+                    <p class="pa-text-muted pa-text-sm" style="margin:0 0 .5rem">کارت محصول با قیمت، تخفیف و دکمهٔ خرید.</p>
+                    <pre style="background:var(--pa-surface-2);padding:.5rem;border-radius:6px;font-size:.7rem;overflow:auto;margin:0;direction:ltr">&lt;div class="card"&gt;...&lt;/div&gt;</pre>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Template 2: Login form -->
+              <div class="pa-col-3">
+                <button class="pa-card pa-hover-lift pa-anim-slide-up" onclick="loadTemplate(this)"
+                  style="font:inherit; text-align:right; color:inherit; cursor:pointer; width:100%; margin:0; padding:0; border:1px solid var(--pa-border)"
+                  data-template-html="&lt;form class=&quot;login&quot; onsubmit=&quot;doLogin(event)&quot;&gt;
+  &lt;h2&gt;ورود&lt;/h2&gt;
+  &lt;input type=&quot;email&quot; placeholder=&quot;ایمیل&quot; required&gt;
+  &lt;input type=&quot;password&quot; placeholder=&quot;رمز عبور&quot; required&gt;
+  &lt;button type=&quot;submit&quot;&gt;ورود&lt;/button&gt;
+&lt;/form&gt;"
+                  data-template-css="body{font-family:Vazirmatn,sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;margin:0;display:grid;place-items:center}
+.login{background:#fff;padding:2rem;border-radius:16px;width:300px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.login h2{margin:0 0 1.5rem;text-align:center;color:#1f2937}
+input{width:100%;box-sizing:border-box;padding:10px 12px;margin-bottom:1rem;border:2px solid #e5e7eb;border-radius:8px;font-size:14px}
+input:focus{outline:0;border-color:#667eea}
+button{width:100%;background:#667eea;color:#fff;border:0;padding:12px;border-radius:8px;font-weight:600;cursor:pointer}
+button:hover{background:#5568d3}"
+                  data-template-js="function doLogin(e){e.preventDefault();alert('ورود موفق!')}">
+                  <div class="pa-card-body">
+                    <span data-pa-icon="lock" data-pa-icon-size="28" style="color:var(--pa-purple)"></span>
+                    <h4 style="margin:.5rem 0 .25rem">فرم ورود</h4>
+                    <p class="pa-text-muted pa-text-sm" style="margin:0 0 .5rem">فرم ورود مرکزی با ایمیل و رمز عبور.</p>
+                    <pre style="background:var(--pa-surface-2);padding:.5rem;border-radius:6px;font-size:.7rem;overflow:auto;margin:0;direction:ltr">&lt;form class="login"&gt;...&lt;/form&gt;</pre>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Template 3: CSS chart -->
+              <div class="pa-col-3">
+                <button class="pa-card pa-hover-lift pa-anim-slide-up" onclick="loadTemplate(this)"
+                  style="font:inherit; text-align:right; color:inherit; cursor:pointer; width:100%; margin:0; padding:0; border:1px solid var(--pa-border)"
+                  data-template-html="&lt;div class=&quot;chart&quot;&gt;
+  &lt;div class=&quot;bar&quot; style=&quot;--h:80%&quot;&gt;فروردین&lt;/div&gt;
+  &lt;div class=&quot;bar&quot; style=&quot;--h:55%&quot;&gt;اردیبهشت&lt;/div&gt;
+  &lt;div class=&quot;bar&quot; style=&quot;--h:90%&quot;&gt;خرداد&lt;/div&gt;
+  &lt;div class=&quot;bar&quot; style=&quot;--h:40%&quot;&gt;تیر&lt;/div&gt;
+  &lt;div class=&quot;bar&quot; style=&quot;--h:70%&quot;&gt;مرداد&lt;/div&gt;
+&lt;/div&gt;"
+                  data-template-css="body{font-family:Vazirmatn,sans-serif;padding:2rem}
+.chart{display:flex;gap:16px;align-items:flex-end;height:280px;padding:16px;background:#f9fafb;border-radius:12px}
+.bar{flex:1;height:var(--h);background:linear-gradient(180deg,#667eea,#764ba2);color:#fff;border-radius:8px 8px 0 0;display:grid;place-items:end center;padding-bottom:8px;font-size:12px;animation:grow 1s ease-out}
+@keyframes grow{from{height:0}}"
+                  data-template-js="">
+                  <div class="pa-card-body">
+                    <span data-pa-icon="chart" data-pa-icon-size="28" style="color:var(--pa-success)"></span>
+                    <h4 style="margin:.5rem 0 .25rem">نمودار CSS</h4>
+                    <p class="pa-text-muted pa-text-sm" style="margin:0 0 .5rem">نمودار میله‌ای تنها با CSS و انیمیشن.</p>
+                    <pre style="background:var(--pa-surface-2);padding:.5rem;border-radius:6px;font-size:.7rem;overflow:auto;margin:0;direction:ltr">&lt;div class="chart"&gt;...&lt;/div&gt;</pre>
+                  </div>
+                </button>
+              </div>
+
+              <!-- Template 4: Animation -->
+              <div class="pa-col-3">
+                <button class="pa-card pa-hover-lift pa-anim-slide-up" onclick="loadTemplate(this)"
+                  style="font:inherit; text-align:right; color:inherit; cursor:pointer; width:100%; margin:0; padding:0; border:1px solid var(--pa-border)"
+                  data-template-html="&lt;div class=&quot;stage&quot;&gt;
+  &lt;div class=&quot;box bounce&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;box spin&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;box pulse&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;box flip&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;"
+                  data-template-css="body{font-family:Vazirmatn,sans-serif;padding:2rem}
+.stage{display:flex;gap:40px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:200px}
+.box{width:80px;height:80px;border-radius:16px}
+.bounce{background:#667eea;animation:bounce 1.4s infinite}
+.spin{background:#764ba2;animation:spin 2s linear infinite}
+.pulse{background:#f093fb;animation:pulse 1.2s infinite}
+.flip{background:#4facfe;animation:flip 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+@keyframes flip{0%,100%{transform:rotateY(0)}50%{transform:rotateY(180deg)}}"
+                  data-template-js="">
+                  <div class="pa-card-body">
+                    <span data-pa-icon="sparkles" data-pa-icon-size="28" style="color:var(--pa-pink)"></span>
+                    <h4 style="margin:.5rem 0 .25rem">انیمیشن</h4>
+                    <p class="pa-text-muted pa-text-sm" style="margin:0 0 .5rem">چهار جعبه با keyframe های متفاوت.</p>
+                    <pre style="background:var(--pa-surface-2);padding:.5rem;border-radius:6px;font-size:.7rem;overflow:auto;margin:0;direction:ltr">&lt;div class="stage"&gt;...&lt;/div&gt;</pre>
+                  </div>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Load a template (held in data-template-* attributes) into the LiveEdit playground
+    function loadTemplate(btn) {
+      var le = document.querySelector('[data-pa-liveedit]');
+      if (!le) return;
+      var htmlTa = le.querySelector('[data-pa-liveedit-html]');
+      var cssTa  = le.querySelector('[data-pa-liveedit-css]');
+      var jsTa   = le.querySelector('[data-pa-liveedit-js]');
+      if (htmlTa && btn.dataset.templateHtml !== undefined) htmlTa.value = btn.dataset.templateHtml;
+      if (cssTa  && btn.dataset.templateCss  !== undefined) cssTa.value  = btn.dataset.templateCss;
+      if (jsTa   && btn.dataset.templateJs   !== undefined) jsTa.value   = btn.dataset.templateJs;
+      // Trigger the live-edit debounced re-render via synthetic input events
+      [htmlTa, cssTa, jsTa].forEach(function (t) {
+        if (t) t.dispatchEvent(new Event('input', { bubbles: true }));
+      });
+      // Switch to the HTML pane so the user sees the loaded markup
+      le.querySelectorAll('.pa-liveedit-tab').forEach(function (tab) {
+        tab.classList.toggle('is-active', tab.getAttribute('data-pa-liveedit-tab') === 'html');
+      });
+      le.querySelectorAll('.pa-liveedit-pane').forEach(function (pane) {
+        pane.classList.toggle('is-active', pane.getAttribute('data-pa-liveedit-pane') === 'html');
+      });
+      // Friendly toast + scroll the editor into view
+      if (window.PAdminLTE && PAdminLTE.toast) {
+        PAdminLTE.toast({ kind: 'success', title: 'قالب بارگذاری شد', message: 'کد قالب در ویرایشگر قرار گرفت.', duration: 2200 });
+      }
+      le.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+</body>
+</html>

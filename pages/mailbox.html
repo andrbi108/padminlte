@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — صندوق ورودی</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* 3-column layout override for this page */
+    .pa-mailbox.pa-mailbox-3 { grid-template-columns: 220px 1fr 1.5fr; }
+    @media (max-width: 992px) { .pa-mailbox.pa-mailbox-3 { grid-template-columns: 1fr; } }
+    .pa-mailbox-reader { background: var(--pa-surface); overflow-y: auto; padding: 1.25rem; }
+    .pa-mailbox-reader .pa-mail-read-subject { font-size: 1.25rem; font-weight: 700; margin: 0 0 .5rem; }
+    .pa-mailbox-list-header { padding: .65rem 1rem; border-bottom: 1px solid var(--pa-border); display: flex; align-items: center; justify-content: space-between; gap: .5rem; background: var(--pa-surface-2); }
+    .pa-mailbox-list-header h3 { margin: 0; font-size: .9rem; font-weight: 600; }
+    .pa-mail-read-meta { display: flex; gap: .75rem; align-items: center; padding: .75rem 0; border-bottom: 1px solid var(--pa-border); margin-bottom: 1rem; }
+    .pa-mail-read-body { font-size: .95rem; line-height: 1.85; color: var(--pa-text); }
+    .pa-mail-read-body p { margin: 0 0 .85rem; }
+    .pa-mail-read-actions { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--pa-border); }
+    .pa-mailbox-sidebar .pa-storage-card { margin-top: 1rem; }
+    .pa-mailbox-sidebar .pa-ml-section-title { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: var(--pa-text-soft); margin: .85rem .25rem .35rem; }
+    /* Generic icon button (used outside .pa-header) */
+    .pa-icon-btn { background: transparent; border: 0; cursor: pointer; padding: .35rem; color: var(--pa-text-muted); border-radius: var(--pa-radius); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; }
+    .pa-icon-btn:hover { background: var(--pa-surface-3); color: var(--pa-text); }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>صندوق ورودی</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>ایمیل</span>
+            </div>
+          </div>
+          <div class="pa-tools">
+            <button class="pa-btn pa-btn-primary" data-pa-modal-open="compose-modal" data-pa-icon="edit" data-pa-icon-size="16"> نوشتن ایمیل</button>
+          </div>
+        </div>
+
+        <div class="pa-card pa-anim-slide-up" style="margin-bottom:0">
+          <div class="pa-card-body" style="padding:0">
+            <div class="pa-mailbox pa-mailbox-3">
+
+              <!-- Sidebar: folders + labels + storage -->
+              <aside class="pa-mailbox-sidebar">
+                <button class="pa-btn pa-btn-primary pa-btn-block pa-mb-2" data-pa-modal-open="compose-modal" data-pa-icon="edit" data-pa-icon-size="16"> نوشتن ایمیل جدید</button>
+
+                <div class="pa-mailbox-folder is-active" data-folder="inbox">
+                  <span data-pa-icon="inbox"></span>
+                  <span>ورودی</span>
+                  <span class="pa-ml-count">۲۴</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="send">
+                  <span data-pa-icon="send"></span>
+                  <span>ارسالی</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="drafts">
+                  <span data-pa-icon="file_text"></span>
+                  <span>پیش‌نویس</span>
+                  <span class="pa-ml-count">۳</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="starred">
+                  <span data-pa-icon="star"></span>
+                  <span>ستاره‌دار</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="archive">
+                  <span data-pa-icon="archive_alt"></span>
+                  <span>آرشیو</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="trash">
+                  <span data-pa-icon="trash"></span>
+                  <span>حذف شده</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="spam">
+                  <span data-pa-icon="alert_triangle"></span>
+                  <span>هرزنامه</span>
+                </div>
+
+                <div class="pa-ml-section-title">برچسب‌ها</div>
+                <div class="pa-mailbox-folder" data-folder="label-work">
+                  <span class="pa-kc-priority med" style="margin-left:0"></span>
+                  <span>کاری</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="label-personal">
+                  <span class="pa-kc-priority low" style="margin-left:0"></span>
+                  <span>شخصی</span>
+                </div>
+                <div class="pa-mailbox-folder" data-folder="label-important">
+                  <span class="pa-kc-priority high" style="margin-left:0"></span>
+                  <span>مهم</span>
+                </div>
+
+                <div class="pa-storage-card">
+                  <div class="pa-d-flex pa-justify-between pa-mb-1">
+                    <span class="pa-text-sm pa-text-semibold">ذخیره‌سازی</span>
+                    <span class="pa-text-sm pa-text-muted">۵.۲ GB از ۱۵ GB</span>
+                  </div>
+                  <div class="pa-progress"><div class="pa-progress-bar pa-warning" style="width:35%"></div></div>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm pa-btn-block pa-mt-2" data-pa-icon="rocket" data-pa-icon-size="14"> ارتقاء طرح</button>
+                </div>
+              </aside>
+
+              <!-- Middle: mail list -->
+              <section class="pa-mailbox-list">
+                <div class="pa-mailbox-list-header">
+                  <h3>صندوق ورودی <span class="pa-badge pa-badge-primary">۲۴</span></h3>
+                  <div class="pa-tools">
+                    <button class="pa-icon-btn" data-pa-icon="refresh" data-pa-icon-size="16" aria-label="به‌روزرسانی" onclick="PAdminLTE.toast({kind:'info',message:'صندوق به‌روزرسانی شد.'})"></button>
+                    <button class="pa-icon-btn" data-pa-icon="filter" data-pa-icon-size="16" aria-label="فیلتر"></button>
+                  </div>
+                </div>
+
+                <div class="pa-mail-row is-unread" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">پ</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">پویا احمدی</div>
+                    <div class="pa-mail-subject">گزارش ماهانه فروش — آذر ۱۴۰۳</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">سلام، گزارش ماهانه فروش آماده شد. لطفاً پس از بررسی بازخورد بدهید…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation(); PAdminLTE.toast({kind:'warning',message:'ستاره‌دار شد.'})"></span>
+                  <span class="pa-mail-time">۱۰:۲۴</span>
+                </div>
+
+                <div class="pa-mail-row is-unread" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">م</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">محمد قاسمی</div>
+                    <div class="pa-mail-subject">دعوت به جلسه بازنگری معماری سامانه</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">جلسه روز دوشنبه ساعت ۱۰ صبح در اتاق جلسات شماره ۳ برگزار می‌شود…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">۰۹:۴۸</span>
+                </div>
+
+                <div class="pa-mail-row" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">س</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">سارا کریمی</div>
+                    <div class="pa-mail-subject">بازبینی کد Pull Request #۱۲۴</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">تغییرات مربوط به ماژول احراز هویت رو دیدم. چند نکته کوچک برای بهبود…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">دیروز</span>
+                </div>
+
+                <div class="pa-mail-row is-unread" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">ع</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">علی مرادی</div>
+                    <div class="pa-mail-subject">فاکتور شماره ۱۰۲۴ — پرداخت شد</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">پرداخت شما با موفقیت ثبت گردید. فاکتور به پیوست ارسال شده است…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">دیروز</span>
+                </div>
+
+                <div class="pa-mail-row" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">ن</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">نگار محمدی</div>
+                    <div class="pa-mail-subject">اسناد API نسخه ۲ آماده شد</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">مستندات REST API نسخه دوم رو کامل کردم. لینک دانلود در پیام…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">۲ روز پیش</span>
+                </div>
+
+                <div class="pa-mail-row is-unread" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-purple-soft, var(--pa-primary-soft)); color:var(--pa-purple, var(--pa-primary)); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">ر</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">رضا کاظمی</div>
+                    <div class="pa-mail-subject">دعوت به رویداد TechConf ۱۴۰۳</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">خوشحال می‌شویم در رویداد سالانه ما حضور داشته باشید. ثبت‌نام رایگان…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">۳ روز پیش</span>
+                </div>
+
+                <div class="pa-mail-row" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">ز</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">زهرا حسینی</div>
+                    <div class="pa-mail-subject">گزارش پیشرفت پروژه PAdminLTE</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">پیشرفت هفتگی تیم به ۶۵٪ رسید. سه ماژول جدید آماده تست هستند…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">۴ روز پیش</span>
+                </div>
+
+                <div class="pa-mail-row" onclick="PAdminLTE.toast({kind:'info',message:'ایمیل باز شد.'})">
+                  <span class="pa-mail-avatar" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700; border-radius:50%; width:36px; height:36px">ک</span>
+                  <div class="pa-mail-info">
+                    <div class="pa-mail-from">کانال خبری توسعه</div>
+                    <div class="pa-mail-subject">خلاصه هفتگی اخبار دنیای وب</div>
+                    <div class="pa-mail-preview pa-line-clamp-2">آنچه این هفته در اکوسیستم جاوااسکریپت و فریم‌ورک‌های مدرن رخ داد…</div>
+                  </div>
+                  <span class="pa-mail-star" data-pa-icon="star" data-pa-icon-size="16" onclick="event.stopPropagation()"></span>
+                  <span class="pa-mail-time">۵ روز پیش</span>
+                </div>
+              </section>
+
+              <!-- Right: reader pane -->
+              <section class="pa-mailbox-reader" id="mail-reader">
+                <div class="pa-d-flex pa-justify-between pa-align-start pa-mb-1">
+                  <h2 class="pa-mail-read-subject">گزارش ماهانه فروش — آذر ۱۴۰۳</h2>
+                  <span class="pa-badge pa-badge-primary pa-badge-sm">کاری</span>
+                </div>
+                <div class="pa-mail-read-meta">
+                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">پ</span>
+                  <div style="flex:1">
+                    <strong>پویا احمدی</strong>
+                    <span class="pa-text-muted pa-text-sm"> &lt;pouya@example.com&gt;</span>
+                    <div class="pa-text-sm pa-text-muted">به: amir@example.com، team@example.com</div>
+                  </div>
+                  <div class="pa-text-sm pa-text-muted" style="text-align:left">
+                    <div>۱۰:۲۴ — چهارشنبه ۱۴ آذر</div>
+                    <div><span class="pa-badge pa-badge-success pa-badge-sm">پاسخ داده شد</span></div>
+                  </div>
+                </div>
+
+                <div class="pa-mail-read-body">
+                  <p>سلام امیر،</p>
+                  <p>گزارش ماهانه فروش برای ماه آذر ۱۴۰۳ آماده شد. در مجموع <strong>۲٬۳۴۰ سفارش</strong> ثبت شده که نسبت به ماه قبل <strong>۱۸٪</strong> رشد را نشان می‌دهد. درآمد کل این ماه به <strong>۸۴٬۵۰۰٬۰۰۰ تومان</strong> رسیده است.</p>
+                  <p>از ۲٬۳۴۰ سفارش، <strong>۱٬۹۸۰ مورد</strong> با موفقیت تحویل داده شده، <strong>۲۳۰ مورد</strong> در حال پردازش و <strong>۱۳۰ مورد</strong> مرجوع شده‌اند. نرخ بازگشت کالا ۵.۵٪ بوده که در محدوده قابل قبول قرار دارد.</p>
+                  <p>پرفروش‌ترین محصول این ماه «هدست بی‌سیم مدل X» با ۴۲۰ فروخته شده است. همچنین ۳۱۲ کاربر جدید در سامانه ثبت‌نام کرده‌اند.</p>
+                  <p>گزارش کامل به‌صورت فایل PDF ضمیمه این ایمیل شده است. لطفاً پس از بررسی بازخورد خود را به اطلاع تیم برسانید.</p>
+                  <p class="pa-text-muted pa-text-sm">با احترام،<br>پویا احمدی — مدیر فروش</p>
+                </div>
+
+                <div class="pa-mail-read-actions">
+                  <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="reply" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'پاسخ به ایمیل باز شد.'})"> پاسخ</button>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="forward" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'بازارسال ایمیل.'})"> بازارسال</button>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="archive_alt" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'success',message:'به آرشیو منتقل شد.'})"> آرشیو</button>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'danger',message:'به حذف شده منتقل شد.'})"> حذف</button>
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="star" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'warning',message:'ستاره‌دار شد.'})"> ستاره</button>
+                </div>
+              </section>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Compose modal -->
+  <div class="pa-modal-backdrop" id="compose-modal" role="dialog" aria-modal="true" aria-labelledby="compose-title">
+    <div class="pa-modal pa-modal-lg">
+      <div class="pa-modal-header">
+        <h3 id="compose-title">نوشتن ایمیل جدید</h3>
+        <button class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <form id="compose-form" onsubmit="event.preventDefault(); PAdminLTE.toast({kind:'success',title:'ارسال شد',message:'ایمیل با موفقیت ارسال شد.'}); PAdminLTE.closeModal('compose-modal'); this.reset();">
+          <div class="pa-form-group">
+            <label for="c-to">گیرنده</label>
+            <input id="c-to" class="pa-input" type="email" placeholder="name@example.com" data-pa-validate="email" required>
+          </div>
+          <div class="pa-form-group">
+            <label for="c-subject">موضوع</label>
+            <input id="c-subject" class="pa-input" type="text" placeholder="موضوع ایمیل" required>
+          </div>
+          <div class="pa-form-group">
+            <label for="c-body">متن پیام</label>
+            <textarea id="c-body" class="pa-textarea" rows="8" placeholder="متن ایمیل خود را بنویسید..." required></textarea>
+          </div>
+          <div class="pa-form-check">
+            <input type="checkbox" id="c-attach">
+            <label for="c-attach">ضمیمه فایل</label>
+          </div>
+        </form>
+      </div>
+      <div class="pa-modal-footer">
+        <button class="pa-btn pa-btn-outline" data-pa-modal-close>انصراف</button>
+        <button class="pa-btn pa-btn-ghost" data-pa-icon="paperclip" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'انتخاب فایل (نمونه).'})"> پیوست</button>
+        <button class="pa-btn pa-btn-primary" data-pa-icon="send" data-pa-icon-size="14" onclick="document.getElementById('compose-form').requestSubmit()"> ارسال ایمیل</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Folder switching (cosmetic only)
+    document.querySelectorAll('.pa-mailbox-folder').forEach(function (f) {
+      f.addEventListener('click', function () {
+        document.querySelectorAll('.pa-mailbox-folder').forEach(function (x) { x.classList.remove('is-active'); });
+        f.classList.add('is-active');
+      });
+    });
+    // Mail row selection highlight
+    document.querySelectorAll('.pa-mail-row').forEach(function (row) {
+      row.addEventListener('click', function () {
+        document.querySelectorAll('.pa-mail-row').forEach(function (r) { r.style.outline = ''; });
+        row.style.outline = '2px solid var(--pa-primary)';
+      });
+    });
+  </script>
+</body>
+</html>

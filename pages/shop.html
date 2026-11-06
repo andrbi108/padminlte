@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — فروشگاه</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>فروشگاه</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>فروشگاه</span></div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a class="pa-btn pa-btn-outline" href="cart.html" style="position:relative">
+              <span data-pa-icon="shopping_cart" data-pa-icon-size="18"></span>
+              سبد خرید
+              <span class="pa-badge pa-badge-danger" style="position:absolute; top:-8px; left:-8px">۳</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- Sidebar Filters -->
+          <div class="pa-col-3">
+            <div class="pa-card pa-anim-slide-up">
+              <div class="pa-card-header"><h3>دسته‌بندی‌ها</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-check"><input type="checkbox" id="cat1" checked><label for="cat1">الکترونیک</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat2"><label for="cat2">لباس</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat3"><label for="cat3">کتاب</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat4" checked><label for="cat4">لوازم خانگی</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat5"><label for="cat5">ورزشی</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat6"><label for="cat6">اسباب‌بازی</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat7"><label for="cat7">آرایشی</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="cat8"><label for="cat8">غذا</label></div>
+              </div>
+            </div>
+
+            <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
+              <div class="pa-card-header"><h3>محدوده قیمت</h3></div>
+              <div class="pa-card-body">
+                <input type="range" min="0" max="50000000" value="25000000" step="500000" id="price-range" style="width:100%; accent-color:var(--pa-primary)">
+                <div class="pa-d-flex pa-justify-between pa-fs-sm pa-text-muted pa-mt-1">
+                  <span>۰ ت</span>
+                  <span><strong id="price-now" style="color:var(--pa-text)">۲۵٬۰۰۰٬۰۰۰ ت</strong></span>
+                  <span>۵۰٬۰۰۰٬۰۰۰ ت</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card pa-anim-slide-up pa-anim-delay-2">
+              <div class="pa-card-header"><h3>برند</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-check"><input type="checkbox" id="b1" checked><label for="b1">سامسونگ</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="b2"><label for="b2">اپل</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="b3"><label for="b3">سونی</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="b4" checked><label for="b4">ایسوس</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="b5"><label for="b5">شیائومی</label></div>
+                <div class="pa-form-check"><input type="checkbox" id="b6"><label for="b6">کانن</label></div>
+              </div>
+            </div>
+
+            <div class="pa-card pa-anim-slide-up pa-anim-delay-3">
+              <div class="pa-card-header"><h3>فیلترها</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-fs-sm pa-text-muted pa-mb-1">رنگ</p>
+                <div class="pa-d-flex pa-gap-1 pa-mb-2" style="flex-wrap:wrap">
+                  <button class="pa-hover-scale" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--pa-border); background:#212529; cursor:pointer" aria-label="مشکی"></button>
+                  <button class="pa-hover-scale" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--pa-border); background:#ffffff; cursor:pointer" aria-label="سفید"></button>
+                  <button class="pa-hover-scale" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--pa-border); background:#dc3545; cursor:pointer" aria-label="قرمز"></button>
+                  <button class="pa-hover-scale" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--pa-border); background:#0d6efd; cursor:pointer" aria-label="آبی"></button>
+                  <button class="pa-hover-scale" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--pa-border); background:#198754; cursor:pointer" aria-label="سبز"></button>
+                  <button class="pa-hover-scale" style="width:28px; height:28px; border-radius:50%; border:2px solid var(--pa-border); background:#ffc107; cursor:pointer" aria-label="زرد"></button>
+                </div>
+                <p class="pa-fs-sm pa-text-muted pa-mb-1">سایز</p>
+                <div class="pa-d-flex pa-gap-1" style="flex-wrap:wrap">
+                  <button class="pa-btn pa-btn-outline pa-btn-sm">S</button>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm">M</button>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm">L</button>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm">XL</button>
+                </div>
+              </div>
+            </div>
+
+            <button class="pa-btn pa-btn-outline pa-btn-block" onclick="PAdminLTE.toast({kind:'info', message:'فیلترها پاک شدند.'});">
+              <span data-pa-icon="refresh_alt" data-pa-icon-size="16"></span>
+              پاک کردن فیلترها
+            </button>
+          </div>
+
+          <!-- Main Content -->
+          <div class="pa-col-9">
+            <div class="pa-card pa-mb-2">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2" style="flex-wrap:wrap; justify-content:space-between">
+                <div class="pa-d-flex pa-align-center pa-gap-2">
+                  <span class="pa-text-muted pa-fs-sm">مرتب‌سازی:</span>
+                  <select class="pa-select" style="width:auto" aria-label="مرتب‌سازی">
+                    <option>محبوب‌ترین</option>
+                    <option>جدیدترین</option>
+                    <option>ارزان‌ترین</option>
+                    <option>گران‌ترین</option>
+                    <option>پرفروش‌ترین</option>
+                  </select>
+                </div>
+                <div class="pa-d-flex pa-align-center pa-gap-2">
+                  <span class="pa-text-muted pa-fs-sm"><strong style="color:var(--pa-text)">۱۲۴</strong> محصول</span>
+                  <div class="pa-d-flex pa-gap-1" style="border:1px solid var(--pa-border); border-radius:var(--pa-radius); padding:2px">
+                    <button class="pa-btn pa-btn-ghost pa-btn-sm" style="background:var(--pa-surface-3)" aria-label="نمایش شبکه‌ای" data-pa-icon="grid" data-pa-icon-size="16"></button>
+                    <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="نمایش لیستی" data-pa-icon="list" data-pa-icon-size="16"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-row" id="product-grid">
+              <!-- 1. لپ‌تاپ ایسوس ROG -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#0d6efd,#0a58ca); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="monitor" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-discount">تخفیف</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«لپ‌تاپ ایسوس ROG» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">لپ‌تاپ</div>
+                    <h3 class="pa-product-name"><a href="product.html">لپ‌تاپ ایسوس ROG</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۹ · ۲۴۸ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۲۵٬۰۰۰٬۰۰۰ ت</span>
+                      <span class="pa-was">۳۱٬۰۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. گوشی سامسونگ S24 -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#6610f2,#4c0bd1); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="smartphone" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-new">جدید</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«گوشی سامسونگ S24» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">گوشی موبایل</div>
+                    <h3 class="pa-product-name"><a href="product.html">گوشی سامسونگ S24</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۸ · ۱۸۹ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۱۸٬۰۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. هدفون بلوتوث سونی -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#0dcaf0,#0aa6c2); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="volume" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-discount">تخفیف</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«هدفون بلوتوث سونی» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">هدفون</div>
+                    <h3 class="pa-product-name"><a href="product.html">هدفون بلوتوث سونی</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۷ · ۳۵۶ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۳٬۵۰۰٬۰۰۰ ت</span>
+                      <span class="pa-was">۴٬۲۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. ساعت هوشمند اپل -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#6c757d,#565e64); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="watch" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-new">جدید</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«ساعت هوشمند اپل» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">ساعت هوشمند</div>
+                    <h3 class="pa-product-name"><a href="product.html">ساعت هوشمند اپل</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۹ · ۹۲ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۱۲٬۰۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. دوربین کانن R6 -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#198754,#12895a); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="camera" data-pa-icon-size="56"></span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«دوربین کانن R6» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">دوربین</div>
+                    <h3 class="pa-product-name"><a href="product.html">دوربین کانن R6</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۵.۰ · ۴۷ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۸۵٬۰۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6. تبلت شیائومی -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#20c997,#159c75); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="tablet" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-discount">تخفیف</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«تبلت شیائومی» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">تبلت</div>
+                    <h3 class="pa-product-name"><a href="product.html">تبلت شیائومی</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۶ · ۱۴۲ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۹٬۸۰۰٬۰۰۰ ت</span>
+                      <span class="pa-was">۱۱٬۵۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 7. کنسول پلی‌استیشن ۵ -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#6f42c1,#5a32a3); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="grid_3x3" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-new">جدید</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«کنسول پلی‌استیشن ۵» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">کنسول بازی</div>
+                    <h3 class="pa-product-name"><a href="product.html">کنسول پلی‌استیشن ۵</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۹ · ۵۲۳ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۴۲٬۰۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 8. اسپیکر JBL -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#fd7e14,#c25e00); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="volume" data-pa-icon-size="56"></span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«اسپیکر JBL» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">اسپیکر</div>
+                    <h3 class="pa-product-name"><a href="product.html">اسپیکر JBL</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۵ · ۸۸ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۲٬۸۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 9. کیبورد مکانیکی ریزر -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#dc3545,#b02a37); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="code_alt" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-discount">تخفیف</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«کیبورد مکانیکی ریزر» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">لوازم جانبی</div>
+                    <h3 class="pa-product-name"><a href="product.html">کیبورد مکانیکی ریزر</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۸ · ۲۱۵ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۴٬۲۰۰٬۰۰۰ ت</span>
+                      <span class="pa-was">۵٬۰۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 10. ماوس لاجیتک -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#d63384,#a61a5e); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="crosshair" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-new">جدید</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«ماوس لاجیتک» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">لوازم جانبی</div>
+                    <h3 class="pa-product-name"><a href="product.html">ماوس لاجیتک</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۷ · ۴۰۱ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۱٬۸۵۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 11. مانیتور LG -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#0dcaf0,#0aa6c2); display:grid; place-items:center; color:#fff">
+                    <span data-pa-icon="monitor" data-pa-icon-size="56"></span>
+                    <span class="pa-product-badge pa-discount">تخفیف</span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«مانیتور LG» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">مانیتور</div>
+                    <h3 class="pa-product-name"><a href="product.html">مانیتور LG</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۶ · ۱۳۴ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۱۵٬۵۰۰٬۰۰۰ ت</span>
+                      <span class="pa-was">۱۷٬۹۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 12. پرینتر HP -->
+              <div class="pa-col-4">
+                <div class="pa-product-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2">
+                  <div class="pa-product-thumb" style="background:linear-gradient(135deg,#ffc107,#d39e00); display:grid; place-items:center; color:#212529">
+                    <span data-pa-icon="printer" data-pa-icon-size="56"></span>
+                    <div class="pa-product-actions">
+                      <button aria-label="افزودن به علاقه‌مندی" data-pa-icon="heart" data-pa-icon-size="16"></button>
+                      <button aria-label="مشاهده سریع" data-pa-icon="eye" data-pa-icon-size="16"></button>
+                      <button aria-label="افزودن به سبد" data-pa-icon="shopping_cart" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success', message:'«پرینتر HP» به سبد اضافه شد.'});"></button>
+                    </div>
+                  </div>
+                  <div class="pa-product-body">
+                    <div class="pa-product-cat">پرینتر</div>
+                    <h3 class="pa-product-name"><a href="product.html">پرینتر HP</a></h3>
+                    <div class="pa-product-rating">
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span data-pa-icon="star" data-pa-icon-size="14"></span>
+                      <span>۴.۴ · ۷۶ نظر</span>
+                    </div>
+                    <div class="pa-product-price">
+                      <span class="pa-now">۶٬۳۰۰٬۰۰۰ ت</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pa-card">
+              <div class="pa-card-body pa-d-flex pa-gap-1" style="justify-content:center; flex-wrap:wrap">
+                <button class="pa-btn pa-btn-outline pa-btn-sm" aria-label="صفحه قبل"><span data-pa-icon="chevron_right" data-pa-icon-size="14"></span></button>
+                <button class="pa-btn pa-btn-primary pa-btn-sm">۱</button>
+                <button class="pa-btn pa-btn-outline pa-btn-sm">۲</button>
+                <button class="pa-btn pa-btn-outline pa-btn-sm">۳</button>
+                <button class="pa-btn pa-btn-outline pa-btn-sm">۴</button>
+                <button class="pa-btn pa-btn-outline pa-btn-sm" disabled>…</button>
+                <button class="pa-btn pa-btn-outline pa-btn-sm">۱۳</button>
+                <button class="pa-btn pa-btn-outline pa-btn-sm" aria-label="صفحه بعد"><span data-pa-icon="chevron_left" data-pa-icon-size="14"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Live price-range label
+    (function () {
+      var range = document.getElementById('price-range');
+      var label = document.getElementById('price-now');
+      if (!range || !label) return;
+      function toFa(n) {
+        return String(n).replace(/[0-9]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; });
+      }
+      function fmt(n) {
+        return toFa(n.toLocaleString('en-US')) + ' ت';
+      }
+      range.addEventListener('input', function () { label.textContent = fmt(parseInt(range.value, 10)); });
+    })();
+  </script>
+</body>
+</html>

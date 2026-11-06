@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — درباره ما</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-hero-card {
+      background: linear-gradient(135deg, var(--pa-primary), var(--pa-indigo));
+      color: #fff; border: 0; border-radius: var(--pa-radius-lg);
+      padding: 2.5rem; box-shadow: var(--pa-shadow-lg); position: relative; overflow: hidden;
+      margin-bottom: 1rem;
+    }
+    .pa-hero-card::before {
+      content: ''; position: absolute; top: -60px; left: -60px;
+      width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,.12);
+    }
+    .pa-hero-card::after {
+      content: ''; position: absolute; bottom: -40px; right: -40px;
+      width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,.08);
+    }
+    .pa-hero-card > * { position: relative; z-index: 1; }
+    .pa-hero-card h2 { color: #fff; font-size: 1.9rem; margin: 0 0 .5rem; font-weight: 800; }
+    .pa-hero-card p { color: rgba(255,255,255,.9); font-size: 1.05rem; margin: 0 0 1.5rem; max-width: 600px; line-height: 1.7; }
+    .pa-hero-card .pa-btn { background: #fff; color: var(--pa-primary); border: 0; }
+    .pa-hero-card .pa-btn:hover { background: rgba(255,255,255,.92); text-decoration: none; }
+    .pa-hero-card .pa-btn.pa-btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.5); }
+    .pa-hero-card .pa-btn.pa-btn-outline:hover { background: rgba(255,255,255,.15); }
+
+    .pa-value-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .pa-value-card {
+      background: var(--pa-surface); border: 1px solid var(--pa-border);
+      border-radius: var(--pa-radius); padding: 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start; transition: all .2s;
+    }
+    .pa-value-card:hover { box-shadow: var(--pa-shadow-lg); transform: translateY(-2px); }
+    .pa-value-icon {
+      width: 42px; height: 42px; border-radius: var(--pa-radius);
+      display: grid; place-items: center; flex-shrink: 0; color: #fff;
+    }
+    .pa-value-card h4 { margin: 0 0 .25rem; font-size: .95rem; font-weight: 600; }
+    .pa-value-card p { margin: 0; font-size: .82rem; color: var(--pa-text-muted); line-height: 1.6; }
+
+    .pa-team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .pa-team-card {
+      background: var(--pa-surface); border: 1px solid var(--pa-border);
+      border-radius: var(--pa-radius-lg); padding: 1.5rem; text-align: center; transition: all .2s;
+    }
+    .pa-team-card:hover { box-shadow: var(--pa-shadow-lg); transform: translateY(-2px); }
+    .pa-team-avatar {
+      width: 80px; height: 80px; margin: 0 auto .75rem; border-radius: 50%;
+      display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 1.75rem;
+    }
+    .pa-team-card h4 { margin: 0 0 .15rem; font-size: 1rem; }
+    .pa-team-role { font-size: .8rem; color: var(--pa-text-muted); margin: 0 0 .75rem; }
+    .pa-team-social { display: flex; justify-content: center; gap: .4rem; }
+    .pa-team-social a {
+      width: 32px; height: 32px; border-radius: 50%; background: var(--pa-surface-3);
+      color: var(--pa-text-muted); display: grid; place-items: center; transition: all .15s;
+    }
+    .pa-team-social a:hover { background: var(--pa-primary); color: #fff; }
+
+    .pa-mission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+    .pa-mission-card { text-align: center; }
+    .pa-section-divider {
+      font-size: 1.4rem; font-weight: 700; margin: 2rem 0 1rem; padding-bottom: .5rem;
+      border-bottom: 2px solid var(--pa-border); display: flex; align-items: center; gap: .5rem;
+    }
+    .pa-section-divider .pa-icon { color: var(--pa-primary); }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- Page header -->
+        <div class="pa-page-header pa-anim-slide-up">
+          <div>
+            <h1>درباره ما</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>درباره ما</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero card -->
+        <div class="pa-hero-card pa-anim-slide-up pa-anim-delay-1">
+          <h2>ما PAdminLTE هستیم</h2>
+          <p>قالب داشبورد مدیریت سبک، سریع و بدون وابستگی. ما باور داریم که ابزار
+            توسعه باید ساده، شفاف و در دسترس همه باشد.</p>
+          <div class="pa-d-flex pa-gap-2" style="flex-wrap: wrap;">
+            <a href="https://github.com" class="pa-btn" data-pa-icon="github" data-pa-icon-size="16"> گیت‌هاب</a>
+            <a href="../docs/USAGE.html" class="pa-btn pa-btn-outline" data-pa-icon="book_open" data-pa-icon-size="16"> مستندات</a>
+          </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="pa-stat-list pa-anim-slide-up pa-anim-delay-2" style="margin-bottom: 1rem;">
+          <div class="pa-stat-card">
+            <div class="pa-stat-icon bg-primary" data-pa-icon="users" data-pa-icon-size="22"></div>
+            <div>
+              <div class="pa-stat-value">۲٬۵۰۰+</div>
+              <div class="pa-stat-label">کاربر فعال</div>
+            </div>
+          </div>
+          <div class="pa-stat-card">
+            <div class="pa-stat-icon bg-success" data-pa-icon="layout" data-pa-icon-size="22"></div>
+            <div>
+              <div class="pa-stat-value">۲۰+</div>
+              <div class="pa-stat-label">صفحه آماده</div>
+            </div>
+          </div>
+          <div class="pa-stat-card">
+            <div class="pa-stat-icon bg-warning" data-pa-icon="hard_drive" data-pa-icon-size="22"></div>
+            <div>
+              <div class="pa-stat-value">۸۰KB</div>
+              <div class="pa-stat-label">حجم CSS</div>
+            </div>
+          </div>
+          <div class="pa-stat-card">
+            <div class="pa-stat-icon bg-danger" data-pa-icon="x_circle" data-pa-icon-size="22"></div>
+            <div>
+              <div class="pa-stat-value">۰</div>
+              <div class="pa-stat-label">وابستگی خارجی</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Our story -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>داستان ما</h3>
+            <div class="pa-tools">
+              <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+              <button data-pa-card-tool="remove" aria-label="حذف"></button>
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <p style="line-height: 1.9; margin: 0 0 1rem;">
+              PAdminLTE در سال ۱۴۰۲ با یک هدف ساده آغاز شد: ساخت یک قالب مدیریت
+              که واقعاً سبک باشد و به هیچ فریم‌ورک سنگینی وابسته نباشد. ما خسته
+              شده بودیم از قالب‌هایی که برای نمایش یک جدول ساده، چند مگابایت
+              جاوااسکریپت بارگذاری می‌کردند و تجربهٔ کاربری کندی به‌جا می‌گذاشتند.
+            </p>
+            <p style="line-height: 1.9; margin: 0 0 1rem;">
+              نخستین نسخه تنها ۵ صفحه داشت و در یک ماه توسط یک توسعه‌دهنده نوشته
+              شد. اما بازخوردهای مثبت جامعهٔ فارسی‌زبان انگیزه داد تا پروژه را
+              گسترش دهیم. امروز PAdminLTE بیش از ۲۰ صفحهٔ آماده، ۲۷۰+ آیکن و ۵۰+
+              کامپوننت دارد و توسط ۲٬۵۰۰+ تیم استفاده می‌شود.
+            </p>
+            <p style="line-height: 1.9; margin: 0;">
+              ما هنوز به همان اصول اولیه پایبندیم: کد تمیز، مستندات شفاف، پشتیبانی
+              کامل از RTL و تم تاریک، و بدون هیچ وابستگی خارجی. هر خط کد نوشته
+              می‌شود با این سؤال: آیا واقعاً لازم است؟
+            </p>
+          </div>
+        </div>
+
+        <!-- Mission -->
+        <h3 class="pa-section-divider pa-anim-slide-up">
+          <span data-pa-icon="target" data-pa-icon-size="22"></span> ماموریت ما
+        </h3>
+        <div class="pa-mission-grid pa-anim-slide-up pa-anim-delay-1" style="margin-bottom: 1rem;">
+          <div class="pa-feature-card pa-mission-card">
+            <div class="pa-feature-icon bg-primary" data-pa-icon="zap" data-pa-icon-size="26"></div>
+            <h3>سادگی اولویت دارد</h3>
+            <p>هر ویژگی باید با کمترین پیچیدگی و بهترین تجربهٔ کاربری پیاده‌سازی شود.</p>
+          </div>
+          <div class="pa-feature-card pa-mission-card">
+            <div class="pa-feature-icon bg-success" data-pa-icon="users" data-pa-icon-size="26"></div>
+            <h3>جامعه‌محور</h3>
+            <p>گوش به فرمان جامعه‌ای داریم که از قالب استفاده می‌کند و بازخورد می‌دهد.</p>
+          </div>
+          <div class="pa-feature-card pa-mission-card">
+            <div class="pa-feature-icon bg-warning" data-pa-icon="globe" data-pa-icon-size="26"></div>
+            <h3>در دسترس همه</h3>
+            <p>پشتیبانی کامل از RTL، تم تاریک و دسترس‌پذیری برای همهٔ کاربران فارسی‌زبان.</p>
+          </div>
+        </div>
+
+        <!-- Values -->
+        <h3 class="pa-section-divider pa-anim-slide-up">
+          <span data-pa-icon="heart" data-pa-icon-size="22"></span> ارزش‌های ما
+        </h3>
+        <div class="pa-value-grid pa-anim-slide-up pa-anim-delay-1" style="margin-bottom: 1rem;">
+          <div class="pa-value-card">
+            <div class="pa-value-icon" style="background: var(--pa-primary);" data-pa-icon="sparkles" data-pa-icon-size="20"></div>
+            <div>
+              <h4>نوآوری</h4>
+              <p>همیشه به دنبال راه‌حل‌های بهتر، سریع‌تر و ساده‌تر هستیم.</p>
+            </div>
+          </div>
+          <div class="pa-value-card">
+            <div class="pa-value-icon" style="background: var(--pa-success);" data-pa-icon="shield_check" data-pa-icon-size="20"></div>
+            <div>
+              <h4>کیفیت</h4>
+              <p>کد با کیفیت بالا، تست‌شده و مستند. بدون میان‌بر.</p>
+            </div>
+          </div>
+          <div class="pa-value-card">
+            <div class="pa-value-icon" style="background: var(--pa-warning);" data-pa-icon="eye" data-pa-icon-size="20"></div>
+            <div>
+              <h4>دسترس‌پذیری</h4>
+              <p>طراحی برای همه، فارغ از توانایی یا دستگاه استفاده‌کننده.</p>
+            </div>
+          </div>
+          <div class="pa-value-card">
+            <div class="pa-value-icon" style="background: var(--pa-danger);" data-pa-icon="zap" data-pa-icon-size="20"></div>
+            <div>
+              <h4>عملکرد</h4>
+              <p>هر کیلوبایت و هر میلی‌ثانیه اهمیت دارد. سرعت یک ویژگی است.</p>
+            </div>
+          </div>
+          <div class="pa-value-card">
+            <div class="pa-value-icon" style="background: var(--pa-purple);" data-pa-icon="users_alt" data-pa-icon-size="20"></div>
+            <div>
+              <h4>جامعه</h4>
+              <p>گوش به فرمان جامعه و پاسخگو به نیازهای واقعی کاربران.</p>
+            </div>
+          </div>
+          <div class="pa-value-card">
+            <div class="pa-value-icon" style="background: var(--pa-cyan);" data-pa-icon="code_alt" data-pa-icon-size="20"></div>
+            <div>
+              <h4>متن‌باز</h4>
+              <p>کد باز است و خواهد بود. شفافیت، پایهٔ اعتماد ماست.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team -->
+        <h3 class="pa-section-divider pa-anim-slide-up">
+          <span data-pa-icon="users" data-pa-icon-size="22"></span> تیم ما
+        </h3>
+        <div class="pa-team-grid pa-anim-slide-up pa-anim-delay-1" style="margin-bottom: 1rem;">
+          <div class="pa-team-card">
+            <div class="pa-team-avatar" style="background: linear-gradient(135deg, var(--pa-primary), var(--pa-indigo));">ر</div>
+            <h4>رها کریمی</h4>
+            <p class="pa-team-role">بنیان‌گذار و مدیر فنی</p>
+            <div class="pa-team-social">
+              <a href="#" aria-label="گیت‌هاب" data-pa-icon="github" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="توییتر" data-pa-icon="twitter" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="لینکدین" data-pa-icon="linkedin" data-pa-icon-size="14"></a>
+            </div>
+          </div>
+          <div class="pa-team-card">
+            <div class="pa-team-avatar" style="background: linear-gradient(135deg, var(--pa-success), var(--pa-teal));">ا</div>
+            <h4>امیر محمدی</h4>
+            <p class="pa-team-role">توسعه‌دهنده ارشد</p>
+            <div class="pa-team-social">
+              <a href="#" aria-label="گیت‌هاب" data-pa-icon="github" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="توییتر" data-pa-icon="twitter" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="تلگرام" data-pa-icon="telegram" data-pa-icon-size="14"></a>
+            </div>
+          </div>
+          <div class="pa-team-card">
+            <div class="pa-team-avatar" style="background: linear-gradient(135deg, var(--pa-warning), var(--pa-orange));">س</div>
+            <h4>سارا احمدی</h4>
+            <p class="pa-team-role">طراح رابط کاربری</p>
+            <div class="pa-team-social">
+              <a href="#" aria-label="اینستاگرام" data-pa-icon="instagram" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="توییتر" data-pa-icon="twitter" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="لینکدین" data-pa-icon="linkedin" data-pa-icon-size="14"></a>
+            </div>
+          </div>
+          <div class="pa-team-card">
+            <div class="pa-team-avatar" style="background: linear-gradient(135deg, var(--pa-purple), var(--pa-pink));">م</div>
+            <h4>محمد رضایی</h4>
+            <p class="pa-team-role">مدیر مستندات</p>
+            <div class="pa-team-social">
+              <a href="#" aria-label="گیت‌هاب" data-pa-icon="github" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="تلگرام" data-pa-icon="telegram" data-pa-icon-size="14"></a>
+              <a href="#" aria-label="ایمیل" data-pa-icon="envelope" data-pa-icon-size="14"></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>تایم‌لاین شرکت</h3>
+            <div class="pa-tools">
+              <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+              <button data-pa-card-tool="remove" aria-label="حذف"></button>
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-timeline">
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">فروردین ۱۴۰۲</div>
+                <div class="pa-tl-title">تأسیس PAdminLTE</div>
+                <div class="pa-tl-text">پروژه با هدف ساخت قالب مدیریت سبک و فارسی آغاز شد.</div>
+              </div>
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">خرداد ۱۴۰۲</div>
+                <div class="pa-tl-title">اولین انتشار عمومی</div>
+                <div class="pa-tl-text">نسخهٔ ۰٫۵ با ۵ صفحهٔ آماده روی گیت‌هاب منتشر شد.</div>
+              </div>
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">آذر ۱۴۰۲</div>
+                <div class="pa-tl-title">انتشار نسخهٔ ۱٫۰</div>
+                <div class="pa-tl-text">نسخهٔ پایدار با ۱۲ صفحه و مستندات کامل منتشر شد.</div>
+              </div>
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">اسفند ۱۴۰۲</div>
+                <div class="pa-tl-title">نسخهٔ ۱٫۱</div>
+                <div class="pa-tl-text">افزودن ۸ صفحهٔ جدید، آپدیتر زنده و پشتیبانی کامل از تم تاریک.</div>
+              </div>
+              <div class="pa-timeline-item">
+                <div class="pa-tl-time">امروز — ۱۴۰۳</div>
+                <div class="pa-tl-title">۲٬۵۰۰+ کاربر فعال</div>
+                <div class="pa-tl-text">در حال کار روی نسخهٔ ۲٫۰ با کامپوننت‌های بیشتر و بهبود عملکرد.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA banner -->
+        <div class="pa-cta pa-anim-zoom-in" style="margin: 1rem 0;">
+          <h2>به جامعهٔ ما بپیوندید</h2>
+          <p>هر هفته آپدیت‌های جدید، آموزش‌ها و قابلیت‌ها. عضو خانوادهٔ PAdminLTE شوید.</p>
+          <a href="register.html" class="pa-btn pa-btn-lg" style="background:#fff;color:var(--pa-primary);" data-pa-icon="user_plus" data-pa-icon-size="18"> ثبت‌نام کنید</a>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

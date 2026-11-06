@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — صفحه فرود</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* Local helpers scoped to the landing page */
+    .pa-landing-nav-actions { display: flex; align-items: center; gap: .5rem; }
+    .pa-landing-nav-actions [data-pa-theme-toggle] {
+      width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--pa-border);
+      background: var(--pa-surface); color: var(--pa-text); cursor: pointer;
+      display: grid; place-items: center; transition: all .15s;
+    }
+    .pa-landing-nav-actions [data-pa-theme-toggle]:hover { background: var(--pa-surface-2); }
+    .pa-hero-stats {
+      max-width: 800px; margin: 3rem auto 0; display: grid;
+      grid-template-columns: repeat(4, 1fr); gap: 1rem; position: relative; z-index: 2;
+    }
+    .pa-hero-stat { text-align: center; }
+    .pa-hero-stat .pa-hs-value {
+      font-size: 1.75rem; font-weight: 800; color: var(--pa-primary); line-height: 1;
+    }
+    .pa-hero-stat .pa-hs-label { font-size: .8rem; color: var(--pa-text-muted); margin-top: .25rem; }
+    @media (max-width: 576px) { .pa-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; } }
+
+    .pa-showcase {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    @media (max-width: 768px) { .pa-showcase { grid-template-columns: 1fr; gap: 1.5rem; } }
+    .pa-showcase h2 { font-size: 1.75rem; font-weight: 700; margin: 0 0 1rem; }
+    .pa-showcase p { color: var(--pa-text-muted); line-height: 1.8; margin-bottom: 1.25rem; }
+    .pa-showcase ul { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+    .pa-showcase li { display: flex; align-items: flex-start; gap: .6rem; padding: .35rem 0; font-size: .95rem; }
+    .pa-showcase li .pa-icon { color: var(--pa-success); width: 18px; height: 18px; flex-shrink: 0; margin-top: .15rem; }
+
+    .pa-mockup {
+      background: linear-gradient(135deg, var(--pa-primary), var(--pa-indigo));
+      border-radius: var(--pa-radius-lg); padding: 1.5rem; box-shadow: var(--pa-shadow-lg);
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .pa-mockup::before {
+      content: ''; position: absolute; top: -40px; left: -40px; width: 140px; height: 140px;
+      background: rgba(255,255,255,.1); border-radius: 50%;
+    }
+    .pa-mockup-bar { display: flex; gap: .35rem; margin-bottom: 1rem; }
+    .pa-mockup-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.5); }
+    .pa-mockup-body { background: rgba(255,255,255,.15); border-radius: var(--pa-radius); padding: 1rem; }
+    .pa-mockup-row { display: flex; gap: .5rem; margin-bottom: .75rem; }
+    .pa-mockup-pill { height: 8px; border-radius: 4px; background: rgba(255,255,255,.4); }
+    .pa-mockup-bars { display: flex; align-items: flex-end; gap: .5rem; height: 90px; margin-top: 1rem; }
+    .pa-mockup-bars span { flex: 1; background: rgba(255,255,255,.6); border-radius: 3px 3px 0 0; }
+    .pa-mockup-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-top: 1rem; }
+    .pa-mockup-stats div {
+      background: rgba(255,255,255,.18); border-radius: var(--pa-radius);
+      padding: .5rem; text-align: center;
+    }
+    .pa-mockup-stats strong { display: block; font-size: 1rem; }
+    .pa-mockup-stats small { font-size: .7rem; opacity: .85; }
+
+    .pa-testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .pa-section-alt { background: var(--pa-surface-2); }
+    .pa-cta-wrap { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; }
+  </style>
+</head>
+<body class="pa-landing">
+  <!-- Top navigation -->
+  <nav class="pa-landing-nav">
+    <div class="pa-landing-nav-inner">
+      <a class="pa-landing-brand" href="#pa-hero">
+        <span class="pa-mark">P</span>
+        PAdminLTE
+      </a>
+      <div class="pa-landing-nav-links">
+        <a href="#pa-features">ویژگی‌ها</a>
+        <a href="#pa-pricing">قیمت‌گذاری</a>
+        <a href="#pa-showcase">مستندات</a>
+        <a href="#pa-testimonials">وبلاگ</a>
+      </div>
+      <div class="pa-landing-nav-actions">
+        <button data-pa-theme-toggle onclick="PAdminLTE.toggleTheme()" aria-label="تغییر تم"></button>
+        <a href="login.html" class="pa-btn pa-btn-primary pa-btn-sm">شروع کنید</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="pa-hero" id="pa-hero">
+    <div class="pa-hero-blob b1"></div>
+    <div class="pa-hero-blob b2"></div>
+    <div class="pa-hero-inner">
+      <h1 class="pa-anim-slide-up pa-anim-delay-1">قالب داشبورد مدیریت که می‌توانید در هر جایی اجرا کنید</h1>
+      <p class="pa-anim-slide-up pa-anim-delay-2">
+        PAdminLTE یک قالب مدیریت سبک، سریع و بدون وابستگی خارجی است که با تمرکز بر
+        عملکرد و سادگی، تجربه‌ای روان برای ساخت داشبورد حرفه‌ای فراهم می‌کند.
+      </p>
+      <div class="pa-hero-actions pa-anim-slide-up pa-anim-delay-3">
+        <a href="register.html" class="pa-btn pa-btn-primary pa-btn-lg" data-pa-icon="rocket" data-pa-icon-size="18"> شروع رایگان</a>
+        <a href="../index.html" class="pa-btn pa-btn-outline pa-btn-lg" data-pa-icon="play" data-pa-icon-size="18"> مشاهده دمو</a>
+      </div>
+
+      <div class="pa-hero-stats pa-anim-slide-up pa-anim-delay-4">
+        <div class="pa-hero-stat">
+          <div class="pa-hs-value">۲٬۵۰۰+</div>
+          <div class="pa-hs-label">کاربر فعال</div>
+        </div>
+        <div class="pa-hero-stat">
+          <div class="pa-hs-value">۱۸</div>
+          <div class="pa-hs-label">صفحه آماده</div>
+        </div>
+        <div class="pa-hero-stat">
+          <div class="pa-hs-value">۰</div>
+          <div class="pa-hs-label">وابستگی خارجی</div>
+        </div>
+        <div class="pa-hero-stat">
+          <div class="pa-hs-value">۸۰KB</div>
+          <div class="pa-hs-label">حجم CSS</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features -->
+  <section class="pa-section" id="pa-features">
+    <div class="pa-section-inner">
+      <div class="pa-section-title pa-anim-slide-up">
+        <h2>چرا PAdminLTE؟</h2>
+        <p>مجموعه‌ای از ابزارهای آماده برای ساخت داشبورد حرفه‌ای در کمترین زمان.</p>
+      </div>
+      <div class="pa-features-grid">
+        <div class="pa-feature-card pa-anim-slide-up pa-anim-delay-1">
+          <div class="pa-feature-icon bg-primary" data-pa-icon="zap" data-pa-icon-size="28"></div>
+          <h3>سرعت بالا</h3>
+          <p>بدون فریم‌ورک سنگین، بدون jQuery و بدون وابستگی. فقط HTML، CSS و جاوااسکریپت خالص.</p>
+        </div>
+        <div class="pa-feature-card pa-anim-slide-up pa-anim-delay-2">
+          <div class="pa-feature-icon bg-success" data-pa-icon="shield" data-pa-icon-size="28"></div>
+          <h3>امنیت پایدار</h3>
+          <p>بدون اسکریپت ردیاب، بدون تماس با سرویس‌های بیرونی و کنترل کامل روی داده‌ها.</p>
+        </div>
+        <div class="pa-feature-card pa-anim-slide-up pa-anim-delay-3">
+          <div class="pa-feature-icon bg-warning" data-pa-icon="code" data-pa-icon-size="28"></div>
+          <h3>کد تمیز</h3>
+          <p>ساختار ماژولار و خوانا با مستندسازی کامل. سفارشی‌سازی آسان برای هر پروژه.</p>
+        </div>
+        <div class="pa-feature-card pa-anim-slide-up pa-anim-delay-1">
+          <div class="pa-feature-icon bg-danger" data-pa-icon="layout" data-pa-icon-size="28"></div>
+          <h3>چیدمان انعطاف‌پذیر</h3>
+          <p>سایدبار قابل جمع‌شدن، هدر پویا، فوتر سفارشی و گرید واکنش‌گرا برای همه اندازه‌ها.</p>
+        </div>
+        <div class="pa-feature-card pa-anim-slide-up pa-anim-delay-2">
+          <div class="pa-feature-icon bg-purple" data-pa-icon="chart" data-pa-icon-size="28"></div>
+          <h3>نمودار بومی</h3>
+          <p>چندین نوع نمودار خطی، میله‌ای، دونات و اسپارک‌لاین بدون نیاز به کتابخانه خارجی.</p>
+        </div>
+        <div class="pa-feature-card pa-anim-slide-up pa-anim-delay-3">
+          <div class="pa-feature-icon bg-cyan" data-pa-icon="cube" data-pa-icon-size="28"></div>
+          <h3>کامپوننت فراوان</h3>
+          <p>بیش از ۵۰ کامپوننت آماده: کارت، فرم، جدول، مدال، توست، تب، خط زمانی و…</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase -->
+  <section class="pa-section pa-section-alt" id="pa-showcase">
+    <div class="pa-section-inner">
+      <div class="pa-showcase">
+        <div class="pa-anim-slide-up">
+          <span class="pa-badge pa-badge-primary pa-mb-2">نمایش محصول</span>
+          <h2>داشبوردی که در نگاه اول می‌فهمید</h2>
+          <p>
+            رابط کاربری PAdminLTE طوری طراحی شده که با کمترین آموزش، کاربر بتواند
+            از تمام بخش‌ها استفاده کند. همه چیز در جای درست خودش قرار دارد.
+          </p>
+          <ul>
+            <li><span data-pa-icon="check_circle"></span> چیدمان سایدبار + هدر + محتوا</li>
+            <li><span data-pa-icon="check_circle"></span> ۱۸ صفحه آماده برای شروع سریع</li>
+            <li><span data-pa-icon="check_circle"></span> پشتیبانی کامل از RTL و تم تاریک</li>
+            <li><span data-pa-icon="check_circle"></span> بدون نیاز به سرور؛ اجرا از file://</li>
+          </ul>
+          <a href="../index.html" class="pa-btn pa-btn-primary" data-pa-icon="external" data-pa-icon-size="16"> مشاهدهٔ داشبورد کامل</a>
+        </div>
+        <div class="pa-anim-slide-up pa-anim-delay-2">
+          <div class="pa-mockup">
+            <div class="pa-mockup-bar"><span></span><span></span><span></span></div>
+            <div class="pa-mockup-body">
+              <div class="pa-mockup-row">
+                <div class="pa-mockup-pill" style="width: 60%"></div>
+                <div class="pa-mockup-pill" style="width: 25%"></div>
+              </div>
+              <div class="pa-mockup-bars">
+                <span style="height: 45%"></span>
+                <span style="height: 70%"></span>
+                <span style="height: 55%"></span>
+                <span style="height: 90%"></span>
+                <span style="height: 35%"></span>
+                <span style="height: 75%"></span>
+                <span style="height: 60%"></span>
+              </div>
+              <div class="pa-mockup-stats">
+                <div><strong>۹۸٪</strong><small>رضایت</small></div>
+                <div><strong>۲٬۵۰۰</strong><small>کاربر</small></div>
+                <div><strong>۱۸</strong><small>صفحه</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pa-section" id="pa-pricing">
+    <div class="pa-section-inner">
+      <div class="pa-section-title pa-anim-slide-up">
+        <h2>قیمت‌گذاری ساده و شفاف</h2>
+        <p>پلنی مناسب هر اندازه تیم. بدون هزینه پنهان، هر زمان بخواهید ارتقا دهید.</p>
+      </div>
+      <div class="pa-pricing-grid">
+        <div class="pa-pricing-card pa-anim-slide-up pa-anim-delay-1">
+          <div class="pa-pricing-name">رایگان</div>
+          <div class="pa-pricing-tagline">برای شروع و پروژه‌های کوچک</div>
+          <div class="pa-pricing-price">۰ <small>تومان/ماه</small></div>
+          <ul class="pa-pricing-features">
+            <li><span data-pa-icon="check"></span> تا ۵ کاربر</li>
+            <li><span data-pa-icon="check"></span> ۱۰ صفحه آماده</li>
+            <li><span data-pa-icon="check"></span> پشتیبانی انجمن</li>
+            <li class="is-disabled"><span data-pa-icon="x"></span> پشتیبانی اولویت‌دار</li>
+            <li class="is-disabled"><span data-pa-icon="x"></span> آپدیت‌های اختصاصی</li>
+          </ul>
+          <a href="register.html" class="pa-btn pa-btn-outline pa-btn-block">شروع کنید</a>
+        </div>
+        <div class="pa-pricing-card is-featured pa-anim-slide-up pa-anim-delay-2">
+          <div class="pa-pricing-name">حرفه‌ای</div>
+          <div class="pa-pricing-tagline">محبوب‌ترین انتخاب تیم‌ها</div>
+          <div class="pa-pricing-price">۱۵۰٬۰۰۰ <small>تومان/ماه</small></div>
+          <ul class="pa-pricing-features">
+            <li><span data-pa-icon="check"></span> کاربر نامحدود</li>
+            <li><span data-pa-icon="check"></span> تمام صفحات آماده</li>
+            <li><span data-pa-icon="check"></span> پشتیبانی اولویت‌دار</li>
+            <li><span data-pa-icon="check"></span> آپدیت رایگان یک سال</li>
+            <li><span data-pa-icon="check"></span> سفارشی‌سازی رنگ و تم</li>
+          </ul>
+          <a href="register.html" class="pa-btn pa-btn-primary pa-btn-block">انتخاب پلن حرفه‌ای</a>
+        </div>
+        <div class="pa-pricing-card pa-anim-slide-up pa-anim-delay-3">
+          <div class="pa-pricing-name">سازمانی</div>
+          <div class="pa-pricing-tagline">برای سازمان‌های بزرگ</div>
+          <div class="pa-pricing-price">۵۰۰٬۰۰۰ <small>تومان/ماه</small></div>
+          <ul class="pa-pricing-features">
+            <li><span data-pa-icon="check"></span> همهٔ امکانات حرفه‌ای</li>
+            <li><span data-pa-icon="check"></span> SLA تضمین‌شده</li>
+            <li><span data-pa-icon="check"></span> نصب اختصاصی روی سرور</li>
+            <li><span data-pa-icon="check"></span> پشتیبانی ۲۴/۷</li>
+            <li><span data-pa-icon="check"></span> کد منبع کامل</li>
+          </ul>
+          <a href="contact.html" class="pa-btn pa-btn-outline pa-btn-block">تماس با فروش</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="pa-section pa-section-alt" id="pa-testimonials">
+    <div class="pa-section-inner">
+      <div class="pa-section-title pa-anim-slide-up">
+        <h2>کاربران درباره ما چه می‌گویند</h2>
+        <p>تجربهٔ واقعی تیم‌هایی که با PAdminLTE کار می‌کنند.</p>
+      </div>
+      <div class="pa-testimonials-grid">
+        <div class="pa-testimonial pa-anim-slide-up pa-anim-delay-1">
+          <div class="pa-testimonial-text">
+            «انتقال به PAdminLTE بهترین تصمیم تیم ما بود. حجم کم، سرعت بالا و
+            مستندات عالی باعث شد پروژه را در نصف زمان پیش‌بینی‌شده تحویل دهیم.»
+          </div>
+          <div class="pa-testimonial-author">
+            <div class="pa-avatar pa-avatar-md" style="background: var(--pa-primary); color: #fff;">ر</div>
+            <div>
+              <div class="pa-testimonial-author-name">رها کریمی</div>
+              <div class="pa-testimonial-author-role">مدیر فنی، استارتاپ دیجی‌کالا</div>
+            </div>
+          </div>
+        </div>
+        <div class="pa-testimonial pa-anim-slide-up pa-anim-delay-2">
+          <div class="pa-testimonial-text">
+            «پس از سال‌ها استفاده از قالب‌های سنگین، بالاخره قالبی پیدا کردم که
+            بدون jQuery هم کار می‌کند. تم تاریک و پشتیبانی RTL عالی است.»
+          </div>
+          <div class="pa-testimonial-author">
+            <div class="pa-avatar pa-avatar-md" style="background: var(--pa-success); color: #fff;">م</div>
+            <div>
+              <div class="pa-testimonial-author-name">امیر محمدی</div>
+              <div class="pa-testimonial-author-role">توسعه‌دهنده ارشد، شرکت آریا</div>
+            </div>
+          </div>
+        </div>
+        <div class="pa-testimonial pa-anim-slide-up pa-anim-delay-3">
+          <div class="pa-testimonial-text">
+            «کد تمیز، مستندات فارسی و پشتیبانی سریع. هر سوالی داشتم در کمتر از
+            یک روز جواب گرفتم. به همه تیم‌های ایرانی پیشنهاد می‌کنم.»
+          </div>
+          <div class="pa-testimonial-author">
+            <div class="pa-avatar pa-avatar-md" style="background: var(--pa-purple); color: #fff;">س</div>
+            <div>
+              <div class="pa-testimonial-author-name">سارا احمدی</div>
+              <div class="pa-testimonial-author-role">محصول‌کار، تیم بانکداری</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="pa-cta-wrap">
+    <div class="pa-cta pa-anim-zoom-in">
+      <h2>همین امروز شروع کنید</h2>
+      <p>به جمع ۲٬۵۰۰+ تیمی که با PAdminLTE داشبورد خود را ساخته‌اند بپیوندید.</p>
+      <a href="register.html" class="pa-btn pa-btn-lg" style="background:#fff;color:var(--pa-primary);" data-pa-icon="rocket" data-pa-icon-size="18"> ثبت‌نام رایگان</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="pa-landing-footer">
+    <div class="pa-landing-footer-inner">
+      <div class="pa-landing-footer-col">
+        <a class="pa-landing-brand" href="#pa-hero" style="margin-bottom:1rem;">
+          <span class="pa-mark">P</span> PAdminLTE
+        </a>
+        <p style="color: var(--pa-text-muted); font-size: .9rem; line-height: 1.7; margin: 0 0 1rem;">
+          قالب داشبورد مدیریت سبک، سریع و بدون وابستگی خارجی. مناسب پروژه‌های
+          کوچک تا سازمانی. ساخته‌شده با عشق برای جامعهٔ توسعه‌دهندگان فارسی.
+        </p>
+        <div class="pa-social-icons">
+          <a href="#" aria-label="توییتر" data-pa-icon="twitter" data-pa-icon-size="16"></a>
+          <a href="#" aria-label="فیسبوک" data-pa-icon="facebook" data-pa-icon-size="16"></a>
+          <a href="#" aria-label="اینستاگرام" data-pa-icon="instagram" data-pa-icon-size="16"></a>
+          <a href="#" aria-label="لینکدین" data-pa-icon="linkedin" data-pa-icon-size="16"></a>
+          <a href="#" aria-label="گیت‌هاب" data-pa-icon="github" data-pa-icon-size="16"></a>
+          <a href="#" aria-label="تلگرام" data-pa-icon="telegram" data-pa-icon-size="16"></a>
+        </div>
+      </div>
+      <div class="pa-landing-footer-col">
+        <h4>محصول</h4>
+        <ul>
+          <li><a href="#pa-features">ویژگی‌ها</a></li>
+          <li><a href="#pa-pricing">قیمت‌گذاری</a></li>
+          <li><a href="../index.html">دمو زنده</a></li>
+          <li><a href="changelog.html">تغییرات</a></li>
+          <li><a href="roadmap.html">نقشه راه</a></li>
+        </ul>
+      </div>
+      <div class="pa-landing-footer-col">
+        <h4>منابع</h4>
+        <ul>
+          <li><a href="../docs/USAGE.html">مستندات</a></li>
+          <li><a href="../docs/API.html">راهنمای API</a></li>
+          <li><a href="faq.html">سؤالات متداول</a></li>
+          <li><a href="blog-list.html">وبلاگ</a></li>
+          <li><a href="contact.html">تماس با ما</a></li>
+        </ul>
+      </div>
+      <div class="pa-landing-footer-col">
+        <h4>شرکت</h4>
+        <ul>
+          <li><a href="about.html">درباره ما</a></li>
+          <li><a href="#">فرصت‌های شغلی</a></li>
+          <li><a href="#">حریم خصوصی</a></li>
+          <li><a href="#">شرایط استفاده</a></li>
+          <li><a href="#">لایسنس</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="pa-landing-footer-bottom">
+      <div>© ۱۴۰۳ PAdminLTE. تمام حقوق محفوظ است.</div>
+      <div>ساخته‌شده با ❤️ در ایران</div>
+    </div>
+  </footer>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+</body>
+</html>

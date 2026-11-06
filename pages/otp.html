@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — احراز هویت دو مرحله‌ای</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body class="pa-auth-page">
+  <div class="pa-auth-card pa-anim-slide-up">
+    <div class="pa-auth-logo" data-pa-icon="qr_code" data-pa-icon-size="32"></div>
+    <h1>تأیید هویت دو مرحله‌ای</h1>
+    <p class="pa-sub">برای امنیت بیشتر، کد ۶ رقمی از اپلیکیشن احراز هویت خود وارد کنید</p>
+
+    <div class="pa-alert pa-alert-info">
+      <span data-pa-icon="shield" data-pa-icon-size="20"></span>
+      <div class="pa-alert-body">احراز دو مرحله‌ای لایه‌ای اضافی از امنیت است. کد را از اپلیکیشن تأیید هویت (مانند Google Authenticator) دریافت کنید.</div>
+    </div>
+
+    <form data-pa-validate-form onsubmit="return false">
+      <div class="pa-form-group pa-text-center">
+        <div class="pa-otp-group" data-pa-otp="6" data-pa-otp-name="otp" style="justify-content:center;"></div>
+      </div>
+
+      <div class="pa-form-check">
+        <input type="checkbox" id="trust"><label for="trust">اعتماد به این دستگاه برای ۳۰ روز</label>
+      </div>
+
+      <div class="pa-auth-social" style="gap:.5rem;">
+        <button type="button" class="pa-btn pa-btn-outline" data-pa-otp-resend>ارسال مجدد کد</button>
+        <button type="submit" class="pa-btn pa-btn-primary">تایید</button>
+      </div>
+    </form>
+
+    <p class="pa-text-center pa-text-muted pa-fs-sm">
+      <a href="blank.html">استفاده از کد پشتیبان</a>
+      &nbsp;·&nbsp;
+      <a href="settings.html">غیرفعال کردن احراز دو مرحله‌ای</a>
+    </p>
+    <p class="pa-text-center"><a href="login.html">← بازگشت به ورود</a></p>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script>
+    PAdminLTE.on('pa:otp:complete', function () {
+      PAdminLTE.toast({ kind: 'success', title: 'موفق', message: 'هویت شما تأیید شد. در حال انتقال…' });
+      setTimeout(function () { window.location.href = '../index.html'; }, 1000);
+    });
+  </script>
+</body>
+</html>

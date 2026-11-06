@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — پنل کاربری</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-up-logout { display: flex; align-items: center; gap: .65rem; padding: .55rem .75rem; border-radius: var(--pa-radius); color: var(--pa-danger); font-size: .9rem; cursor: pointer; transition: background .15s; text-decoration: none; margin-top: 1rem; }
+    .pa-up-logout:hover { background: var(--pa-danger-soft); text-decoration: none; }
+    .pa-up-logout .pa-icon { width: 16px; height: 16px; }
+    .pa-up-welcome { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .pa-up-welcome-text { flex: 1; min-width: 200px; }
+    .pa-up-welcome-text h2 { margin: 0 0 .25rem; font-size: 1.4rem; }
+    .pa-up-welcome-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .pa-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+    .pa-up-toggle-list .pa-form-check { padding: .65rem .85rem; border: 1px solid var(--pa-border); border-radius: var(--pa-radius); margin: 0 0 .5rem; background: var(--pa-surface); }
+    .pa-up-toggle-list .pa-form-check:last-child { margin-bottom: 0; }
+    .pa-up-toggle-list .pa-form-check label { display: flex; align-items: center; gap: .5rem; flex: 1; }
+    .pa-up-toggle-list .pa-form-check label .pa-up-toggle-desc { font-size: .8rem; color: var(--pa-text-muted); font-weight: 400; margin-right: auto; }
+    .pa-up-device-icon { width: 32px; height: 32px; border-radius: var(--pa-radius); background: var(--pa-surface-3); display: grid; place-items: center; color: var(--pa-primary); }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>پنل کاربری</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>پنل</span>
+            </div>
+          </div>
+          <div class="pa-tools">
+            <button class="pa-btn pa-btn-primary" data-pa-icon="edit" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'info',message:'ویرایش پروفایل.'})"> ویرایش پروفایل</button>
+          </div>
+        </div>
+
+        <div class="pa-row pa-anim-slide-up">
+
+          <!-- Sidebar -->
+          <div class="pa-col-3">
+            <div class="pa-userpanel-sidebar">
+              <div class="pa-userpanel-header">
+                <span class="pa-avatar pa-avatar-lg" style="margin:0 auto .5rem; background:linear-gradient(135deg,var(--pa-primary),var(--pa-indigo)); color:#fff; display:grid; place-items:center; font-weight:700; font-size:1.5rem">ا</span>
+                <div class="pa-userpanel-name">امیر رضایی</div>
+                <div class="pa-userpanel-role">مدیر سیستم</div>
+                <div class="pa-mt-1" style="margin-top:.5rem">
+                  <span class="pa-badge pa-badge-success pa-badge-sm"><span data-pa-icon="check_circle" data-pa-icon-size="12"></span> آنلاین</span>
+                </div>
+              </div>
+
+              <ul class="pa-userpanel-menu">
+                <li><a href="#" class="is-active" onclick="event.preventDefault()"><span data-pa-icon="dashboard"></span><span>نمای کلی</span></a></li>
+                <li><a href="profile.html"><span data-pa-icon="user"></span><span>پروفایل</span></a></li>
+                <li><a href="chat.html"><span data-pa-icon="envelope"></span><span>پیام‌ها</span><span class="pa-ml-count" style="margin-right:auto; background:var(--pa-surface-3); padding:.1rem .45rem; border-radius:1rem; font-size:.7rem">۳</span></a></li>
+                <li><a href="notifications.html"><span data-pa-icon="bell"></span><span>اعلان‌ها</span><span class="pa-ml-count" style="margin-right:auto; background:var(--pa-danger); color:#fff; padding:.1rem .45rem; border-radius:1rem; font-size:.7rem">۵</span></a></li>
+                <li><a href="settings.html"><span data-pa-icon="shield"></span><span>امنیت</span></a></li>
+                <li><a href="settings.html"><span data-pa-icon="settings"></span><span>تنظیمات</span></a></li>
+              </ul>
+
+              <a class="pa-up-logout" href="login.html"><span data-pa-icon="logout"></span><span>خروج از حساب</span></a>
+            </div>
+          </div>
+
+          <!-- Main -->
+          <div class="pa-col-9">
+
+            <!-- Welcome card -->
+            <div class="pa-card pa-mb-2">
+              <div class="pa-card-body pa-up-welcome">
+                <span class="pa-avatar pa-avatar-lg" style="background:linear-gradient(135deg,var(--pa-primary),var(--pa-info)); color:#fff; display:grid; place-items:center; font-weight:700; font-size:1.5rem">ا</span>
+                <div class="pa-up-welcome-text">
+                  <h2>خوش آمدید، امیر!</h2>
+                  <p class="pa-text-muted" style="margin:0">شما ۵ اعلان خوانده‌نشده و ۳ پیام جدید دارید. آخرین ورود: ۱۴ آذر ۱۴۰۳ ساعت ۱۰:۲۴.</p>
+                </div>
+                <div class="pa-up-welcome-actions">
+                  <button class="pa-btn pa-btn-primary" data-pa-icon="envelope" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده پیام‌ها.'})"> پیام‌ها</button>
+                  <button class="pa-btn pa-btn-outline" data-pa-icon="bell" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده اعلان‌ها.'})"> اعلان‌ها</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats grid -->
+            <div class="pa-stat-grid pa-mb-2">
+              <div class="pa-stat-card pa-hover-lift pa-anim-slide-up">
+                <div class="pa-stat-icon bg-primary"><span data-pa-icon="cart" data-pa-icon-size="22"></span></div>
+                <div>
+                  <div class="pa-stat-value">۲٬۳۴۰</div>
+                  <div class="pa-stat-label">سفارش‌ها</div>
+                </div>
+              </div>
+              <div class="pa-stat-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1">
+                <div class="pa-stat-icon bg-success"><span data-pa-icon="envelope" data-pa-icon-size="22"></span></div>
+                <div>
+                  <div class="pa-stat-value">۳</div>
+                  <div class="pa-stat-label">پیام‌های خوانده‌نشده</div>
+                </div>
+              </div>
+              <div class="pa-stat-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2">
+                <div class="pa-stat-icon bg-warning"><span data-pa-icon="bell" data-pa-icon-size="22"></span></div>
+                <div>
+                  <div class="pa-stat-value">۵</div>
+                  <div class="pa-stat-label">اعلان‌ها</div>
+                </div>
+              </div>
+              <div class="pa-stat-card pa-hover-lift pa-anim-slide-up pa-anim-delay-3">
+                <div class="pa-stat-icon bg-purple"><span data-pa-icon="activity" data-pa-icon-size="22"></span></div>
+                <div>
+                  <div class="pa-stat-value">۱۲۸</div>
+                  <div class="pa-stat-label">فعالیت‌های اخیر</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Two-column row: timeline + orders -->
+            <div class="pa-row pa-mb-2">
+
+              <div class="pa-col-6">
+                <div class="pa-card pa-hover-lift">
+                  <div class="pa-card-header"><h3>فعالیت‌های اخیر</h3></div>
+                  <div class="pa-card-body">
+                    <div class="pa-timeline">
+                      <div class="pa-timeline-item is-success">
+                        <div class="pa-tl-time">۱۰ دقیقه پیش</div>
+                        <h4 class="pa-tl-title">سفارش جدید ثبت شد</h4>
+                        <p class="pa-tl-text">سفارش #۱۰۲۴ توسط زهرا حسینی ثبت شد.</p>
+                      </div>
+                      <div class="pa-timeline-item">
+                        <div class="pa-tl-time">۲ ساعت پیش</div>
+                        <h4 class="pa-tl-title">ثبت‌نام کاربر جدید</h4>
+                        <p class="pa-tl-text">کاربر «پویا احمدی» به سامانه پیوست.</p>
+                      </div>
+                      <div class="pa-timeline-item is-success">
+                        <div class="pa-tl-time">۳ ساعت پیش</div>
+                        <h4 class="pa-tl-title">گزارش ارسال شد</h4>
+                        <p class="pa-tl-text">گزارش ماهانه فروش به مدیران ارسال شد.</p>
+                      </div>
+                      <div class="pa-timeline-item is-warning">
+                        <div class="pa-tl-time">دیروز</div>
+                        <h4 class="pa-tl-title">پروژه به‌روز شد</h4>
+                        <p class="pa-tl-text">نسخه ۱.۱ پروژه PAdminLTE منتشر شد.</p>
+                      </div>
+                      <div class="pa-timeline-item">
+                        <div class="pa-tl-time">۲ روز پیش</div>
+                        <h4 class="pa-tl-title">نظر جدید</h4>
+                        <p class="pa-tl-text">رضا کاظمی نظر جدیدی روی محصول ثبت کرد.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pa-col-6">
+                <div class="pa-card pa-hover-lift">
+                  <div class="pa-card-header">
+                    <h3>سفارش‌های اخیر</h3>
+                    <a href="tables.html" class="pa-btn pa-btn-ghost pa-btn-sm">مشاهده همه</a>
+                  </div>
+                  <div class="pa-card-body" style="padding:0">
+                    <div class="pa-table-wrap">
+                      <table class="pa-table pa-table-sm">
+                        <thead>
+                          <tr><th>شماره</th><th>تاریخ</th><th>مبلغ</th><th>وضعیت</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><strong>#۱۰۲۴</strong></td>
+                            <td class="pa-text-muted">۱۴ آذر</td>
+                            <td>۱٫۲۵۰٫۰۰۰ ت</td>
+                            <td><span class="pa-badge pa-badge-success pa-badge-sm">تکمیل</span></td>
+                            <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده سفارش #۱۰۲۴.'})"></button></td>
+                          </tr>
+                          <tr>
+                            <td><strong>#۱۰۲۳</strong></td>
+                            <td class="pa-text-muted">۱۳ آذر</td>
+                            <td>۸۹۰٫۰۰۰ ت</td>
+                            <td><span class="pa-badge pa-badge-warning pa-badge-sm">در حال ارسال</span></td>
+                            <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده سفارش #۱۰۲۳.'})"></button></td>
+                          </tr>
+                          <tr>
+                            <td><strong>#۱۰۲۲</strong></td>
+                            <td class="pa-text-muted">۱۲ آذر</td>
+                            <td>۲٫۴۰۰٫۰۰۰ ت</td>
+                            <td><span class="pa-badge pa-badge-primary pa-badge-sm">در حال پردازش</span></td>
+                            <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده سفارش #۱۰۲۲.'})"></button></td>
+                          </tr>
+                          <tr>
+                            <td><strong>#۱۰۲۱</strong></td>
+                            <td class="pa-text-muted">۱۱ آذر</td>
+                            <td>۵۶۰٫۰۰۰ ت</td>
+                            <td><span class="pa-badge pa-badge-danger pa-badge-sm">لغو شده</span></td>
+                            <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده سفارش #۱۰۲۱.'})"></button></td>
+                          </tr>
+                          <tr>
+                            <td><strong>#۱۰۲۰</strong></td>
+                            <td class="pa-text-muted">۱۰ آذر</td>
+                            <td>۱٫۸۹۰٫۰۰۰ ت</td>
+                            <td><span class="pa-badge pa-badge-success pa-badge-sm">تکمیل</span></td>
+                            <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'مشاهده سفارش #۱۰۲۰.'})"></button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Quick settings + Active sessions -->
+            <div class="pa-row">
+
+              <div class="pa-col-6">
+                <div class="pa-card pa-hover-lift">
+                  <div class="pa-card-header"><h3>تنظیمات سریع</h3></div>
+                  <div class="pa-card-body pa-up-toggle-list">
+                    <div class="pa-form-check">
+                      <input type="checkbox" id="qs-email" checked>
+                      <label for="qs-email"><span data-pa-icon="envelope" data-pa-icon-size="16"></span> اعلان ایمیلی <span class="pa-up-toggle-desc">دریافت اعلان‌ها از طریق ایمیل</span></label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input type="checkbox" id="qs-2fa" onchange="PAdminLTE.toast({kind:'success',message:'احراز دو مرحله‌ای ' + (this.checked ? 'فعال' : 'غیرفعال') + ' شد.'})">
+                      <label for="qs-2fa"><span data-pa-icon="shield" data-pa-icon-size="16"></span> احراز دو مرحله‌ای <span class="pa-up-toggle-desc">افزایش امنیت حساب کاربری</span></label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input type="checkbox" id="qs-dark" onchange="PAdminLTE.toggleTheme(); PAdminLTE.toast({kind:'info',message:'حالت ' + (PAdminLTE.getTheme()==='dark' ? 'تاریک' : 'روشن') + ' فعال شد.'})">
+                      <label for="qs-dark"><span data-pa-icon="moon" data-pa-icon-size="16"></span> حالت تاریک <span class="pa-up-toggle-desc">تغییر ظاهر به تم تاریک</span></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pa-col-6">
+                <div class="pa-card pa-hover-lift">
+                  <div class="pa-card-header"><h3>نشست‌های فعال</h3></div>
+                  <div class="pa-card-body" style="padding:0">
+                    <div class="pa-table-wrap">
+                      <table class="pa-table pa-table-sm">
+                        <thead>
+                          <tr><th>دستگاه</th><th>مرورگر / موقعیت</th><th>آخرین فعالیت</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><span class="pa-up-device-icon"><span data-pa-icon="monitor" data-pa-icon-size="18"></span></span></td>
+                            <td>Chrome — تهران، ایران<br><small class="pa-text-muted"><span class="pa-badge pa-badge-success pa-badge-sm">این دستگاه</span></small></td>
+                            <td class="pa-text-muted">اکنون</td>
+                            <td><span class="pa-text-muted pa-text-sm">—</span></td>
+                          </tr>
+                          <tr>
+                            <td><span class="pa-up-device-icon"><span data-pa-icon="smartphone" data-pa-icon-size="18"></span></span></td>
+                            <td>Safari Mobile — تهران، ایران<br><small class="pa-text-muted">iOS 17</small></td>
+                            <td class="pa-text-muted">۲ ساعت پیش</td>
+                            <td><button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="logout" data-pa-icon-size="12" onclick="PAdminLTE.toast({kind:'warning',message:'نشست موبایل بسته شد.'})"> خروج</button></td>
+                          </tr>
+                          <tr>
+                            <td><span class="pa-up-device-icon"><span data-pa-icon="tablet" data-pa-icon-size="18"></span></span></td>
+                            <td>Firefox — اصفهان، ایران<br><small class="pa-text-muted">Android 14</small></td>
+                            <td class="pa-text-muted">۳ روز پیش</td>
+                            <td><button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="logout" data-pa-icon-size="12" onclick="PAdminLTE.toast({kind:'warning',message:'نشست تبلت بسته شد.'})"> خروج</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Sync quick-settings dark mode toggle with current theme on load
+    (function () {
+      var dark = document.getElementById('qs-dark');
+      if (dark && typeof PAdminLTE !== 'undefined' && PAdminLTE.getTheme() === 'dark') {
+        dark.checked = true;
+      }
+    })();
+    // Sync dark toggle when header theme toggle is clicked
+    if (typeof PAdminLTE !== 'undefined' && PAdminLTE.on) {
+      PAdminLTE.on('pa:theme', function () {
+        var dark = document.getElementById('qs-dark');
+        if (dark) dark.checked = (PAdminLTE.getTheme() === 'dark');
+      });
+    }
+    // Cosmetic user panel menu switching
+    document.querySelectorAll('.pa-userpanel-menu a').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        if (a.getAttribute('href') === '#' || a.classList.contains('is-active')) {
+          e.preventDefault();
+          return;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

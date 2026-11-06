@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تخته کانبان</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-board-header { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+    .pa-board-header h2 { margin: 0 0 .25rem; font-size: 1.25rem; }
+    .pa-board-meta { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .pa-board-meta-item { display: flex; align-items: center; gap: .4rem; font-size: .85rem; color: var(--pa-text-muted); }
+    .pa-board-progress { flex: 1; min-width: 200px; max-width: 320px; }
+    .pa-board-progress .pa-progress { height: 8px; }
+    .pa-board-team { display: flex; align-items: center; gap: .5rem; }
+    .pa-kanban-card .pa-kc-footer .pa-kc-assignee {
+      width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+      font-weight: 700; font-size: .7rem; color: #fff; flex-shrink: 0;
+    }
+    .pa-kanban-card .pa-kc-footer .pa-kc-due { display: inline-flex; align-items: center; gap: .25rem; }
+    .pa-kanban-col-cards { display: flex; flex-direction: column; gap: .5rem; }
+    /* Generic icon button (used outside .pa-header) */
+    .pa-icon-btn { background: transparent; border: 0; cursor: pointer; padding: .35rem; color: var(--pa-text-muted); border-radius: var(--pa-radius); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; }
+    .pa-icon-btn:hover { background: var(--pa-surface-3); color: var(--pa-text); }
+    /* Small badge override */
+    .pa-badge-sm { font-size: .68rem !important; padding: .15rem .45rem !important; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>تخته کانبان</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>کانبان</span>
+            </div>
+          </div>
+          <div class="pa-tools">
+            <button class="pa-btn pa-btn-outline" data-pa-icon="users" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'info',message:'مدیریت اعضای تیم.'})"> کاربران</button>
+            <button class="pa-btn pa-btn-outline" data-pa-icon="settings" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'info',message:'تنظیمات تخته.'})"> تنظیمات</button>
+          </div>
+        </div>
+
+        <!-- Board header card -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-body pa-board-header">
+            <div style="flex:1; min-width:240px">
+              <h2>پروژه توسعه PAdminLTE v1.1</h2>
+              <p class="pa-text-muted pa-text-sm" style="margin:0">تخته مدیریت وظایف نسخه ۱.۱ — اسپرینت سوم</p>
+            </div>
+            <div class="pa-board-meta">
+              <div class="pa-board-meta-item"><span data-pa-icon="calendar" data-pa-icon-size="14"></span> شروع: ۱ آذر ۱۴۰۳</div>
+              <div class="pa-board-meta-item"><span data-pa-icon="flag_alt" data-pa-icon-size="14"></span> موعد: ۲۰ دی ۱۴۰۳</div>
+              <div class="pa-board-progress">
+                <div class="pa-d-flex pa-justify-between pa-mb-1">
+                  <span class="pa-text-sm pa-text-semibold">پیشرفت کلی</span>
+                  <span class="pa-text-sm pa-text-muted">۶۵٪</span>
+                </div>
+                <div class="pa-progress"><div class="pa-progress-bar pa-success" style="width:65%"></div></div>
+              </div>
+              <div class="pa-board-team">
+                <span class="pa-avatar-list pa-d-inline-flex">
+                  <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary); color:#fff; display:grid; place-items:center; font-weight:700">ا</span>
+                  <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success); color:#fff; display:grid; place-items:center; font-weight:700">پ</span>
+                  <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning); color:#212529; display:grid; place-items:center; font-weight:700">س</span>
+                  <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger); color:#fff; display:grid; place-items:center; font-weight:700">م</span>
+                  <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-info); color:#212529; display:grid; place-items:center; font-weight:700">ن</span>
+                </span>
+                <button class="pa-icon-btn" data-pa-icon="plus" data-pa-icon-size="14" aria-label="افزودن عضو" onclick="PAdminLTE.toast({kind:'info',message:'دعوت کاربر جدید.'})"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kanban board -->
+        <div class="pa-kanban pa-anim-slide-up pa-anim-delay-1" data-pa-kanban style="margin-top:1rem">
+
+          <!-- Column 1: Backlog -->
+          <div class="pa-kanban-col" data-col="backlog">
+            <div class="pa-kanban-col-header">
+              <span><span class="pa-kc-priority danger" style="background:var(--pa-danger); display:inline-block; width:8px; height:8px; border-radius:50%; margin-left:.4rem"></span>عقب‌مانده</span>
+              <span class="pa-kanban-count">۳</span>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up" data-id="t1">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-secondary pa-badge-sm">طراحی</span>
+                <span class="pa-badge pa-badge-warning pa-badge-sm">اولویت بالا</span>
+              </div>
+              <h4 class="pa-kc-title">طراحی صفحه ورود</h4>
+              <p class="pa-kc-desc">بازطراحی صفحه ورود با پشتیبانی از احراز هویت دو مرحله‌ای.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority high"></span> ۱۸ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-primary)">ا</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-1" data-id="t2">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-primary pa-badge-sm">امنیت</span>
+              </div>
+              <h4 class="pa-kc-title">افزودن OTP</h4>
+              <p class="pa-kc-desc">پیاده‌سازی ورود کد یک‌بارمصرف پیامکی و اپلیکیشن احراز.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority high"></span> ۲۰ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-danger)">م</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-2" data-id="t3">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-info pa-badge-sm">بازاریابی</span>
+                <span class="pa-badge pa-badge-success pa-badge-sm">اولویت پایین</span>
+              </div>
+              <h4 class="pa-kc-title">ساخت صفحه فرود</h4>
+              <p class="pa-kc-desc">طراحی صفحه فرود معرفی محصول با بخش ویژگی‌ها و قیمت‌گذاری.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority low"></span> ۲ دی</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-info)">ن</span>
+              </div>
+            </div>
+
+            <button class="pa-kanban-add-card" data-pa-icon="plus" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'افزودن کارت به عقب‌مانده.'})"> افزودن کارت</button>
+          </div>
+
+          <!-- Column 2: In Progress -->
+          <div class="pa-kanban-col" data-col="progress">
+            <div class="pa-kanban-col-header">
+              <span><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--pa-warning); margin-left:.4rem"></span>در حال انجام</span>
+              <span class="pa-kanban-count">۴</span>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up" data-id="t4">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-primary pa-badge-sm">نمودار</span>
+                <span class="pa-badge pa-badge-warning pa-badge-sm">اولویت متوسط</span>
+              </div>
+              <h4 class="pa-kc-title">پیاده‌سازی نمودار میله‌ای</h4>
+              <p class="pa-kc-desc">افزودن نمودار میله‌ای تعاملی به صفحه داشبورد با پشتیبانی تم تاریک.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority med"></span> ۱۵ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-success)">پ</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-1" data-id="t5">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-info pa-badge-sm">UI/UX</span>
+              </div>
+              <h4 class="pa-kc-title">بهبود انیمیشن‌ها</h4>
+              <p class="pa-kc-desc">بهینه‌سازی انیمیشن‌های ورود کارت‌ها و رفع پرش صفحه در حالت RTL.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority med"></span> ۱۶ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-warning)">س</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-2" data-id="t6">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-success pa-badge-sm">مستندات</span>
+              </div>
+              <h4 class="pa-kc-title">نوشتن مستندات API</h4>
+              <p class="pa-kc-desc">تکمیل مستندات REST API نسخه ۲ با مثال‌های کاربردی فارسی.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority low"></span> ۱۹ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-info)">ن</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-3" data-id="t7">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-primary pa-badge-sm">کامپوننت</span>
+                <span class="pa-badge pa-badge-warning pa-badge-sm">اولویت بالا</span>
+              </div>
+              <h4 class="pa-kc-title">پیاده‌سازی مودال</h4>
+              <p class="pa-kc-desc">ساخت مودال واکنش‌گرا با پشتیبانی اندازه‌های مختلف و انیمیشن.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority high"></span> ۱۴ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-primary)">ا</span>
+              </div>
+            </div>
+
+            <button class="pa-kanban-add-card" data-pa-icon="plus" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'افزودن کارت به در حال انجام.'})"> افزودن کارت</button>
+          </div>
+
+          <!-- Column 3: Review -->
+          <div class="pa-kanban-col" data-col="review">
+            <div class="pa-kanban-col-header">
+              <span><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--pa-info); margin-left:.4rem"></span>بازبینی</span>
+              <span class="pa-kanban-count">۲</span>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up" data-id="t8">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-secondary pa-badge-sm">آیکون</span>
+              </div>
+              <h4 class="pa-kc-title">افزودن آیکون‌ها</h4>
+              <p class="pa-kc-desc">افزودن بیش از ۲۷۰ آیکون SVG درون‌خطی به کتابخانه آیکون.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority med"></span> ۱۲ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-warning)">س</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-1" data-id="t9">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-info pa-badge-sm">پرفورمنس</span>
+                <span class="pa-badge pa-badge-success pa-badge-sm">اولویت پایین</span>
+              </div>
+              <h4 class="pa-kc-title">بهینه‌سازی CSS</h4>
+              <p class="pa-kc-desc">کاهش حجم CSS نهایی و حذف استایل‌های تکراری در بخش‌های مختلف.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority low"></span> ۱۳ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-success)">پ</span>
+              </div>
+            </div>
+
+            <button class="pa-kanban-add-card" data-pa-icon="plus" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'افزودن کارت به بازبینی.'})"> افزودن کارت</button>
+          </div>
+
+          <!-- Column 4: Done -->
+          <div class="pa-kanban-col" data-col="done">
+            <div class="pa-kanban-col-header">
+              <span><span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--pa-success); margin-left:.4rem"></span>انجام شده</span>
+              <span class="pa-kanban-count">۳</span>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up" data-id="t10" style="opacity:.8">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-success pa-badge-sm">تست</span>
+              </div>
+              <h4 class="pa-kc-title">تست ریسپانسیو</h4>
+              <p class="pa-kc-desc">بررسی کامل رفتار قالب در اندازه‌های موبایل، تبلت و دسکتاپ.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority low"></span> <span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> ۸ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-danger)">م</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-1" data-id="t11" style="opacity:.8">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-secondary pa-badge-sm">تم</span>
+              </div>
+              <h4 class="pa-kc-title">افزودن تم تاریک</h4>
+              <p class="pa-kc-desc">پیاده‌سازی تم تاریک با ذخیره‌سازی انتخاب کاربر در localStorage.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority low"></span> <span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> ۶ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-primary)">ا</span>
+              </div>
+            </div>
+
+            <div class="pa-kanban-card pa-anim-slide-up pa-anim-delay-2" data-id="t12" style="opacity:.8">
+              <div class="pa-kc-tags">
+                <span class="pa-badge pa-badge-success pa-badge-sm">QA</span>
+              </div>
+              <h4 class="pa-kc-title">تست نهایی</h4>
+              <p class="pa-kc-desc">اجرای تست‌های نهایی رگرسیون روی همه صفحات اپلیکیشن.</p>
+              <div class="pa-kc-footer">
+                <span class="pa-kc-due"><span class="pa-kc-priority low"></span> <span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> ۱۰ آذر</span>
+                <span class="pa-kc-assignee" style="background:var(--pa-info)">ن</span>
+              </div>
+            </div>
+
+            <button class="pa-kanban-add-card" data-pa-icon="plus" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'افزودن کارت به انجام شده.'})"> افزودن کارت</button>
+          </div>
+
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Listen for kanban move events to update counters and notify
+    if (typeof PAdminLTE !== 'undefined' && PAdminLTE.on) {
+      PAdminLTE.on('pa:kanban:move', function (payload) {
+        var card = payload && payload.card;
+        var col = payload && payload.column;
+        if (!col) return;
+        // Re-insert card before the "+ add card" button so order stays correct
+        var addBtn = col.querySelector('.pa-kanban-add-card');
+        if (addBtn && card) col.insertBefore(card, addBtn);
+        // Recompute counts
+        document.querySelectorAll('.pa-kanban-col').forEach(function (c) {
+          var count = c.querySelectorAll('.pa-kanban-card').length;
+          var badge = c.querySelector('.pa-kanban-count');
+          if (badge) {
+            badge.textContent = String(count).replace(/\d/g, function (d) {
+              return '۰۱۲۳۴۵۶۷۸۹'[+d];
+            });
+          }
+        });
+        var title = card ? (card.querySelector('.pa-kc-title') || {}).textContent : 'کارت';
+        PAdminLTE.toast({ kind: 'success', message: '«' + title + '» به ستون جدید منتقل شد.' });
+      });
+    }
+
+    // Click on card → show toast with title
+    document.addEventListener('click', function (e) {
+      var card = e.target.closest('.pa-kanban-card');
+      if (!card) return;
+      // Don't interfere with drag
+      if (e.target.closest('button')) return;
+      var title = (card.querySelector('.pa-kc-title') || {}).textContent || 'کارت';
+      PAdminLTE.toast({ kind: 'info', message: 'باز کردن کارت: ' + title });
+    });
+  </script>
+</body>
+</html>

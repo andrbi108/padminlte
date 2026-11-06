@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — مدیریت فایل</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-fm-toolbar { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .pa-fm-toolbar .pa-fm-breadcrumb { flex: 1; min-width: 200px; }
+    .pa-fm-toolbar .pa-fm-breadcrumb a { color: var(--pa-text-muted); }
+    .pa-fm-toolbar .pa-fm-breadcrumb a:hover { color: var(--pa-primary); text-decoration: none; }
+    .pa-fm-toolbar .pa-fm-breadcrumb .pa-sep { margin: 0 .35rem; opacity: .5; }
+    .pa-fm-search { position: relative; flex: 0 0 240px; max-width: 100%; }
+    .pa-fm-search input { padding-right: 2rem; }
+    .pa-fm-search .pa-icon { position: absolute; right: .65rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--pa-text-muted); }
+    [dir="rtl"] .pa-fm-search input { padding-right: 2rem; padding-left: .75rem; }
+    .pa-fm-recent { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+    .pa-fm-recent-card { display: flex; align-items: center; gap: .65rem; padding: .85rem; border: 1px solid var(--pa-border); border-radius: var(--pa-radius); background: var(--pa-surface); transition: all .2s; cursor: pointer; }
+    .pa-fm-recent-card:hover { transform: translateY(-2px); box-shadow: var(--pa-shadow-lg); }
+    .pa-fm-recent-card .pa-fm-thumb { width: 40px; height: 40px; border-radius: var(--pa-radius); display: grid; place-items: center; flex-shrink: 0; }
+    .pa-fm-recent-card .pa-fm-thumb.bg-primary { background: var(--pa-primary-soft); color: var(--pa-primary); }
+    .pa-fm-recent-card .pa-fm-thumb.bg-success { background: var(--pa-success-soft); color: var(--pa-success); }
+    .pa-fm-recent-card .pa-fm-thumb.bg-warning { background: var(--pa-warning-soft); color: var(--pa-warning); }
+    .pa-fm-recent-card .pa-fm-thumb.bg-danger  { background: var(--pa-danger-soft);  color: var(--pa-danger); }
+    .pa-fm-recent-card .pa-fm-name { font-weight: 600; font-size: .85rem; }
+    .pa-fm-recent-card .pa-fm-meta { font-size: .75rem; color: var(--pa-text-muted); }
+    .pa-fm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .75rem; }
+    .pa-fm-item { border: 1px solid var(--pa-border); border-radius: var(--pa-radius-lg); background: var(--pa-surface); padding: 1rem; text-align: center; cursor: pointer; transition: all .2s; position: relative; }
+    .pa-fm-item:hover { transform: translateY(-4px); box-shadow: var(--pa-shadow-lg); border-color: var(--pa-primary); }
+    .pa-fm-item .pa-fm-item-icon { width: 56px; height: 56px; margin: 0 auto .5rem; display: grid; place-items: center; border-radius: var(--pa-radius); }
+    .pa-fm-item .pa-fm-item-icon.folder { background: var(--pa-warning-soft); color: var(--pa-warning); }
+    .pa-fm-item .pa-fm-item-icon.text   { background: var(--pa-primary-soft); color: var(--pa-primary); }
+    .pa-fm-item .pa-fm-item-icon.image  { background: var(--pa-success-soft); color: var(--pa-success); }
+    .pa-fm-item .pa-fm-item-icon.video  { background: var(--pa-danger-soft);  color: var(--pa-danger); }
+    .pa-fm-item .pa-fm-item-icon.pdf    { background: var(--pa-danger-soft);  color: var(--pa-danger); }
+    .pa-fm-item .pa-fm-item-icon.code   { background: var(--pa-purple-soft, var(--pa-primary-soft)); color: var(--pa-purple, var(--pa-primary)); }
+    .pa-fm-item .pa-fm-item-icon.archive{ background: var(--pa-info-soft); color: var(--pa-info); }
+    .pa-fm-item .pa-fm-item-name { font-weight: 600; font-size: .85rem; margin-bottom: .15rem; word-break: break-all; }
+    .pa-fm-item .pa-fm-item-meta { font-size: .75rem; color: var(--pa-text-muted); }
+    .pa-fm-item .pa-fm-more { position: absolute; top: .35rem; left: .35rem; background: transparent; border: 0; cursor: pointer; padding: .2rem; color: var(--pa-text-muted); border-radius: var(--pa-radius); }
+    .pa-fm-item .pa-fm-more:hover { background: var(--pa-surface-3); color: var(--pa-text); }
+    .pa-fm-places-item { display: flex; align-items: center; gap: .65rem; padding: .55rem .75rem; border-radius: var(--pa-radius); color: var(--pa-text); font-size: .9rem; cursor: pointer; transition: background .15s; }
+    .pa-fm-places-item:hover { background: var(--pa-surface-2); }
+    .pa-fm-places-item.is-active { background: var(--pa-primary-soft); color: var(--pa-primary); font-weight: 600; }
+    .pa-fm-places-item .pa-icon { width: 16px; height: 16px; }
+    .pa-fm-places-item .pa-ml-count { margin-right: auto; background: var(--pa-surface-3); padding: .1rem .45rem; border-radius: 1rem; font-size: .7rem; }
+    /* Generic icon button (used outside .pa-header) */
+    .pa-icon-btn { background: transparent; border: 0; cursor: pointer; padding: .35rem; color: var(--pa-text-muted); border-radius: var(--pa-radius); display: inline-flex; align-items: center; justify-content: center; transition: background .15s, color .15s; }
+    .pa-icon-btn:hover { background: var(--pa-surface-3); color: var(--pa-text); }
+    /* Small badge override */
+    .pa-badge-sm { font-size: .68rem !important; padding: .15rem .45rem !important; }
+    /* Button group: keep buttons inline */
+    .pa-btn-group { display: inline-flex; gap: .25rem; }
+    .pa-btn.is-active { background: var(--pa-primary); color: #fff; border-color: var(--pa-primary); }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>مدیریت فایل</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>فایل‌ها</span>
+            </div>
+          </div>
+          <div class="pa-tools">
+            <a class="pa-btn pa-btn-primary" href="file-upload.html" data-pa-icon="cloud_upload" data-pa-icon-size="16"> آپلود فایل</a>
+          </div>
+        </div>
+
+        <div class="pa-row pa-anim-slide-up">
+
+          <!-- Sidebar -->
+          <div class="pa-col-3">
+
+            <!-- Storage card -->
+            <div class="pa-card pa-hover-lift">
+              <div class="pa-card-header"><h3>ذخیره‌سازی</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-d-flex pa-justify-between pa-mb-1">
+                  <span class="pa-text-sm pa-text-semibold">فضای استفاده شده</span>
+                  <span class="pa-text-sm pa-text-muted">۵.۲ / ۱۵ GB</span>
+                </div>
+                <div class="pa-progress"><div class="pa-progress-bar pa-warning" style="width:35%"></div></div>
+                <p class="pa-text-sm pa-text-muted pa-mt-2" style="margin:0">۹.۸ گیگابایت فضای آزاد باقی مانده است.</p>
+                <button class="pa-btn pa-btn-primary pa-btn-block pa-mt-2" data-pa-icon="rocket" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'ارتقاء طرح به ۱۰۰ گیگابایت.'})"> ارتقاء طرح</button>
+              </div>
+            </div>
+
+            <!-- Locations card -->
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>محل‌ها</h3></div>
+              <div class="pa-card-body" style="padding:.5rem">
+                <div class="pa-fm-places-item is-active"><span data-pa-icon="hard_drive"></span><span>فایل‌های من</span><span class="pa-ml-count">۱۲۸</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="cloud"></span><span>فضای ابری</span><span class="pa-ml-count">۴۲</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="link"></span><span>مشترک با من</span><span class="pa-ml-count">۱۸</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="star_alt"></span><span>ستاره‌دار</span><span class="pa-ml-count">۷</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="trash"></span><span>سطل زباله</span><span class="pa-ml-count">۵</span></div>
+              </div>
+            </div>
+
+            <!-- Folders card -->
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>پوشه‌ها</h3></div>
+              <div class="pa-card-body" style="padding:.5rem">
+                <div class="pa-fm-places-item"><span data-pa-icon="folder"></span><span>پروژه‌ها</span><span class="pa-ml-count">۳۲</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="folder"></span><span>تصاویر</span><span class="pa-ml-count">۸۶</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="folder"></span><span>اسناد</span><span class="pa-ml-count">۴۵</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="folder"></span><span>ویدیوها</span><span class="pa-ml-count">۱۲</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="folder"></span><span>موسیقی</span><span class="pa-ml-count">۲۸</span></div>
+                <div class="pa-fm-places-item"><span data-pa-icon="folder"></span><span>دانلودها</span><span class="pa-ml-count">۶۴</span></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Main -->
+          <div class="pa-col-9">
+
+            <div class="pa-card">
+              <div class="pa-card-body">
+
+                <!-- Toolbar -->
+                <div class="pa-fm-toolbar">
+                  <div class="pa-fm-breadcrumb pa-text-sm">
+                    <a href="../index.html">خانه</a>
+                    <span class="pa-sep">›</span>
+                    <a href="#">Documents</a>
+                    <span class="pa-sep">›</span>
+                    <span>Projects</span>
+                  </div>
+                  <div class="pa-fm-search">
+                    <span data-pa-icon="search"></span>
+                    <input class="pa-input" type="search" placeholder="جستجوی فایل...">
+                  </div>
+                  <div class="pa-btn-group">
+                    <button class="pa-btn pa-btn-outline pa-btn-sm is-active" data-pa-icon="grid" data-pa-icon-size="14" title="نمای شبکه‌ای" onclick="PAdminLTE.toast({kind:'info',message:'نمای شبکه‌ای.'})"></button>
+                    <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="list" data-pa-icon-size="14" title="نمای لیستی" onclick="document.getElementById('pa-fm-table').scrollIntoView({behavior:'smooth'})"></button>
+                  </div>
+                  <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="filter" data-pa-icon-size="14"> فیلتر</button>
+                  <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="folder_plus" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'success',message:'پوشه جدید ساخته شد.'})"> پوشه جدید</button>
+                </div>
+
+                <!-- Recent files -->
+                <h4 class="pa-text-muted pa-text-sm pa-mb-1" style="text-transform:uppercase; letter-spacing:.04em">اخیراً استفاده شده</h4>
+                <div class="pa-fm-recent">
+                  <div class="pa-fm-recent-card" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن فایل.'})">
+                    <div class="pa-fm-thumb bg-primary"><span data-pa-icon="file_text" data-pa-icon-size="22"></span></div>
+                    <div style="flex:1; min-width:0">
+                      <div class="pa-fm-name pa-text-truncate">گزارش.pdf</div>
+                      <div class="pa-fm-meta">۱۲ مورد — ۲.۴ MB</div>
+                    </div>
+                  </div>
+                  <div class="pa-fm-recent-card" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن فایل.'})">
+                    <div class="pa-fm-thumb bg-success"><span data-pa-icon="file_image" data-pa-icon-size="22"></span></div>
+                    <div style="flex:1; min-width:0">
+                      <div class="pa-fm-name pa-text-truncate">آلبوم.jpg</div>
+                      <div class="pa-fm-meta">۸ مورد — ۱۴.۲ MB</div>
+                    </div>
+                  </div>
+                  <div class="pa-fm-recent-card" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن فایل.'})">
+                    <div class="pa-fm-thumb bg-danger"><span data-pa-icon="file_video" data-pa-icon-size="22"></span></div>
+                    <div style="flex:1; min-width:0">
+                      <div class="pa-fm-name pa-text-truncate">دمو.mp4</div>
+                      <div class="pa-fm-meta">۳ مورد — ۴۸.۷ MB</div>
+                    </div>
+                  </div>
+                  <div class="pa-fm-recent-card" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن فایل.'})">
+                    <div class="pa-fm-thumb bg-warning"><span data-pa-icon="file_pdf" data-pa-icon-size="22"></span></div>
+                    <div style="flex:1; min-width:0">
+                      <div class="pa-fm-name pa-text-truncate">فاکتور.pdf</div>
+                      <div class="pa-fm-meta">۵ مورد — ۱.۱ MB</div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="pa-mb-2" style="border:0; border-top:1px solid var(--pa-border)">
+
+                <!-- File grid -->
+                <div class="pa-fm-grid">
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'پوشه باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon folder"><span data-pa-icon="folder" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">پروژه‌ها</div>
+                    <div class="pa-fm-item-meta">۳۲ فایل</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'پوشه باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon folder"><span data-pa-icon="folder" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">تصاویر</div>
+                    <div class="pa-fm-item-meta">۸۶ فایل</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'پوشه باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon folder"><span data-pa-icon="folder" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">ویدیوها</div>
+                    <div class="pa-fm-item-meta">۱۲ فایل</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'پوشه باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon folder"><span data-pa-icon="folder" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">اسناد</div>
+                    <div class="pa-fm-item-meta">۴۵ فایل</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'پوشه باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon folder"><span data-pa-icon="folder" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">موسیقی</div>
+                    <div class="pa-fm-item-meta">۲۸ فایل</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'پوشه باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon folder"><span data-pa-icon="folder" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">دانلودها</div>
+                    <div class="pa-fm-item-meta">۶۴ فایل</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'فایل باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon pdf"><span data-pa-icon="file_pdf" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">گزارش.pdf</div>
+                    <div class="pa-fm-item-meta">۲.۴ MB · ۱۲ آذر</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'فایل باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon code"><span data-pa-icon="file_code" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">کد.js</div>
+                    <div class="pa-fm-item-meta">۱۸ KB · ۱۱ آذر</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'فایل باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon image"><span data-pa-icon="file_image" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">آلبوم.jpg</div>
+                    <div class="pa-fm-item-meta">۴.۲ MB · ۱۰ آذر</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'فایل باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon video"><span data-pa-icon="file_video" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">دمو.mp4</div>
+                    <div class="pa-fm-item-meta">۴۸.۷ MB · ۹ آذر</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'فایل باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon text"><span data-pa-icon="file_text" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">یادداشت.txt</div>
+                    <div class="pa-fm-item-meta">۴ KB · ۸ آذر</div>
+                  </div>
+                  <div class="pa-fm-item pa-hover-lift" onclick="PAdminLTE.toast({kind:'info',message:'فایل باز شد.'})">
+                    <button class="pa-fm-more" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="event.stopPropagation()"></button>
+                    <div class="pa-fm-item-icon archive"><span data-pa-icon="file_archive" data-pa-icon-size="32"></span></div>
+                    <div class="pa-fm-item-name">پشتیبان.zip</div>
+                    <div class="pa-fm-item-meta">۱۲.۸ MB · ۷ آذر</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Table view -->
+            <div class="pa-card pa-mt-2" id="pa-fm-table">
+              <div class="pa-card-header">
+                <h3>نمای لیستی</h3>
+                <div class="pa-tools">
+                  <button class="pa-icon-btn" data-pa-icon="refresh" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'info',message:'به‌روزرسانی شد.'})"></button>
+                  <button class="pa-icon-btn" data-pa-icon="download" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'info',message:'دانلود همه.'})"></button>
+                </div>
+              </div>
+              <div class="pa-card-body" style="padding:0">
+                <div class="pa-table-wrap">
+                  <table class="pa-table pa-table-sm">
+                    <thead>
+                      <tr>
+                        <th>نام</th>
+                        <th>اندازه</th>
+                        <th>تغییر یافته</th>
+                        <th>نوع</th>
+                        <th>عملیات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><span data-pa-icon="folder" data-pa-icon-size="16" style="color:var(--pa-warning); margin-left:.4rem"></span><strong>پروژه‌ها</strong></td>
+                        <td class="pa-text-muted">—</td>
+                        <td class="pa-text-muted">۱۲ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-secondary pa-badge-sm">پوشه</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                      <tr>
+                        <td><span data-pa-icon="folder" data-pa-icon-size="16" style="color:var(--pa-warning); margin-left:.4rem"></span><strong>تصاویر</strong></td>
+                        <td class="pa-text-muted">—</td>
+                        <td class="pa-text-muted">۱۰ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-secondary pa-badge-sm">پوشه</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                      <tr>
+                        <td><span data-pa-icon="file_pdf" data-pa-icon-size="16" style="color:var(--pa-danger); margin-left:.4rem"></span>گزارش.pdf</td>
+                        <td class="pa-text-muted">۲.۴ MB</td>
+                        <td class="pa-text-muted">۱۲ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-danger pa-badge-sm">PDF</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                      <tr>
+                        <td><span data-pa-icon="file_code" data-pa-icon-size="16" style="color:var(--pa-purple, var(--pa-primary)); margin-left:.4rem"></span>کد.js</td>
+                        <td class="pa-text-muted">۱۸ KB</td>
+                        <td class="pa-text-muted">۱۱ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-primary pa-badge-sm">کد</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                      <tr>
+                        <td><span data-pa-icon="file_image" data-pa-icon-size="16" style="color:var(--pa-success); margin-left:.4rem"></span>آلبوم.jpg</td>
+                        <td class="pa-text-muted">۴.۲ MB</td>
+                        <td class="pa-text-muted">۱۰ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-success pa-badge-sm">تصویر</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                      <tr>
+                        <td><span data-pa-icon="file_video" data-pa-icon-size="16" style="color:var(--pa-danger); margin-left:.4rem"></span>دمو.mp4</td>
+                        <td class="pa-text-muted">۴۸.۷ MB</td>
+                        <td class="pa-text-muted">۹ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-warning pa-badge-sm">ویدیو</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                      <tr>
+                        <td><span data-pa-icon="file_archive" data-pa-icon-size="16" style="color:var(--pa-info); margin-left:.4rem"></span>پشتیبان.zip</td>
+                        <td class="pa-text-muted">۱۲.۸ MB</td>
+                        <td class="pa-text-muted">۷ آذر ۱۴۰۳</td>
+                        <td><span class="pa-badge pa-badge-info pa-badge-sm">فشرده</span></td>
+                        <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="more_vertical" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'منوی فایل.'})"></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Cosmetic places switching
+    document.querySelectorAll('.pa-fm-places-item').forEach(function (p) {
+      p.addEventListener('click', function () {
+        var group = p.closest('.pa-card-body');
+        if (!group) return;
+        group.querySelectorAll('.pa-fm-places-item').forEach(function (x) { x.classList.remove('is-active'); });
+        p.classList.add('is-active');
+      });
+    });
+  </script>
+</body>
+</html>

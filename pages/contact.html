@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تماس با ما</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-contact-info-row {
+      display: flex; align-items: flex-start; gap: .85rem;
+      padding: .75rem 0; border-bottom: 1px solid var(--pa-border);
+    }
+    .pa-contact-info-row:last-child { border-bottom: 0; }
+    .pa-contact-info-icon {
+      width: 38px; height: 38px; border-radius: var(--pa-radius);
+      background: var(--pa-primary-soft); color: var(--pa-primary);
+      display: grid; place-items: center; flex-shrink: 0;
+    }
+    .pa-contact-info-label { font-size: .8rem; color: var(--pa-text-muted); }
+    .pa-contact-info-value { font-weight: 600; font-size: .92rem; margin-top: .15rem; }
+
+    .pa-social-row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .pa-social-row a {
+      width: 44px; height: 44px; border-radius: var(--pa-radius);
+      background: var(--pa-surface-3); color: var(--pa-text-muted);
+      display: grid; place-items: center; transition: all .15s;
+    }
+    .pa-social-row a:hover { background: var(--pa-primary); color: #fff; text-decoration: none; }
+
+    .pa-map-placeholder {
+      height: 260px; border-radius: var(--pa-radius-lg);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(255,255,255,.12), transparent 40%),
+        linear-gradient(135deg, #0d6efd, #6610f2);
+      position: relative; overflow: hidden;
+    }
+    .pa-map-placeholder::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .pa-map-pin {
+      position: absolute; top: 45%; left: 50%; transform: translate(-50%, -100%);
+      width: 36px; height: 36px; background: var(--pa-danger);
+      border-radius: 50% 50% 50% 0; rotate: -45deg;
+      box-shadow: 0 4px 12px rgba(0,0,0,.3);
+      display: grid; place-items: center;
+    }
+    .pa-map-pin span { rotate: 45deg; color: #fff; }
+    .pa-map-label {
+      position: absolute; top: 1rem; right: 1rem;
+      background: rgba(255,255,255,.95); color: var(--pa-text);
+      padding: .35rem .75rem; border-radius: var(--pa-radius);
+      font-size: .8rem; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- Page header -->
+        <div class="pa-page-header pa-anim-slide-up">
+          <div>
+            <h1>تماس با ما</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>تماس با ما</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form + Info -->
+        <div class="pa-row pa-anim-slide-up pa-anim-delay-1">
+
+          <!-- Form (col-8 ≈ col-7) -->
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>ارسال پیام</h3>
+                <div class="pa-tools">
+                  <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+                  <button data-pa-card-tool="remove" aria-label="حذف"></button>
+                </div>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-alert pa-alert-info pa-mb-2">
+                  <span data-pa-icon="info"></span>
+                  <div class="pa-alert-body">فرم زیر را پر کنید؛ تیم پشتیبانی ما در کمتر از ۲۴ ساعت پاسخ می‌دهد.</div>
+                </div>
+
+                <form data-pa-validate-form onsubmit="return false">
+                  <div class="pa-row">
+                    <div class="pa-col" style="flex: 0 0 calc(50% - .5rem);">
+                      <div class="pa-form-group">
+                        <label for="name">نام و نام خانوادگی</label>
+                        <input class="pa-input" type="text" id="name" name="name"
+                               placeholder="مثلاً رضا محمدی"
+                               data-pa-validate="required" required>
+                        <div class="pa-form-feedback"></div>
+                      </div>
+                    </div>
+                    <div class="pa-col" style="flex: 0 0 calc(50% - .5rem);">
+                      <div class="pa-form-group">
+                        <label for="email">ایمیل</label>
+                        <input class="pa-input" type="email" id="email" name="email"
+                               placeholder="name@example.com"
+                               data-pa-validate="email" required>
+                        <div class="pa-form-feedback"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label for="subject">موضوع</label>
+                    <select class="pa-select" id="subject" name="subject"
+                            data-pa-validate="required" required>
+                      <option value="">یک موضوع را انتخاب کنید…</option>
+                      <option value="support">پشتیبانی فنی</option>
+                      <option value="sales">فروش</option>
+                      <option value="partner">همکاری</option>
+                      <option value="bug">گزارش باگ</option>
+                      <option value="other">سایر</option>
+                    </select>
+                    <div class="pa-form-feedback"></div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label for="message">پیام شما</label>
+                    <textarea class="pa-textarea" id="message" name="message" rows="6"
+                              placeholder="پیام خود را با جزئیات بنویسید…"
+                              data-pa-validate="required" required></textarea>
+                    <div class="pa-form-feedback"></div>
+                  </div>
+
+                  <button type="submit" class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg" data-pa-icon="send" data-pa-icon-size="18"> ارسال پیام</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Info (col-4 ≈ col-5) -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-mb-2">
+              <div class="pa-card-header"><h3>اطلاعات تماس</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-contact-info-row">
+                  <div class="pa-contact-info-icon" data-pa-icon="map_pin" data-pa-icon-size="18"></div>
+                  <div>
+                    <div class="pa-contact-info-label">آدرس</div>
+                    <div class="pa-contact-info-value">تهران، خیابان ولیعصر</div>
+                  </div>
+                </div>
+                <div class="pa-contact-info-row">
+                  <div class="pa-contact-info-icon" data-pa-icon="phone" data-pa-icon-size="18"></div>
+                  <div>
+                    <div class="pa-contact-info-label">تلفن</div>
+                    <div class="pa-contact-info-value">۰۲۱-۱۲۳۴۵۶۷۸</div>
+                  </div>
+                </div>
+                <div class="pa-contact-info-row">
+                  <div class="pa-contact-info-icon" data-pa-icon="envelope" data-pa-icon-size="18"></div>
+                  <div>
+                    <div class="pa-contact-info-label">ایمیل</div>
+                    <div class="pa-contact-info-value">info@padminlte.example</div>
+                  </div>
+                </div>
+                <div class="pa-contact-info-row">
+                  <div class="pa-contact-info-icon" data-pa-icon="clock_alt" data-pa-icon-size="18"></div>
+                  <div>
+                    <div class="pa-contact-info-label">ساعات کاری</div>
+                    <div class="pa-contact-info-value">شنبه تا چهارشنبه ۹-۱۸</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card pa-mb-2">
+              <div class="pa-card-header"><h3>ما را در شبکه‌های اجتماعی دنبال کنید</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-fs-sm pa-text-muted pa-mb-2">برای دریافت آخرین اخبار و آموزش‌ها، ما را دنبال کنید.</p>
+                <div class="pa-social-row">
+                  <a href="#" aria-label="توییتر" data-pa-icon="twitter" data-pa-icon-size="18"></a>
+                  <a href="#" aria-label="فیسبوک" data-pa-icon="facebook" data-pa-icon-size="18"></a>
+                  <a href="#" aria-label="اینستاگرام" data-pa-icon="instagram" data-pa-icon-size="18"></a>
+                  <a href="#" aria-label="لینکدین" data-pa-icon="linkedin" data-pa-icon-size="18"></a>
+                  <a href="#" aria-label="گیت‌هاب" data-pa-icon="github" data-pa-icon-size="18"></a>
+                  <a href="#" aria-label="تلگرام" data-pa-icon="telegram" data-pa-icon-size="18"></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>سؤالات متداول</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-fs-sm pa-text-muted pa-mb-2">پاسخ پرسش‌های پرتکرار را در صفحهٔ سؤالات متداول پیدا کنید.</p>
+                <a href="faq.html" class="pa-btn pa-btn-outline pa-btn-block" data-pa-icon="question" data-pa-icon-size="16"> مشاهدهٔ سؤالات متداول</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>نقشه</h3>
+            <div class="pa-tools">
+              <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+              <button data-pa-card-tool="remove" aria-label="حذف"></button>
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-map-placeholder">
+              <div class="pa-map-label">دفتر مرکزی PAdminLTE</div>
+              <div class="pa-map-pin"><span data-pa-icon="map_pin" data-pa-icon-size="16"></span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address with directions timeline -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header"><h3>آدرس ما</h3></div>
+          <div class="pa-card-body">
+            <p class="pa-mb-2" style="line-height: 1.8;">
+              دفتر مرکزی ما در قلب تهران واقع شده است. دسترسی با مترو و اتوبوس
+              آسان است. در صورت نیاز به هماهنگی بازدید حضوری، لطفاً از قبل با
+              ما تماس بگیرید.
+            </p>
+            <div class="pa-timeline">
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">مرحله ۱</div>
+                <div class="pa-tl-title">از مترو</div>
+                <div class="pa-tl-text">ایستگاه ولیعصر، خروجی شمالی، ۵ دقیقه پیاده تا ساختمان.</div>
+              </div>
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">مرحله ۲</div>
+                <div class="pa-tl-title">از اتوبوس</div>
+                <div class="pa-tl-text">خط BRT میدان آزادی، ایستگاه ولیعصر، روبروی بانک ملی.</div>
+              </div>
+              <div class="pa-timeline-item is-success">
+                <div class="pa-tl-time">مرحله ۳</div>
+                <div class="pa-tl-title">با خودروی شخصی</div>
+                <div class="pa-tl-text">پارکینگ عمومی پلاسکو، ۲ دقیقه پیاده تا دفتر. کد پستی: ۱۹۸۷۶۵۴۳۲۱.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

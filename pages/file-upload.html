@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — بارگذاری فایل</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>بارگذاری فایل</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>بارگذاری فایل</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a class="pa-btn pa-btn-outline pa-btn-sm" href="live-edit.html"><span data-pa-icon="code" data-pa-icon-size="14"></span> ویرایشگر زنده</a>
+            <a class="pa-btn pa-btn-ghost pa-btn-sm" href="file-manager.html"><span data-pa-icon="folder" data-pa-icon-size="14"></span> مدیریت فایل‌ها</a>
+          </div>
+        </div>
+
+        <!-- Info stat cards -->
+        <div class="pa-row">
+          <div class="pa-col-4">
+            <div class="pa-stat-card pa-anim-slide-up pa-hover-lift">
+              <div class="pa-stat-icon bg-primary"><span data-pa-icon="hard_drive" data-pa-icon-size="24"></span></div>
+              <div>
+                <div class="pa-stat-value">۱۰ <small style="font-size:.9rem; font-weight:500">مگابایت</small></div>
+                <div class="pa-stat-label">حداکثر حجم هر فایل</div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-stat-card pa-anim-slide-up pa-hover-lift">
+              <div class="pa-stat-icon bg-success"><span data-pa-icon="file_text" data-pa-icon-size="24"></span></div>
+              <div>
+                <div class="pa-stat-value pa-text-md" style="font-size:1rem; line-height:1.4">jpg, png, pdf, docx, zip</div>
+                <div class="pa-stat-label">فرمت‌های مجاز</div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-stat-card pa-anim-slide-up pa-hover-lift">
+              <div class="pa-stat-icon bg-warning"><span data-pa-icon="layers" data-pa-icon-size="24"></span></div>
+              <div>
+                <div class="pa-stat-value">۸ <small style="font-size:.9rem; font-weight:500">فایل</small></div>
+                <div class="pa-stat-label">حداکثر آپلود همزمان</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main upload card -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>بارگذاری فایل‌ها</h3>
+            <small class="pa-text-muted">کشیدن و رها کردن یا انتخاب از دیالوگ</small>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-file-drop" data-pa-file-upload="#file-list" data-pa-max-files="8">
+              <span data-pa-icon="cloud_upload" data-pa-icon-size="48"></span>
+              <div class="pa-file-drop-text">فایل‌ها را اینجا رها کنید یا کلیک کنید</div>
+              <div class="pa-file-drop-hint">حداکثر ۱۰ مگابایت برای هر فایل • حداکثر ۸ فایل</div>
+              <input type="file" multiple accept="image/*,application/pdf,.doc,.docx,.zip">
+            </div>
+            <div class="pa-file-list" id="file-list"></div>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- Alternative upload methods -->
+          <div class="pa-col-8">
+            <div class="pa-card pa-anim-slide-up">
+              <div class="pa-card-header">
+                <h3>روش‌های دیگر بارگذاری</h3>
+                <small class="pa-text-muted">URL، فضای ابری یا اسکن سند</small>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-row pa-mb-0">
+
+                  <!-- Upload from URL -->
+                  <div class="pa-col-4">
+                    <div class="pa-card pa-hover-lift" style="margin:0; height:100%">
+                      <div class="pa-card-body pa-d-flex" style="flex-direction:column; gap:.75rem; align-items:flex-start">
+                        <span class="pa-stat-icon bg-primary" style="width:40px; height:40px"><span data-pa-icon="link" data-pa-icon-size="20"></span></span>
+                        <h4 style="margin:0">آپلود از URL</h4>
+                        <p class="pa-text-muted pa-text-sm" style="margin:0">نشانی فایل را وارد کنید.</p>
+                        <div class="pa-input-group" style="width:100%">
+                          <input id="url-input" class="pa-input" type="url" placeholder="https://example.com/file.pdf" style="font-size:.8rem">
+                          <button class="pa-btn pa-btn-primary" type="button" onclick="uploadFromUrl()"
+                            data-pa-icon="download" data-pa-icon-size="14"> دریافت</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Upload from Cloud -->
+                  <div class="pa-col-4">
+                    <div class="pa-card pa-hover-lift" style="margin:0; height:100%">
+                      <div class="pa-card-body pa-d-flex" style="flex-direction:column; gap:.75rem; align-items:flex-start">
+                        <span class="pa-stat-icon bg-purple" style="width:40px; height:40px"><span data-pa-icon="cloud" data-pa-icon-size="20"></span></span>
+                        <h4 style="margin:0">آپلود از Cloud</h4>
+                        <p class="pa-text-muted pa-text-sm" style="margin:0">اتصال به فضای ابری شما.</p>
+                        <div class="pa-d-flex pa-gap-1" style="flex-wrap:wrap">
+                          <button class="pa-btn pa-btn-outline pa-btn-sm" type="button" onclick="cloudPick('Google Drive')"
+                            data-pa-icon="hard_drive" data-pa-icon-size="14"> گوگل درایو</button>
+                          <button class="pa-btn pa-btn-outline pa-btn-sm" type="button" onclick="cloudPick('Dropbox')"
+                            data-pa-icon="box" data-pa-icon-size="14"> دراپ‌باکس</button>
+                          <button class="pa-btn pa-btn-outline pa-btn-sm" type="button" onclick="cloudPick('OneDrive')"
+                            data-pa-icon="database" data-pa-icon-size="14"> وان‌درایو</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Document scan -->
+                  <div class="pa-col-4">
+                    <div class="pa-card pa-hover-lift" style="margin:0; height:100%">
+                      <div class="pa-card-body pa-d-flex" style="flex-direction:column; gap:.75rem; align-items:flex-start">
+                        <span class="pa-stat-icon bg-info" style="width:40px; height:40px; color:#212529"><span data-pa-icon="camera" data-pa-icon-size="20"></span></span>
+                        <h4 style="margin:0">اسکن سند</h4>
+                        <p class="pa-text-muted pa-text-sm" style="margin:0">با دوربین دستگاه سند را اسکن کنید.</p>
+                        <button class="pa-btn pa-btn-info pa-btn-sm" type="button" onclick="scanDocument()"
+                          data-pa-icon="camera" data-pa-icon-size="14"> شروع اسکن</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total progress -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-anim-slide-up" style="height:calc(100% - 1rem)">
+              <div class="pa-card-header">
+                <h3>پیشرفت کلی بارگذاری</h3>
+                <span class="pa-badge pa-badge-primary" id="progress-badge">۶۸٪</span>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-progress" style="height:18px">
+                  <div class="pa-progress-bar" id="total-progress" style="width:68%"></div>
+                </div>
+                <p class="pa-text-muted pa-text-sm pa-mt-2" style="margin-bottom:.5rem">
+                  <span id="progress-text">۱۲ از ۱۸ فایل</span> با موفقیت بارگذاری شد.
+                </p>
+                <div class="pa-d-flex pa-gap-2" style="flex-wrap:wrap">
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" type="button" onclick="simulateUpload()"
+                    data-pa-icon="refresh_alt" data-pa-icon-size="14"> شبیه‌سازی</button>
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" type="button" onclick="resetProgress()"
+                    data-pa-icon="x" data-pa-icon-size="14"> صفر کردن</button>
+                </div>
+                <hr style="border:0; border-top:1px solid var(--pa-border); margin:1rem 0">
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; justify-content:space-between">
+                  <span class="pa-text-sm pa-text-muted">سرعت انتقال</span>
+                  <strong>۱٫۲ MB/s</strong>
+                </div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; justify-content:space-between; margin-top:.35rem">
+                  <span class="pa-text-sm pa-text-muted">زمان باقی‌مانده</span>
+                  <strong id="eta-text">حدود ۲ دقیقه</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload history table -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>تاریخچه بارگذاری‌ها</h3>
+            <div class="pa-tools">
+              <button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="refresh_alt" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',title:'به‌روزرسانی',message:'فهرست تاریخچه به‌روز شد.',duration:1800})"></button>
+              <button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="filter" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'فیلتر تاریخچه باز شد.',duration:1800})"></button>
+            </div>
+          </div>
+          <div class="pa-table-wrap">
+            <table class="pa-table">
+              <thead>
+                <tr>
+                  <th>نام فایل</th>
+                  <th>نوع</th>
+                  <th>حجم</th>
+                  <th>تاریخ</th>
+                  <th>وضعیت</th>
+                  <th style="width:1%">دانلود</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>گزارش-نهایی.pdf</strong></td>
+                  <td><span class="pa-d-flex pa-gap-1 pa-align-center" style="color:var(--pa-danger)"><span data-pa-icon="file_pdf" data-pa-icon-size="18"></span> PDF</span></td>
+                  <td>۲٫۴ مگابایت</td>
+                  <td>۱۴۰۳/۰۸/۱۲</td>
+                  <td><span class="pa-badge pa-badge-success">موفق</span></td>
+                  <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-copy="" data-pa-copy-text="گزارش-نهایی.pdf" title="کپی نام فایل"><span data-pa-icon="download" data-pa-icon-size="16"></span></button></td>
+                </tr>
+                <tr>
+                  <td><strong>عکس-پروفایل.jpg</strong></td>
+                  <td><span class="pa-d-flex pa-gap-1 pa-align-center" style="color:var(--pa-primary)"><span data-pa-icon="image" data-pa-icon-size="18"></span> JPG</span></td>
+                  <td>۸۹۰ کیلوبایت</td>
+                  <td>۱۴۰۳/۰۸/۱۰</td>
+                  <td><span class="pa-badge pa-badge-success">موفق</span></td>
+                  <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-copy="" data-pa-copy-text="عکس-پروفایل.jpg" title="کپی نام فایل"><span data-pa-icon="download" data-pa-icon-size="16"></span></button></td>
+                </tr>
+                <tr>
+                  <td><strong>بایگانی-پروژه.zip</strong></td>
+                  <td><span class="pa-d-flex pa-gap-1 pa-align-center" style="color:var(--pa-warning)"><span data-pa-icon="file_archive" data-pa-icon-size="18"></span> ZIP</span></td>
+                  <td>۱۲٫۵ مگابایت</td>
+                  <td>۱۴۰۳/۰۸/۰۸</td>
+                  <td><span class="pa-badge pa-badge-danger">خطا</span></td>
+                  <td><button class="pa-btn pa-btn-ghost pa-btn-sm" onclick="PAdminLTE.toast({kind:'warning',title:'خطا',message:'فایل ناقص است؛ امکان دانلود وجود ندارد.',duration:2200})" title="دانلود در دسترس نیست"><span data-pa-icon="x_circle" data-pa-icon-size="16"></span></button></td>
+                </tr>
+                <tr>
+                  <td><strong>ارائه-مدیریتی.pptx</strong></td>
+                  <td><span class="pa-d-flex pa-gap-1 pa-align-center" style="color:var(--pa-orange)"><span data-pa-icon="file_text" data-pa-icon-size="18"></span> PPTX</span></td>
+                  <td>۴٫۱ مگابایت</td>
+                  <td>۱۴۰۳/۰۸/۰۵</td>
+                  <td><span class="pa-badge pa-badge-warning">در حال</span></td>
+                  <td><button class="pa-btn pa-btn-ghost pa-btn-sm" onclick="PAdminLTE.toast({kind:'info',message:'بارگذاری هنوز کامل نشده است.',duration:1800})" title="در حال بارگذاری"><span data-pa-icon="clock" data-pa-icon-size="16"></span></button></td>
+                </tr>
+                <tr>
+                  <td><strong>کد-منبع.zip</strong></td>
+                  <td><span class="pa-d-flex pa-gap-1 pa-align-center" style="color:var(--pa-warning)"><span data-pa-icon="file_archive" data-pa-icon-size="18"></span> ZIP</span></td>
+                  <td>۸٫۷ مگابایت</td>
+                  <td>۱۴۰۳/۰۸/۰۱</td>
+                  <td><span class="pa-badge pa-badge-success">موفق</span></td>
+                  <td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-copy="" data-pa-copy-text="کد-منبع.zip" title="کپی نام فایل"><span data-pa-icon="download" data-pa-icon-size="16"></span></button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tips & alerts -->
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header"><h3>نکات مهم</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body"><strong>اطلاع.</strong> فایل‌ها پیش از ذخیره نهایی به‌صورت موقت روی سرور نگهداری می‌شوند و پس از ۲۴ ساعت پاک می‌گردند.</div></div>
+            <div class="pa-alert pa-alert-success"><span data-pa-icon="check_circle"></span><div class="pa-alert-body"><strong>موفق.</strong> فایل‌های تصویری پس از بارگذاری به‌صورت خودکار فشرده‌سازی و پیش‌نمایش آن‌ها تولید می‌شود.</div></div>
+            <div class="pa-alert pa-alert-warning"><span data-pa-icon="warning"></span><div class="pa-alert-body"><strong>هشدار.</strong> فرمت‌های خارج از فهرست مجاز (مثل <code>.exe</code> یا <code>.bat</code>) به‌صورت خودکار رد می‌شوند.</div></div>
+            <div class="pa-alert pa-alert-danger"><span data-pa-icon="x_circle"></span><div class="pa-alert-body"><strong>خطا.</strong> فایل‌های بزرگ‌تر از ۱۰ مگابایت بارگذاری نمی‌شوند؛ ابتدا آن‌ها را فشرده یا تقسیم کنید.</div></div>
+            <div class="pa-alert pa-alert-info" style="margin-bottom:0"><span data-pa-icon="shield"></span><div class="pa-alert-body"><strong>امنیت.</strong> همهٔ فایل‌ها پیش از ذخیره با آنتی‌ویروس اسکن می‌شوند. در صورت یافتن بدافزار، بارگذاری مسدود می‌گردد.</div></div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ---- Alternative upload helpers (toast-driven placeholders) ---- */
+    function uploadFromUrl() {
+      var input = document.getElementById('url-input');
+      var url = (input && input.value || '').trim();
+      if (!url) {
+        PAdminLTE.toast({ kind: 'warning', title: 'نشانی خالی', message: 'لطفاً نشانی فایل را وارد کنید.', duration: 2200 });
+        return;
+      }
+      PAdminLTE.toast({ kind: 'info', title: 'در حال دریافت', message: 'دریافت فایل از نشانی واردشده آغاز شد.', duration: 2400 });
+      if (input) input.value = '';
+    }
+    function cloudPick(provider) {
+      PAdminLTE.toast({ kind: 'info', title: 'اتصال به ' + provider, message: 'پنجرهٔ انتخاب فایل از ' + provider + ' باز می‌شود (نمونه).', duration: 2400 });
+    }
+    function scanDocument() {
+      PAdminLTE.toast({ kind: 'info', title: 'اسکن سند', message: 'دوربین دستگاه فعال شد. سند را در کادر قرار دهید.', duration: 2600 });
+    }
+
+    /* ---- Total progress simulation ---- */
+    // Convert ASCII digits in a value to Persian digits for display
+    function fa(n) { return String(n).replace(/[0-9]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }); }
+    var progressTimer = null;
+    function setProgress(pct) {
+      var bar = document.getElementById('total-progress');
+      var badge = document.getElementById('progress-badge');
+      var text = document.getElementById('progress-text');
+      var eta  = document.getElementById('eta-text');
+      if (!bar) return;
+      pct = Math.max(0, Math.min(100, pct));
+      bar.style.width = pct + '%';
+      if (badge) badge.textContent = fa(Math.round(pct)) + '٪';
+      var done = Math.round((pct / 100) * 18);
+      if (text) text.textContent = fa(done) + ' از ۱۸ فایل';
+      if (eta) {
+        var remaining = Math.max(0, Math.round((100 - pct) / 100 * 6));
+        eta.textContent = remaining === 0 ? 'تکمیل شد' : 'حدود ' + fa(remaining) + ' دقیقه';
+      }
+    }
+    function simulateUpload() {
+      clearInterval(progressTimer);
+      var bar = document.getElementById('total-progress');
+      var start = parseFloat(bar.style.width) || 0;
+      var target = 100;
+      if (start >= 100) start = 0;
+      progressTimer = setInterval(function () {
+        start += 3 + Math.random() * 4;
+        if (start >= target) {
+          start = target;
+          clearInterval(progressTimer);
+          PAdminLTE.toast({ kind: 'success', title: 'بارگذاری کامل', message: 'همهٔ فایل‌ها با موفقیت بارگذاری شدند.', duration: 2400 });
+        }
+        setProgress(start);
+      }, 220);
+    }
+    function resetProgress() {
+      clearInterval(progressTimer);
+      setProgress(0);
+      PAdminLTE.toast({ kind: 'info', message: 'شمارندهٔ پیشرفت صفر شد.', duration: 1600 });
+    }
+  </script>
+</body>
+</html>

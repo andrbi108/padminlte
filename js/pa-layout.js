@@ -55,7 +55,8 @@
         items: [
           { href: 'index.html', icon: 'dashboard', label: 'داشبورد' },
           { href: 'index2.html', icon: 'chartline', label: 'داشبورد ۲' },
-          { href: 'index3.html', icon: 'chartpie', label: 'داشبورد ۳' }
+          { href: 'index3.html', icon: 'chartpie', label: 'داشبورد ۳' },
+          { href: 'pages/landing.html', icon: 'rocket', label: 'صفحه فرود' }
         ]
       },
       {
@@ -64,39 +65,86 @@
           { href: 'pages/widgets.html', icon: 'grid', label: 'ویجت‌ها' },
           { href: 'pages/charts.html', icon: 'chart', label: 'نمودارها' },
           { href: 'pages/tables.html', icon: 'table', label: 'جداول' },
-          { href: 'pages/forms.html', icon: 'form', label: 'فرم‌ها' }
+          { href: 'pages/forms.html', icon: 'form', label: 'فرم‌ها' },
+          { href: 'pages/live-edit.html', icon: 'code', label: 'ویرایشگر زنده' },
+          { href: 'pages/file-upload.html', icon: 'cloud_upload', label: 'بارگذاری فایل' }
         ]
       },
       {
-        title: 'مدیریت',
+        title: 'مدیریت کاربر',
         tree: [
-          { name: 'کاربران', icon: 'users', items: [
+          { name: 'حساب کاربری', icon: 'user', items: [
             { href: 'pages/profile.html', icon: 'user', label: 'پروفایل' },
-            { href: 'pages/users.html', icon: 'users', label: 'لیست کاربران' }
+            { href: 'pages/users.html', icon: 'users', label: 'لیست کاربران' },
+            { href: 'pages/user-panel.html', icon: 'user_cog', label: 'پنل کاربری' },
+            { href: 'pages/settings.html', icon: 'cog', label: 'تنظیمات' }
           ]},
-          { name: 'صفحات', icon: 'file', items: [
-            { href: 'pages/blank.html', icon: 'file', label: 'صفحه خالی' },
-            { href: 'pages/settings.html', icon: 'cog', label: 'تنظیمات' },
-            { href: 'pages/calendar.html', icon: 'calendar', label: 'تقویم' }
+          { name: 'احراز هویت', icon: 'lock', items: [
+            { href: 'pages/login.html', icon: 'log_in', label: 'ورود' },
+            { href: 'pages/register.html', icon: 'user_plus', label: 'ثبت‌نام' },
+            { href: 'pages/forgot-password.html', icon: 'key_alt', label: 'فراموشی رمز' },
+            { href: 'pages/email-verify.html', icon: 'mail_check', label: 'تایید ایمیل' },
+            { href: 'pages/otp.html', icon: 'qr_code', label: 'کد یک‌بارمصرف' }
           ]}
         ]
       },
       {
-        title: 'نمونه',
-        items: [
-          { href: 'pages/invoice.html', icon: 'file', label: 'فاکتور' },
-          { href: 'pages/faq.html', icon: 'question', label: 'سؤالات متداول' },
-          { href: 'pages/gallery.html', icon: 'image', label: 'گالری' },
-          { href: 'pages/chat.html', icon: 'chat', label: 'گفتگو', badge: '۳' }
+        title: 'محتوا',
+        tree: [
+          { name: 'وبلاگ', icon: 'book_open', items: [
+            { href: 'pages/blog-list.html', icon: 'book', label: 'لیست مطالب' },
+            { href: 'pages/blog-post.html', icon: 'file_text', label: 'مطلب نمونه' },
+            { href: 'pages/categories.html', icon: 'folder', label: 'دسته‌بندی‌ها' },
+            { href: 'pages/tags.html', icon: 'hashtag', label: 'برچسب‌ها' }
+          ]},
+          { name: 'انجمن', icon: 'comments', items: [
+            { href: 'pages/forum-list.html', icon: 'message_square', label: 'لیست گفتگوها' },
+            { href: 'pages/forum-topic.html', icon: 'message_circle', label: 'موضوع نمونه' }
+          ]}
         ]
       },
       {
-        title: 'احراز هویت',
+        title: 'فروشگاه',
         items: [
-          { href: 'pages/login.html', icon: 'lock', label: 'ورود' },
-          { href: 'pages/register.html', icon: 'user_plus', label: 'ثبت‌نام' },
+          { href: 'pages/shop.html', icon: 'shopping_bag', label: 'فروشگاه' },
+          { href: 'pages/product.html', icon: 'package_alt', label: 'صفحه محصول' },
+          { href: 'pages/cart.html', icon: 'shopping_cart', label: 'سبد خرید' },
+          { href: 'pages/checkout.html', icon: 'credit_card_alt', label: 'تسویه حساب' }
+        ]
+      },
+      {
+        title: 'صفحات اپ',
+        tree: [
+          { name: 'پیام‌ها', icon: 'envelope', items: [
+            { href: 'pages/mailbox.html', icon: 'inbox', label: 'صندوق ورودی' },
+            { href: 'pages/chat.html', icon: 'chat', label: 'گفتگو زنده', badge: '۳' },
+            { href: 'pages/notifications.html', icon: 'bell', label: 'اعلان‌ها', badge: '۵' }
+          ]},
+          { name: 'سازماندهی', icon: 'layout', items: [
+            { href: 'pages/file-manager.html', icon: 'folder_open', label: 'مدیریت فایل' },
+            { href: 'pages/kanban.html', icon: 'columns', label: 'تخته کانبان' },
+            { href: 'pages/calendar.html', icon: 'calendar', label: 'تقویم' },
+            { href: 'pages/search-results.html', icon: 'search', label: 'نتایج جستجو' }
+          ]}
+        ]
+      },
+      {
+        title: 'اطلاعات',
+        items: [
+          { href: 'pages/about.html', icon: 'info', label: 'درباره ما' },
+          { href: 'pages/contact.html', icon: 'phone', label: 'تماس با ما' },
+          { href: 'pages/faq.html', icon: 'question', label: 'سؤالات متداول' },
+          { href: 'pages/invoice.html', icon: 'file_text', label: 'فاکتور' },
+          { href: 'pages/gallery.html', icon: 'image', label: 'گالری' }
+        ]
+      },
+      {
+        title: 'خطاها',
+        items: [
           { href: 'pages/404.html', icon: 'x_circle', label: 'خطای ۴۰۴' },
-          { href: 'pages/500.html', icon: 'server', label: 'خطای ۵۰۰' }
+          { href: 'pages/500.html', icon: 'server', label: 'خطای ۵۰۰' },
+          { href: 'pages/maintenance.html', icon: 'settings', label: 'در حال تعمیر' },
+          { href: 'pages/blank.html', icon: 'file', label: 'صفحه خالی' }
         ]
       }
     ];

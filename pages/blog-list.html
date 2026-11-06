@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — وبلاگ</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>وبلاگ</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>وبلاگ</span></div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="pa-card pa-mb-2">
+          <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2" style="flex-wrap:wrap">
+            <div class="pa-input-group" style="flex:1 1 320px">
+              <span class="pa-input-addon"><span data-pa-icon="search" data-pa-icon-size="16"></span></span>
+              <input id="blog-search" class="pa-input" type="search" placeholder="جستجو در مطالب وبلاگ…" data-pa-searchable-list="#blog-grid" aria-label="جستجو در مطالب">
+            </div>
+            <select class="pa-select" style="flex:0 0 200px" aria-label="فیلتر دسته‌بندی">
+              <option>همه دسته‌ها</option>
+              <option>فناوری</option>
+              <option>طراحی</option>
+              <option>برنامه‌نویسی</option>
+              <option>دسترسی‌پذیری</option>
+              <option>عملکرد</option>
+            </select>
+            <button class="pa-btn pa-btn-primary" onclick="PAdminLTE.toast({kind:'success',title:'وبلاگ',message:'فرم نوشتن مطلب جدید آماده است.'});"><span data-pa-icon="pen" data-pa-icon-size="16"></span> نوشتن مطلب جدید</button>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- Sidebar -->
+          <div class="pa-col-3">
+            <div class="pa-card pa-mb-2 pa-anim-slide-up">
+              <div class="pa-card-header"><h3>دسته‌بندی‌ها</h3></div>
+              <div class="pa-card-body" style="padding:0">
+                <div class="pa-category-list" style="padding:.75rem">
+                  <a href="#" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="list" data-pa-icon-size="18"></span><span class="pa-cat-name">همه مطلب‌ها</span><span class="pa-cat-count">۲۴ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                  <a href="#" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="cpu" data-pa-icon-size="18"></span><span class="pa-cat-name">فناوری</span><span class="pa-cat-count">۸ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                  <a href="#" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="palette" data-pa-icon-size="18"></span><span class="pa-cat-name">طراحی</span><span class="pa-cat-count">۶ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                  <a href="#" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="code" data-pa-icon-size="18"></span><span class="pa-cat-name">برنامه‌نویسی</span><span class="pa-cat-count">۱۰ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-1">
+              <div class="pa-card-header"><h3>برچسب‌های محبوب</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-tag-cloud">
+                  <a href="#" class="pa-tag pa-tag-size-xl">JavaScript</a>
+                  <a href="#" class="pa-tag pa-tag-size-md">CSS</a>
+                  <a href="#" class="pa-tag pa-tag-size-lg">React</a>
+                  <a href="#" class="pa-tag pa-tag-size-sm">HTML</a>
+                  <a href="#" class="pa-tag pa-tag-size-lg">Node.js</a>
+                  <a href="#" class="pa-tag pa-tag-size-md">Vue</a>
+                  <a href="#" class="pa-tag pa-tag-size-xs">GraphQL</a>
+                  <a href="#" class="pa-tag pa-tag-size-md">UI/UX</a>
+                  <a href="#" class="pa-tag pa-tag-size-xl">Performance</a>
+                  <a href="#" class="pa-tag pa-tag-size-sm">Docker</a>
+                  <a href="#" class="pa-tag pa-tag-size-md">TypeScript</a>
+                  <a href="#" class="pa-tag pa-tag-size-xs">A11Y</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card pa-anim-slide-up pa-anim-delay-2">
+              <div class="pa-card-header"><h3>مطالب اخیر</h3></div>
+              <div class="pa-card-body" style="padding:0">
+                <ul style="list-style:none; margin:0; padding:0">
+                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#0d6efd,#6610f2)"></span>
+                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">آموزش طراحی رابط کاربری مدرن</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲</div></div>
+                  </li>
+                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#198754,#20c997)"></span>
+                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">۱۰ نکته برای بهینه‌سازی Performance</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۰</div></div>
+                  </li>
+                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#fd7e14,#ffc107)"></span>
+                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">معرفی CSS Grid</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۸</div></div>
+                  </li>
+                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#dc3545,#d63384)"></span>
+                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">الگوهای طراحی در JavaScript</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۵</div></div>
+                  </li>
+                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem">
+                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#6f42c1,#0dcaf0)"></span>
+                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">دسترسی‌پذیری در وب</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۲</div></div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main blog grid -->
+          <div class="pa-col-9">
+            <div class="pa-row" id="blog-grid">
+              <div class="pa-col-4">
+                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up" data-pa-search-item>
+                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#0d6efd,#6610f2)"><span class="pa-blog-cat">طراحی</span></div>
+                  <div class="pa-blog-body">
+                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> سارا کریمی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۸ دقیقه</span></div>
+                    <h3 class="pa-blog-title"><a href="blog-post.html">آموزش طراحی رابط کاربری مدرن</a></h3>
+                    <p class="pa-blog-excerpt">در این مطلب با اصول طراحی رابط کاربری مدرن، استفاده از فضای سفید، تایپوگرافی مناسب و انتخاب پالت رنگی آشنا می‌شوید.</p>
+                  </div>
+                  <div class="pa-blog-footer">
+                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">س</span> سارا کریمی</span>
+                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۱۸</span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="pa-col-4">
+                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1" data-pa-search-item>
+                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#198754,#20c997)"><span class="pa-blog-cat">عملکرد</span></div>
+                  <div class="pa-blog-body">
+                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۰</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> امیر رضایی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۲ دقیقه</span></div>
+                    <h3 class="pa-blog-title"><a href="blog-post.html">۱۰ نکته برای بهینه‌سازی Performance</a></h3>
+                    <p class="pa-blog-excerpt">بهبود سرعت بارگذاری صفحات وب یکی از مهم‌ترین فاکتورهای تجربه کاربری و سئوست. در این مطلب ۱۰ تکنیک کاربردی را مرور می‌کنیم.</p>
+                  </div>
+                  <div class="pa-blog-footer">
+                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">ا</span> امیر رضایی</span>
+                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۲۴</span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="pa-col-4">
+                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2" data-pa-search-item>
+                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#fd7e14,#ffc107)"><span class="pa-blog-cat">فناوری</span></div>
+                  <div class="pa-blog-body">
+                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۸</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> نگار محمدی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۶ دقیقه</span></div>
+                    <h3 class="pa-blog-title"><a href="blog-post.html">معرفی CSS Grid</a></h3>
+                    <p class="pa-blog-excerpt">CSS Grid قدرتمندترین سیستم چیدمان وب است. در این مطلب با مفاهیم اصلی، خطوط شبکه و نواحی قالب آشنا می‌شوید.</p>
+                  </div>
+                  <div class="pa-blog-footer">
+                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">ن</span> نگار محمدی</span>
+                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۹</span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="pa-col-4">
+                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up" data-pa-search-item>
+                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#dc3545,#d63384)"><span class="pa-blog-cat">برنامه‌نویسی</span></div>
+                  <div class="pa-blog-body">
+                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۵</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> علی نوری</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۵ دقیقه</span></div>
+                    <h3 class="pa-blog-title"><a href="blog-post.html">الگوهای طراحی در JavaScript</a></h3>
+                    <p class="pa-blog-excerpt">الگوهای طراحی راه‌حل‌های اثبات‌شده برای مسائل رایج برنامه‌نویسی هستند. در این مطلب الگوهای Singleton، Observer و Module را بررسی می‌کنیم.</p>
+                  </div>
+                  <div class="pa-blog-footer">
+                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ع</span> علی نوری</span>
+                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۳۲</span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="pa-col-4">
+                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1" data-pa-search-item>
+                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#6f42c1,#0dcaf0)"><span class="pa-blog-cat">دسترسی‌پذیری</span></div>
+                  <div class="pa-blog-body">
+                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۲</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> مریم صادقی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۰ دقیقه</span></div>
+                    <h3 class="pa-blog-title"><a href="blog-post.html">دسترسی‌پذیری در وب</a></h3>
+                    <p class="pa-blog-excerpt">ساختن وبی برای همه وظیفه‌ی هر توسعه‌دهنده‌ای است. در این مطلب اصول WCAG و تکنیک‌های ARIA را به زبان ساده توضیح می‌دهیم.</p>
+                  </div>
+                  <div class="pa-blog-footer">
+                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">م</span> مریم صادقی</span>
+                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۱۴</span>
+                  </div>
+                </article>
+              </div>
+
+              <div class="pa-col-4">
+                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2" data-pa-search-item>
+                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#20c997,#0d6efd)"><span class="pa-blog-cat">برنامه‌نویسی</span></div>
+                  <div class="pa-blog-body">
+                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۷/۲۸</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> محمد قاسمی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴ دقیقه</span></div>
+                    <h3 class="pa-blog-title"><a href="blog-post.html">ساختار پروژه‌های مقیاس‌پذیر</a></h3>
+                    <p class="pa-blog-excerpt">معماری مناسب پایه‌ی هر پروژه‌ی موفقی است. در این مطلب ساختار MonoRepo، تقسیم ماژول‌ها و مدیریت وابستگی‌ها را بررسی می‌کنیم.</p>
+                  </div>
+                  <div class="pa-blog-footer">
+                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">م</span> محمد قاسمی</span>
+                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۲۱</span>
+                  </div>
+                </article>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pa-card">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-1" style="justify-content:center">
+                <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="صفحه قبل"><span data-pa-icon="chevron_right" data-pa-icon-size="14"></span></button>
+                <button class="pa-btn pa-btn-primary pa-btn-sm">۱</button>
+                <button class="pa-btn pa-btn-ghost pa-btn-sm">۲</button>
+                <button class="pa-btn pa-btn-ghost pa-btn-sm">۳</button>
+                <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="صفحه بعد"><span data-pa-icon="chevron_left" data-pa-icon-size="14"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

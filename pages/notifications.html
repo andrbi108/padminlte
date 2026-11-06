@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — اعلان‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-notif-tabs { display: flex; gap: .15rem; margin-bottom: 1rem; border-bottom: 1px solid var(--pa-border); flex-wrap: wrap; }
+    .pa-notif-tabs .pa-tab { padding: .55rem 1rem; background: transparent; border: 0; border-bottom: 2px solid transparent; cursor: pointer; color: var(--pa-text-muted); font: inherit; font-weight: 500; margin-bottom: -1px; display: inline-flex; align-items: center; gap: .35rem; }
+    .pa-notif-tabs .pa-tab:hover { color: var(--pa-text); }
+    .pa-notif-tabs .pa-tab.is-active { color: var(--pa-primary); border-bottom-color: var(--pa-primary); }
+    .pa-notif-tabs .pa-tab .pa-tab-count { background: var(--pa-surface-3); color: var(--pa-text-muted); border-radius: 1rem; padding: .05rem .45rem; font-size: .7rem; }
+    .pa-notif-tabs .pa-tab.is-active .pa-tab-count { background: var(--pa-primary-soft); color: var(--pa-primary); }
+    .pa-filters-item { display: flex; align-items: center; gap: .65rem; padding: .55rem .75rem; border-radius: var(--pa-radius); color: var(--pa-text); font-size: .9rem; cursor: pointer; transition: background .15s; }
+    .pa-filters-item:hover { background: var(--pa-surface-2); }
+    .pa-filters-item.is-active { background: var(--pa-primary-soft); color: var(--pa-primary); font-weight: 600; }
+    .pa-filters-item .pa-icon { width: 16px; height: 16px; }
+    .pa-filters-item .pa-ml-count { margin-right: auto; background: var(--pa-surface-3); padding: .1rem .45rem; border-radius: 1rem; font-size: .7rem; }
+    .pa-notif-list { list-style: none; padding: 0; margin: 0; }
+    .pa-load-more { text-align: center; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>اعلان‌ها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>اعلان‌ها</span>
+            </div>
+          </div>
+          <div class="pa-tools">
+            <button class="pa-btn pa-btn-outline" data-pa-mark-all-read="#notif-list" data-pa-icon="check_check" data-pa-icon-size="16"> علامت‌گذاری همه به‌عنوان خوانده‌شده</button>
+          </div>
+        </div>
+
+        <div class="pa-row pa-anim-slide-up">
+
+          <!-- Sidebar -->
+          <div class="pa-col-3">
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>فیلترها</h3></div>
+              <div class="pa-card-body" style="padding:.5rem">
+                <div class="pa-filters-item is-active"><span data-pa-icon="list"></span><span>همه</span><span class="pa-ml-count">۲۴</span></div>
+                <div class="pa-filters-item"><span data-pa-icon="circle" style="color:var(--pa-primary)"></span><span>خوانده‌نشده</span><span class="pa-ml-count">۵</span></div>
+                <div class="pa-filters-item"><span data-pa-icon="star"></span><span>مهم</span><span class="pa-ml-count">۸</span></div>
+                <div class="pa-filters-item"><span data-pa-icon="hashtag"></span><span>@mentions</span><span class="pa-ml-count">۳</span></div>
+                <div class="pa-filters-item"><span data-pa-icon="archive_alt"></span><span>آرشیو شده</span></div>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>تنظیمات اعلان</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-check">
+                  <input type="checkbox" id="set-email" checked>
+                  <label for="set-email"><span data-pa-icon="envelope" data-pa-icon-size="14"></span> ایمیل</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="set-browser" checked>
+                  <label for="set-browser"><span data-pa-icon="globe" data-pa-icon-size="14"></span> مرورگر</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="set-mobile">
+                  <label for="set-mobile"><span data-pa-icon="smartphone" data-pa-icon-size="14"></span> موبایل</label>
+                </div>
+                <div class="pa-form-check">
+                  <input type="checkbox" id="set-sound" checked>
+                  <label for="set-sound"><span data-pa-icon="bell" data-pa-icon-size="14"></span> صدا</label>
+                </div>
+                <button class="pa-btn pa-btn-primary pa-btn-block pa-mt-2" data-pa-icon="save" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'success',message:'تنظیمات ذخیره شد.'})"> ذخیره تنظیمات</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Main -->
+          <div class="pa-col-9">
+
+            <div class="pa-card">
+              <div class="pa-card-body">
+
+                <!-- Tabs -->
+                <div class="pa-notif-tabs">
+                  <button class="pa-tab is-active" data-tab="all">همه <span class="pa-tab-count">۱۰</span></button>
+                  <button class="pa-tab" data-tab="system">سیستم <span class="pa-tab-count">۳</span></button>
+                  <button class="pa-tab" data-tab="users">کاربران <span class="pa-tab-count">۲</span></button>
+                  <button class="pa-tab" data-tab="orders">سفارش‌ها <span class="pa-tab-count">۲</span></button>
+                  <button class="pa-tab" data-tab="security">امنیتی <span class="pa-tab-count">۲</span></button>
+                </div>
+
+                <!-- Notification list -->
+                <ul class="pa-notif-list" id="notif-list">
+
+                  <li class="pa-notification is-unread" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-success" data-pa-icon="cart" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">سفارش جدید #۱۰۲۴ دریافت شد</div>
+                      <div class="pa-notif-text">مشتری «زهرا حسینی» سفارشی به مبلغ ۱٫۲۵۰٫۰۰۰ ت ثبت کرد.</div>
+                      <div class="pa-notif-time">۲ دقیقه پیش</div>
+                    </div>
+                    <span class="pa-notif-dot"></span>
+                  </li>
+
+                  <li class="pa-notification is-unread" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-primary" data-pa-icon="user_plus" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">کاربر جدید پویا ثبت‌نام کرد</div>
+                      <div class="pa-notif-text">یک کاربر جدید با ایمیل pouya@example.com به سامانه پیوست.</div>
+                      <div class="pa-notif-time">۱۵ دقیقه پیش</div>
+                    </div>
+                    <span class="pa-notif-dot"></span>
+                  </li>
+
+                  <li class="pa-notification" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-info" data-pa-icon="file_text" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">گزارش ماهانه آماده است</div>
+                      <div class="pa-notif-text">گزارش عملکرد آذر ۱۴۰۳ برای دانلود در دسترس قرار گرفت.</div>
+                      <div class="pa-notif-time">۱ ساعت پیش</div>
+                    </div>
+                  </li>
+
+                  <li class="pa-notification is-unread" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-danger" data-pa-icon="shield" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">هشدار امنیتی: ورود از IP ناشناس</div>
+                      <div class="pa-notif-text">تلاش برای ورود به حساب کاربری از IP ۹۱.۹۲.۹۳.۹۴ ثبت شد.</div>
+                      <div class="pa-notif-time">۲ ساعت پیش</div>
+                    </div>
+                    <span class="pa-notif-dot"></span>
+                  </li>
+
+                  <li class="pa-notification" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-purple" data-pa-icon="check_circle" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">پشتیبانی: تیکت #۲۳۴ بسته شد</div>
+                      <div class="pa-notif-text">تیکت پشتیبانی شماره ۲۳۴ با موفقیت حل و فصل شد.</div>
+                      <div class="pa-notif-time">۳ ساعت پیش</div>
+                    </div>
+                  </li>
+
+                  <li class="pa-notification is-unread" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-warning" data-pa-icon="download" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">آپدیت سیستم موجود است</div>
+                      <div class="pa-notif-text">نسخه ۱.۱.۰ سامانه آماده نصب است. لطفاً به‌روزرسانی کنید.</div>
+                      <div class="pa-notif-time">۵ ساعت پیش</div>
+                    </div>
+                    <span class="pa-notif-dot"></span>
+                  </li>
+
+                  <li class="pa-notification" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-success" data-pa-icon="package_alt" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">محصول جدید به فروشگاه اضافه شد</div>
+                      <div class="pa-notif-text">«هدست بی‌سیم مدل X» با قیمت ۸۹۰٫۰۰۰ ت به کاتالوگ افزوده شد.</div>
+                      <div class="pa-notif-time">دیروز</div>
+                    </div>
+                  </li>
+
+                  <li class="pa-notification" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-primary" data-pa-icon="envelope" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">پیام جدید از امیر</div>
+                      <div class="pa-notif-text">«سلام، می‌تونیم جلسه رو به ساعت ۱۱ موقت کنیم؟»</div>
+                      <div class="pa-notif-time">دیروز</div>
+                    </div>
+                  </li>
+
+                  <li class="pa-notification" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-info" data-pa-icon="credit_card" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">فاکتور #۱۰۲۴ پرداخت شد</div>
+                      <div class="pa-notif-text">مبلغ ۱٫۲۵۰٫۰۰۰ ت با موفقیت از درگاه پرداخت دریافت شد.</div>
+                      <div class="pa-notif-time">۲ روز پیش</div>
+                    </div>
+                  </li>
+
+                  <li class="pa-notification" onclick="PAdminLTE.toast({kind:'info',message:'اعلان باز شد.'})">
+                    <span class="pa-notif-icon bg-success" data-pa-icon="database" data-pa-icon-size="18"></span>
+                    <div class="pa-notif-body">
+                      <div class="pa-notif-title">بکاپ روزانه با موفقیت انجام شد</div>
+                      <div class="pa-notif-text">پشتیبان‌گیری از پایگاه داده با حجم ۲.۱ گیگابایت تکمیل شد.</div>
+                      <div class="pa-notif-time">۲ روز پیش</div>
+                    </div>
+                  </li>
+
+                </ul>
+
+                <div class="pa-load-more">
+                  <button class="pa-btn pa-btn-outline" data-pa-icon="refresh" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'info',message:'بارگذاری ۱۰ اعلان دیگر...'})"> بارگذاری بیشتر</button>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Cosmetic tab + filter switching
+    document.querySelectorAll('.pa-notif-tabs .pa-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.pa-notif-tabs .pa-tab').forEach(function (x) { x.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        PAdminLTE.toast({ kind: 'info', message: 'تب «' + tab.textContent.trim().split(' ')[0] + '» فعال شد.' });
+      });
+    });
+    document.querySelectorAll('.pa-filters-item').forEach(function (f) {
+      f.addEventListener('click', function () {
+        document.querySelectorAll('.pa-filters-item').forEach(function (x) { x.classList.remove('is-active'); });
+        f.classList.add('is-active');
+      });
+    });
+    // Single notification mark-read on click (cosmetic)
+    document.querySelectorAll('.pa-notification').forEach(function (n) {
+      n.addEventListener('click', function () { n.classList.remove('is-unread'); var d = n.querySelector('.pa-notif-dot'); if (d) d.remove(); });
+    });
+  </script>
+</body>
+</html>

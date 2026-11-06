@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — انجمن گفتگو</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>انجمن گفتگو</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>انجمن</span></div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="pa-card pa-mb-2 pa-anim-slide-up">
+          <div class="pa-card-body">
+            <div class="pa-d-flex pa-align-center pa-gap-2 pa-mb-1" style="flex-wrap:wrap">
+              <div class="pa-input-group" style="flex:1 1 320px">
+                <span class="pa-input-addon"><span data-pa-icon="search" data-pa-icon-size="16"></span></span>
+                <input class="pa-input" type="search" placeholder="جستجو در موضوعات انجمن…" aria-label="جستجو در انجمن">
+              </div>
+              <button class="pa-btn pa-btn-primary" onclick="PAdminLTE.toast({kind:'success',title:'انجمن',message:'فرم ایجاد موضوع جدید آماده است.'});"><span data-pa-icon="plus" data-pa-icon-size="16"></span> موضوع جدید</button>
+            </div>
+            <div class="pa-tabs">
+              <button class="pa-tab is-active">همه</button>
+              <button class="pa-tab"><span data-pa-icon="check_circle" data-pa-icon-size="14"></span> حل‌شده</button>
+              <button class="pa-tab">بدون پاسخ</button>
+              <button class="pa-tab"><span data-pa-icon="flame" data-pa-icon-size="14"></span> داغ</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- Topics list -->
+          <div class="pa-col-9">
+            <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
+              <div class="pa-card-header">
+                <h3>آخرین موضوعات</h3>
+                <div class="pa-tools">
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm"><span data-pa-icon="sort" data-pa-icon-size="14"></span> مرتب‌سازی</button>
+                </div>
+              </div>
+              <div class="pa-card-body" style="padding:0">
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ا</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="flame" data-pa-icon-size="14" style="color:var(--pa-danger)"></span> بهترین روش یادگیری React در ۲۰۲۴؟</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>امیر رضایی</strong></span>
+                      <span class="pa-badge pa-badge-primary">فرانت‌اند</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۲ ساعت پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۲۴</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۱٬۲۴۵</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">م</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html">مشکل در اجرای Docker روی ویندوز</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>محمد قاسمی</strong></span>
+                      <span class="pa-badge pa-badge-warning">دواپس</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۴ ساعت پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۸</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۳۲۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">س</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> ساخت API با Node.js و Express</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>سارا کریمی</strong></span>
+                      <span class="pa-badge pa-badge-success">بک‌اند</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۶ ساعت پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۱۵</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۶۸۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">ع</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="flame" data-pa-icon-size="14" style="color:var(--pa-danger)"></span> بهینه‌سازی کوئری‌های SQL</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>علی نوری</strong></span>
+                      <span class="pa-badge pa-badge-info">پایگاه داده</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> دیروز</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۳۲</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۱٬۸۹۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">ن</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> انتخاب فریم‌ورک فرانت‌اند</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>نگار محمدی</strong></span>
+                      <span class="pa-badge pa-badge-primary">فرانت‌اند</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> دیروز</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۲۰</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۹۸۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">م</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="pin" data-pa-icon-size="14" style="color:var(--pa-warning)"></span> تفاوت TypeScript و JavaScript</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>مریم صادقی</strong></span>
+                      <span class="pa-badge pa-badge-warning">ثابت‌شده</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۲ روز پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۴۱</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۲٬۳۴۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ر</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html">امنیت در اپلیکیشن‌های موبایل</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>رضا فلاح</strong></span>
+                      <span class="pa-badge pa-badge-danger">امنیت</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۳ روز پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۳</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۱۲۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">ز</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> معرفی ابزارهای توسعه</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>زهرا موسوی</strong></span>
+                      <span class="pa-badge pa-badge-primary">ابزارها</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۴ روز پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۱۸</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۵۶۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">ح</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html">مشکل در تنظیمات NGINX</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>حسین رستمی</strong></span>
+                      <span class="pa-badge pa-badge-info">شبکه</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۵ روز پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۲</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۸۵</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+                <div class="pa-forum-topic">
+                  <span class="pa-topic-avatar pa-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">پ</span>
+                  <div class="pa-topic-body">
+                    <h4 class="pa-topic-title"><a href="forum-topic.html"><span data-pa-icon="pin" data-pa-icon-size="14" style="color:var(--pa-warning)"></span> <span data-pa-icon="check_circle" data-pa-icon-size="14" style="color:var(--pa-success)"></span> آموزش Git پیشرفته</a></h4>
+                    <div class="pa-topic-meta">
+                      <span>شروع‌کننده: <strong>پویا احمدی</strong></span>
+                      <span class="pa-badge pa-badge-warning">ثابت‌شده</span>
+                      <span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱ هفته پیش</span>
+                    </div>
+                  </div>
+                  <div class="pa-topic-stats">
+                    <div class="pa-num">۵۶</div><div class="pa-lbl">پاسخ</div>
+                    <div class="pa-num" style="margin-top:.25rem">۳٬۲۱۰</div><div class="pa-lbl">بازدید</div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="pa-card-footer pa-d-flex pa-align-center pa-gap-1" style="justify-content:center">
+                <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="صفحه قبل"><span data-pa-icon="chevron_right" data-pa-icon-size="14"></span></button>
+                <button class="pa-btn pa-btn-primary pa-btn-sm">۱</button>
+                <button class="pa-btn pa-btn-ghost pa-btn-sm">۲</button>
+                <button class="pa-btn pa-btn-ghost pa-btn-sm">۳</button>
+                <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="صفحه بعد"><span data-pa-icon="chevron_left" data-pa-icon-size="14"></span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="pa-col-3">
+            <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-2">
+              <div class="pa-card-header"><h3>دسته‌بندی‌ها</h3></div>
+              <div class="pa-card-body" style="padding:0">
+                <ul style="list-style:none; margin:0; padding:0; font-size:.9rem">
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)"><span data-pa-icon="code" data-pa-icon-size="14"></span> <span class="pa-flex-1">فرانت‌اند</span> <span class="pa-badge pa-badge-primary">۱۲۴</span></li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)"><span data-pa-icon="server" data-pa-icon-size="14"></span> <span class="pa-flex-1">بک‌اند</span> <span class="pa-badge pa-badge-primary">۹۸</span></li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)"><span data-pa-icon="database" data-pa-icon-size="14"></span> <span class="pa-flex-1">پایگاه داده</span> <span class="pa-badge pa-badge-primary">۵۶</span></li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)"><span data-pa-icon="cloud" data-pa-icon-size="14"></span> <span class="pa-flex-1">دواپس</span> <span class="pa-badge pa-badge-primary">۷۲</span></li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)"><span data-pa-icon="shield" data-pa-icon-size="14"></span> <span class="pa-flex-1">امنیت</span> <span class="pa-badge pa-badge-primary">۳۴</span></li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem"><span data-pa-icon="smartphone" data-pa-icon-size="14"></span> <span class="pa-flex-1">موبایل</span> <span class="pa-badge pa-badge-primary">۴۱</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-3">
+              <div class="pa-card-header"><h3>برترین مشارکت‌کنندگان</h3></div>
+              <div class="pa-card-body" style="padding:0">
+                <ul style="list-style:none; margin:0; padding:0">
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">پ</span>
+                    <div class="pa-flex-1"><div class="pa-fw-600 pa-fs-sm">پویا احمدی</div><div class="pa-fs-sm pa-text-muted">۸۲۴ پاسخ</div></div>
+                    <span class="pa-badge pa-badge-warning"><span data-pa-icon="star" data-pa-icon-size="12"></span> ۱</span>
+                  </li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">م</span>
+                    <div class="pa-flex-1"><div class="pa-fw-600 pa-fs-sm">مریم صادقی</div><div class="pa-fs-sm pa-text-muted">۶۸۰ پاسخ</div></div>
+                    <span class="pa-badge pa-badge-info">۲</span>
+                  </li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">س</span>
+                    <div class="pa-flex-1"><div class="pa-fw-600 pa-fs-sm">سارا کریمی</div><div class="pa-fs-sm pa-text-muted">۵۳۲ پاسخ</div></div>
+                    <span class="pa-badge pa-badge-info">۳</span>
+                  </li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem; border-bottom:1px solid var(--pa-border)">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ا</span>
+                    <div class="pa-flex-1"><div class="pa-fw-600 pa-fs-sm">امیر رضایی</div><div class="pa-fs-sm pa-text-muted">۴۹۰ پاسخ</div></div>
+                    <span class="pa-badge pa-badge-info">۴</span>
+                  </li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2" style="padding:.6rem 1rem">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">ع</span>
+                    <div class="pa-flex-1"><div class="pa-fw-600 pa-fs-sm">علی نوری</div><div class="pa-fs-sm pa-text-muted">۴۱۵ پاسخ</div></div>
+                    <span class="pa-badge pa-badge-info">۵</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pa-card pa-anim-slide-up pa-anim-delay-4">
+              <div class="pa-card-header"><h3>آمار انجمن</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> کل موضوعات</span><strong>۱٬۲۴۰</strong></div>
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted"><span data-pa-icon="chat" data-pa-icon-size="14"></span> کل پاسخ‌ها</span><strong>۸٬۹۵۰</strong></div>
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted"><span data-pa-icon="users" data-pa-icon-size="14"></span> اعضا</span><strong>۲٬۳۸۰</strong></div>
+                <hr>
+                <div class="pa-fs-sm pa-text-muted pa-mb-1">جدیدترین عضو:</div>
+                <div class="pa-d-flex pa-align-center pa-gap-1">
+                  <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">ح</span>
+                  <strong class="pa-fs-sm">حسین رستمی</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>
