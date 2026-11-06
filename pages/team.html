@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تیم ما</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* استایل‌های محلی صفحه تیم */
+    .pa-team-card { text-align: center; }
+    .pa-team-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: grid; place-items: center; margin: 0 auto .75rem;
+      color: #fff; font-size: 1.6rem; font-weight: 800;
+      box-shadow: var(--pa-shadow);
+    }
+    .pa-team-card h3 { margin: 0 0 .15rem; font-size: 1.05rem; }
+    .pa-team-bio { font-size: .85rem; color: var(--pa-text-muted); line-height: 1.7; margin: .5rem 0 .75rem; }
+    .pa-team-social { display: flex; justify-content: center; gap: .35rem; border-top: 1px solid var(--pa-border); padding-top: .75rem; margin-top: .25rem; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>تیم ما</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>تیم ما</span></div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a href="about.html" class="pa-btn pa-btn-outline" data-pa-icon="users" data-pa-icon-size="16">درباره ما</a>
+            <a href="contact.html" class="pa-btn pa-btn-primary" data-pa-icon="envelope" data-pa-icon-size="16">تماس با تیم</a>
+          </div>
+        </div>
+
+        <!-- نوار آمار تیم -->
+        <div class="pa-row">
+          <div class="pa-col-4">
+            <div class="pa-card" data-pa-reveal>
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2">
+                <span data-pa-icon="users" data-pa-icon-size="28" style="color:var(--pa-primary)"></span>
+                <div>
+                  <h2 data-pa-counter="6" style="margin:0;font-weight:800">0</h2>
+                  <div class="pa-text-muted" style="font-size:.85rem">عضو تیم</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-card" data-pa-reveal data-pa-delay="100">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2">
+                <span data-pa-icon="briefcase" data-pa-icon-size="28" style="color:var(--pa-success)"></span>
+                <div>
+                  <h2 data-pa-counter="12" style="margin:0;font-weight:800">0</h2>
+                  <div class="pa-text-muted" style="font-size:.85rem">پروژه موفق</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-card" data-pa-reveal data-pa-delay="200">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2">
+                <span data-pa-icon="zap" data-pa-icon-size="28" style="color:var(--pa-warning)"></span>
+                <div>
+                  <h2 data-pa-counter="48" style="margin:0;font-weight:800">0</h2>
+                  <div class="pa-text-muted" style="font-size:.85rem">سال تجربه</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- کارت‌های اعضای تیم -->
+        <div class="pa-row">
+
+          <!-- عضو ۱ -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-team-card" data-pa-reveal data-pa-delay="0">
+              <div class="pa-card-body">
+                <div class="pa-team-avatar" style="background:linear-gradient(135deg,#667eea,#764ba2)">ا</div>
+                <h3>امیر رضایی</h3>
+                <div class="pa-text-muted" style="font-size:.85rem">مدیر محصول</div>
+                <p class="pa-team-bio">راهبر محصول با تمرکز بر تجربه کاربری و هم‌راستاسازی نیازهای کسب‌وکار با نقشه راه فنی.</p>
+                <div class="pa-rating" data-pa-rating="5" data-pa-value="5" data-pa-readonly data-pa-show-value></div>
+                <div class="pa-team-social">
+                  <a class="pa-icon-btn" href="mailto:amir@padminlte.ir" aria-label="ایمیل امیر رضایی" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="tel:+989121234567" aria-label="تماس با امیر رضایی" data-pa-icon="phone" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="contact.html" aria-label="صفحه تماس" data-pa-icon="globe" data-pa-icon-size="16"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- عضو ۲ -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-team-card" data-pa-reveal data-pa-delay="100">
+              <div class="pa-card-body">
+                <div class="pa-team-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)">س</div>
+                <h3>سارا احمدی</h3>
+                <div class="pa-text-muted" style="font-size:.85rem">توسعه‌دهنده ارشد</div>
+                <p class="pa-team-bio">متخصص جاوااسکریپت و معماری فرانت‌اند؛ علاقه‌مند به کد تمیز و کارایی بالا.</p>
+                <div class="pa-rating" data-pa-rating="5" data-pa-value="4" data-pa-readonly data-pa-show-value></div>
+                <div class="pa-team-social">
+                  <a class="pa-icon-btn" href="mailto:sara@padminlte.ir" aria-label="ایمیل سارا احمدی" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="tel:+989122234568" aria-label="تماس با سارا احمدی" data-pa-icon="phone" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="contact.html" aria-label="صفحه تماس" data-pa-icon="globe" data-pa-icon-size="16"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- عضو ۳ -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-team-card" data-pa-reveal data-pa-delay="200">
+              <div class="pa-card-body">
+                <div class="pa-team-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">م</div>
+                <h3>محمد کریمی</h3>
+                <div class="pa-text-muted" style="font-size:.85rem">طراح UI</div>
+                <p class="pa-team-bio">طراح رابط کاربری با نگاه دقیق به جزئیات، رنگ و تایپوگرافی فارسی.</p>
+                <div class="pa-rating" data-pa-rating="5" data-pa-value="4" data-pa-readonly data-pa-show-value></div>
+                <div class="pa-team-social">
+                  <a class="pa-icon-btn" href="mailto:mohammad@padminlte.ir" aria-label="ایمیل محمد کریمی" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="tel:+989123234569" aria-label="تماس با محمد کریمی" data-pa-icon="phone" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="contact.html" aria-label="صفحه تماس" data-pa-icon="globe" data-pa-icon-size="16"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- عضو ۴ -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-team-card" data-pa-reveal data-pa-delay="300">
+              <div class="pa-card-body">
+                <div class="pa-team-avatar" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">ن</div>
+                <h3>نگار موسوی</h3>
+                <div class="pa-text-muted" style="font-size:.85rem">کارشناس DevOps</div>
+                <p class="pa-team-bio">مسئول استقرار، اتوماسیون و پایداری سرویس‌ها؛ عاشق خطوط CI/CD سریع.</p>
+                <div class="pa-rating" data-pa-rating="5" data-pa-value="5" data-pa-readonly data-pa-show-value></div>
+                <div class="pa-team-social">
+                  <a class="pa-icon-btn" href="mailto:negar@padminlte.ir" aria-label="ایمیل نگار موسوی" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="tel:+989124234570" aria-label="تماس با نگار موسوی" data-pa-icon="phone" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="contact.html" aria-label="صفحه تماس" data-pa-icon="globe" data-pa-icon-size="16"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- عضو ۵ -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-team-card" data-pa-reveal data-pa-delay="400">
+              <div class="pa-card-body">
+                <div class="pa-team-avatar" style="background:linear-gradient(135deg,#fa709a,#fee140)">ر</div>
+                <h3>رضا جعفری</h3>
+                <div class="pa-text-muted" style="font-size:.85rem">پشتیبان‌گیری</div>
+                <p class="pa-team-bio">نگهبان داده‌ها؛ از پشتیبان‌گیری منظم تا بازیابی سریع در شرایط بحرانی.</p>
+                <div class="pa-rating" data-pa-rating="5" data-pa-value="4" data-pa-readonly data-pa-show-value></div>
+                <div class="pa-team-social">
+                  <a class="pa-icon-btn" href="mailto:reza@padminlte.ir" aria-label="ایمیل رضا جعفری" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="tel:+989125234571" aria-label="تماس با رضا جعفری" data-pa-icon="phone" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="contact.html" aria-label="صفحه تماس" data-pa-icon="globe" data-pa-icon-size="16"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- عضو ۶ -->
+          <div class="pa-col-4">
+            <div class="pa-card pa-team-card" data-pa-reveal data-pa-delay="500">
+              <div class="pa-card-body">
+                <div class="pa-team-avatar" style="background:linear-gradient(135deg,#30cfd0,#330867)">م</div>
+                <h3>مریم حسینی</h3>
+                <div class="pa-text-muted" style="font-size:.85rem">بازاریابی</div>
+                <p class="pa-team-bio">راوی برند؛ با محتوای خلاق، قالب PAdminLTE را به دنیا معرفی می‌کند.</p>
+                <div class="pa-rating" data-pa-rating="5" data-pa-value="4" data-pa-readonly data-pa-show-value></div>
+                <div class="pa-team-social">
+                  <a class="pa-icon-btn" href="mailto:maryam@padminlte.ir" aria-label="ایمیل مریم حسینی" data-pa-icon="envelope" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="tel:+989126234572" aria-label="تماس با مریم حسینی" data-pa-icon="phone" data-pa-icon-size="16"></a>
+                  <a class="pa-icon-btn" href="contact.html" aria-label="صفحه تماس" data-pa-icon="globe" data-pa-icon-size="16"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // منطق صفحه تیم ما — پیام خوش‌آمد پس از نمایان‌شدن کارت‌ها
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () {
+        PAdminLTE.toast({
+          kind: 'info',
+          title: 'تیم ما',
+          message: 'با ۶ عضو متخصص، در کنار شما هستیم.'
+        });
+      }, 900);
+    });
+  </script>
+</body>
+</html>

@@ -616,3 +616,39 @@ PAdminLTE.boot(newContainer);
 // یا حداقل:
 PAdminLTE.injectIcons(newContainer);
 ```
+
+---
+
+## v1.2 — کامپوننت‌های جدید
+
+### متدهای جدید
+
+| متد | توضیح |
+|---|---|
+| `PAdminLTE.lightbox.open(items, index)` | باز کردن لایت‌باکس؛ `items` آرایه‌ای از `{title, gradient, icon}` |
+| `PAdminLTE.lightbox.close()` / `.go(i)` | بستن / پرش به آیتم |
+| `PAdminLTE.animateCount(el)` | اجرای دستی شمارندهٔ انیمیشنی |
+| `PAdminLTE.initAccordions(root)` و بقیهٔ `init*` | راه‌اندازی مجدد کامپوننت‌ها برای محتوای تزریقی |
+
+### Attributeهای جدید (declarative)
+
+| Attribute | المان | کار |
+|---|---|---|
+| `data-pa-accordion` (اختیاری: `"multiple"`) | ظرف آکاردئون | آکاردئون؛ `.pa-accordion-item/-header/-body` |
+| `data-pa-carousel` + `data-pa-interval="ms"` | ظرف کاروسل | کاروسل خودکار با swipe؛ `.pa-carousel-track/-slide` |
+| `data-pa-rating="5"` + `data-pa-value="3"` | ظرف امتیاز | ستاره‌ها؛ `data-pa-readonly` و `data-pa-show-value` |
+| `data-pa-counter="2500"` | هر المان متنی | شمارش انیمیشنی؛ `data-pa-counter-duration/-suffix/-sep` |
+| `data-pa-ring="72"` | `<div>` | حلقهٔ پیشرفت SVG؛ `data-pa-size/-stroke/-color` |
+| `data-pa-reveal` (up/right/left/zoom) | هر المان | نمایش با اسکرول؛ `data-pa-delay="ms"` |
+| `data-pa-tip="متن"` | هر المان | تولتیپ CSS خالص |
+| `data-pa-chart-data` با `opts.animate:false` | `<canvas>` | غیرفعال کردن انیمیشن نمودار |
+
+### رویدادهای جدید
+
+`pa:accordion:toggle`، `pa:carousel:change`، `pa:rating:change`، `pa:lightbox:open`، `pa:lightbox:close`
+
+### نمودارها (v2)
+
+- همهٔ نمودارها هنگام لود **انیمیشن** دارند و هنگام **هاور** tooltip نشان می‌دهند.
+- با تغییر تم یا resize صفحه به‌صورت خودکار دوباره رسم می‌شوند.
+- غیرفعال‌سازی: `PAdminLTE.lineChart(canvas, data, {animate:false})`.

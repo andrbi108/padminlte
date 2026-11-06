@@ -1,25 +1,10 @@
 <!doctype html>
-<html lang="fa" dir="rtl" data-pa-theme="light">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PAdminLTE — گالری</title>
   <link rel="stylesheet" href="../css/padminlte.css">
-  <style>
-    .pa-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
-    .pa-gallery-item { aspect-ratio: 1/1; border-radius: var(--pa-radius-lg); overflow: hidden; cursor: pointer; position: relative; background: var(--pa-surface-3); display: flex; align-items: center; justify-content: center; color: var(--pa-text-muted); font-weight: 700; transition: transform .2s, box-shadow .2s; }
-    .pa-gallery-item:hover { transform: translateY(-3px); box-shadow: var(--pa-shadow-lg); }
-    .pa-gallery-item::before { content: attr(data-label); position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.5rem; opacity: .5; }
-    .pa-gallery-item .pa-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.7), transparent 60%); opacity: 0; transition: opacity .2s; display: flex; align-items: flex-end; padding: .75rem; }
-    .pa-gallery-item:hover .pa-overlay { opacity: 1; }
-    .pa-gallery-item .pa-overlay .pa-actions { display: flex; gap: .35rem; }
-    .pa-gallery-item .pa-overlay button { background: rgba(255,255,255,.2); border: 0; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; }
-    .pa-gallery-item .pa-overlay button:hover { background: var(--pa-primary); }
-    .pa-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 4000; display: none; align-items: center; justify-content: center; padding: 2rem; }
-    .pa-lightbox.is-open { display: flex; }
-    .pa-lightbox .pa-lb-content { max-width: 90vw; max-height: 90vh; background: var(--pa-surface); border-radius: var(--pa-radius-lg); padding: 2rem; text-align: center; color: var(--pa-text); }
-    .pa-lightbox .pa-lb-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: 0; color: #fff; font-size: 2rem; cursor: pointer; }
-  </style>
 </head>
 <body>
   <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
@@ -38,7 +23,29 @@
 
         <div class="pa-card">
           <div class="pa-card-body">
-            <div class="pa-gallery-grid" id="gallery-grid"></div>
+            <!-- Toolbar: view switcher + category filter + search -->
+            <div class="pa-gallery-toolbar">
+              <div class="pa-gallery-view" role="group" aria-label="حالت نمایش">
+                <button type="button" data-view="grid" class="is-active" data-pa-tip="نمای شبکه‌ای" data-pa-icon="grid" data-pa-icon-size="16"></button>
+                <button type="button" data-view="masonry" data-pa-tip="نمای ماسونری" data-pa-icon="columns" data-pa-icon-size="16"></button>
+                <button type="button" data-view="list" data-pa-tip="نمای فهرستی" data-pa-icon="list" data-pa-icon-size="16"></button>
+              </div>
+              <div class="pa-d-flex pa-gap-2 pa-flex-wrap" id="gallery-filters">
+                <button class="pa-chip is-clickable is-primary" data-filter="all">همه</button>
+                <button class="pa-chip is-clickable" data-filter="nature">طبیعت</button>
+                <button class="pa-chip is-clickable" data-filter="city">شهر</button>
+                <button class="pa-chip is-clickable" data-filter="animal">حیوانات</button>
+                <button class="pa-chip is-clickable" data-filter="tech">فناوری</button>
+              </div>
+              <div class="pa-crud-toolbar pa-spacer"></div>
+              <input type="search" class="pa-input" style="max-width:220px" placeholder="جستجو در گالری…" data-pa-searchable-list="#gallery-grid" aria-label="جستجوی گالری">
+            </div>
+
+            <div class="pa-gallery" id="gallery-grid"></div>
+            <div class="pa-g-empty" id="gallery-empty">
+              <div data-pa-icon="image" data-pa-icon-size="42" style="opacity:.4"></div>
+              <p>موردی مطابق فیلتر یا جستجوی شما پیدا نشد.</p>
+            </div>
           </div>
         </div>
 
@@ -47,47 +54,120 @@
     </div>
   </div>
 
-  <div class="pa-lightbox" id="gallery-lightbox">
-    <button class="pa-lb-close" onclick="document.getElementById('gallery-lightbox').classList.remove('is-open')">&times;</button>
-    <div class="pa-lb-content">
-      <h3 id="lb-title">تصویر</h3>
-      <p class="pa-text-muted">نمونه نمایش تصویر در گالری — در نسخه‌ی واقعی، تصویر بارگذاری می‌شود.</p>
-      <div style="width: 320px; height: 240px; background: linear-gradient(135deg, var(--pa-primary), var(--pa-info)); border-radius: var(--pa-radius); margin: 1rem auto;"></div>
-    </div>
-  </div>
-
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
   <script>
-    // Generate gallery placeholders with gradient backgrounds
+    // Multi-view gallery with filters, search and lightbox.
     (function () {
       var grid = document.getElementById('gallery-grid');
-      var labels = ['کوهستان','دریا','جنگل','شهر','صحرا','غروب','آسمان','گل','پرنده','ساختمان','ماشین','قایق','سگ','گربه','درخت','آبشار'];
-      var palettes = [
-        ['#0d6efd','#6610f2'], ['#198754','#0a3622'], ['#ffc107','#d39e00'],
-        ['#dc3545','#7a1620'], ['#0dcaf0','#08546b'], ['#6c757d','#2a2e33'],
-        ['#fd7e14','#7a3d0a'], ['#20c997','#0a5443'], ['#0d6efd','#198754'],
-        ['#6610f2','#dc3545'], ['#ffc107','#fd7e14'], ['#0dcaf0','#0d6efd']
+      var empty = document.getElementById('gallery-empty');
+      var items = [];
+      var data = [
+        { label: 'کوهستان', cat: 'nature', h: 220 },
+        { label: 'دریا', cat: 'nature', h: 160 },
+        { label: 'جنگل', cat: 'nature', h: 260 },
+        { label: 'شهر', cat: 'city', h: 180 },
+        { label: 'صحرا', cat: 'nature', h: 200 },
+        { label: 'غروب', cat: 'nature', h: 240 },
+        { label: 'آسمان', cat: 'nature', h: 150 },
+        { label: 'گل', cat: 'nature', h: 280 },
+        { label: 'پرنده', cat: 'animal', h: 190 },
+        { label: 'ساختمان', cat: 'city', h: 250 },
+        { label: 'ماشین', cat: 'city', h: 170 },
+        { label: 'قایق', cat: 'nature', h: 210 },
+        { label: 'سگ', cat: 'animal', h: 230 },
+        { label: 'گربه', cat: 'animal', h: 160 },
+        { label: 'درخت', cat: 'nature', h: 270 },
+        { label: 'آبشار', cat: 'nature', h: 185 },
+        { label: 'سرور', cat: 'tech', h: 205 },
+        { label: 'لپ‌تاپ', cat: 'tech', h: 165 },
+        { label: 'موبایل', cat: 'tech', h: 245 },
+        { label: 'پل', cat: 'city', h: 195 }
       ];
-      labels.forEach(function (label, i) {
+      var palettes = [
+        ['#0d6efd', '#6610f2'], ['#198754', '#0a3622'], ['#ffc107', '#d39e00'],
+        ['#dc3545', '#7a1620'], ['#0dcaf0', '#08546b'], ['#6f42c1', '#2a2e33'],
+        ['#fd7e14', '#7a3d0a'], ['#20c997', '#0a5443'], ['#0d6efd', '#198754'],
+        ['#6610f2', '#dc3545'], ['#ffc107', '#fd7e14'], ['#0dcaf0', '#0d6efd']
+      ];
+      var catNames = { nature: 'طبیعت', city: 'شهر', animal: 'حیوانات', tech: 'فناوری' };
+
+      data.forEach(function (d, i) {
         var pal = palettes[i % palettes.length];
-        var div = document.createElement('div');
-        div.className = 'pa-gallery-item';
-        div.style.background = 'linear-gradient(135deg, ' + pal[0] + ', ' + pal[1] + ')';
-        div.setAttribute('data-label', label);
-        div.innerHTML = '<div class="pa-overlay"><div class="pa-actions">' +
-          '<button title="نمایش" data-pa-icon="eye" data-pa-icon-size="14"></button>' +
-          '<button title="دانلود" data-pa-icon="download" data-pa-icon-size="14"></button>' +
-          '<button title="حذف" data-pa-icon="trash" data-pa-icon-size="14"></button>' +
-          '</div></div>';
-        div.addEventListener('click', function () {
-          document.getElementById('lb-title').textContent = label;
-          document.getElementById('gallery-lightbox').classList.add('is-open');
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'pa-g-item';
+        btn.setAttribute('data-cat', d.cat);
+        btn.setAttribute('data-pa-search-item', '');
+        btn.style.background = 'linear-gradient(135deg, ' + pal[0] + ', ' + pal[1] + ')';
+        btn.style.height = d.h + 'px';
+        btn.innerHTML =
+          '<span class="pa-g-badge">' + catNames[d.cat] + '</span>' +
+          '<span class="pa-g-zoom" data-pa-icon="maximize" data-pa-icon-size="14"></span>' +
+          '<span>' + d.label + '</span>' +
+          '<span class="pa-g-overlay"><span class="pa-g-caption">' +
+            '<span data-pa-icon="eye" data-pa-icon-size="14"></span> بزرگ‌نمایی</span></span>';
+        btn.addEventListener('click', function () {
+          PAdminLTE.lightbox.open(visibleItems().map(function (it) {
+            return { title: it.label + ' — گالری PAdminLTE', gradient: it.gradient, icon: it.label };
+          }), btnIndex(btn));
         });
-        grid.appendChild(div);
+        grid.appendChild(btn);
+        items.push({ el: btn, label: d.label, cat: d.cat, gradient: btn.style.background });
       });
       PAdminLTE.injectIcons(grid);
+
+      function visibleItems() {
+        return items.filter(function (it) { return it.el.style.display !== 'none'; });
+      }
+      function btnIndex(el) {
+        var vis = visibleItems();
+        for (var i = 0; i < vis.length; i++) if (vis[i].el === el) return i;
+        return 0;
+      }
+
+      // ---- View switcher ----
+      document.querySelectorAll('.pa-gallery-view button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          document.querySelectorAll('.pa-gallery-view button').forEach(function (x) { x.classList.remove('is-active'); });
+          b.classList.add('is-active');
+          grid.classList.remove('is-masonry', 'is-list');
+          if (b.getAttribute('data-view') === 'masonry') grid.classList.add('is-masonry');
+          if (b.getAttribute('data-view') === 'list') grid.classList.add('is-list');
+        });
+      });
+
+      // ---- Category filter ----
+      document.querySelectorAll('#gallery-filters .pa-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          document.querySelectorAll('#gallery-filters .pa-chip').forEach(function (c) { c.classList.remove('is-primary'); });
+          chip.classList.add('is-primary');
+          var f = chip.getAttribute('data-filter');
+          var shown = 0;
+          items.forEach(function (it) {
+            var ok = f === 'all' || it.cat === f;
+            it.el.style.display = ok ? '' : 'none';
+            if (ok) shown++;
+          });
+          empty.style.display = shown ? 'none' : 'block';
+        });
+      });
+
+      // ---- Search (instant filter) ----
+      var searchInput = document.querySelector('[data-pa-searchable-list="#gallery-grid"]');
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          var q = searchInput.value.toLowerCase().trim();
+          var shown = 0;
+          items.forEach(function (it) {
+            var ok = !q || it.label.toLowerCase().indexOf(q) !== -1;
+            it.el.style.display = ok ? '' : 'none';
+            if (ok) shown++;
+          });
+          empty.style.display = shown ? 'none' : 'block';
+        });
+      }
     })();
   </script>
 </body>

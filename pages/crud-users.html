@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — مدیریت کاربران</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>مدیریت کاربران</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>مدیریت کاربران</span></div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-primary js-add" data-pa-modal-open="#crud-modal" data-pa-icon="plus" data-pa-icon-size="16">افزودن کاربر</button>
+          </div>
+        </div>
+
+        <!-- کارت‌های آماری -->
+        <div class="pa-row">
+          <div class="pa-col-4">
+            <div class="pa-small-box pa-bg-primary">
+              <div class="pa-inner">
+                <h3 id="stat-total" data-pa-counter="8">8</h3>
+                <p>کل کاربران</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="users" data-pa-icon-size="52"></span>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-small-box pa-bg-success">
+              <div class="pa-inner">
+                <h3 id="stat-active" data-pa-counter="6">6</h3>
+                <p>کاربران فعال</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="check" data-pa-icon-size="52"></span>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-small-box pa-bg-info">
+              <div class="pa-inner">
+                <h3 id="stat-cats" data-pa-counter="3">3</h3>
+                <p>نقش‌ها</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="cog" data-pa-icon-size="52"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- کارت فهرست کاربران -->
+        <div class="pa-card">
+          <div class="pa-card-header">
+            <div>فهرست کاربران</div>
+            <div class="pa-card-tools">
+              <span class="pa-badge pa-badge-secondary" id="crud-count-badge">8 رکورد</span>
+            </div>
+          </div>
+          <div class="pa-card-body">
+
+            <!-- نوار ابزار: جستجوی زنده، فیلتر نقش و افزودن -->
+            <div class="pa-crud-toolbar">
+              <input type="search" id="crud-search" class="pa-input" placeholder="جستجو در نام یا ایمیل…" aria-label="جستجوی کاربران">
+              <select id="crud-filter" class="pa-select" aria-label="فیلتر نقش">
+                <option value="">همه نقش‌ها</option>
+                <option value="مدیر">مدیر</option>
+                <option value="کاربر">کاربر</option>
+                <option value="مهمان">مهمان</option>
+              </select>
+              <div class="pa-spacer"></div>
+              <button type="button" class="pa-btn pa-btn-primary js-add" data-pa-modal-open="#crud-modal" data-pa-icon="plus" data-pa-icon-size="16">افزودن کاربر</button>
+            </div>
+
+            <!-- نوار عملیات گروهی -->
+            <div class="pa-bulkbar" id="bulkbar">
+              <span id="bulk-count">۰ مورد انتخاب شد</span>
+              <div class="pa-spacer"></div>
+              <button type="button" class="pa-btn pa-btn-danger pa-btn-sm" id="bulk-delete" data-pa-icon="trash" data-pa-icon-size="14">حذف انتخاب‌شده‌ها</button>
+              <button type="button" class="pa-btn pa-btn-secondary pa-btn-sm" id="bulk-cancel">لغو انتخاب</button>
+            </div>
+
+            <!-- جدول کاربران -->
+            <table class="pa-table pa-table-striped pa-table-hover">
+              <thead>
+                <tr>
+                  <th style="width:36px"><input type="checkbox" id="check-all" aria-label="انتخاب همه ردیف‌های این صفحه"></th>
+                  <th>نام و نام خانوادگی</th>
+                  <th>ایمیل</th>
+                  <th>نقش</th>
+                  <th>وضعیت</th>
+                  <th>تاریخ عضویت</th>
+                  <th style="width:132px">عملیات</th>
+                </tr>
+              </thead>
+              <tbody id="crud-tbody"><!-- ردیف‌ها با جاوااسکریپت رندر می‌شوند --></tbody>
+            </table>
+          </div>
+
+          <!-- صفحه‌بندی -->
+          <div class="pa-card-footer pa-d-flex pa-flex-wrap" style="align-items:center;gap:.75rem">
+            <span id="crud-page-info">…</span>
+            <div class="pa-spacer"></div>
+            <div class="pa-d-flex" id="crud-pager" style="gap:.25rem;flex-wrap:wrap"></div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- مودال افزودن / ویرایش کاربر -->
+  <div class="pa-modal-backdrop" id="crud-modal">
+    <div class="pa-modal" role="dialog" aria-modal="true" aria-labelledby="crud-modal-title">
+      <div class="pa-modal-header">
+        <h3 id="crud-modal-title">افزودن کاربر جدید</h3>
+        <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <div class="pa-form-group">
+          <label class="pa-label" for="f-name">نام و نام خانوادگی <span style="color:#ef4444">*</span></label>
+          <input type="text" id="f-name" class="pa-input" placeholder="مثال: علی رضایی">
+        </div>
+        <div class="pa-form-group">
+          <label class="pa-label" for="f-email">ایمیل <span style="color:#ef4444">*</span></label>
+          <input type="email" id="f-email" class="pa-input" placeholder="مثال: ali@example.com" dir="ltr" style="text-align:left">
+        </div>
+        <div class="pa-row">
+          <div class="pa-col-6">
+            <div class="pa-form-group">
+              <label class="pa-label" for="f-role">نقش</label>
+              <select id="f-role" class="pa-select">
+                <option value="مدیر">مدیر</option>
+                <option value="کاربر">کاربر</option>
+                <option value="مهمان">مهمان</option>
+              </select>
+            </div>
+          </div>
+          <div class="pa-col-6">
+            <div class="pa-form-group">
+              <label class="pa-label" for="f-status">وضعیت</label>
+              <select id="f-status" class="pa-select">
+                <option value="فعال">فعال</option>
+                <option value="غیرفعال">غیرفعال</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pa-modal-footer">
+        <button type="button" class="pa-btn pa-btn-secondary" data-pa-modal-close>انصراف</button>
+        <button type="button" class="pa-btn pa-btn-primary" id="crud-save" data-pa-icon="save" data-pa-icon-size="16">ذخیره</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مودال تأیید حذف -->
+  <div class="pa-modal-backdrop" id="crud-delete-modal">
+    <div class="pa-modal pa-modal-sm" role="dialog" aria-modal="true" aria-labelledby="crud-del-title">
+      <div class="pa-modal-header">
+        <h3 id="crud-del-title">حذف رکورد</h3>
+        <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <p style="margin:0">
+          <span data-pa-icon="bell" data-pa-icon-size="16"></span>
+          آیا از حذف <strong id="crud-del-name">این رکورد</strong> مطمئن هستید؟ این عملیات قابل بازگشت نیست.
+        </p>
+      </div>
+      <div class="pa-modal-footer">
+        <button type="button" class="pa-btn pa-btn-secondary" data-pa-modal-close>انصراف</button>
+        <button type="button" class="pa-btn pa-btn-danger" id="crud-del-confirm" data-pa-modal-close data-pa-icon="trash" data-pa-icon-size="16">حذف</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    /* ===================================================================
+       صفحه «مدیریت کاربران» — CRUD کامل سمت کلاینت
+       داده‌ها در localStorage با کلید pa-crud-users نگهداری می‌شوند
+       =================================================================== */
+
+    var STORE_KEY = 'pa-crud-users';
+    var PAGE_SIZE = 5; /* تعداد رکورد در هر صفحه */
+
+    /* ---------- داده‌های نمونه اولیه (۸ کاربر) ---------- */
+    var SEED = [
+      { id: 1, name: 'علی رضایی', email: 'ali.rezaei@example.com', role: 'مدیر', status: 'فعال', date: '۱۴۰۳/۰۲/۱۰' },
+      { id: 2, name: 'سارا محمدی', email: 'sara.mohammadi@example.com', role: 'کاربر', status: 'فعال', date: '۱۴۰۳/۰۲/۰۶' },
+      { id: 3, name: 'حسین کریمی', email: 'hossein.karimi@example.com', role: 'کاربر', status: 'غیرفعال', date: '۱۴۰۳/۰۱/۳۰' },
+      { id: 4, name: 'مریم احمدی', email: 'maryam.ahmadi@example.com', role: 'مهمان', status: 'فعال', date: '۱۴۰۳/۰۱/۲۴' },
+      { id: 5, name: 'رضا موسوی', email: 'reza.mousavi@example.com', role: 'مدیر', status: 'فعال', date: '۱۴۰۳/۰۱/۱۷' },
+      { id: 6, name: 'فاطمه نوری', email: 'fateme.nouri@example.com', role: 'کاربر', status: 'غیرفعال', date: '۱۴۰۳/۰۱/۰۹' },
+      { id: 7, name: 'امیر حسینی', email: 'amir.hosseini@example.com', role: 'مهمان', status: 'فعال', date: '۱۴۰۲/۱۲/۲۷' },
+      { id: 8, name: 'زهرا صادقی', email: 'zahra.sadeghi@example.com', role: 'کاربر', status: 'فعال', date: '۱۴۰۲/۱۲/۱۴' }
+    ];
+
+    /* رنگ گرادیانی آواتار بر اساس شناسه رکورد */
+    var AVATAR_COLORS = [
+      'linear-gradient(135deg,#6366f1,#8b5cf6)',
+      'linear-gradient(135deg,#0ea5e9,#22d3ee)',
+      'linear-gradient(135deg,#f59e0b,#f97316)',
+      'linear-gradient(135deg,#10b981,#34d399)',
+      'linear-gradient(135deg,#ef4444,#fb923c)',
+      'linear-gradient(135deg,#8b5cf6,#ec4899)',
+      'linear-gradient(135deg,#14b8a6,#0ea5e9)',
+      'linear-gradient(135deg,#64748b,#94a3b8)'
+    ];
+
+    /* نگاشت نقش و وضعیت به رنگ نشان */
+    var ROLE_BADGE = {
+      'مدیر': 'pa-badge-primary',
+      'کاربر': 'pa-badge-info',
+      'مهمان': 'pa-badge-secondary'
+    };
+    var STATUS_BADGE = { 'فعال': 'pa-badge-success', 'غیرفعال': 'pa-badge-danger' };
+
+    /* ---------- وضعیت صفحه ---------- */
+    var items = [];            /* آرایه اصلی رکوردها */
+    var currentPage = 1;       /* شماره صفحه جاری */
+    var editingId = null;      /* شناسه در حال ویرایش (null یعنی حالت افزودن) */
+    var pendingDeleteIds = []; /* شناسه‌های در انتظار تأیید حذف */
+    var selectedIds = {};      /* رکوردهای تیک‌خورده */
+
+    /* ---------- عناصر DOM ---------- */
+    var tbody = document.getElementById('crud-tbody');
+    var searchInput = document.getElementById('crud-search');
+    var filterSelect = document.getElementById('crud-filter');
+    var addButtons = document.querySelectorAll('.js-add');
+    var bulkbar = document.getElementById('bulkbar');
+    var bulkCount = document.getElementById('bulk-count');
+    var bulkDeleteBtn = document.getElementById('bulk-delete');
+    var bulkCancelBtn = document.getElementById('bulk-cancel');
+    var checkAll = document.getElementById('check-all');
+    var countBadge = document.getElementById('crud-count-badge');
+    var pageInfo = document.getElementById('crud-page-info');
+    var pager = document.getElementById('crud-pager');
+    var modalTitle = document.getElementById('crud-modal-title');
+    var fieldName = document.getElementById('f-name');
+    var fieldEmail = document.getElementById('f-email');
+    var fieldRole = document.getElementById('f-role');
+    var fieldStatus = document.getElementById('f-status');
+    var saveBtn = document.getElementById('crud-save');
+    var delName = document.getElementById('crud-del-name');
+    var delConfirmBtn = document.getElementById('crud-del-confirm');
+    var statTotal = document.getElementById('stat-total');
+    var statActive = document.getElementById('stat-active');
+    var statCats = document.getElementById('stat-cats');
+
+    /* ---------- ابزارهای کمکی ---------- */
+
+    /* فرار دادن مقادیر کاربر پیش از درج در HTML (ضد تزریق) */
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /* تبدیل ارقام لاتین به فارسی برای نمایش */
+    function toFa(v) {
+      return String(v).replace(/[0-9]/g, function (d) {
+        return '۰۱۲۳۴۵۶۷۸۹'.charAt(parseInt(d, 10));
+      });
+    }
+
+    /* تبدیل ارقام فارسی به لاتین (برای جستجو) */
+    function toLatinDigits(s) {
+      return String(s).replace(/[۰-۹]/g, function (d) {
+        return String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+      });
+    }
+
+    /* تبدیل تاریخ میلادی به شمسی (بدون کتابخانه خارجی) */
+    function toJalali(gy, gm, gd) {
+      var gDm = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+      var jy = (gy <= 1600) ? 0 : 979;
+      var gy2, days, jm, jd;
+      gy -= (gy <= 1600) ? 621 : 1600;
+      gy2 = (gm > 2) ? (gy + 1) : gy;
+      days = (365 * gy) + Math.floor((gy2 + 3) / 4) - Math.floor((gy2 + 99) / 100) +
+             Math.floor((gy2 + 399) / 400) - 80 + gd + gDm[gm - 1];
+      jy += 33 * Math.floor(days / 12053);
+      days %= 12053;
+      jy += 4 * Math.floor(days / 1461);
+      days %= 1461;
+      if (days > 365) {
+        jy += Math.floor((days - 1) / 365);
+        days = (days - 1) % 365;
+      }
+      jm = (days < 186) ? 1 + Math.floor(days / 31) : 7 + Math.floor((days - 186) / 30);
+      jd = 1 + ((days < 186) ? (days % 31) : ((days - 186) % 30));
+      return [jy, jm, jd];
+    }
+
+    /* تاریخ امروز به شمسی با ارقام فارسی */
+    function todayJalali() {
+      var d = new Date();
+      var j = toJalali(d.getFullYear(), d.getMonth() + 1, d.getDate());
+      function p2(n) { return (n < 10 ? '0' : '') + n; }
+      return toFa(j[0]) + '/' + toFa(p2(j[1])) + '/' + toFa(p2(j[2]));
+    }
+
+    /* باز کردن مودال به‌صورت برنامه‌نویسی (ترجیحاً با API قالب) */
+    function openModalById(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      if (window.PAdminLTE && typeof PAdminLTE.openModal === 'function') {
+        try { PAdminLTE.openModal(id); return; } catch (err) { /* امضای متفاوت → روش دستی */ }
+      }
+      el.classList.add('is-open');
+    }
+
+    /* بستن مودال (ترجیحاً با API قالب) */
+    function closeModalById(id) {
+      if (window.PAdminLTE && typeof PAdminLTE.closeModal === 'function') {
+        try { PAdminLTE.closeModal(id); return; } catch (err) { /* امضای متفاوت → روش دستی */ }
+      }
+      var el = document.getElementById(id);
+      if (el) el.classList.remove('is-open');
+    }
+
+    /* تزریق آیکون‌ها پس از هر رندر پویا */
+    function refreshIcons(container) {
+      if (window.PAdminLTE && typeof PAdminLTE.injectIcons === 'function') {
+        PAdminLTE.injectIcons(container);
+      }
+    }
+
+    /* نمایش پیام شناور */
+    function showToast(kind, message, title) {
+      if (window.PAdminLTE && typeof PAdminLTE.toast === 'function') {
+        PAdminLTE.toast({ kind: kind, message: message, title: title || '' });
+      }
+    }
+
+    /* رنگ آواتار رکورد */
+    function avatarColor(id) {
+      return AVATAR_COLORS[(id - 1) % AVATAR_COLORS.length] || AVATAR_COLORS[0];
+    }
+
+    function findById(id) {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].id === id) return items[i];
+      }
+      return null;
+    }
+
+    function nextId() {
+      var m = 0, i;
+      for (i = 0; i < items.length; i++) {
+        if (items[i].id > m) m = items[i].id;
+      }
+      return m + 1;
+    }
+
+    function countSelected() {
+      return Object.keys(selectedIds).length;
+    }
+
+    /* ---------- ذخیره‌سازی در localStorage ---------- */
+    function persist() {
+      try { window.localStorage.setItem(STORE_KEY, JSON.stringify(items)); }
+      catch (e) { /* در صورت غیرفعال بودن حافظه، بی‌صدا رد می‌شود */ }
+    }
+
+    /* خواندن داده‌ها؛ در نبود داده ذخیره‌شده، از داده نمونه استفاده می‌شود */
+    function loadData() {
+      var raw = null;
+      try { raw = window.localStorage.getItem(STORE_KEY); } catch (e) { raw = null; }
+      if (raw) {
+        try {
+          var parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) { items = parsed; return; }
+        } catch (e) { /* داده نامعتبر → بازگشت به داده نمونه */ }
+      }
+      items = JSON.parse(JSON.stringify(SEED));
+      persist();
+    }
+
+    /* ---------- فیلتر و جستجو ---------- */
+    function getFiltered() {
+      var q = toLatinDigits((searchInput.value || '').trim().toLowerCase());
+      var role = filterSelect.value;
+      var result = [];
+      var i, it, hay;
+      for (i = 0; i < items.length; i++) {
+        it = items[i];
+        if (role && it.role !== role) continue;
+        if (q) {
+          hay = toLatinDigits((it.name + ' ' + it.email + ' ' + it.role + ' ' + it.date).toLowerCase());
+          if (hay.indexOf(q) === -1) continue;
+        }
+        result.push(it);
+      }
+      return result;
+    }
+
+    /* رکوردهای صفحه جاری */
+    function currentPageItems() {
+      var filtered = getFiltered();
+      var start = (currentPage - 1) * PAGE_SIZE;
+      return filtered.slice(start, start + PAGE_SIZE);
+    }
+
+    /* ---------- رندر ---------- */
+
+    /* ساخت HTML یک ردیف جدول */
+    function buildRow(it) {
+      var checked = selectedIds[it.id] ? ' checked' : '';
+      var roleBadge = ROLE_BADGE[it.role] || 'pa-badge-secondary';
+      var stBadge = STATUS_BADGE[it.status] || 'pa-badge-secondary';
+      var initial = esc(String(it.name || '?').trim().charAt(0));
+      return '<tr>' +
+        '<td><input type="checkbox" class="pa-row-check" data-id="' + it.id + '" aria-label="انتخاب ردیف"' + checked + '></td>' +
+        '<td><div style="display:flex;align-items:center;gap:.5rem">' +
+          '<span class="pa-avatar pa-avatar-sm" style="background:' + avatarColor(it.id) + ';color:#fff;font-weight:700">' + initial + '</span>' +
+          '<span>' + esc(it.name) + '</span>' +
+        '</div></td>' +
+        '<td><span dir="ltr" style="font-size:.9em">' + esc(it.email) + '</span></td>' +
+        '<td><span class="pa-badge ' + roleBadge + '">' + esc(it.role) + '</span></td>' +
+        '<td><span class="pa-badge ' + stBadge + '">' + esc(it.status) + '</span></td>' +
+        '<td>' + esc(it.date) + '</td>' +
+        '<td><div class="pa-row-actions">' +
+          '<button type="button" class="pa-icon-btn" data-act="edit" data-id="' + it.id + '" title="ویرایش" aria-label="ویرایش"><span data-pa-icon="edit" data-pa-icon-size="16"></span></button>' +
+          '<button type="button" class="pa-icon-btn danger" data-act="del" data-id="' + it.id + '" title="حذف" aria-label="حذف"><span data-pa-icon="trash" data-pa-icon-size="16"></span></button>' +
+          '<button type="button" class="pa-icon-btn" data-act="view" data-id="' + it.id + '" title="مشاهده" aria-label="مشاهده"><span data-pa-icon="eye" data-pa-icon-size="16"></span></button>' +
+        '</div></td>' +
+      '</tr>';
+    }
+
+    /* رندر جدول + صفحه‌بندی + وضعیت انتخاب */
+    function renderRows() {
+      var filtered = getFiltered();
+      var totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      var start = (currentPage - 1) * PAGE_SIZE;
+      var pageItems = filtered.slice(start, start + PAGE_SIZE);
+      var html = '';
+      var i;
+
+      if (filtered.length === 0) {
+        /* حالت خالی: هیچ رکوردی مطابق فیلترها نیست */
+        html = '<tr><td colspan="7">' +
+          '<div style="text-align:center;padding:2.5rem 1rem;color:#94a3b8">' +
+          '<span data-pa-icon="search" data-pa-icon-size="30" style="display:inline-block;margin-bottom:.5rem"></span>' +
+          '<div style="font-weight:700">رکوردی یافت نشد</div>' +
+          '<div style="font-size:.85em;margin-top:.25rem">عبارت جستجو یا فیلترها را تغییر دهید.</div>' +
+          '</div></td></tr>';
+      } else {
+        for (i = 0; i < pageItems.length; i++) html += buildRow(pageItems[i]);
+      }
+      tbody.innerHTML = html;
+      refreshIcons(tbody);
+      renderPager(filtered.length);
+      syncSelectionUI(pageItems);
+    }
+
+    /* رندر صفحه‌بندی و متن «نمایش … رکورد» */
+    function renderPager(total) {
+      var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+      var start = (total === 0) ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
+      var end = Math.min(currentPage * PAGE_SIZE, total);
+      var html = '';
+      var p;
+
+      pageInfo.textContent = 'نمایش ' + toFa(start) + ' تا ' + toFa(end) + ' از ' + toFa(total) + ' رکورد';
+      if (countBadge) countBadge.textContent = toFa(total) + ' رکورد';
+
+      html += '<button type="button" class="pa-btn pa-btn-sm" data-page="prev"' + (currentPage <= 1 ? ' disabled' : '') + '>' +
+        '<span data-pa-icon="chevron_right" data-pa-icon-size="14"></span> قبلی</button>';
+      for (p = 1; p <= totalPages; p++) {
+        html += '<button type="button" class="pa-btn pa-btn-sm' + (p === currentPage ? ' pa-btn-primary' : '') +
+          '" data-page="' + p + '">' + toFa(p) + '</button>';
+      }
+      html += '<button type="button" class="pa-btn pa-btn-sm" data-page="next"' + (currentPage >= totalPages ? ' disabled' : '') +
+        '>بعدی <span data-pa-icon="chevron_left" data-pa-icon-size="14"></span></button>';
+
+      pager.innerHTML = html;
+      refreshIcons(pager);
+    }
+
+    /* همگام‌سازی نوار انتخاب گروهی و چک‌باکس سرستون */
+    function syncSelectionUI(pageItems) {
+      var n = countSelected();
+      var all = pageItems.length > 0;
+      var any = false;
+      var i;
+      bulkbar.classList.toggle('is-visible', n > 0);
+      bulkCount.textContent = toFa(n) + ' مورد انتخاب شد';
+      for (i = 0; i < pageItems.length; i++) {
+        if (selectedIds[pageItems[i].id]) any = true;
+        else all = false;
+      }
+      checkAll.checked = all;
+      checkAll.indeterminate = !all && any;
+    }
+
+    /* به‌روزرسانی کارت‌های آماری */
+    function setStat(el, n) {
+      if (!el) return;
+      el.setAttribute('data-pa-counter', String(n));
+      el.textContent = String(n);
+    }
+    function updateStats() {
+      var active = 0;
+      var roles = {};
+      var i;
+      for (i = 0; i < items.length; i++) {
+        if (items[i].status === 'فعال') active += 1;
+        roles[items[i].role] = true;
+      }
+      setStat(statTotal, items.length);
+      setStat(statActive, active);
+      setStat(statCats, Object.keys(roles).length);
+    }
+
+    /* ---------- عملیات CRUD ---------- */
+
+    /* آماده‌سازی فرم برای افزودن رکورد جدید */
+    function openAdd() {
+      editingId = null;
+      fieldName.value = '';
+      fieldEmail.value = '';
+      fieldRole.selectedIndex = 0;
+      fieldStatus.value = 'فعال';
+      modalTitle.textContent = 'افزودن کاربر جدید';
+      openModalById('crud-modal');
+    }
+
+    /* پر کردن فرم برای ویرایش رکورد موجود */
+    function openEdit(id) {
+      var it = findById(id);
+      if (!it) return;
+      editingId = id;
+      fieldName.value = it.name;
+      fieldEmail.value = it.email;
+      fieldRole.value = it.role;
+      fieldStatus.value = it.status;
+      modalTitle.textContent = 'ویرایش کاربر';
+      openModalById('crud-modal');
+    }
+
+    /* نمایش خلاصه رکورد در قالب پیام */
+    function viewItem(id) {
+      var it = findById(id);
+      if (!it) return;
+      showToast('info',
+        it.name + ' — نقش: ' + it.role + ' — ایمیل: ' + it.email + ' — وضعیت: ' + it.status,
+        'جزئیات کاربر');
+    }
+
+    /* درخواست حذف (تکی یا گروهی) با مودال تأیید */
+    function askDelete(ids) {
+      pendingDeleteIds = ids || [];
+      if (!pendingDeleteIds.length) return;
+      if (pendingDeleteIds.length === 1) {
+        var it = findById(pendingDeleteIds[0]);
+        delName.textContent = '«' + (it ? it.name : 'این رکورد') + '»';
+      } else {
+        delName.textContent = toFa(pendingDeleteIds.length) + ' رکورد انتخاب‌شده';
+      }
+      openModalById('crud-delete-modal');
+    }
+
+    /* تأیید و انجام حذف */
+    function confirmDelete() {
+      var count = pendingDeleteIds.length;
+      var kept = [];
+      var i;
+      if (!count) return;
+      for (i = 0; i < items.length; i++) {
+        if (pendingDeleteIds.indexOf(items[i].id) === -1) kept.push(items[i]);
+      }
+      items = kept;
+      for (i = 0; i < pendingDeleteIds.length; i++) delete selectedIds[pendingDeleteIds[i]];
+      pendingDeleteIds = [];
+      persist();
+      currentPage = 1;
+      renderRows();
+      updateStats();
+      closeModalById('crud-delete-modal');
+      showToast('success',
+        (count === 1) ? 'رکورد با موفقیت حذف شد.' : toFa(count) + ' رکورد با موفقیت حذف شد.',
+        'حذف شد');
+    }
+
+    /* اعتبارسنجی و ذخیره فرم (افزودن یا ویرایش) */
+    function saveForm() {
+      var name = fieldName.value.trim();
+      var email = fieldEmail.value.trim();
+
+      if (!name || !email) {
+        showToast('danger', 'نام و ایمیل الزامی است.');
+        return;
+      }
+
+      if (editingId === null) {
+        /* افزودن رکورد جدید به ابتدای فهرست */
+        items.unshift({
+          id: nextId(),
+          name: name,
+          email: email,
+          role: fieldRole.value,
+          status: fieldStatus.value,
+          date: todayJalali()
+        });
+        currentPage = 1;
+        showToast('success', 'کاربر با موفقیت ذخیره شد.', 'ذخیره شد');
+      } else {
+        /* ویرایش رکورد موجود */
+        var it = findById(editingId);
+        if (it) {
+          it.name = name;
+          it.email = email;
+          it.role = fieldRole.value;
+          it.status = fieldStatus.value;
+        }
+        showToast('success', 'تغییرات کاربر با موفقیت ذخیره شد.', 'ذخیره شد');
+      }
+
+      editingId = null;
+      persist();
+      renderRows();
+      updateStats();
+      closeModalById('crud-modal');
+    }
+
+    /* ---------- اتصال رویدادها ---------- */
+    function bindEvents() {
+      var i;
+
+      /* جستجوی زنده و فیلتر نقش */
+      searchInput.addEventListener('input', function () { currentPage = 1; renderRows(); });
+      filterSelect.addEventListener('change', function () { currentPage = 1; renderRows(); });
+
+      /* دکمه‌های «افزودن» (سربرگ و نوار ابزار) */
+      for (i = 0; i < addButtons.length; i++) {
+        addButtons[i].addEventListener('click', openAdd);
+      }
+
+      /* عملیات ردیف‌ها با تفویض رویداد */
+      tbody.addEventListener('click', function (e) {
+        if (!e.target || !e.target.closest) return;
+        var btn = e.target.closest('[data-act]');
+        if (!btn) return;
+        var id = parseInt(btn.getAttribute('data-id'), 10);
+        var act = btn.getAttribute('data-act');
+        if (act === 'edit') openEdit(id);
+        else if (act === 'del') askDelete([id]);
+        else if (act === 'view') viewItem(id);
+      });
+
+      /* تیک‌خوردن ردیف‌ها */
+      tbody.addEventListener('change', function (e) {
+        if (!e.target || e.target.type !== 'checkbox') return;
+        var id = parseInt(e.target.getAttribute('data-id'), 10);
+        if (e.target.checked) selectedIds[id] = true;
+        else delete selectedIds[id];
+        syncSelectionUI(currentPageItems());
+      });
+
+      /* انتخاب/لغو انتخاب همه ردیف‌های صفحه جاری */
+      checkAll.addEventListener('change', function () {
+        var pageItems = currentPageItems();
+        var i2;
+        for (i2 = 0; i2 < pageItems.length; i2++) {
+          if (checkAll.checked) selectedIds[pageItems[i2].id] = true;
+          else delete selectedIds[pageItems[i2].id];
+        }
+        renderRows();
+      });
+
+      /* صفحه‌بندی */
+      pager.addEventListener('click', function (e) {
+        if (!e.target || !e.target.closest) return;
+        var btn = e.target.closest('[data-page]');
+        if (!btn || btn.hasAttribute('disabled')) return;
+        var v = btn.getAttribute('data-page');
+        if (v === 'prev') currentPage -= 1;
+        else if (v === 'next') currentPage += 1;
+        else currentPage = parseInt(v, 10);
+        renderRows();
+      });
+
+      /* حذف گروهی و لغو انتخاب */
+      bulkDeleteBtn.addEventListener('click', function () {
+        var ids = Object.keys(selectedIds).map(function (k) { return parseInt(k, 10); });
+        if (ids.length) askDelete(ids);
+      });
+      bulkCancelBtn.addEventListener('click', function () {
+        selectedIds = {};
+        renderRows();
+      });
+
+      /* ذخیره فرم و تأیید حذف */
+      saveBtn.addEventListener('click', saveForm);
+      delConfirmBtn.addEventListener('click', confirmDelete);
+    }
+
+    /* ---------- راه‌اندازی صفحه ---------- */
+    loadData();
+    bindEvents();
+    renderRows();
+    updateStats();
+  })();
+  </script>
+</body>
+</html>

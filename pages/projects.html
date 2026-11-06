@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — پروژه‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* استایل‌های محلی صفحه پروژه‌ها */
+    .pa-project-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+    .pa-project-head { padding: 1rem 1.25rem; color: #fff; }
+    .pa-project-head h3 { margin: 0 0 .15rem; font-size: 1.05rem; font-weight: 700; }
+    .pa-project-head small { color: rgba(255,255,255,.85); }
+    .pa-project-meta { display: flex; flex-wrap: wrap; gap: .35rem 1.1rem; font-size: .82rem; color: var(--pa-text-muted); margin: .6rem 0; }
+    .pa-project-meta span { display: inline-flex; align-items: center; gap: .3rem; }
+    .pa-project-foot { display: flex; gap: .35rem; margin-top: auto; }
+    .pa-project-foot .pa-btn { flex: 1; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>پروژه‌ها</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>پروژه‌ها</span></div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-primary" data-pa-modal-open="project-modal" data-pa-icon="plus" data-pa-icon-size="16">پروژه جدید</button>
+          </div>
+        </div>
+
+        <!-- نوار ابزار: جست‌وجو -->
+        <div class="pa-card" style="margin-bottom:1rem">
+          <div class="pa-card-body pa-d-flex pa-gap-2 pa-flex-wrap" style="align-items:center">
+            <input type="search" id="project-search" class="pa-input" placeholder="جست‌وجوی پروژه، کارفرما یا مسئول…" style="flex:1; min-width:220px" aria-label="جست‌وجوی پروژه">
+            <span class="pa-text-muted" id="projects-count" style="font-size:.85rem; white-space:nowrap"></span>
+          </div>
+        </div>
+
+        <!-- شبکه کارت‌های پروژه (با جاوااسکریپت پر می‌شود) -->
+        <div class="pa-row" id="projects-grid"></div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- مودال افزودن / ویرایش پروژه -->
+  <div class="pa-modal-backdrop" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+    <div class="pa-modal">
+      <div class="pa-modal-header">
+        <h3 id="project-modal-title">پروژه جدید</h3>
+        <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <form id="project-form" novalidate>
+          <div class="pa-form-group">
+            <label class="pa-label" for="pf-name">نام پروژه</label>
+            <input type="text" id="pf-name" class="pa-input" placeholder="مثلاً: داشبورد فروش" required>
+          </div>
+          <div class="pa-form-group">
+            <label class="pa-label" for="pf-client">کارفرما</label>
+            <input type="text" id="pf-client" class="pa-input" placeholder="مثلاً: شرکت داده‌پرداز">
+          </div>
+          <div class="pa-form-group">
+            <label class="pa-label" for="pf-progress">پیشرفت (درصد)</label>
+            <input type="number" id="pf-progress" class="pa-input" min="0" max="100" value="0">
+          </div>
+          <div class="pa-form-group">
+            <label class="pa-label" for="pf-status">وضعیت</label>
+            <select id="pf-status" class="pa-select">
+              <option value="فعال">فعال</option>
+              <option value="متوقف">متوقف</option>
+              <option value="تمام‌شده">تمام‌شده</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="pa-modal-footer">
+        <button type="button" class="pa-btn pa-btn-outline" data-pa-modal-close>انصراف</button>
+        <button type="button" class="pa-btn pa-btn-primary" id="save-project" data-pa-icon="check" data-pa-icon-size="16">ذخیره</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مودال جزئیات پروژه -->
+  <div class="pa-modal-backdrop" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-modal-title">
+    <div class="pa-modal">
+      <div class="pa-modal-header">
+        <h3 id="detail-modal-title">جزئیات پروژه</h3>
+        <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body" id="detail-body"><!-- با جاوااسکریپت پر می‌شود --></div>
+      <div class="pa-modal-footer">
+        <button type="button" class="pa-btn pa-btn-outline" data-pa-modal-close>بستن</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ================= منطق صفحه پروژه‌ها ================= */
+    (function () {
+      'use strict';
+      var STORAGE_KEY = 'pa-projects';
+
+      // داده‌های اولیه ۶ پروژه نمونه
+      var SEED = [
+        { id: 1, name: 'داشبورد فروش', client: 'شرکت داده‌پرداز', leader: 'امیر رضایی', deadline: '۱۴۰۴/۱۰/۱۵', progress: 72, status: 'فعال', team: ['ا', 'س', 'م'], desc: 'داشبورد تحلیلی فروش با نمودارهای زنده و گزارش‌های ماهانه. فاز دوم شامل پیش‌بینی فروش است.' },
+        { id: 2, name: 'اپلیکیشن موبایل بانک', client: 'بانک آینده‌نگر', leader: 'سارا احمدی', deadline: '۱۴۰۵/۰۲/۰۱', progress: 45, status: 'فعال', team: ['س', 'ن', 'ر'], desc: 'اپلیکیشن حمل‌ونقل امن با احراز هویت دومرحله‌ای. تست نفوذ مرحله اول با موفقیت انجام شد.' },
+        { id: 3, name: 'وب‌سایت فروشگاه', client: 'فروشگاه مینا', leader: 'محمد کریمی', deadline: '۱۴۰۴/۱۱/۳۰', progress: 88, status: 'فعال', team: ['م', 'م', 'ا'], desc: 'فروشگاه اینترنتی با درگاه پرداخت و پنل مدیریت سفارش‌ها. طراحی جدید رضایت کاربران را بالا برده است.' },
+        { id: 4, name: 'سامانه آموزش آنلاین', client: 'آکادمی دانش', leader: 'نگار موسوی', deadline: '۱۴۰۵/۰۴/۱۰', progress: 30, status: 'فعال', team: ['ن', 'م', 'س'], desc: 'پلتفرم دوره‌های ویدیویی با آزمون و گواهینامه. در حال پیاده‌سازی پخش‌کننده اختصاصی ویدیو هستیم.' },
+        { id: 5, name: 'ربات پشتیبانی', client: 'خدمات آنلاین پارس', leader: 'رضا جعفری', deadline: '۱۴۰۴/۰۹/۲۰', progress: 15, status: 'متوقف', team: ['ر', 'ا', 'ن'], desc: 'ربات پاسخگویی هوشمند به سؤالات متداول مشتریان. منتظر تأیید بودجه فاز دوم از سوی کارفرما هستیم.' },
+        { id: 6, name: 'مهاجرت ابری', client: 'کلاد ایران', leader: 'مریم حسینی', deadline: '۱۴۰۴/۰۸/۲۵', progress: 100, status: 'تمام‌شده', team: ['م', 'ر', 'س'], desc: 'انتقال کامل زیرساخت به زیرساخت ابری بومی بدون قطعی سرویس. پروژه تحویل داده شد.' }
+      ];
+
+      // پالت گرادیان نوار بالای کارت‌ها
+      var GRADS = [
+        'linear-gradient(135deg,#0d6efd,#6610f2)',
+        'linear-gradient(135deg,#6610f2,#d63384)',
+        'linear-gradient(135deg,#198754,#20c997)',
+        'linear-gradient(135deg,#fd7e14,#ffc107)',
+        'linear-gradient(135deg,#0dcaf0,#0d6efd)',
+        'linear-gradient(135deg,#6f42c1,#0dcaf0)'
+      ];
+
+      // نگاشت وضعیت به کلاس نشان
+      var STATUS_BADGE = { 'فعال': 'pa-badge-success', 'متوقف': 'pa-badge-secondary', 'تمام‌شده': 'pa-badge-primary' };
+
+      var projects = [];   // فهرست جاری پروژه‌ها
+      var editingId = null; // شناسه پروژه در حال ویرایش (null = افزودن)
+      var nextId = 1;
+
+      // تبدیل ارقام لاتین به فارسی
+      function faNum(n) {
+        var FA = '۰۱۲۳۴۵۶۷۸۹';
+        return String(n).replace(/\d/g, function (d) { return FA[+d]; });
+      }
+
+      // خواندن داده‌ها از localStorage یا مقدار اولیه
+      function load() {
+        try {
+          var raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) { projects = JSON.parse(raw); }
+          else { projects = SEED.slice(); save(); }
+        } catch (e) { projects = SEED.slice(); }
+        nextId = projects.reduce(function (m, p) { return Math.max(m, p.id); }, 0) + 1;
+      }
+
+      // ذخیره فهرست در localStorage
+      function save() {
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(projects)); } catch (e) { /* حالت خصوصی مرورگر */ }
+      }
+
+      // کلاس رنگ نوار پیشرفت بر اساس درصد
+      function barClass(p) {
+        if (p >= 75) return 'pa-success';
+        if (p >= 40) return '';
+        if (p >= 20) return 'pa-warning';
+        return 'pa-danger';
+      }
+
+      // ساخت HTML یک کارت پروژه
+      function cardHtml(p, idx) {
+        var grad = GRADS[(p.id - 1) % GRADS.length];
+        var badges = Object.keys(STATUS_BADGE).map(function (s) {
+          return '<span class="pa-badge ' + STATUS_BADGE[s] + '">' + s + '</span>';
+        });
+        var avatars = p.team.map(function (ch) {
+          return '<span class="pa-avatar pa-avatar-sm" style="background:linear-gradient(135deg,#0d6efd,#6610f2);color:#fff;display:grid;place-items:center;font-weight:700">' + ch + '</span>';
+        }).join('');
+        return '' +
+          '<div class="pa-col-6">' +
+            '<div class="pa-card pa-project-card" data-id="' + p.id + '">' +
+              '<div class="pa-project-head" style="background:' + grad + '">' +
+                '<div class="pa-d-flex pa-gap-2" style="align-items:flex-start; justify-content:space-between">' +
+                  '<div><h3>' + p.name + '</h3><small>کارفرما: ' + p.client + '</small></div>' +
+                  '<span class="pa-badge ' + STATUS_BADGE[p.status] + '" style="flex-shrink:0">' + p.status + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="pa-card-body">' +
+                '<p style="margin:0; font-size:.88rem; line-height:1.8">' + p.desc + '</p>' +
+                '<div class="pa-project-meta">' +
+                  '<span><span data-pa-icon="user" data-pa-icon-size="15"></span> ' + p.leader + '</span>' +
+                  '<span><span data-pa-icon="calendar" data-pa-icon-size="15"></span> مهلت: ' + p.deadline + '</span>' +
+                '</div>' +
+                '<div class="pa-progress" style="height:8px"><div class="pa-progress-bar ' + barClass(p.progress) + '" style="width:' + p.progress + '%"></div></div>' +
+                '<div class="pa-d-flex pa-gap-2" style="align-items:center; justify-content:space-between; margin-top:.5rem">' +
+                  '<small class="pa-text-muted">' + faNum(p.progress) + '٪ تکمیل شده</small>' +
+                  '<span class="pa-avatar-list">' + avatars + '</span>' +
+                '</div>' +
+              '</div>' +
+              '<div class="pa-card-footer pa-project-foot">' +
+                '<button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-act="detail" data-pa-icon="eye" data-pa-icon-size="15">جزئیات</button>' +
+                '<button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-act="edit" data-pa-icon="edit" data-pa-icon-size="15">ویرایش</button>' +
+                '<button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-act="del" data-pa-icon="trash" data-pa-icon-size="15">حذف</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+      }
+
+      // رندر شبکه پروژه‌ها با اعمال فیلتر جست‌وجو
+      function render() {
+        var q = (document.getElementById('project-search').value || '').trim();
+        var visible = projects.filter(function (p) {
+          if (!q) return true;
+          return (p.name + ' ' + p.client + ' ' + p.leader).indexOf(q) !== -1;
+        });
+        var grid = document.getElementById('projects-grid');
+        grid.innerHTML = visible.map(cardHtml).join('') ||
+          '<div class="pa-col-12"><div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body">پروژه‌ای مطابق جست‌وجوی شما پیدا نشد.</div></div></div>';
+        document.getElementById('projects-count').textContent = 'نمایش ' + faNum(visible.length) + ' از ' + faNum(projects.length) + ' پروژه';
+        PAdminLTE.injectIcons(grid);
+        bindCards(grid);
+      }
+
+      // اتصال رویدادهای دکمه‌های هر کارت
+      function bindCards(root) {
+        root.querySelectorAll('[data-act]').forEach(function (btn) {
+          if (btn.__paBound) return;
+          btn.__paBound = true;
+          btn.addEventListener('click', function () {
+            var id = parseInt(btn.closest('.pa-card').getAttribute('data-id'), 10);
+            var p = projects.filter(function (x) { return x.id === id; })[0];
+            if (!p) return;
+            if (btn.getAttribute('data-act') === 'detail') showDetail(p);
+            else if (btn.getAttribute('data-act') === 'edit') openForm(p);
+            else del(p);
+          });
+        });
+      }
+
+      // نمایش مودال جزئیات
+      function showDetail(p) {
+        document.getElementById('detail-body').innerHTML =
+          '<h3 style="margin:0 0 .25rem">' + p.name + '</h3>' +
+          '<p class="pa-text-muted" style="margin:0 0 .75rem; font-size:.9rem">کارفرما: ' + p.client + '</p>' +
+          '<p style="font-size:.9rem; line-height:1.9">' + p.desc + '</p>' +
+          '<div class="pa-project-meta">' +
+            '<span><span data-pa-icon="user" data-pa-icon-size="15"></span> مسئول: ' + p.leader + '</span>' +
+            '<span><span data-pa-icon="calendar" data-pa-icon-size="15"></span> مهلت: ' + p.deadline + '</span>' +
+          '</div>' +
+          '<div class="pa-progress" style="height:8px"><div class="pa-progress-bar ' + barClass(p.progress) + '" style="width:' + p.progress + '%"></div></div>' +
+          '<div class="pa-d-flex pa-gap-2" style="align-items:center; justify-content:space-between; margin-top:.5rem">' +
+            '<small class="pa-text-muted">پیشرفت: ' + faNum(p.progress) + '٪</small>' +
+            '<span class="pa-badge ' + STATUS_BADGE[p.status] + '">' + p.status + '</span>' +
+          '</div>';
+        PAdminLTE.injectIcons(document.getElementById('detail-body'));
+        PAdminLTE.openModal('detail-modal');
+      }
+
+      // باز کردن فرم برای افزودن (p=null) یا ویرایش
+      function openForm(p) {
+        editingId = p ? p.id : null;
+        document.getElementById('project-modal-title').textContent = p ? 'ویرایش پروژه' : 'پروژه جدید';
+        document.getElementById('pf-name').value = p ? p.name : '';
+        document.getElementById('pf-client').value = p ? p.client : '';
+        document.getElementById('pf-progress').value = p ? p.progress : 0;
+        document.getElementById('pf-status').value = p ? p.status : 'فعال';
+        PAdminLTE.openModal('project-modal');
+      }
+
+      // ذخیره فرم (افزودن یا به‌روزرسانی)
+      function saveForm() {
+        var name = document.getElementById('pf-name').value.trim();
+        if (!name) {
+          PAdminLTE.toast({ kind: 'warning', title: 'ناقص', message: 'نام پروژه را وارد کنید.' });
+          document.getElementById('pf-name').focus();
+          return;
+        }
+        var data = {
+          name: name,
+          client: document.getElementById('pf-client').value.trim() || 'بدون کارفرما',
+          progress: Math.max(0, Math.min(100, parseInt(document.getElementById('pf-progress').value, 10) || 0)),
+          status: document.getElementById('pf-status').value
+        };
+        if (editingId) {
+          projects = projects.map(function (p) { return p.id === editingId ? Object.assign({}, p, data) : p; });
+          PAdminLTE.toast({ kind: 'success', title: 'ذخیره شد', message: 'پروژه «' + name + '» به‌روزرسانی شد.' });
+        } else {
+          projects.unshift(Object.assign({
+            id: nextId++, leader: 'امیر رضایی', deadline: '۱۴۰۵/۰۶/۰۱',
+            team: ['ا', 'س', 'م'], desc: 'پروژه تازه‌ای که از طریق فرم «پروژه جدید» ثبت شده است. توضیحات را تکمیل کنید.'
+          }, data));
+          PAdminLTE.toast({ kind: 'success', title: 'افزوده شد', message: 'پروژه «' + name + '» به فهرست اضافه شد.' });
+        }
+        save();
+        PAdminLTE.closeModal('project-modal');
+        render();
+      }
+
+      // حذف پروژه با تأیید کاربر
+      function del(p) {
+        if (!window.confirm('پروژه «' + p.name + '» حذف شود؟')) return;
+        projects = projects.filter(function (x) { return x.id !== p.id; });
+        save();
+        render();
+        PAdminLTE.toast({ kind: 'danger', title: 'حذف شد', message: 'پروژه «' + p.name + '» حذف شد.' });
+      }
+
+      // راه‌اندازی صفحه
+      document.addEventListener('DOMContentLoaded', function () {
+        load();
+        render();
+        document.getElementById('project-search').addEventListener('input', render);
+        document.getElementById('save-project').addEventListener('click', saveForm);
+      });
+    })();
+  </script>
+</body>
+</html>

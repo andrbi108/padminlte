@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تایم‌لاین فعالیت‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>تایم‌لاین فعالیت‌ها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>تایم‌لاین فعالیت‌ها</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="14"
+                    onclick="PAdminLTE.toast({kind:'info',message:'گزارش فعالیت‌ها آماده دانلود شد (نمونه).'})"> خروجی گزارش</button>
+            <button type="button" class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="plus" data-pa-icon-size="14"
+                    onclick="PAdminLTE.toast({kind:'success',message:'فرم ثبت رخداد جدید باز شد (نمونه).'})"> رخداد جدید</button>
+          </div>
+        </div>
+
+        <!-- کارت راهنمای رنگ نقطه‌ها -->
+        <div class="pa-card">
+          <div class="pa-card-body">
+            <div class="pa-d-flex pa-gap-2 pa-flex-wrap" style="align-items:center">
+              <strong style="font-size:.9rem">راهنمای رنگ نقطه‌ها:</strong>
+              <span class="pa-badge pa-badge-success">نقطه سبز = رخداد موفق و انتشارهای تکمیل‌شده</span>
+              <span class="pa-badge pa-badge-danger">نقطه قرمز = باگ‌ها و رخدادهای بحرانی</span>
+              <span class="pa-tl-text">نقطه آبی پیش‌فرض برای فعالیت‌های عادی و نقطه زرد برای هشدارها استفاده می‌شود.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- تایم‌لاین فعالیت‌ها -->
+        <div class="pa-card">
+          <div class="pa-card-header">
+            <h3>رخدادهای اخیر پروژه</h3>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-timeline">
+
+              <!-- رخداد ۱ -->
+              <div class="pa-timeline-item" data-pa-reveal>
+                <div class="pa-tl-time">۱۴۰۳/۰۸/۱۲ — ۱۰:۳۰</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="rocket" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">انتشار نسخه ۱٫۲ قالب</h4>
+                  <span class="pa-badge pa-badge-primary">انتشار</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">نسخه ۱٫۲ با ۹ کامپوننت جدید شامل کاروسل، آکاردئون و حلقه پیشرفت منتشر شد. مستندات و نمونه‌های مربوطه نیز به‌روزرسانی شدند.</p>
+              </div>
+
+              <!-- رخداد ۲ -->
+              <div class="pa-timeline-item is-danger" data-pa-reveal data-pa-delay="60">
+                <div class="pa-tl-time">۱۴۰۳/۰۸/۱۰ — ۱۶:۴۵</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-danger" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="bug" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">رفع باگ صفحه پرداخت</h4>
+                  <span class="pa-badge pa-badge-danger">رفع باگ</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">خطای محاسبه مبلغ نهایی سبد خرید در حالت ارسال رایگان شناسایی و اصلاح شد. تست‌های مربوطه به مجموعه آزمون‌ها اضافه شدند.</p>
+              </div>
+
+              <!-- رخداد ۳ -->
+              <div class="pa-timeline-item is-success" data-pa-reveal data-pa-delay="120">
+                <div class="pa-tl-time">۱۴۰۳/۰۸/۰۸ — ۰۹:۱۵</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-success" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="tag_alt" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">امضای قرارداد با شرکت نوین‌داده</h4>
+                  <span class="pa-badge pa-badge-success">قرارداد</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">قرارداد یک‌ساله پشتیبانی و توسعه قالب با شرکت نوین‌داده امضا شد؛ بر اساس آن پنل اختصاصی گزارش‌گیری برای آن‌ها ساخته خواهد شد.</p>
+              </div>
+
+              <!-- رخداد ۴ -->
+              <div class="pa-timeline-item" data-pa-reveal data-pa-delay="180">
+                <div class="pa-tl-time">۱۴۰۳/۰۸/۰۵ — ۱۴:۰۰</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="users" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">استخدام دو توسعه‌دهنده فرانت‌اند</h4>
+                  <span class="pa-badge pa-badge-primary">استخدام</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">پس از سه مرحله مصاحبه فنی، دو توسعه‌دهنده جدید به تیم فرانت‌اند پیوستند. جلسه آشنایی با معماری قالب برای هفته آینده برنامه‌ریزی شده است.</p>
+              </div>
+
+              <!-- رخداد ۵ -->
+              <div class="pa-timeline-item is-warning" data-pa-reveal data-pa-delay="240">
+                <div class="pa-tl-time">۱۴۰۳/۰۸/۰۲ — ۱۱:۲۰</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-warning" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#212529; flex-shrink:0"><span data-pa-icon="server" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">هشدار مصرف بالای حافظه سرور</h4>
+                  <span class="pa-badge pa-badge-warning">هشدار</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">مصرف حافظه سرور میزبانی به ۹۲ درصد رسید. کش صفحات پویا پاک‌سازی شد و انتقال موقت بخش استاتیک به هاست دانلود انجام گرفت.</p>
+              </div>
+
+              <!-- رخداد ۶ -->
+              <div class="pa-timeline-item" data-pa-reveal data-pa-delay="300">
+                <div class="pa-tl-time">۱۴۰۳/۰۷/۲۹ — ۱۳:۴۰</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="zap" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">بهینه‌سازی سرعت بارگذاری داشبورد</h4>
+                  <span class="pa-badge pa-badge-primary">بهبود</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">با حذف استایل‌های بلااستفاده و تأخیردهی مقداردهی اولیه نمودارها، زمان بارگذاری داشبورد از ۲٫۱ ثانیه به ۱٫۳ ثانیه کاهش یافت.</p>
+              </div>
+
+              <!-- رخداد ۷ -->
+              <div class="pa-timeline-item is-success" data-pa-reveal data-pa-delay="360">
+                <div class="pa-tl-time">۱۴۰۳/۰۷/۲۶ — ۰۸:۳۰</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-success" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="git_branch" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">ادغام شاخه امنیتی در نسخه پایدار</h4>
+                  <span class="pa-badge pa-badge-success">امنیت</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">شاخه امنیتی شامل اعتبارسنجی سخت‌گیرانه‌تر ورودی‌ها و محدودسازی نرخ درخواست‌ها پس از بازبینی کد با نسخه پایدار ادغام شد.</p>
+              </div>
+
+              <!-- رخداد ۸ -->
+              <div class="pa-timeline-item" data-pa-reveal data-pa-delay="420">
+                <div class="pa-tl-time">۱۴۰۳/۰۷/۲۲ — ۱۷:۱۰</div>
+                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
+                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="send" data-pa-icon-size="15"></span></span>
+                  <h4 class="pa-tl-title" style="margin:0">ارسال دعوت‌نامه بتا به مشتریان قدیمی</h4>
+                  <span class="pa-badge pa-badge-primary">بتا</span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.35rem">ایمیل دعوت‌نامه برای نسخه بتا به ۴۸۰ مشتری قدیمی ارسال شد. تا امروز ۱۳۶ نفر ثبت‌نام کرده و بازخورد اولیه خود را ثبت کرده‌اند.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه تایم‌لاین — ظاهر شدن آیتم‌ها هنگام اسکرول
+       به‌صورت خودکار با ویژگی data-pa-reveal انجام می‌شود و
+       این اسکریپت فقط یک پیام خوش‌آمد نمایش می‌دهد.
+       ============================================================ */
+    (function () {
+      'use strict';
+      var items = document.querySelectorAll('.pa-timeline-item');
+      if (items.length) {
+        PAdminLTE.toast({ kind: 'info', message: items.length + ' رخداد اخیر پروژه بارگذاری شد.' });
+      }
+    })();
+  </script>
+</body>
+</html>

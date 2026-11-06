@@ -152,8 +152,13 @@
   }
 
   /* ---------- Modals ---------- */
+  function _modalEl(id) {
+    if (typeof id !== 'string') return id;
+    if (id.charAt(0) === '#') id = id.slice(1); // tolerate "#id" form
+    return document.getElementById(id);
+  }
   function openModal(id) {
-    var el = typeof id === 'string' ? document.getElementById(id) : id;
+    var el = _modalEl(id);
     if (!el) return;
     el.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -162,7 +167,7 @@
     emit('pa:modal:open', { id: el.id });
   }
   function closeModal(id) {
-    var el = typeof id === 'string' ? document.getElementById(id) : id;
+    var el = _modalEl(id);
     if (!el) return;
     el.classList.remove('is-open');
     if (!document.querySelector('.pa-modal-backdrop.is-open')) document.body.style.overflow = '';
@@ -455,22 +460,156 @@
 
   /* ---------- Charts (vanilla canvas, no Chart.js) ---------- */
   function _getCtx(canvas) {
-    var ctx = canvas.getContext('2d');
     var dpr = global.devicePixelRatio || 1;
-    var w = canvas.clientWidth || canvas.parentElement.clientWidth || 300;
-    var h = canvas.clientHeight || canvas.parentElement.clientHeight || 200;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.scale(dpr, dpr);
+    /* Freeze the CSS size ONCE. Measuring clientWidth of a canvas whose
+       CSS width is auto, while its width attribute grows (w*dpr), feeds
+       back into layout and doubles the size every animation frame. */
+    if (!canvas.__paSized) {
+      var parent = canvas.parentElement;
+      canvas.style.width = '';
+      canvas.style.height = '';
+      var rect = canvas.getBoundingClientRect();
+      var cssW = rect.width || (parent ? parent.clientWidth : 0) || 300;
+      var cssH = rect.height || (parent ? parent.clientHeight : 0) || 200;
+      canvas.style.width = Math.round(cssW) + 'px';
+      canvas.style.height = Math.round(cssH) + 'px';
+      canvas.__paSized = true;
+    }
+    var ctx = canvas.getContext('2d');
+    var w = canvas.clientWidth || 300;
+    var h = canvas.clientHeight || 200;
+    var bw = Math.round(w * dpr), bh = Math.round(h * dpr);
+    if (canvas.width !== bw || canvas.height !== bh) {
+      canvas.width = bw;
+      canvas.height = bh;
+    }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     return { ctx: ctx, w: w, h: h };
+  }
+
+  /* =============================================================
+     Chart engine v2 — animated (requestAnimationFrame) with hover
+     tooltips, theme-aware re-render and resize handling.
+     All charts store their config on the canvas so theme switches
+     and resizes redraw them without losing state.
+     ============================================================= */
+  var CHART_DUR = 900;
+  var CHART_COLORS = ['#0d6efd', '#198754', '#ffc107', '#dc3545', '#6f42c1', '#0dcaf0', '#fd7e14', '#20c997'];
+
+  function _chartFont() { return '10px ' + getComputedStyle(document.body).fontFamily; }
+
+  var _tipEl = null;
+  function _chartTip() {
+    if (!_tipEl || !document.body.contains(_tipEl)) {
+      _tipEl = document.createElement('div');
+      _tipEl.className = 'pa-chart-tooltip';
+      document.body.appendChild(_tipEl);
+    }
+    return _tipEl;
+  }
+  function _tipShow(html, pageX, pageY) {
+    var tip = _chartTip();
+    tip.innerHTML = html;
+    tip.classList.add('is-visible');
+    var x = Math.max(70, Math.min(window.innerWidth - 70, pageX));
+    tip.style.left = x + 'px';
+    tip.style.top = Math.max(46, pageY) + 'px';
+  }
+  function _tipHide() { if (_tipEl) _tipEl.classList.remove('is-visible'); }
+
+  function _easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+  function _animate(canvas, render) {
+    var start = null;
+    function frame(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / CHART_DUR, 1);
+      render(_easeOut(p), null);
+      if (p < 1) canvas.__paRAF = requestAnimationFrame(frame);
+    }
+    if (canvas.__paRAF) cancelAnimationFrame(canvas.__paRAF);
+    canvas.__paRAF = requestAnimationFrame(frame);
+  }
+
+  function _bindChartHover(canvas) {
+    if (canvas.__paHoverBound) return;
+    canvas.__paHoverBound = true;
+    var pending = null;
+    canvas.addEventListener('mousemove', function (e) {
+      pending = e;
+      if (canvas.__paHoverRAF) return;
+      canvas.__paHoverRAF = requestAnimationFrame(function () {
+        canvas.__paHoverRAF = null;
+        if (!pending || !canvas.__paHits) return;
+        var rect = canvas.getBoundingClientRect();
+        var mx = pending.clientX - rect.left, my = pending.clientY - rect.top;
+        var hit = null;
+        for (var i = 0; i < canvas.__paHits.length; i++) {
+          var h = canvas.__paHits[i];
+          if (h.kind === 'band') { if (mx >= h.x0 && mx <= h.x1) { hit = h; break; } }
+          else if (h.kind === 'slice') {
+            var dx = mx - h.cx, dy = my - h.cy;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist >= h.innerR && dist <= h.r) {
+              var a = Math.atan2(dy, dx);
+              while (a < h.a0) a += Math.PI * 2;
+              if (a >= h.a0 && a <= h.a0 + h.span) { hit = h; break; }
+            }
+          }
+        }
+        var idx = hit ? hit.index : null;
+        if (canvas.__paHover !== idx) {
+          canvas.__paHover = idx;
+          if (canvas.__paRender) canvas.__paRender(1, idx);
+        }
+        if (hit) {
+          _tipShow(hit.html, rect.left + (hit.tipX !== undefined ? hit.tipX : mx), rect.top + (hit.tipY !== undefined ? hit.tipY : my));
+          canvas.style.cursor = 'pointer';
+        } else {
+          _tipHide();
+          canvas.style.cursor = '';
+        }
+      });
+    });
+    canvas.addEventListener('mouseleave', function () {
+      _tipHide();
+      if (canvas.__paHover !== null && canvas.__paHover !== undefined) {
+        canvas.__paHover = null;
+        if (canvas.__paRender) canvas.__paRender(1, null);
+      }
+    });
+  }
+
+  // Re-render every registered chart (theme change / resize)
+  function _refreshCharts(remeasure) {
+    document.querySelectorAll('canvas').forEach(function (c) {
+      if (typeof c.__paRender === 'function') {
+        if (remeasure) c.__paSized = false; // re-measure CSS size
+        c.__paHover = null;
+        c.__paRender(1, null);
+      }
+    });
+  }
+  var _resizeTimer = null;
+  global.addEventListener('resize', function () {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(function () { _refreshCharts(true); }, 180);
+  });
+  on('pa:theme', function () { _refreshCharts(false); });
+
+  function _tipHtml(title, rows) {
+    var h = '<div class="pa-ct-title">' + title + '</div>';
+    rows.forEach(function (r) {
+      h += '<div class="pa-ct-row"><span class="pa-ct-dot" style="background:' + r.color + '"></span>' +
+           (r.name ? r.name + ': ' : '') + '<strong>' + r.value + '</strong></div>';
+    });
+    return h;
   }
 
   function lineChart(canvas, data, opts) {
     opts = opts || {};
-    var colors = (opts.colors || ['#0d6efd', '#198754', '#ffc107', '#dc3545']);
+    var colors = (opts.colors || CHART_COLORS);
     var padding = { top: 10, right: 10, bottom: 24, left: 36 };
-    var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
-    ctx.clearRect(0, 0, w, h);
     var isDark = document.documentElement.getAttribute('data-pa-theme') === 'dark';
     var axisColor = isDark ? '#adb5bd' : '#6c757d';
     var gridColor = isDark ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.06)';
@@ -481,66 +620,124 @@
     var minV = Math.min.apply(null, allVals.concat([0]));
     if (minV > 0) minV = 0;
     if (maxV === minV) maxV = minV + 1;
-    var chartW = w - padding.left - padding.right;
-    var chartH = h - padding.top - padding.bottom;
-    var stepX = labels.length > 1 ? chartW / (labels.length - 1) : chartW;
 
-    function yFor(v) { return padding.top + chartH - ((v - minV) / (maxV - minV)) * chartH; }
-    function xFor(i) { return padding.left + i * stepX; }
+    function render(progress, hoverIdx) {
+      var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
+      ctx.clearRect(0, 0, w, h);
+      var chartW = w - padding.left - padding.right;
+      var chartH = h - padding.top - padding.bottom;
+      var stepX = labels.length > 1 ? chartW / (labels.length - 1) : chartW;
+      function yFor(v) { return padding.top + chartH - ((v - minV) / (maxV - minV)) * chartH; }
+      function xFor(i) { return padding.left + i * stepX; }
 
-    // grid
-    ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
-    ctx.font = '10px ' + getComputedStyle(document.body).fontFamily;
-    ctx.fillStyle = axisColor;
-    for (var g = 0; g <= 4; g++) {
-      var yy = padding.top + (chartH / 4) * g;
-      ctx.beginPath(); ctx.moveTo(padding.left, yy); ctx.lineTo(padding.left + chartW, yy); ctx.stroke();
-      var lab = Math.round(maxV - ((maxV - minV) / 4) * g);
-      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      ctx.fillText(String(lab), padding.left - 6, yy);
-    }
-    // x labels
-    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-    labels.forEach(function (l, i) {
-      if (i % Math.ceil(labels.length / 8 || 1) === 0 || i === labels.length - 1) {
-        ctx.fillText(String(l), xFor(i), padding.top + chartH + 4);
+      // grid + axes
+      ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
+      ctx.font = _chartFont();
+      ctx.fillStyle = axisColor;
+      for (var g = 0; g <= 4; g++) {
+        var yy = padding.top + (chartH / 4) * g;
+        ctx.beginPath(); ctx.moveTo(padding.left, yy); ctx.lineTo(padding.left + chartW, yy); ctx.stroke();
+        var lab = Math.round(maxV - ((maxV - minV) / 4) * g);
+        ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.fillText(String(lab), padding.left - 6, yy);
       }
-    });
-    // series
-    series.forEach(function (s, idx) {
-      var color = colors[idx % colors.length];
-      ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.lineJoin = 'round';
-      ctx.fillStyle = color + '22';
-      var vals = s.values || [];
-      ctx.beginPath();
-      vals.forEach(function (v, i) {
-        var x = xFor(i), y = yFor(v);
-        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+      labels.forEach(function (l, i) {
+        var bold = hoverIdx === i;
+        ctx.font = bold ? 'bold ' + _chartFont() : _chartFont();
+        ctx.fillStyle = bold ? (colors[0]) : axisColor;
+        if (i % Math.ceil(labels.length / 8 || 1) === 0 || i === labels.length - 1) {
+          ctx.fillText(String(l), xFor(i), padding.top + chartH + 4);
+        }
       });
-      ctx.stroke();
-      // area
-      if (opts.area !== false) {
-        ctx.lineTo(xFor(vals.length - 1), padding.top + chartH);
-        ctx.lineTo(xFor(0), padding.top + chartH);
-        ctx.closePath();
-        ctx.fill();
+
+      // hover guide
+      if (hoverIdx !== null && hoverIdx !== undefined) {
+        ctx.save();
+        ctx.strokeStyle = isDark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.14)';
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath(); ctx.moveTo(xFor(hoverIdx), padding.top); ctx.lineTo(xFor(hoverIdx), padding.top + chartH); ctx.stroke();
+        ctx.restore();
       }
-      // points
-      if (opts.points !== false) {
+
+      // series (clip reveals left→right during animation)
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(padding.left - 2, 0, (chartW + 4) * progress, h);
+      ctx.clip();
+      series.forEach(function (s, idx) {
+        var color = colors[idx % colors.length];
+        ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.lineJoin = 'round';
+        var vals = s.values || [];
+        ctx.beginPath();
         vals.forEach(function (v, i) {
-          ctx.beginPath(); ctx.fillStyle = color;
-          ctx.arc(xFor(i), yFor(v), 3, 0, Math.PI * 2); ctx.fill();
+          var x = xFor(i), y = yFor(v);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
         });
+        // area fill
+        if (opts.area !== false) {
+          ctx.save();
+          ctx.lineTo(xFor(vals.length - 1), padding.top + chartH);
+          ctx.lineTo(xFor(0), padding.top + chartH);
+          ctx.closePath();
+          var grad = ctx.createLinearGradient(0, padding.top, 0, padding.top + chartH);
+          grad.addColorStop(0, color + '3d');
+          grad.addColorStop(1, color + '05');
+          ctx.fillStyle = grad;
+          ctx.fill();
+          ctx.restore();
+          ctx.beginPath();
+          vals.forEach(function (v, i) {
+            var x = xFor(i), y = yFor(v);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          });
+        }
+        ctx.stroke();
+        // points
+        if (opts.points !== false) {
+          vals.forEach(function (v, i) {
+            var isH = hoverIdx === i;
+            ctx.beginPath();
+            ctx.fillStyle = color;
+            ctx.arc(xFor(i), yFor(v), isH ? 5 : 3, 0, Math.PI * 2);
+            ctx.fill();
+            if (isH) {
+              ctx.beginPath();
+              ctx.strokeStyle = color; ctx.lineWidth = 1.5;
+              ctx.arc(xFor(i), yFor(v), 8, 0, Math.PI * 2);
+              ctx.stroke();
+            }
+          });
+        }
+      });
+      ctx.restore();
+
+      // hit bands (label-index mode, like Chart.js)
+      if (progress >= 1) {
+        canvas.__paHits = labels.map(function (l, i) {
+          var rows = series.map(function (s, si) {
+            return { color: colors[si % colors.length], name: s.name || ('سری ' + (si + 1)), value: (s.values || [])[i] };
+          });
+          return {
+            kind: 'band', index: i,
+            x0: xFor(i) - stepX / 2, x1: xFor(i) + stepX / 2,
+            tipX: xFor(i), tipY: yFor((series[0] && (series[0].values || [])[i]) || 0),
+            html: _tipHtml(String(l), rows)
+          };
+        });
+        _bindChartHover(canvas);
       }
-    });
+    }
+    canvas.__paRender = render;
+    canvas.__paHover = null;
+    if (opts.animate !== false) _animate(canvas, render);
+    else render(1, null);
   }
 
   function barChart(canvas, data, opts) {
     opts = opts || {};
-    var colors = opts.colors || ['#0d6efd', '#198754', '#ffc107', '#dc3545'];
+    var colors = opts.colors || CHART_COLORS;
     var padding = { top: 10, right: 10, bottom: 24, left: 36 };
-    var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
-    ctx.clearRect(0, 0, w, h);
     var isDark = document.documentElement.getAttribute('data-pa-theme') === 'dark';
     var axisColor = isDark ? '#adb5bd' : '#6c757d';
     var gridColor = isDark ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.06)';
@@ -549,92 +746,175 @@
     var allVals = series.reduce(function (a, s) { return a.concat(s.values || []); }, []);
     var maxV = Math.max.apply(null, allVals.concat([0]));
     if (maxV === 0) maxV = 1;
-    var chartW = w - padding.left - padding.right;
-    var chartH = h - padding.top - padding.bottom;
-    function yFor(v) { return padding.top + chartH - (v / maxV) * chartH; }
-    // grid
-    ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
-    ctx.font = '10px ' + getComputedStyle(document.body).fontFamily;
-    ctx.fillStyle = axisColor;
-    for (var g = 0; g <= 4; g++) {
-      var yy = padding.top + (chartH / 4) * g;
-      ctx.beginPath(); ctx.moveTo(padding.left, yy); ctx.lineTo(padding.left + chartW, yy); ctx.stroke();
-      var lab = Math.round(maxV - (maxV / 4) * g);
-      ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      ctx.fillText(String(lab), padding.left - 6, yy);
-    }
-    var groupCount = labels.length;
-    var seriesCount = series.length;
-    var groupW = chartW / groupCount;
-    var barW = Math.min(28, (groupW - 8) / seriesCount);
-    labels.forEach(function (l, gi) {
-      series.forEach(function (s, si) {
-        var v = (s.values || [])[gi] || 0;
-        var x = padding.left + gi * groupW + (groupW - barW * seriesCount) / 2 + si * barW;
-        var y = yFor(v);
-        ctx.fillStyle = colors[si % colors.length];
-        ctx.fillRect(x, y, barW - 2, padding.top + chartH - y);
-      });
+    var rounded = opts.rounded !== false;
+
+    function render(progress, hoverIdx) {
+      var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
+      ctx.clearRect(0, 0, w, h);
+      var chartW = w - padding.left - padding.right;
+      var chartH = h - padding.top - padding.bottom;
+      function yFor(v) { return padding.top + chartH - (v / maxV) * chartH; }
+      // grid
+      ctx.strokeStyle = gridColor; ctx.lineWidth = 1;
+      ctx.font = _chartFont();
       ctx.fillStyle = axisColor;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-      ctx.fillText(String(l), padding.left + gi * groupW + groupW / 2, padding.top + chartH + 4);
-    });
+      for (var g = 0; g <= 4; g++) {
+        var yy = padding.top + (chartH / 4) * g;
+        ctx.beginPath(); ctx.moveTo(padding.left, yy); ctx.lineTo(padding.left + chartW, yy); ctx.stroke();
+        var lab = Math.round(maxV - (maxV / 4) * g);
+        ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        ctx.fillText(String(lab), padding.left - 6, yy);
+      }
+      var groupCount = labels.length;
+      var seriesCount = series.length;
+      var groupW = chartW / groupCount;
+      var barW = Math.min(28, (groupW - 8) / seriesCount);
+      labels.forEach(function (l, gi) {
+        series.forEach(function (s, si) {
+          var v = (s.values || [])[gi] || 0;
+          var fullH = padding.top + chartH - yFor(v);
+          var curH = fullH * progress;
+          var x = padding.left + gi * groupW + (groupW - barW * seriesCount) / 2 + si * barW;
+          var y = padding.top + chartH - curH;
+          var isH = hoverIdx === gi;
+          ctx.fillStyle = colors[si % colors.length];
+          ctx.globalAlpha = hoverIdx === null || hoverIdx === undefined || isH ? 1 : .45;
+          if (rounded && ctx.roundRect) {
+            ctx.beginPath();
+            ctx.roundRect(x, y, barW - 2, curH, [4, 4, 0, 0]);
+            ctx.fill();
+          } else {
+            ctx.fillRect(x, y, barW - 2, curH);
+          }
+          ctx.globalAlpha = 1;
+          // value label on hover
+          if (isH && progress >= 1) {
+            ctx.fillStyle = axisColor;
+            ctx.font = 'bold ' + _chartFont();
+            ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+            ctx.fillText(String(v), x + (barW - 2) / 2, y - 3);
+          }
+        });
+        ctx.fillStyle = hoverIdx === gi ? colors[0] : axisColor;
+        ctx.font = hoverIdx === gi ? 'bold ' + _chartFont() : _chartFont();
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        ctx.fillText(String(l), padding.left + gi * groupW + groupW / 2, padding.top + chartH + 4);
+      });
+      if (progress >= 1) {
+        canvas.__paHits = labels.map(function (l, i) {
+          var rows = series.map(function (s, si) {
+            return { color: colors[si % colors.length], name: s.name || ('سری ' + (si + 1)), value: (s.values || [])[i] };
+          });
+          return {
+            kind: 'band', index: i,
+            x0: padding.left + i * groupW, x1: padding.left + (i + 1) * groupW,
+            tipX: padding.left + i * groupW + groupW / 2,
+            tipY: yFor(Math.max.apply(null, series.map(function (s) { return (s.values || [])[i] || 0; }))),
+            html: _tipHtml(String(l), rows)
+          };
+        });
+        _bindChartHover(canvas);
+      }
+    }
+    canvas.__paRender = render;
+    canvas.__paHover = null;
+    if (opts.animate !== false) _animate(canvas, render);
+    else render(1, null);
   }
 
   function donutChart(canvas, data, opts) {
     opts = opts || {};
-    var colors = opts.colors || ['#0d6efd', '#198754', '#ffc107', '#dc3545', '#6c757d', '#0dcaf0'];
-    var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
-    ctx.clearRect(0, 0, w, h);
-    var cx = w / 2, cy = h / 2;
-    var r = Math.min(w, h) / 2 - 6;
-    var innerR = r * 0.6;
-    var total = data.reduce(function (a, d) { return a + (d.value || 0); }, 0) || 1;
-    var start = -Math.PI / 2;
-    data.forEach(function (d, i) {
-      var angle = ((d.value || 0) / total) * Math.PI * 2;
-      ctx.beginPath();
-      ctx.fillStyle = colors[i % colors.length];
-      ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, start, start + angle, false);
-      ctx.closePath();
-      ctx.fill();
-      start += angle;
-    });
-    // inner hole
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalCompositeOperation = 'source-over';
-    // center text
+    var colors = opts.colors || CHART_COLORS;
     var isDark = document.documentElement.getAttribute('data-pa-theme') === 'dark';
-    ctx.fillStyle = isDark ? '#e9ecef' : '#212529';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.font = 'bold 18px ' + getComputedStyle(document.body).fontFamily;
-    ctx.fillText(String(total), cx, cy - 6);
-    ctx.font = '11px ' + getComputedStyle(document.body).fontFamily;
-    ctx.fillStyle = isDark ? '#adb5bd' : '#6c757d';
-    ctx.fillText(opts.centerLabel || 'Total', cx, cy + 12);
+    var total = data.reduce(function (a, d) { return a + (d.value || 0); }, 0) || 1;
+
+    function render(progress, hoverIdx) {
+      var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
+      ctx.clearRect(0, 0, w, h);
+      var cx = w / 2, cy = h / 2;
+      var r = Math.min(w, h) / 2 - 6;
+      var innerR = r * 0.6;
+      var start = -Math.PI / 2;
+      var slices = [];
+      data.forEach(function (d, i) {
+        var angle = ((d.value || 0) / total) * Math.PI * 2;
+        var mid = start + angle / 2;
+        var isH = hoverIdx === i;
+        var expand = isH ? 5 : 0;
+        var ex = Math.cos(mid) * expand, ey = Math.sin(mid) * expand;
+        var end = start + angle * progress;
+        ctx.beginPath();
+        ctx.fillStyle = colors[i % colors.length];
+        ctx.globalAlpha = hoverIdx === null || hoverIdx === undefined || isH ? 1 : .4;
+        ctx.moveTo(cx + ex, cy + ey);
+        ctx.arc(cx + ex, cy + ey, r, start, end, false);
+        ctx.closePath();
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        slices.push({
+          kind: 'slice', index: i, a0: start, span: angle,
+          cx: cx + ex, cy: cy + ey, r: r, innerR: innerR,
+          tipX: cx + Math.cos(mid) * (innerR + (r - innerR) / 2),
+          tipY: cy + Math.sin(mid) * (innerR + (r - innerR) / 2),
+          html: _tipHtml(d.label || ('بخش ' + (i + 1)), [
+            { color: colors[i % colors.length], name: '', value: (d.value || 0) + ' (' + Math.round((d.value || 0) / total * 100) + '٪)' }
+          ])
+        });
+        start += angle;
+      });
+      // inner hole
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(cx, cy, innerR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalCompositeOperation = 'source-over';
+      // center text
+      ctx.fillStyle = isDark ? '#e9ecef' : '#212529';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = 'bold 18px ' + getComputedStyle(document.body).fontFamily;
+      ctx.globalAlpha = progress;
+      ctx.fillText(String(Math.round(total * progress)), cx, cy - 6);
+      ctx.font = '11px ' + getComputedStyle(document.body).fontFamily;
+      ctx.fillStyle = isDark ? '#adb5bd' : '#6c757d';
+      ctx.fillText(opts.centerLabel || 'مجموع', cx, cy + 12);
+      ctx.globalAlpha = 1;
+      if (progress >= 1) {
+        canvas.__paHits = slices;
+        _bindChartHover(canvas);
+      }
+    }
+    canvas.__paRender = render;
+    canvas.__paHover = null;
+    if (opts.animate !== false) _animate(canvas, render);
+    else render(1, null);
   }
 
   function sparkline(canvas, values, color) {
-    var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
-    ctx.clearRect(0, 0, w, h);
-    color = color || '#0d6efd';
-    var max = Math.max.apply(null, values.concat([1]));
-    var min = Math.min.apply(null, values.concat([0]));
-    var stepX = w / (values.length - 1 || 1);
-    ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.lineJoin = 'round';
-    ctx.beginPath();
-    values.forEach(function (v, i) {
-      var x = i * stepX;
-      var y = h - ((v - min) / (max - min || 1)) * h;
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    });
-    ctx.stroke();
-    ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
-    ctx.fillStyle = color + '22'; ctx.fill();
+    color = color || CHART_COLORS[0];
+    function render(progress) {
+      var _g = _getCtx(canvas), ctx = _g.ctx, w = _g.w, h = _g.h;
+      ctx.clearRect(0, 0, w, h);
+      var max = Math.max.apply(null, values.concat([1]));
+      var min = Math.min.apply(null, values.concat([0]));
+      var stepX = w / (values.length - 1 || 1);
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, w * progress, h);
+      ctx.clip();
+      ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.lineJoin = 'round';
+      ctx.beginPath();
+      values.forEach(function (v, i) {
+        var x = i * stepX;
+        var y = h - ((v - min) / (max - min || 1)) * h;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
+      ctx.fillStyle = color + '22'; ctx.fill();
+      ctx.restore();
+    }
+    canvas.__paRender = render;
+    _animate(canvas, render);
   }
 
   /* ---------- Search (client-side filter for current page) ---------- */
@@ -1085,6 +1365,367 @@
     });
   }
 
+  /* =============================================================
+     v1.2 components — back-to-top, accordion, carousel, lightbox,
+     rating, counters, reveal-on-scroll, progress rings, ripple
+     ============================================================= */
+
+  /* ---------- Back-to-top (auto-injected once per page) ---------- */
+  function initBackToTop() {
+    var btn = document.querySelector('.pa-back-to-top');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'pa-back-to-top';
+      btn.setAttribute('aria-label', 'بازگشت به بالا');
+      btn.title = 'بازگشت به بالا';
+      btn.innerHTML = PAdminLTE.icon('arrow_up', 20);
+      btn.addEventListener('click', function () {
+        global.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      document.body.appendChild(btn);
+    }
+    function onScroll() {
+      var y = global.scrollY || document.documentElement.scrollTop || 0;
+      btn.classList.toggle('is-visible', y > 240);
+    }
+    global.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ---------- Accordion (data-pa-accordion, "multiple" allowed) ---------- */
+  function initAccordions(root) {
+    (root || document).querySelectorAll('[data-pa-accordion] > .pa-accordion-item > .pa-accordion-header').forEach(function (header) {
+      if (header.__paBound) return;
+      header.__paBound = true;
+      header.addEventListener('click', function () {
+        var item = header.parentElement;
+        var acc = item.closest('[data-pa-accordion]');
+        var single = acc && acc.getAttribute('data-pa-accordion') !== 'multiple';
+        var isOpen = item.classList.contains('is-open');
+        if (single) {
+          acc.querySelectorAll('.pa-accordion-item.is-open').forEach(function (o) {
+            o.classList.remove('is-open');
+            var b = o.querySelector('.pa-accordion-body');
+            if (b) b.style.maxHeight = '';
+          });
+        }
+        if (!isOpen) {
+          item.classList.add('is-open');
+          var body = item.querySelector('.pa-accordion-body');
+          if (body) body.style.maxHeight = body.scrollHeight + 'px';
+        } else {
+          item.classList.remove('is-open');
+          var b2 = item.querySelector('.pa-accordion-body');
+          if (b2) b2.style.maxHeight = '';
+        }
+        emit('pa:accordion:toggle', { item: item, open: !isOpen });
+      });
+    });
+    // Sync any item opened server-side (class is-open in markup)
+    (root || document).querySelectorAll('.pa-accordion-item.is-open .pa-accordion-body').forEach(function (b) {
+      b.style.maxHeight = b.scrollHeight + 'px';
+    });
+  }
+
+  /* ---------- Carousel (data-pa-carousel, autoplay + swipe) ---------- */
+  function initCarousels(root) {
+    (root || document).querySelectorAll('[data-pa-carousel]').forEach(function (car) {
+      if (car.__paBound) return;
+      car.__paBound = true;
+      var track = car.querySelector('.pa-carousel-track');
+      if (!track) return;
+      var slides = track.children;
+      var count = slides.length;
+      if (!count) return;
+      var intervalMs = parseInt(car.getAttribute('data-pa-interval') || '5000', 10);
+      var idx = 0, timer = null;
+
+      var dots = document.createElement('div');
+      dots.className = 'pa-carousel-controls';
+      for (var i = 0; i < count; i++) {
+        (function (n) {
+          var d = document.createElement('button');
+          d.type = 'button';
+          d.className = 'pa-carousel-dot' + (n === 0 ? ' is-active' : '');
+          d.setAttribute('aria-label', 'اسلاید ' + (n + 1));
+          d.addEventListener('click', function () { go(n); restart(); });
+          dots.appendChild(d);
+        })(i);
+      }
+      car.appendChild(dots);
+
+      var prev = document.createElement('button');
+      prev.type = 'button';
+      prev.className = 'pa-carousel-arrow pa-ca-prev';
+      prev.setAttribute('aria-label', 'اسلاید قبلی');
+      prev.innerHTML = PAdminLTE.icon('chevron_right', 18);
+      prev.addEventListener('click', function () { go(idx - 1); restart(); });
+      var next = document.createElement('button');
+      next.type = 'button';
+      next.className = 'pa-carousel-arrow pa-ca-next';
+      next.setAttribute('aria-label', 'اسلاید بعدی');
+      next.innerHTML = PAdminLTE.icon('chevron_left', 18);
+      next.addEventListener('click', function () { go(idx + 1); restart(); });
+      car.appendChild(prev);
+      car.appendChild(next);
+
+      function go(n) {
+        idx = (n + count) % count;
+        // In RTL the flex track overflows to the LEFT, so the sign flips.
+        var rtl = (document.documentElement.dir || 'ltr') === 'rtl';
+        var pct = idx * 100 / count;
+        track.style.transform = 'translateX(' + (rtl ? pct : -pct) + '%)';
+        dots.querySelectorAll('.pa-carousel-dot').forEach(function (d, i) {
+          d.classList.toggle('is-active', i === idx);
+        });
+        emit('pa:carousel:change', { index: idx, el: car });
+      }
+      function restart() {
+        if (timer) clearInterval(timer);
+        if (intervalMs > 0) timer = setInterval(function () { go(idx + 1); }, intervalMs);
+      }
+      car.addEventListener('mouseenter', function () { if (timer) clearInterval(timer); });
+      car.addEventListener('mouseleave', restart);
+      // Touch swipe
+      var startX = null;
+      car.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+      car.addEventListener('touchend', function (e) {
+        if (startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) { go(idx + (dx < 0 ? 1 : -1)); restart(); }
+        startX = null;
+      }, { passive: true });
+      go(0);
+      restart();
+    });
+  }
+
+  /* ---------- Lightbox (shared, keyboard + RTL aware) ---------- */
+  var lbEl = null, lbItems = [], lbIndex = 0;
+  function ensureLightbox() {
+    if (lbEl && document.body.contains(lbEl)) return lbEl;
+    lbEl = document.createElement('div');
+    lbEl.className = 'pa-lightbox';
+    lbEl.setAttribute('role', 'dialog');
+    lbEl.setAttribute('aria-modal', 'true');
+    lbEl.setAttribute('aria-label', 'نمایش تصویر');
+    lbEl.innerHTML =
+      '<button type="button" class="pa-lb-close" aria-label="بستن">' + PAdminLTE.icon('x', 20) + '</button>' +
+      '<div class="pa-lb-figure">' +
+        '<span class="pa-lb-counter"></span>' +
+        '<div class="pa-lb-canvas"></div>' +
+        '<div class="pa-lb-caption"></div>' +
+        '<button type="button" class="pa-lb-btn pa-lb-prev" aria-label="قبلی">' + PAdminLTE.icon('chevron_right', 22) + '</button>' +
+        '<button type="button" class="pa-lb-btn pa-lb-next" aria-label="بعدی">' + PAdminLTE.icon('chevron_left', 22) + '</button>' +
+      '</div>';
+    document.body.appendChild(lbEl);
+    lbEl.querySelector('.pa-lb-close').addEventListener('click', closeLightbox);
+    lbEl.querySelector('.pa-lb-prev').addEventListener('click', function () { lightboxGo(lbIndex - 1); });
+    lbEl.querySelector('.pa-lb-next').addEventListener('click', function () { lightboxGo(lbIndex + 1); });
+    lbEl.addEventListener('click', function (e) { if (e.target === lbEl) closeLightbox(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lbEl.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') lightboxGo(lbIndex - 1);
+      else if (e.key === 'ArrowLeft') lightboxGo(lbIndex + 1);
+    });
+    return lbEl;
+  }
+  function openLightbox(items, index) {
+    lbItems = items || [];
+    if (!lbItems.length) return;
+    ensureLightbox().classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    lightboxGo(index || 0);
+    emit('pa:lightbox:open', { index: index || 0, count: lbItems.length });
+  }
+  function lightboxGo(i) {
+    if (!lbItems.length || !lbEl) return;
+    lbIndex = (i + lbItems.length) % lbItems.length;
+    var it = lbItems[lbIndex];
+    var canvas = lbEl.querySelector('.pa-lb-canvas');
+    canvas.style.background = it.gradient || 'linear-gradient(135deg, var(--pa-primary), var(--pa-info))';
+    canvas.innerHTML = '<span style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.4);font-size:3.5rem;font-weight:800">' + (it.icon || '') + '</span>';
+    lbEl.querySelector('.pa-lb-caption').textContent = it.title || '';
+    lbEl.querySelector('.pa-lb-counter').textContent = (lbIndex + 1) + ' / ' + lbItems.length;
+    var fig = lbEl.querySelector('.pa-lb-figure');
+    fig.style.animation = 'none';
+    void fig.offsetWidth;
+    fig.style.animation = '';
+  }
+  function closeLightbox() {
+    if (lbEl) lbEl.classList.remove('is-open');
+    document.body.style.overflow = '';
+    emit('pa:lightbox:close', {});
+  }
+
+  /* ---------- Star rating (data-pa-rating="5" data-pa-value="3") ---------- */
+  function initRatings(root) {
+    (root || document).querySelectorAll('[data-pa-rating]').forEach(function (r) {
+      if (r.__paBound) return;
+      r.__paBound = true;
+      var stars = parseInt(r.getAttribute('data-pa-rating') || '5', 10);
+      var current = parseFloat(r.getAttribute('data-pa-value') || '0');
+      var readonly = r.hasAttribute('data-pa-readonly');
+      if (readonly) r.classList.add('is-readonly');
+      function paint(n) {
+        r.querySelectorAll('.pa-star').forEach(function (s, i) {
+          s.classList.toggle('is-on', i < Math.round(n));
+        });
+      }
+      function render() {
+        r.innerHTML = '';
+        for (var i = 1; i <= stars; i++) {
+          (function (n) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'pa-star' + (n <= Math.round(current) ? ' is-on' : '');
+            b.setAttribute('aria-label', n + ' از ' + stars + ' ستاره');
+            b.innerHTML = PAdminLTE.icon('star', 16);
+            if (!readonly) {
+              b.addEventListener('click', function () {
+                current = n;
+                r.setAttribute('data-pa-value', String(n));
+                paint(current);
+                emit('pa:rating:change', { value: n, el: r });
+              });
+              b.addEventListener('mouseenter', function () { paint(n); });
+              b.addEventListener('mouseleave', function () { paint(current); });
+            }
+            r.appendChild(b);
+          })(i);
+        }
+        if (r.hasAttribute('data-pa-show-value')) {
+          var v = document.createElement('span');
+          v.className = 'pa-rating-value';
+          v.textContent = current + ' از ' + stars;
+          r.appendChild(v);
+        }
+      }
+      render();
+    });
+  }
+
+  /* ---------- Animated counters (data-pa-counter="2500") ---------- */
+  function animateCount(el) {
+    var target = parseFloat(el.getAttribute('data-pa-counter') || '0');
+    var dur = parseInt(el.getAttribute('data-pa-counter-duration') || '1400', 10);
+    var suffix = el.getAttribute('data-pa-counter-suffix') || '';
+    var sep = el.getAttribute('data-pa-counter-sep') !== 'off';
+    function fmt(n) {
+      var s = String(Math.round(n));
+      if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+      return s + suffix;
+    }
+    var start = null;
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = fmt(target * _easeOut(p));
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function initCounters(root) {
+    var els = (root || document).querySelectorAll('[data-pa-counter]');
+    if (!('IntersectionObserver' in global)) {
+      els.forEach(function (e) { e.textContent = e.getAttribute('data-pa-counter'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting && !en.target.__paCounted) {
+          en.target.__paCounted = true;
+          animateCount(en.target);
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: .4 });
+    els.forEach(function (e) {
+      e.__paCounted = false;
+      io.observe(e);
+    });
+  }
+
+  /* ---------- Reveal on scroll (data-pa-reveal) ---------- */
+  function initReveals(root) {
+    var els = (root || document).querySelectorAll('[data-pa-reveal]');
+    if (!('IntersectionObserver' in global)) {
+      els.forEach(function (e) { e.classList.add('is-revealed'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          var d = parseInt(en.target.getAttribute('data-pa-delay') || '0', 10);
+          setTimeout(function () { en.target.classList.add('is-revealed'); }, d);
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: .12 });
+    els.forEach(function (e) {
+      if (!e.classList.contains('is-revealed')) io.observe(e);
+    });
+  }
+
+  /* ---------- Progress rings (data-pa-ring="72") ---------- */
+  function initRings(root) {
+    (root || document).querySelectorAll('[data-pa-ring]').forEach(function (el) {
+      if (el.__paBound) return;
+      el.__paBound = true;
+      var pct = Math.max(0, Math.min(100, parseFloat(el.getAttribute('data-pa-ring') || '0')));
+      var size = parseInt(el.getAttribute('data-pa-size') || '96', 10);
+      var stroke = parseInt(el.getAttribute('data-pa-stroke') || '8', 10);
+      var color = el.getAttribute('data-pa-color') || 'var(--pa-primary)';
+      var r = (size - stroke) / 2;
+      var c = 2 * Math.PI * r;
+      el.classList.add('pa-ring');
+      el.style.width = size + 'px';
+      el.style.height = size + 'px';
+      el.innerHTML =
+        '<svg width="' + size + '" height="' + size + '">' +
+          '<circle class="pa-ring-bg" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke-width="' + stroke + '"/>' +
+          '<circle class="pa-ring-val" cx="' + size / 2 + '" cy="' + size / 2 + '" r="' + r + '" fill="none" stroke-width="' + stroke + '" stroke="' + color + '" stroke-dasharray="' + c + '" stroke-dashoffset="' + c + '"/>' +
+        '</svg>' +
+        '<span class="pa-ring-label">0٪</span>';
+      var val = el.querySelector('.pa-ring-val');
+      var lbl = el.querySelector('.pa-ring-label');
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          val.style.strokeDashoffset = c * (1 - pct / 100);
+        });
+      });
+      var start = null, dur = 1100;
+      function step(ts) {
+        if (start === null) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        lbl.textContent = Math.round(pct * _easeOut(p)) + '٪';
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  /* ---------- Ripple on buttons ---------- */
+  function initRipples(root) {
+    (root || document).querySelectorAll('.pa-btn, .pa-icon-btn').forEach(function (btn) {
+      if (btn.__paRipple) return;
+      btn.__paRipple = true;
+      btn.addEventListener('click', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var size = Math.max(rect.width, rect.height);
+        var r = document.createElement('span');
+        r.className = 'pa-ripple';
+        r.style.width = r.style.height = size + 'px';
+        r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        r.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(r);
+        setTimeout(function () { r.remove(); }, 620);
+      });
+    });
+  }
+
   /* ---------- Auto-init everything ---------- */
   var _origBoot = boot;
   function fullBoot(root) {
@@ -1095,6 +1736,14 @@
     initQtySteppers(root);
     initKanban(root);
     initSearchableLists(root);
+    initBackToTop();
+    initAccordions(root);
+    initCarousels(root);
+    initRatings(root);
+    initCounters(root);
+    initReveals(root);
+    initRings(root);
+    initRipples(root);
     // Bind copy buttons
     (root || document).querySelectorAll('[data-pa-copy]').forEach(function (btn) {
       if (btn.__paBound) return;
@@ -1147,4 +1796,19 @@
   PAdminLTE.copyToClipboard = copyToClipboard;
   PAdminLTE.notify = notify;
   PAdminLTE.markAllNotificationsRead = markAllNotificationsRead;
+
+  /* ---------- Public API additions (v1.2) ---------- */
+  PAdminLTE.initBackToTop = initBackToTop;
+  PAdminLTE.initAccordions = initAccordions;
+  PAdminLTE.initCarousels = initCarousels;
+  PAdminLTE.initRatings = initRatings;
+  PAdminLTE.initCounters = initCounters;
+  PAdminLTE.animateCount = animateCount;
+  PAdminLTE.initReveals = initReveals;
+  PAdminLTE.initRings = initRings;
+  PAdminLTE.lightbox = {
+    open: openLightbox,
+    close: closeLightbox,
+    go: function (i) { lightboxGo(i); }
+  };
 })(typeof window !== 'undefined' ? window : this);

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — کامپوننت‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>کامپوننت‌ها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>کامپوننت‌ها</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="package_alt" data-pa-icon-size="14"
+                    onclick="PAdminLTE.toast({kind:'info',message:'کتابخانه کامپوننت‌ها نسخه ۱٫۲ — بدون هیچ وابستگی خارجی.'})"> درباره نسخه</button>
+          </div>
+        </div>
+
+        <div class="pa-row">
+
+          <!-- ۱. آکاردئون -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>آکاردئون</h3></div>
+              <div class="pa-card-body">
+                <div data-pa-accordion>
+                  <div class="pa-accordion-item is-open">
+                    <button type="button" class="pa-accordion-header">آیا PAdminLTE وابستگی خارجی دارد؟ <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                    <div class="pa-accordion-body">
+                      <p>خیر. این قالب صددرصد بدون وابستگی است؛ هیچ نسخه‌ای از بوت‌استرپ، جی‌کوئری یا Chart.js استفاده نشده است. همه اجزا با جاوااسکریپت خالص و CSS دست‌نویس ساخته شده‌اند و هیچ درخواستی به شبکه‌های خارجی ارسال نمی‌شود.</p>
+                    </div>
+                  </div>
+                  <div class="pa-accordion-item">
+                    <button type="button" class="pa-accordion-header">پشتیبانی از زبان فارسی و راست‌چین چگونه است؟ <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                    <div class="pa-accordion-body">
+                      <p>کل قالب با ویژگی dir="rtl" طراحی شده و همه فاصله‌ها و ترازها با ویژگی‌های منطقی مثل padding-inline نوشته شده‌اند. فونت‌های سیستمی نیز به‌طور کامل از تایپ فارسی پشتیبانی می‌کنند.</p>
+                    </div>
+                  </div>
+                  <div class="pa-accordion-item">
+                    <button type="button" class="pa-accordion-header">چطور یک کامپوننت جدید مقداردهی اولیه شود؟ <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                    <div class="pa-accordion-body">
+                      <p>اکثر کامپوننت‌ها اعلانی (declarative) هستند؛ کافی است ویژگی data-pa-* مربوطه را در HTML بنویسید تا هنگام بارگذاری صفحه به‌صورت خودکار راه‌اندازی شوند. برای نمونه data-pa-ring یک حلقه پیشرفت SVG می‌سازد.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۳. امتیازدهی -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>امتیازدهی</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-group">
+                  <span class="pa-label">امتیاز کاربر (تعاملی)</span>
+                  <div class="pa-rating" data-pa-rating="5" data-pa-value="4" data-pa-show-value></div>
+                </div>
+                <div class="pa-form-group">
+                  <span class="pa-label">فقط‌خواندنی</span>
+                  <div class="pa-rating" data-pa-rating="5" data-pa-value="3" data-pa-readonly data-pa-show-value></div>
+                </div>
+                <div class="pa-form-group pa-mb-0">
+                  <span class="pa-label">تعاملی خالی — امتیاز دهید</span>
+                  <div class="pa-rating" data-pa-rating="5" data-pa-value="0"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۲. کاروسل -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>کاروسل</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-carousel" data-pa-carousel data-pa-interval="4000">
+                  <div class="pa-carousel-track">
+                    <div class="pa-carousel-slide" style="height:240px; display:grid; place-items:center; color:#fff; font-weight:700; font-size:1.3rem; background:linear-gradient(135deg, #0d6efd, #6f42c1)">اسلاید اول</div>
+                    <div class="pa-carousel-slide" style="height:240px; display:grid; place-items:center; color:#fff; font-weight:700; font-size:1.3rem; background:linear-gradient(135deg, #198754, #20c997)">اسلاید دوم</div>
+                    <div class="pa-carousel-slide" style="height:240px; display:grid; place-items:center; color:#fff; font-weight:700; font-size:1.3rem; background:linear-gradient(135deg, #fd7e14, #dc3545)">اسلاید سوم</div>
+                  </div>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.6rem">نقطه‌ها و فلش‌ها به‌صورت خودکار توسط جاوااسکریپت اضافه می‌شوند و پخش خودکار هر ۴ ثانیه تکرار می‌شود.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۴. حلقه پیشرفت -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>حلقه پیشرفت ریسپانسیو</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-d-flex pa-gap-2" style="gap:2.25rem; align-items:center; flex-wrap:wrap">
+                  <div data-pa-ring="72" data-pa-size="96"></div>
+                  <div data-pa-ring="45" data-pa-size="96" data-pa-color="var(--pa-success)"></div>
+                  <div data-pa-ring="90" data-pa-size="96" data-pa-color="var(--pa-danger)"></div>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.75rem">حلقه‌ها با SVG ساخته می‌شوند و درصد هر یک به‌صورت انیمیشنی در مرکز نمایش داده می‌شود.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۵. مراحل -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>مراحل (Stepper)</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-steps">
+                  <div class="pa-step is-done">
+                    <div class="pa-step-dot"><span data-pa-icon="check" data-pa-icon-size="15"></span></div>
+                    <div class="pa-step-label">سبد خرید</div>
+                  </div>
+                  <div class="pa-step is-active">
+                    <div class="pa-step-dot">۲</div>
+                    <div class="pa-step-label">پرداخت</div>
+                  </div>
+                  <div class="pa-step">
+                    <div class="pa-step-dot">۳</div>
+                    <div class="pa-step-label">ارسال</div>
+                  </div>
+                  <div class="pa-step">
+                    <div class="pa-step-dot">۴</div>
+                    <div class="pa-step-label">تحویل</div>
+                  </div>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.75rem">مرحله اول تکمیل، مرحله دوم فعال و دو مرحله بعدی در انتظار هستند.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۶. چیپس -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>چیپس</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-d-flex pa-gap-2 pa-flex-wrap" id="chip-demo">
+                  <button type="button" class="pa-chip is-clickable is-primary">دسته‌بندی فعال</button>
+                  <span class="pa-chip">طراحی <button type="button" class="pa-chip-x" data-pa-icon="x" data-pa-icon-size="12" aria-label="حذف چیپ طراحی"></button></span>
+                  <span class="pa-chip">فرانت‌اند <button type="button" class="pa-chip-x" data-pa-icon="x" data-pa-icon-size="12" aria-label="حذف چیپ فرانت‌اند"></button></span>
+                  <span class="pa-chip">بک‌اند <button type="button" class="pa-chip-x" data-pa-icon="x" data-pa-icon-size="12" aria-label="حذف چیپ بک‌اند"></button></span>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.75rem">روی ضربدر چیپ‌ها بزنید تا حذف شوند؛ چیپ اول به‌عنوان انتخاب فعال با رنگ اصلی برجسته شده است.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۷. درخت -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>درخت (Tree)</h3></div>
+              <div class="pa-card-body">
+                <ul class="pa-tree">
+                  <li>
+                    <details open>
+                      <summary><span data-pa-icon="folder_open" data-pa-icon-size="16"></span> پروژه‌ها</summary>
+                      <ul>
+                        <li>
+                          <details open>
+                            <summary><span data-pa-icon="folder" data-pa-icon-size="16"></span> src</summary>
+                            <ul>
+                              <li>
+                                <details open>
+                                  <summary><span data-pa-icon="folder" data-pa-icon-size="16"></span> js</summary>
+                                  <ul>
+                                    <li><span class="pa-tree-leaf"><span data-pa-icon="file_text" data-pa-icon-size="14"></span> padminlte.js</span></li>
+                                    <li><span class="pa-tree-leaf"><span data-pa-icon="file_text" data-pa-icon-size="14"></span> pa-icons.js</span></li>
+                                  </ul>
+                                </details>
+                              </li>
+                              <li>
+                                <details>
+                                  <summary><span data-pa-icon="folder" data-pa-icon-size="16"></span> css</summary>
+                                  <ul>
+                                    <li><span class="pa-tree-leaf"><span data-pa-icon="file_text" data-pa-icon-size="14"></span> padminlte.css</span></li>
+                                  </ul>
+                                </details>
+                              </li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li>
+                          <details>
+                            <summary><span data-pa-icon="folder" data-pa-icon-size="16"></span> docs</summary>
+                            <ul>
+                              <li><span class="pa-tree-leaf"><span data-pa-icon="file_text" data-pa-icon-size="14"></span> USAGE.md</span></li>
+                              <li><span class="pa-tree-leaf"><span data-pa-icon="file_image" data-pa-icon-size="14"></span> logo.svg</span></li>
+                            </ul>
+                          </details>
+                        </li>
+                        <li><span class="pa-tree-leaf"><span data-pa-icon="file_text" data-pa-icon-size="14"></span> README.md</span></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۸. تولتیپ -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>تولتیپ CSS</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-d-flex pa-gap-2 pa-flex-wrap">
+                  <button type="button" class="pa-btn pa-btn-outline" data-pa-tip="این یک راهنمای بالای دکمه است">راهنمای اول</button>
+                  <button type="button" class="pa-btn pa-btn-outline" data-pa-tip="ذخیره تغییرات در پیش‌نویس">ذخیره پیش‌نویس</button>
+                  <button type="button" class="pa-btn pa-btn-outline" data-pa-tip="حذف آیتم‌های انتخاب‌شده">حذف گروهی</button>
+                </div>
+                <p class="pa-tl-text" style="margin-top:.75rem">تولتیپ فقط با CSS و ویژگی data-pa-tip ساخته می‌شود؛ برای نمایش، ماوس را روی دکمه‌ها نگه دارید.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۹. شمارنده -->
+          <div class="pa-col-12">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>شمارنده انیمیشنی</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-row">
+                  <div class="pa-col-4" style="text-align:center">
+                    <h2 data-pa-counter="2500" style="margin:0; font-weight:700; color:var(--pa-primary)">۲٬۵۰۰</h2>
+                    <p class="pa-tl-text">سفارش موفق</p>
+                  </div>
+                  <div class="pa-col-4" style="text-align:center">
+                    <h2 data-pa-counter="4800" style="margin:0; font-weight:700; color:var(--pa-primary)">۴٬۸۰۰</h2>
+                    <p class="pa-tl-text">کاربر فعال</p>
+                  </div>
+                  <div class="pa-col-4" style="text-align:center">
+                    <h2 data-pa-counter="12500" style="margin:0; font-weight:700; color:var(--pa-primary)">۱۲٬۵۰۰</h2>
+                    <p class="pa-tl-text">بازدید ماهانه</p>
+                  </div>
+                </div>
+                <p class="pa-tl-text" style="text-align:center">شمارش با رسیدن به دید کاربر شروع می‌شود.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۱۰. نوار پیشرفت انیمیشنی -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>نوار پیشرفت انیمیشنی</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-group">
+                  <div class="pa-d-flex" style="justify-content:space-between"><span class="pa-label">طراحی رابط کاربری</span><span class="pa-tl-text">۷۲٪</span></div>
+                  <div class="pa-progress"><div class="pa-progress-bar" style="width:72%"></div></div>
+                </div>
+                <div class="pa-form-group">
+                  <div class="pa-d-flex" style="justify-content:space-between"><span class="pa-label">توسعه بک‌اند</span><span class="pa-tl-text">۴۵٪</span></div>
+                  <div class="pa-progress"><div class="pa-progress-bar pa-success" style="width:45%"></div></div>
+                </div>
+                <div class="pa-form-group pa-mb-0">
+                  <div class="pa-d-flex" style="justify-content:space-between"><span class="pa-label">تست و استقرار</span><span class="pa-tl-text">۹۰٪</span></div>
+                  <div class="pa-progress"><div class="pa-progress-bar pa-danger" style="width:90%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۱۱. تب‌ها -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>تب‌ها</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-tabs" data-pa-tabs>
+                  <button type="button" class="pa-tab is-active" data-pa-tab="tab-overview">کلیات</button>
+                  <button type="button" class="pa-tab" data-pa-tab="tab-stats">آمار</button>
+                  <button type="button" class="pa-tab" data-pa-tab="tab-settings">تنظیمات</button>
+                </div>
+                <div id="tab-overview" class="pa-tab-panel is-active" data-pa-panel="tab-overview">
+                  <p>کامپوننت‌های PAdminLTE همه با HTML اعلانی کار می‌کنند؛ یعنی بدون نوشتن حتی یک خط جاوااسکریپت می‌توانید آکاردئون، کاروسل، تب یا حلقه پیشرفت بسازید. این رویکرد نگه‌داری کد را بسیار ساده‌تر می‌کند.</p>
+                </div>
+                <div id="tab-stats" class="pa-tab-panel" data-pa-panel="tab-stats">
+                  <p>حجم کل قالب کمتر از ۲۰۰ کیلوبایت است و در بارگذاری اول هیچ درخواست شبکه‌ای جز خود صفحه ارسال نمی‌شود. امتیاز Lighthouse در دسترس‌پذیری و کارایی در حالت پیش‌فرض نزدیک به ۱۰۰ است.</p>
+                </div>
+                <div id="tab-settings" class="pa-tab-panel" data-pa-panel="tab-settings">
+                  <p>رنگ‌ها و شعاع گوشه‌ها از طریق متغیرهای CSS مانند pa-primary و pa-radius قابل تغییرند؛ کافی است آن‌ها را در فایل CSS بازنویسی کنید تا کل قالب هماهنگ تغییر کند. حالت تیره نیز با ویژگی data-pa-theme فعال می‌شود.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه کامپوننت‌ها
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      // حذف چیپ با کلیک روی ضربدر (کد کوچک درون‌خطی)
+      document.querySelectorAll('#chip-demo .pa-chip-x').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var chip = btn.closest('.pa-chip');
+          if (chip) chip.remove();
+          PAdminLTE.toast({ kind: 'info', message: 'چیپ حذف شد.' });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

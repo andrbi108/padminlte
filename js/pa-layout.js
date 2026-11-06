@@ -94,8 +94,17 @@
           { href: 'pages/charts.html', icon: 'chart', label: 'نمودارها' },
           { href: 'pages/tables.html', icon: 'table', label: 'جداول' },
           { href: 'pages/forms.html', icon: 'form', label: 'فرم‌ها' },
+          { href: 'pages/components.html', icon: 'cube', label: 'کامپوننت‌ها' },
           { href: 'pages/live-edit.html', icon: 'code', label: 'ویرایشگر زنده' },
           { href: 'pages/file-upload.html', icon: 'cloud_upload', label: 'بارگذاری فایل' }
+        ]
+      },
+      {
+        title: 'عملیات داده (CRUD)',
+        items: [
+          { href: 'pages/crud.html', icon: 'package_alt', label: 'مدیریت محصولات' },
+          { href: 'pages/crud-users.html', icon: 'users_alt', label: 'مدیریت کاربران' },
+          { href: 'pages/orders.html', icon: 'shopping_cart', label: 'سفارش‌ها' }
         ]
       },
       {
@@ -163,7 +172,17 @@
           { href: 'pages/contact.html', icon: 'phone', label: 'تماس با ما' },
           { href: 'pages/faq.html', icon: 'question', label: 'سؤالات متداول' },
           { href: 'pages/invoice.html', icon: 'file_text', label: 'فاکتور' },
-          { href: 'pages/gallery.html', icon: 'image', label: 'گالری' }
+          { href: 'pages/gallery.html', icon: 'image', label: 'گالری' },
+          { href: 'pages/timeline.html', icon: 'history', label: 'تایم‌لاین' },
+          { href: 'pages/team.html', icon: 'users', label: 'تیم ما' },
+          { href: 'pages/projects.html', icon: 'briefcase', label: 'پروژه‌ها' }
+        ]
+      },
+      {
+        title: 'حقوقی',
+        items: [
+          { href: 'pages/privacy.html', icon: 'shield_check', label: 'حریم خصوصی' },
+          { href: 'pages/terms.html', icon: 'file_text', label: 'شرایط استفاده' }
         ]
       },
       {
@@ -172,6 +191,7 @@
           { href: 'pages/404.html', icon: 'x_circle', label: 'خطای ۴۰۴' },
           { href: 'pages/500.html', icon: 'server', label: 'خطای ۵۰۰' },
           { href: 'pages/maintenance.html', icon: 'settings', label: 'در حال تعمیر' },
+          { href: 'pages/coming-soon.html', icon: 'hourglass', label: 'به‌زودی' },
           { href: 'pages/blank.html', icon: 'file', label: 'صفحه خالی' }
         ]
       }
@@ -199,7 +219,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۰.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۲.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -229,12 +249,12 @@
           '</button>' +
           '<div class="pa-dropdown-menu" role="menu">' +
             '<div class="pa-dropdown-header">۵ اعلان جدید</div>' +
-            '<a class="pa-dropdown-item" href="#">' + icon('cart', 16) + 'سفارش جدید دریافت شد</a>' +
-            '<a class="pa-dropdown-item" href="#">' + icon('user_plus', 16) + 'کاربر جدید ثبت‌نام کرد</a>' +
-            '<a class="pa-dropdown-item" href="#">' + icon('server', 16) + 'بار سرور بالا رفت</a>' +
-            '<a class="pa-dropdown-item" href="#">' + icon('warning', 16) + 'هشدار امنیتی</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/orders.html') + '">' + icon('cart', 16) + 'سفارش جدید دریافت شد</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/users.html') + '">' + icon('user_plus', 16) + 'کاربر جدید ثبت‌نام کرد</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/charts.html') + '">' + icon('server', 16) + 'بار سرور بالا رفت</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/settings.html') + '">' + icon('warning', 16) + 'هشدار امنیتی</a>' +
             '<div class="pa-dropdown-divider"></div>' +
-            '<a class="pa-dropdown-item" href="' + resolve('pages/blank.html') + '">' + icon('list', 16) + 'مشاهده همه</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/notifications.html') + '">' + icon('list', 16) + 'مشاهده همه</a>' +
             '<div class="pa-dropdown-footer">همه اعلان‌ها</div>' +
           '</div>' +
         '</div>' +
@@ -245,11 +265,11 @@
           '</button>' +
           '<div class="pa-dropdown-menu" role="menu">' +
             '<div class="pa-dropdown-header">۳ پیام جدید</div>' +
-            '<a class="pa-dropdown-item" href="#">' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/mailbox.html') + '">' +
               '<span class="pa-avatar pa-avatar-sm">P</span>' +
               '<span><strong>پویا</strong><br><small>۵ دقیقه پیش</small></span>' +
             '</a>' +
-            '<a class="pa-dropdown-item" href="#">' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/mailbox.html') + '">' +
               '<span class="pa-avatar pa-avatar-sm">A</span>' +
               '<span><strong>امیر</strong><br><small>۱۰ دقیقه پیش</small></span>' +
             '</a>' +
@@ -271,7 +291,7 @@
             '<div class="pa-dropdown-header">حساب کاربری</div>' +
             '<a class="pa-dropdown-item" href="' + resolve('pages/profile.html') + '">' + icon('user', 16) + 'پروفایل</a>' +
             '<a class="pa-dropdown-item" href="' + resolve('pages/settings.html') + '">' + icon('cog', 16) + 'تنظیمات</a>' +
-            '<a class="pa-dropdown-item" href="' + resolve('pages/blank.html') + '">' + icon('star', 16) + 'نشانه‌ها</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/user-panel.html') + '">' + icon('star', 16) + 'نشانه‌ها</a>' +
             '<div class="pa-dropdown-divider"></div>' +
             '<a class="pa-dropdown-item" href="' + resolve('pages/login.html') + '">' + icon('logout', 16) + 'خروج</a>' +
           '</div>' +
@@ -284,7 +304,7 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۱.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۲.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';

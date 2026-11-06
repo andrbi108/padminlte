@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — به‌زودی</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* استایل‌های محلی صفحه به‌زودی */
+    .pa-cd-block {
+      background: var(--pa-bg); border: 1px solid var(--pa-border);
+      border-radius: var(--pa-radius); padding: .9rem .5rem; text-align: center;
+    }
+    .pa-cd-num { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--pa-primary); }
+    .pa-cd-label { font-size: .8rem; color: var(--pa-text-muted); }
+    .pa-subscribe-row { display: flex; gap: .5rem; }
+    .pa-subscribe-row .pa-input { flex: 1; }
+  </style>
+</head>
+<body class="pa-auth-page">
+
+  <div class="pa-auth-card pa-wide">
+    <!-- نشان قالب -->
+    <div class="pa-auth-logo">P</div>
+
+    <h1>به‌زودی برمی‌گردیم!</h1>
+    <p class="pa-sub">
+      نسخه جدید PAdminLTE با امکانات تازه، قالب‌های بیشتر و کارایی بهتر در راه است.
+      برای باخبر شدن از انتشار، ایمیل خود را ثبت کنید.
+    </p>
+
+    <!-- شمارش معکوس تا انتشار -->
+    <div class="pa-row" style="margin-bottom:1.25rem">
+      <div class="pa-col-3">
+        <div class="pa-cd-block">
+          <div class="pa-cd-num" id="cd-days">۰۰</div>
+          <div class="pa-cd-label">روز</div>
+        </div>
+      </div>
+      <div class="pa-col-3">
+        <div class="pa-cd-block">
+          <div class="pa-cd-num" id="cd-hours">۰۰</div>
+          <div class="pa-cd-label">ساعت</div>
+        </div>
+      </div>
+      <div class="pa-col-3">
+        <div class="pa-cd-block">
+          <div class="pa-cd-num" id="cd-minutes">۰۰</div>
+          <div class="pa-cd-label">دقیقه</div>
+        </div>
+      </div>
+      <div class="pa-col-3">
+        <div class="pa-cd-block">
+          <div class="pa-cd-num" id="cd-seconds">۰۰</div>
+          <div class="pa-cd-label">ثانیه</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- فرم خبرنامه -->
+    <form id="subscribe-form" novalidate>
+      <div class="pa-form-group">
+        <div class="pa-subscribe-row">
+          <input type="email" id="subscribe-email" class="pa-input" placeholder="ایمیل شما…" aria-label="ایمیل برای خبرنامه" required>
+          <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="send" data-pa-icon-size="16">ثبت</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- شبکه‌های اجتماعی -->
+    <div class="pa-d-flex pa-gap-2" style="justify-content:center; margin-top:1rem">
+      <a class="pa-icon-btn" href="https://github.com/andrbi108/padminlte" target="_blank" rel="noopener" aria-label="گیت‌هاب PAdminLTE" data-pa-icon="github" data-pa-icon-size="18"></a>
+      <a class="pa-icon-btn" href="https://github.com/andrbi108/padminlte" target="_blank" rel="noopener" aria-label="وب‌سایت پروژه" data-pa-icon="globe" data-pa-icon-size="18"></a>
+      <a class="pa-icon-btn" href="https://github.com/andrbi108/padminlte" target="_blank" rel="noopener" aria-label="مستندات پروژه" data-pa-icon="file_text" data-pa-icon-size="18"></a>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ================= صفحه به‌زودی ================= */
+    (function () {
+      'use strict';
+
+      var TARGET = new Date('2026-12-31T00:00:00'); // تاریخ انتشار نسخه جدید
+
+      // تبدیل ارقام لاتین به فارسی
+      var FA = '۰۱۲۳۴۵۶۷۸۹';
+      function faDigits(s) {
+        return String(s).replace(/\d/g, function (d) { return FA[+d]; });
+      }
+      // دو رقمی کردن با صفر پیشوند
+      var pad2 = function (n) { return faDigits(String(n).padStart(2, '0')); };
+
+      // به‌روزرسانی شمارش معکوس هر ثانیه
+      function tick() {
+        var diff = TARGET.getTime() - Date.now();
+        if (diff < 0) diff = 0; // پس از موعد، صفر نمایش داده می‌شود
+        var sec = Math.floor(diff / 1000);
+        document.getElementById('cd-days').textContent = pad2(Math.floor(sec / 86400));
+        document.getElementById('cd-hours').textContent = pad2(Math.floor(sec / 3600) % 24);
+        document.getElementById('cd-minutes').textContent = pad2(Math.floor(sec / 60) % 60);
+        document.getElementById('cd-seconds').textContent = pad2(sec % 60);
+      }
+
+      // فرم خبرنامه: پیام موفقیت و پاک کردن فیلد
+      document.getElementById('subscribe-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var input = document.getElementById('subscribe-email');
+        var email = input.value.trim();
+        if (!email || email.indexOf('@') === -1) {
+          PAdminLTE.toast({ kind: 'warning', title: 'خطا', message: 'لطفاً یک ایمیل معتبر وارد کنید.' });
+          input.focus();
+          return;
+        }
+        PAdminLTE.toast({ kind: 'success', title: 'انجام شد', message: 'ایمیل شما ثبت شد.' });
+        input.value = '';
+      });
+
+      tick();
+      setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>
