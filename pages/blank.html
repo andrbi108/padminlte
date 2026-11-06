@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — صفحه خالی</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>صفحه خالی</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>صفحه خالی</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header">
+            <h3>شروع کنید</h3>
+            <div class="pa-tools">
+              <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+              <button data-pa-card-tool="remove" aria-label="حذف"></button>
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-alert pa-alert-info pa-mb-2">
+              <span data-pa-icon="info"></span>
+              <div class="pa-alert-body">این یک <strong>صفحه خالی</strong> است. از این قالب به‌عنوان نقطه شروع برای ساخت صفحات جدید پروژه‌ی خود استفاده کنید.</div>
+            </div>
+
+            <p>کافی است ساختار پایهٔ زیر را کپی کنید و محتوای خود را درون <code>&lt;main class="pa-content"&gt;</code> قرار دهید. تمام وابستگی‌ها محلی هستند و صفحه بدون نیاز به سرور، مستقیماً از طریق <code>file://</code> اجرا می‌شود.</p>
+
+            <p>می‌توانید از کامپوننت‌های آمادهٔ قالب استفاده کنید: <span class="pa-badge pa-badge-primary">کارت</span> <span class="pa-badge pa-badge-success">جدول</span> <span class="pa-badge pa-badge-info">فرم</span> <span class="pa-badge pa-badge-warning">نمودار</span> <span class="pa-badge pa-badge-danger">مدال</span> <span class="pa-badge pa-badge-secondary">بج</span></p>
+
+            <h4 class="pa-mt-2">اسکلت پایهٔ HTML</h4>
+            <pre><code>&lt;!doctype html&gt;
+&lt;html lang="fa" dir="rtl" data-pa-theme="light"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;PAdminLTE — عنوان صفحه&lt;/title&gt;
+  &lt;link rel="stylesheet" href="../css/padminlte.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a class="pa-skip-link" href="#pa-main-content"&gt;پرش به محتوا&lt;/a&gt;
+  &lt;div class="pa-app"&gt;
+    &lt;div data-pa-layout="sidebar"&gt;&lt;/div&gt;
+    &lt;div class="pa-main"&gt;
+      &lt;div data-pa-layout="header"&gt;&lt;/div&gt;
+      &lt;main class="pa-content" id="pa-main-content"&gt;
+        &lt;div class="pa-page-header"&gt;
+          &lt;div&gt;
+            &lt;h1&gt;عنوان صفحه&lt;/h1&gt;
+            &lt;div class="pa-breadcrumb"&gt;
+              &lt;a href="../index.html"&gt;خانه&lt;/a&gt;
+              &lt;span class="pa-sep"&gt;›&lt;/span&gt;
+              &lt;span&gt;عنوان صفحه&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- محتوای شما اینجا --&gt;
+
+        &lt;div data-pa-layout="footer"&gt;&lt;/div&gt;
+      &lt;/main&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;script src="../js/pa-icons.js"&gt;&lt;/script&gt;
+  &lt;script src="../js/padminlte.js"&gt;&lt;/script&gt;
+  &lt;script src="../js/pa-layout.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+            <h4 class="pa-mt-2">نکات کلیدی</h4>
+            <ul>
+              <li>سه اسکریپت پایانی را به همان ترتیب قرار دهید؛ <code>pa-icons.js</code> آیکن‌ها را تزریق می‌کند، <code>padminlte.js</code> رفتارها را راه‌اندازی می‌کند و <code>pa-layout.js</code> سایدبار/هدر/فوتر را به‌صورت خودکار تزریق می‌کند.</li>
+              <li>برای آیکن‌ها از ویژگی <code>data-pa-icon="name"</code> استفاده کنید تا SVG به‌صورت خودکار درج شود.</li>
+              <li>برای جداول تعاملی از ویژگی <code>data-pa-datatable</code> روی <code>&lt;table&gt;</code> استفاده کنید.</li>
+              <li>برای نمودارها از <code>data-pa-chart="line|bar|donut|sparkline"</code> روی <code>&lt;canvas&gt;</code> استفاده کنید.</li>
+              <li>برای مدال‌ها و توست‌ها از <code>PAdminLTE.openModal()</code> و <code>PAdminLTE.toast()</code> استفاده کنید.</li>
+            </ul>
+
+            <div class="pa-d-flex pa-gap-2 pa-mt-2">
+              <a class="pa-btn pa-btn-primary" href="forms.html" data-pa-icon="form" data-pa-icon-size="16"> مشاهدهٔ فرم‌ها</a>
+              <a class="pa-btn pa-btn-outline" href="widgets.html" data-pa-icon="grid" data-pa-icon-size="16"> مشاهدهٔ ویجت‌ها</a>
+              <a class="pa-btn pa-btn-outline" href="../index.html" data-pa-icon="home" data-pa-icon-size="16"> بازگشت به داشبورد</a>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

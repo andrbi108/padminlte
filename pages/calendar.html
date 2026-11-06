@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تقویم</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: .35rem; }
+    .pa-cal-day-name { text-align: center; font-weight: 700; padding: .5rem 0; color: var(--pa-text-muted); font-size: .85rem; }
+    .pa-cal-day { aspect-ratio: 1.2/1; border: 1px solid var(--pa-border); border-radius: var(--pa-radius); padding: .35rem .5rem; cursor: pointer; transition: background .15s, border .15s; font-size: .85rem; position: relative; }
+    .pa-cal-day:hover { background: var(--pa-surface-3); border-color: var(--pa-primary); }
+    .pa-cal-day.is-today { background: var(--pa-primary); color: #fff; border-color: var(--pa-primary); }
+    .pa-cal-day.is-other { color: var(--pa-text-soft); background: var(--pa-surface-2); }
+    .pa-cal-event { display: block; font-size: .7rem; padding: .1rem .3rem; border-radius: 3px; margin-top: .15rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pa-cal-event.e-primary { background: var(--pa-primary-soft); color: var(--pa-primary); }
+    .pa-cal-event.e-success { background: var(--pa-success-soft); color: var(--pa-success); }
+    .pa-cal-event.e-warning { background: var(--pa-warning-soft); color: var(--pa-warning); }
+    .pa-cal-event.e-danger  { background: var(--pa-danger-soft);  color: var(--pa-danger); }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div><h1>تقویم</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>تقویم</span></div></div>
+          <div class="pa-d-flex pa-gap-2">
+            <button class="pa-btn pa-btn-outline pa-btn-sm" onclick="PAdminLTE.toast({kind:'info',message:'رفتن به امروز.'})">امروز</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="plus" data-pa-icon-size="16" onclick="PAdminLTE.openModal('event-modal')"> رویداد جدید</button>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <div class="pa-col-9">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3 id="cal-title">آبان ۱۴۰۳</h3>
+                <div class="pa-tools">
+                  <button class="pa-icon-btn" data-pa-icon="chevron_right" data-pa-icon-size="18" onclick="calNav(-1)"></button>
+                  <button class="pa-icon-btn" data-pa-icon="chevron_left" data-pa-icon-size="18" onclick="calNav(1)"></button>
+                </div>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-cal-grid">
+                  <div class="pa-cal-day-name">ش</div><div class="pa-cal-day-name">ی</div><div class="pa-cal-day-name">د</div><div class="pa-cal-day-name">س</div><div class="pa-cal-day-name">چ</div><div class="pa-cal-day-name">پ</div><div class="pa-cal-day-name">ج</div>
+                </div>
+                <div class="pa-cal-grid" id="cal-days" style="margin-top:.5rem"></div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-3">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>رویدادهای امروز</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm pa-mb-1">هیچ رویدادی برای امروز ثبت نشده است.</p>
+                <hr>
+                <p class="pa-fs-sm pa-fw-600 pa-mb-1">رویدادهای پیش‌رو:</p>
+                <div style="font-size:.85rem">
+                  <div class="pa-mb-1"><span class="pa-cal-event e-primary">۱۰:۰۰</span> جلسه تیم</div>
+                  <div class="pa-mb-1"><span class="pa-cal-event e-success">۱۴:۰۰</span> تحویل پروژه</div>
+                  <div class="pa-mb-1"><span class="pa-cal-event e-warning">۱۶:۳۰</span> مرور کد</div>
+                  <div class="pa-mb-1"><span class="pa-cal-event e-danger">۱۸:۰۰</span> ضرب‌الاجل</div>
+                </div>
+              </div>
+            </div>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>دسته‌بندی‌ها</h3></div>
+              <div class="pa-card-body pa-fs-sm">
+                <div class="pa-mb-1"><span class="pa-cal-event e-primary">■</span> کاری</div>
+                <div class="pa-mb-1"><span class="pa-cal-event e-success">■</span> شخصی</div>
+                <div class="pa-mb-1"><span class="pa-cal-event e-warning">■</span> یادآوری</div>
+                <div><span class="pa-cal-event e-danger">■</span> مهم</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-modal-backdrop" id="event-modal" role="dialog" aria-modal="true">
+          <div class="pa-modal">
+            <div class="pa-modal-header"><h3>رویداد جدید</h3><button class="pa-close" data-pa-modal-close>&times;</button></div>
+            <div class="pa-modal-body">
+              <form data-pa-validate-form>
+                <div class="pa-form-group"><label>عنوان</label><input class="pa-input" data-pa-validate="required" required></div>
+                <div class="pa-form-row">
+                  <div class="pa-form-group"><label>تاریخ</label><input class="pa-input" type="date"></div>
+                  <div class="pa-form-group"><label>ساعت</label><input class="pa-input" type="time"></div>
+                </div>
+                <div class="pa-form-group"><label>دسته</label>
+                  <select class="pa-select"><option>کاری</option><option>شخصی</option><option>یادآوری</option><option>مهم</option></select>
+                </div>
+                <div class="pa-form-group"><label>توضیحات</label><textarea class="pa-textarea" rows="3"></textarea></div>
+              </form>
+            </div>
+            <div class="pa-modal-footer">
+              <button class="pa-btn pa-btn-outline" data-pa-modal-close>انصراف</button>
+              <button class="pa-btn pa-btn-primary" onclick="PAdminLTE.toast({kind:'success',message:'رویداد ایجاد شد (نمونه).'}); PAdminLTE.closeModal('event-modal');">ذخیره</button>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Simple Persian-calendar renderer (approximation — uses Intl with fa-IR u-ca-persian)
+    var calMonths = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+    var offset = 0;
+    function renderCal() {
+      var now = new Date();
+      var base = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+      // Use Intl to get Persian month/year
+      try {
+        var fmt = new Intl.DateTimeFormat('fa-IR-u-ca-persian', { month: 'long', year: 'numeric' });
+        document.getElementById('cal-title').textContent = fmt.format(base);
+      } catch (e) {
+        document.getElementById('cal-title').textContent = calMonths[base.getMonth()] + ' ' + base.getFullYear();
+      }
+      var firstDay = new Date(base.getFullYear(), base.getMonth(), 1);
+      var lastDay = new Date(base.getFullYear(), base.getMonth() + 1, 0);
+      var daysInMonth = lastDay.getDate();
+      var startDow = (firstDay.getDay() + 1) % 7; // Sat=0 in Persian week
+      var grid = document.getElementById('cal-days');
+      grid.innerHTML = '';
+      // leading placeholders
+      for (var i = 0; i < startDow; i++) {
+        var ph = document.createElement('div');
+        ph.className = 'pa-cal-day is-other';
+        grid.appendChild(ph);
+      }
+      var todayKey = new Date().toDateString();
+      for (var d = 1; d <= daysInMonth; d++) {
+        var day = new Date(base.getFullYear(), base.getMonth(), d);
+        var cell = document.createElement('div');
+        cell.className = 'pa-cal-day' + (day.toDateString() === todayKey ? ' is-today' : '');
+        var label = document.createElement('div');
+        label.textContent = String(d).replace(/\d/g, function (m) { return '۰۱۲۳۴۵۶۷۸۹'[+m]; });
+        cell.appendChild(label);
+        // Sample events for a few days
+        if ([5, 12, 18, 22, 27].indexOf(d) !== -1) {
+          var ev = document.createElement('span');
+          ev.className = 'pa-cal-event e-primary';
+          ev.textContent = '۱۰:۰۰ جلسه';
+          cell.appendChild(ev);
+        }
+        if ([8, 15, 24].indexOf(d) !== -1) {
+          var ev2 = document.createElement('span');
+          ev2.className = 'pa-cal-event e-success';
+          ev2.textContent = '۱۴:۰۰ تحویل';
+          cell.appendChild(ev2);
+        }
+        if (d === 20) {
+          var ev3 = document.createElement('span');
+          ev3.className = 'pa-cal-event e-danger';
+          ev3.textContent = 'ضرب‌الاجل';
+          cell.appendChild(ev3);
+        }
+        grid.appendChild(cell);
+      }
+    }
+    function calNav(delta) { offset += delta; renderCal(); }
+    renderCal();
+  </script>
+</body>
+</html>

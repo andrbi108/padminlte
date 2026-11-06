@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — ورود</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body class="pa-auth-page">
+  <div class="pa-auth-card">
+    <div class="pa-auth-logo">P</div>
+    <h1>ورود به حساب</h1>
+    <p class="pa-sub">برای ورود، اطلاعات خود را وارد کنید</p>
+
+    <form data-pa-validate-form onsubmit="return false">
+      <div class="pa-form-group">
+        <label for="email">ایمیل</label>
+        <input class="pa-input" type="email" id="email" name="email" placeholder="name@example.com" data-pa-validate="email" required>
+        <div class="pa-form-feedback"></div>
+      </div>
+      <div class="pa-form-group">
+        <label for="password">رمز عبور</label>
+        <div class="pa-input-group">
+          <span class="pa-input-addon" data-pa-icon="lock" data-pa-icon-size="16"></span>
+          <input class="pa-input" type="password" id="password" name="password" placeholder="••••••••" data-pa-validate="minlen" data-pa-minlen="6" required>
+        </div>
+        <div class="pa-form-feedback"></div>
+      </div>
+      <div class="pa-form-check">
+        <input type="checkbox" id="remember"><label for="remember">مرا به خاطر بسپار</label>
+      </div>
+      <button type="submit" class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg">ورود</button>
+    </form>
+
+    <div class="pa-auth-social">
+      <button class="pa-btn pa-btn-outline" onclick="PAdminLTE.toast({kind:'info',message:'ورود با گوگل (نمونه).'})">Google</button>
+      <button class="pa-btn pa-btn-outline" onclick="PAdminLTE.toast({kind:'info',message:'ورود با گیت‌هاب (نمونه).'})">GitHub</button>
+      <button class="pa-btn pa-btn-outline" onclick="PAdminLTE.toast({kind:'info',message:'ورود با توییتر (نمونه).'})">Twitter</button>
+    </div>
+
+    <p class="pa-text-center pa-text-muted pa-fs-sm">
+      حساب ندارید؟ <a href="register.html">ثبت‌نام کنید</a>
+    </p>
+    <p class="pa-text-center"><a href="../index.html">← بازگشت به خانه</a></p>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+</body>
+</html>

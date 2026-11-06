@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — جداول</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>جداول</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>جداول</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="16"> خروجی CSV</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="printer" data-pa-icon-size="16" onclick="window.print()"> چاپ</button>
+          </div>
+        </div>
+
+        <!-- Card 1: datatable with search + sort + pagination -->
+        <div class="pa-card">
+          <div class="pa-card-header">
+            <h3>جدول با جستجو، مرتب‌سازی و صفحه‌بندی</h3>
+            <div class="pa-tools">
+              <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+              <button data-pa-card-tool="remove" aria-label="حذف"></button>
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-d-flex pa-align-center pa-gap-2 pa-mb-2" style="flex-wrap:wrap">
+              <div class="pa-input-group" style="flex:0 1 320px">
+                <span class="pa-input-addon"><span data-pa-icon="search" data-pa-icon-size="14"></span></span>
+                <input id="table-search" class="pa-input" placeholder="جستجو در نام، ایمیل، نقش…" aria-label="جستجو در جدول">
+              </div>
+              <small class="pa-text-muted">۱۴ کاربر ثبت‌شده — نمایش ۵ رکورد در هر صفحه</small>
+            </div>
+
+            <table class="pa-table pa-table-striped" data-pa-datatable data-pa-datatable-pagesize="5" data-pa-datatable-filter="#table-search">
+              <thead>
+                <tr>
+                  <th data-pa-sort>شناسه</th>
+                  <th data-pa-sort>نام</th>
+                  <th data-pa-sort>ایمیل</th>
+                  <th data-pa-sort>نقش</th>
+                  <th>وضعیت</th>
+                  <th data-pa-sort>تاریخ عضویت</th>
+                  <th>عملیات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>۱۰۰۱</td><td>امیر رضایی</td><td>amir.rezaei@example.com</td><td><span class="pa-badge pa-badge-primary">مدیر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۰۳/۱۵</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۲</td><td>پویا احمدی</td><td>pouya.ahmadi@example.com</td><td><span class="pa-badge pa-badge-info">ویرایشگر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۰۴/۲۰</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۳</td><td>سارا کریمی</td><td>sara.karimi@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-danger">غیرفعال</span></td><td>۱۴۰۲/۰۵/۱۰</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۴</td><td>محمد قاسمی</td><td>m.ghasemi@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۰۶/۰۵</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۵</td><td>نگار محمدی</td><td>negar.m@example.com</td><td><span class="pa-badge pa-badge-info">ویرایشگر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۰۷/۱۸</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۶</td><td>علی نوری</td><td>ali.nouri@example.com</td><td><span class="pa-badge pa-badge-primary">مدیر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۰۸/۲۲</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۷</td><td>مریم صادقی</td><td>maryam.s@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-danger">غیرفعال</span></td><td>۱۴۰۲/۰۹/۰۱</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۸</td><td>حسین رحیمی</td><td>hossein.r@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۱۰/۱۴</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۰۹</td><td>زهرا موسوی</td><td>zahra.mousavi@example.com</td><td><span class="pa-badge pa-badge-info">ویرایشگر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۱۱/۰۳</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۱۰</td><td>رضا کاظمی</td><td>reza.kazemi@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۲/۱۲/۲۵</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۱۱</td><td>فاطمه ابراهیمی</td><td>f.ebrahimi@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-danger">غیرفعال</span></td><td>۱۴۰۳/۰۱/۱۲</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۱۲</td><td>مهدی شریفی</td><td>mehdi.sharifi@example.com</td><td><span class="pa-badge pa-badge-primary">مدیر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۳/۰۲/۰۸</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۱۳</td><td>نیلوفر فرهادی</td><td>niloofar.f@example.com</td><td><span class="pa-badge pa-badge-secondary">کاربر</span></td><td><span class="pa-badge pa-badge-success">فعال</span></td><td>۱۴۰۳/۰۳/۱۹</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+                <tr><td>۱۰۱۴</td><td>بابک مرادی</td><td>babak.moradi@example.com</td><td><span class="pa-badge pa-badge-info">ویرایشگر</span></td><td><span class="pa-badge pa-badge-warning">در انتظار</span></td><td>۱۴۰۳/۰۴/۲۷</td><td class="pa-d-flex pa-gap-1"><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14" aria-label="مشاهده"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="edit" data-pa-icon-size="14" aria-label="ویرایش"></button><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="trash" data-pa-icon-size="14" aria-label="حذف"></button></td></tr>
+              </tbody>
+            </table>
+            <div data-pa-pagination class="pa-d-flex pa-gap-1" style="justify-content:flex-end"></div>
+          </div>
+        </div>
+
+        <!-- Card 2: simple table -->
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>جدول ساده</h3></div>
+          <div class="pa-card-body" style="padding:0">
+            <div class="pa-table-wrap">
+              <table class="pa-table">
+                <thead>
+                  <tr><th>پروژه</th><th>مسئول</th><th>بودجه</th><th>پیشرفت</th><th>وضعیت</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>سامانه انبار</td><td>امیر رضایی</td><td>۱۲۰٬۰۰۰٬۰۰۰ ت</td><td><div class="pa-progress"><div class="pa-progress-bar pa-success" style="width:85%"></div></div></td><td><span class="pa-badge pa-badge-success">در حال انجام</span></td></tr>
+                  <tr><td>اپلیکیشن موبایل</td><td>پویا احمدی</td><td>۸۰٬۰۰۰٬۰۰۰ ت</td><td><div class="pa-progress"><div class="pa-progress-bar pa-warning" style="width:45%"></div></div></td><td><span class="pa-badge pa-badge-warning">در انتظار</span></td></tr>
+                  <tr><td>پنل مدیریت</td><td>سارا کریمی</td><td>۵۰٬۰۰۰٬۰۰۰ ت</td><td><div class="pa-progress"><div class="pa-progress-bar" style="width:100%"></div></div></td><td><span class="pa-badge pa-badge-primary">تکمیل</span></td></tr>
+                  <tr><td>بازطراحی وب‌سایت</td><td>علی نوری</td><td>۹۵٬۰۰۰٬۰۰۰ ت</td><td><div class="pa-progress"><div class="pa-progress-bar pa-info" style="width:62%"></div></div></td><td><span class="pa-badge pa-badge-info">در حال انجام</span></td></tr>
+                  <tr><td>سامانه گزارش‌گیری</td><td>نگار محمدی</td><td>۶۰٬۰۰۰٬۰۰۰ ت</td><td><div class="pa-progress"><div class="pa-progress-bar pa-danger" style="width:18%"></div></div></td><td><span class="pa-badge pa-badge-danger">متوقف</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: compact table -->
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>جدول فشرده</h3><small class="pa-text-muted">کلاس <code>pa-table-sm</code></small></div>
+          <div class="pa-card-body" style="padding:0">
+            <div class="pa-table-wrap">
+              <table class="pa-table pa-table-sm pa-table-striped">
+                <thead>
+                  <tr><th>کد محصول</th><th>نام</th><th>دسته</th><th>قیمت</th><th>موجودی</th><th>وضعیت</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>SKU-۱۰۲۴</td><td>لپ‌تاپ ۱۵ اینچ</td><td>کتاب فنی</td><td>۳۵٬۰۰۰٬۰۰۰ ت</td><td>۲۴</td><td><span class="pa-badge pa-badge-success">موجود</span></td></tr>
+                  <tr><td>SKU-۱۰۲۵</td><td>ماوس بی‌سیم</td><td>لوازم جانبی</td><td>۸۵۰٬۰۰۰ ت</td><td>۱۲۰</td><td><span class="pa-badge pa-badge-success">موجود</span></td></tr>
+                  <tr><td>SKU-۱۰۲۶</td><td>کیبورد مکانیکی</td><td>لوازم جانبی</td><td>۲٬۴۰۰٬۰۰۰ ت</td><td>۰</td><td><span class="pa-badge pa-badge-danger">ناموجود</span></td></tr>
+                  <tr><td>SKU-۱۰۲۷</td><td>مانیتور ۲۷ اینچ</td><td>نمایشگر</td><td>۱۸٬۹۰۰٬۰۰۰ ت</td><td>۸</td><td><span class="pa-badge pa-badge-warning">رو به اتمام</span></td></tr>
+                  <tr><td>SKU-۱۰۲۸</td><td>هدفون بلوتوث</td><td>صوتی</td><td>۳٬۱۰۰٬۰۰۰ ت</td><td>۴۵</td><td><span class="pa-badge pa-badge-success">موجود</span></td></tr>
+                  <tr><td>SKU-۱۰۲۹</td><td>فلش مموری ۶۴GB</td><td>ذخیره‌سازی</td><td>۵۲۰٬۰۰۰ ت</td><td>۳</td><td><span class="pa-badge pa-badge-warning">رو به اتمام</span></td></tr>
+                  <tr><td>SKU-۱۰۳۰</td><td>وب‌کم HD</td><td>تصویری</td><td>۱٬۸۵۰٬۰۰۰ ت</td><td>۳۲</td><td><span class="pa-badge pa-badge-success">موجود</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

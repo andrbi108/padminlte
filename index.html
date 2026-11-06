@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — داشبورد</title>
+  <meta name="description" content="PAdminLTE — نسخهٔ کاملاً اختصاصی AdminLTE بدون وابستگی خارجی. قابل اجرا با file:// و بدون نیاز به سرور.">
+  <link rel="stylesheet" href="css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <!-- Sidebar placeholder — injected by pa-layout.js -->
+    <div data-pa-layout="sidebar"></div>
+
+    <div class="pa-main">
+      <!-- Header placeholder -->
+      <div data-pa-layout="header"></div>
+
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>داشبورد</h1>
+            <div class="pa-breadcrumb">
+              <a href="index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>داشبورد نسخهٔ ۱</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="16"> خروجی</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="plus" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success',title:'جدید',message:'فرم افزودن آماده است.');"> افزودن </button>
+          </div>
+        </div>
+
+        <!-- Stat small boxes -->
+        <div class="pa-row">
+          <div class="pa-col-3">
+            <div class="pa-small-box pa-bg-primary">
+              <div class="pa-inner">
+                <h3>۱۵۰</h3>
+                <p>سفارش جدید</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="cart" data-pa-icon-size="60"></span>
+              <a class="pa-footer-link" href="pages/tables.html">جزئیات بیشتر <span data-pa-icon="arrow_left"></span></a>
+            </div>
+          </div>
+          <div class="pa-col-3">
+            <div class="pa-small-box pa-bg-success">
+              <div class="pa-inner">
+                <h3>۵۳٪<sup style="font-size:.6em">+</sup></h3>
+                <p>نرخ رشد</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="chartline" data-pa-icon-size="60"></span>
+              <a class="pa-footer-link" href="pages/charts.html">جزئیات بیشتر</a>
+            </div>
+          </div>
+          <div class="pa-col-3">
+            <div class="pa-small-box pa-bg-warning">
+              <div class="pa-inner">
+                <h3>۴۴</h3>
+                <p>ثبت‌نام</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="user_plus" data-pa-icon-size="60"></span>
+              <a class="pa-footer-link" href="pages/users.html">جزئیات بیشتر</a>
+            </div>
+          </div>
+          <div class="pa-col-3">
+            <div class="pa-small-box pa-bg-danger">
+              <div class="pa-inner">
+                <h3>۶۵</h3>
+                <p>بازدید یکتا</p>
+              </div>
+              <span class="pa-icon-bg" data-pa-icon="eye" data-pa-icon-size="60"></span>
+              <a class="pa-footer-link" href="pages/widgets.html">جزئیات بیشتر</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts row -->
+        <div class="pa-row">
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>فروش ماهانه</h3>
+                <div class="pa-tools">
+                  <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+                  <button data-pa-card-tool="remove" aria-label="حذف"></button>
+                </div>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-chart-wrap">
+                  <canvas id="sales-chart" data-pa-chart="line"
+                    data-pa-chart-data='{"labels":["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"],"series":[{"label":"فروش","values":[12,19,15,25,22,30,28,35,32,40,38,45]},{"label":"هزینه","values":[8,12,10,15,18,20,19,22,24,26,25,28]}],"colors":["#0d6efd","#dc3545"]}'></canvas>
+                </div>
+                <div class="pa-chart-legend">
+                  <span class="pa-cl-item"><span class="pa-cl-dot" style="background:#0d6efd"></span> فروش</span>
+                  <span class="pa-cl-item"><span class="pa-cl-dot" style="background:#dc3545"></span> هزینه</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>سهم بازار</h3>
+                <div class="pa-tools">
+                  <button data-pa-card-tool="collapse" aria-label="جمع کردن"></button>
+                </div>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-chart-wrap">
+                  <canvas data-pa-chart="donut"
+                    data-pa-chart-data='[{"value":35},{"value":25},{"value":20},{"value":20}]'
+                    data-pa-chart-colors='["#0d6efd","#198754","#ffc107","#dc3545"]'></canvas>
+                </div>
+                <div class="pa-chart-legend">
+                  <span class="pa-cl-item"><span class="pa-cl-dot" style="background:#0d6efd"></span> مستقیم</span>
+                  <span class="pa-cl-item"><span class="pa-cl-dot" style="background:#198754"></span> ارجاعی</span>
+                  <span class="pa-cl-item"><span class="pa-cl-dot" style="background:#ffc107"></span> اجتماعی</span>
+                  <span class="pa-cl-item"><span class="pa-cl-dot" style="background:#dc3545"></span> سایر</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info boxes -->
+        <div class="pa-row">
+          <div class="pa-col-4">
+            <div class="pa-info-box">
+              <div class="pa-ib-icon pa-bg-info" data-pa-icon="cart"></div>
+              <div class="pa-ib-body">
+                <p class="pa-ib-text">سفارش‌های امروز</p>
+                <p class="pa-ib-number">۲۴۵</p>
+                <div class="pa-progress" style="margin-top:.4rem"><div class="pa-progress-bar pa-info" style="width:60%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-info-box">
+              <div class="pa-ib-icon pa-bg-success" data-pa-icon="clock"></div>
+              <div class="pa-ib-body">
+                <p class="pa-ib-text">میانگین زمان پاسخ</p>
+                <p class="pa-ib-number">۲:۳۰ دقیقه</p>
+                <div class="pa-progress" style="margin-top:.4rem"><div class="pa-progress-bar pa-success" style="width:80%"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-info-box">
+              <div class="pa-ib-icon pa-bg-warning" data-pa-icon="star"></div>
+              <div class="pa-ib-body">
+                <p class="pa-ib-text">رضایت مشتری</p>
+                <p class="pa-ib-number">۴.۸ از ۵</p>
+                <div class="pa-progress" style="margin-top:.4rem"><div class="pa-progress-bar pa-warning" style="width:96%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Latest orders table -->
+        <div class="pa-row">
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>آخرین سفارش‌ها</h3>
+                <div class="pa-tools">
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="filter" data-pa-icon-size="14"> فیلتر</button>
+                </div>
+              </div>
+              <div class="pa-card-body" style="padding:0">
+                <div class="pa-table-wrap">
+                  <table class="pa-table pa-table-striped" data-pa-datatable data-pa-datatable-pagesize="5" data-pa-datatable-filter="#order-search">
+                    <thead>
+                      <tr>
+                        <th data-pa-sort>شناسه</th>
+                        <th data-pa-sort>مشتری</th>
+                        <th data-pa-sort>مبلغ</th>
+                        <th data-pa-sort>تاریخ</th>
+                        <th data-pa-sort>وضعیت</th>
+                        <th>عملیات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>#۱۰۲۴</td><td>پویا احمدی</td><td>۲٬۵۰۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۸/۰۱</td><td><span class="pa-badge pa-badge-success">تکمیل</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                      <tr><td>#۱۰۲۳</td><td>امیر رضایی</td><td>۱٬۸۰۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۸/۰۱</td><td><span class="pa-badge pa-badge-warning">در انتظار</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                      <tr><td>#۱۰۲۲</td><td>سارا کریمی</td><td>۳٬۲۰۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۷/۳۱</td><td><span class="pa-badge pa-badge-success">تکمیل</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                      <tr><td>#۱۰۲۱</td><td>محمد قاسمی</td><td>۹۵۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۷/۳۱</td><td><span class="pa-badge pa-badge-danger">لغو</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                      <tr><td>#۱۰۲۰</td><td>نگار محمدی</td><td>۴٬۱۰۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۷/۳۰</td><td><span class="pa-badge pa-badge-info">ارسال</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                      <tr><td>#۱۰۱۹</td><td>علی نوری</td><td>۲٬۲۰۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۷/۳۰</td><td><span class="pa-badge pa-badge-success">تکمیل</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                      <tr><td>#۱۰۱۸</td><td>مریم صادقی</td><td>۱٬۳۵۰٬۰۰۰ ت</td><td>۱۴۰۳/۰۷/۲۹</td><td><span class="pa-badge pa-badge-warning">در انتظار</span></td><td><button class="pa-btn pa-btn-ghost pa-btn-sm" data-pa-icon="eye" data-pa-icon-size="14"></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div data-pa-pagination class="pa-d-flex pa-gap-1 pa-card-footer" style="justify-content:flex-end"></div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>فعالیت‌های اخیر</h3></div>
+              <div class="pa-card-body" style="padding:0">
+                <ul style="list-style:none; margin:0; padding:0">
+                  <li style="padding:.75rem 1rem; border-bottom:1px solid var(--pa-border); display:flex; gap:.6rem; align-items:flex-start">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">پ</span>
+                    <div><strong>پویا</strong> سفارش #۱۰۲۴ را ثبت کرد.<br><small>۵ دقیقه پیش</small></div>
+                  </li>
+                  <li style="padding:.75rem 1rem; border-bottom:1px solid var(--pa-border); display:flex; gap:.6rem; align-items:flex-start">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">ا</span>
+                    <div><strong>امیر</strong> پروفایل خود را به‌روز کرد.<br><small>۲۰ دقیقه پیش</small></div>
+                  </li>
+                  <li style="padding:.75rem 1rem; border-bottom:1px solid var(--pa-border); display:flex; gap:.6rem; align-items:flex-start">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">س</span>
+                    <div><strong>سارا</strong> گزارش ماهانه را ارسال کرد.<br><small>۱ ساعت پیش</small></div>
+                  </li>
+                  <li style="padding:.75rem 1rem; display:flex; gap:.6rem; align-items:flex-start">
+                    <span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">م</span>
+                    <div><strong>محمد</strong> سفارش #۱۰۲۱ را لغو کرد.<br><small>۲ ساعت پیش</small></div>
+                  </li>
+                </ul>
+              </div>
+              <div class="pa-card-footer pa-text-center"><a href="pages/blank.html">مشاهده همه فعالیت‌ها</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal example -->
+  <div class="pa-modal-backdrop" id="example-modal" role="dialog" aria-modal="true" aria-labelledby="example-modal-title">
+    <div class="pa-modal">
+      <div class="pa-modal-header">
+        <h3 id="example-modal-title">عنوان مودال نمونه</h3>
+        <button class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <p>این یک مودال نمونه است. می‌توانید آن را با <code>PAdminLTE.openModal('example-modal')</code> باز کنید.</p>
+      </div>
+      <div class="pa-modal-footer">
+        <button class="pa-btn pa-btn-outline" data-pa-modal-close>بستن</button>
+        <button class="pa-btn pa-btn-primary" data-pa-modal-close>ذخیره</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/pa-icons.js"></script>
+  <script src="js/padminlte.js"></script>
+  <script src="js/pa-layout.js"></script>
+</body>
+</html>

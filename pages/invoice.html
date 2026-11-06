@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — فاکتور</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-invoice-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+    .pa-invoice-header h2 { margin: 0; }
+    .pa-invoice-meta { font-size: .9rem; color: var(--pa-text-muted); }
+    .pa-invoice-total { background: var(--pa-surface-2); border-radius: var(--pa-radius); padding: 1rem; text-align: left; margin-top: 1rem; }
+    .pa-invoice-total .pa-line { display: flex; justify-content: space-between; padding: .25rem 0; }
+    .pa-invoice-total .pa-line.pa-strong { font-weight: 700; font-size: 1.1rem; border-top: 2px solid var(--pa-border); margin-top: .5rem; padding-top: .75rem; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div><h1>فاکتور #۱۰۲۴</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>فاکتور</span></div></div>
+          <div class="pa-d-flex pa-gap-2">
+            <button class="pa-btn pa-btn-outline pa-btn-sm" onclick="window.print()" data-pa-icon="printer" data-pa-icon-size="16"> چاپ</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" onclick="PAdminLTE.toast({kind:'success',message:'فاکتور دانلود شد (نمونه).'})" data-pa-icon="download" data-pa-icon-size="16"> دانلود PDF</button>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-body">
+            <div class="pa-invoice-header">
+              <div>
+                <h2>PAdminLTE Inc.</h2>
+                <div class="pa-invoice-meta">
+                  تهران، خیابان ولیعصر، پلاک ۱۲۳<br>
+                  تلفن: ۰۲۱-۱۲۳۴۵۶۷۸<br>
+                  ایمیل: billing@padminlte.example
+                </div>
+              </div>
+              <div class="pa-text-right">
+                <h2>فاکتور #۱۰۲۴</h2>
+                <div class="pa-invoice-meta">
+                  تاریخ صدور: ۱۴۰۳/۰۸/۰۱<br>
+                  تاریخ سررسید: ۱۴۰۳/۰۸/۱۵<br>
+                  <span class="pa-badge pa-badge-warning">در انتظار پرداخت</span>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="pa-row">
+              <div class="pa-col-6">
+                <strong>فاکتور به:</strong>
+                <div class="pa-invoice-meta pa-mt-1">
+                  شرکت نمونه<br>
+                  آقای امیر رضایی<br>
+                  تهران، ایران
+                </div>
+              </div>
+              <div class="pa-col-6 pa-text-right">
+                <strong>پرداخت به:</strong>
+                <div class="pa-invoice-meta pa-mt-1">
+                  PAdminLTE Inc.<br>
+                  شماره حساب: ۱۲۳۴-۵۶۷۸-۹۰۱۲<br>
+                  شبا: IR۰۰ ۰۱۲۳ ۴۵۶۷ ۸۹۰۱ ۲۳۴۵ ۶۷۸۹ ۰۱
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-table-wrap pa-mt-2">
+              <table class="pa-table">
+                <thead><tr><th>ردیف</th><th>شرح</th><th>مقدار</th><th>قیمت واحد</th><th>مبلغ کل</th></tr></thead>
+                <tbody>
+                  <tr><td>۱</td><td>لایسنس سالانه PAdminLTE Pro</td><td>۱</td><td>۲٬۰۰۰٬۰۰۰ ت</td><td>۲٬۰۰۰٬۰۰۰ ت</td></tr>
+                  <tr><td>۲</td><td>پشتیبانی اولویت‌دار</td><td>۱۲ ماه</td><td>۵۰۰٬۰۰۰ ت</td><td>۶٬۰۰۰٬۰۰۰ ت</td></tr>
+                  <tr><td>۳</td><td>آموزش تخصصی</td><td>۸ ساعت</td><td>۳۵۰٬۰۰۰ ت</td><td>۲٬۸۰۰٬۰۰۰ ت</td></tr>
+                  <tr><td>۴</td><td>ماژول گزارش‌گیری پیشرفته</td><td>۱</td><td>۱٬۲۰۰٬۰۰۰ ت</td><td>۱٬۲۰۰٬۰۰۰ ت</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="pa-row pa-mt-2">
+              <div class="pa-col-6"><div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body">لطفاً پرداخت را تا تاریخ سررسید انجام دهید.</div></div></div>
+              <div class="pa-col-6">
+                <div class="pa-invoice-total">
+                  <div class="pa-line"><span>جمع کل:</span><span>۱۲٬۰۰۰٬۰۰۰ ت</span></div>
+                  <div class="pa-line"><span>تخفیف (۱۰٪):</span><span>۱٬۲۰۰٬۰۰۰ ت</span></div>
+                  <div class="pa-line"><span>مالیات (۹٪):</span><span>۹۷۲٬۰۰۰ ت</span></div>
+                  <div class="pa-line pa-strong"><span>قابل پرداخت:</span><span>۱۱٬۷۷۲٬۰۰۰ ت</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-card-footer pa-text-center pa-text-muted pa-fs-sm">
+            این فاکتور با PAdminLTE تولید شده است. برای سؤالات، با billing@padminlte.example تماس بگیرید.
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

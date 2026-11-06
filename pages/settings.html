@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — تنظیمات</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>تنظیمات</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>تنظیمات</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="refresh" data-pa-icon-size="14"> بازنشانی</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="save" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'success',title:'ذخیره شد',message:'تنظیمات با موفقیت ذخیره شد.'})"> ذخیره همه</button>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- Account settings -->
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>تنظیمات حساب</h3>
+                <small class="pa-text-muted">اطلاعات پایه‌ی کاربر</small>
+              </div>
+              <div class="pa-card-body">
+                <form data-pa-validate-form>
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="s-name">نام</label>
+                      <input id="s-name" class="pa-input" type="text" value="امیر" data-pa-validate="required">
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="s-email">ایمیل</label>
+                      <input id="s-email" class="pa-input" type="email" value="amir@example.com" data-pa-validate="email">
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="s-lang">زبان</label>
+                      <select id="s-lang" class="pa-select">
+                        <option value="fa" selected>فارسی</option>
+                        <option value="en">English</option>
+                      </select>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="setting-theme">تم</label>
+                      <select id="setting-theme" class="pa-select" onchange="PAdminLTE.setTheme(this.value)">
+                        <option value="light" selected>روشن</option>
+                        <option value="dark">تاریک</option>
+                        <option value="auto">خودکار (سیستم)</option>
+                      </select>
+                      <div class="pa-hint">با انتخاب «خودکار»، تم بر اساس ترجیح سیستم‌عامل تنظیم می‌شود.</div>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label>اطلاع‌رسانی</label>
+                    <div class="pa-form-check">
+                      <input id="n-email" type="checkbox" checked>
+                      <label for="n-email">ایمیل — دریافت خبرنامه و اطلاع‌رسانی‌های مهم</label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input id="n-sms" type="checkbox">
+                      <label for="n-sms">پیامک — هشدارهای فوری و کد تأیید</label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input id="n-browser" type="checkbox" checked>
+                      <label for="n-browser">مرورگر — اعلان‌های push در مرورگر</label>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="save" data-pa-icon-size="16"> ذخیره تغییرات</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appearance settings -->
+          <div class="pa-col-4">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>تنظیمات ظاهری</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-group">
+                  <label>حالت منوی کناری</label>
+                  <div class="pa-d-flex pa-gap-2">
+                    <button type="button" class="pa-btn pa-btn-outline pa-btn-block" onclick="PAdminLTE.setSidebarState('mini'); this.classList.add('pa-btn-primary'); this.classList.remove('pa-btn-outline'); this.nextElementSibling.classList.remove('pa-btn-primary'); this.nextElementSibling.classList.add('pa-btn-outline');" data-pa-icon="minimize" data-pa-icon-size="14"> فشرده</button>
+                    <button type="button" class="pa-btn pa-btn-primary pa-btn-block" onclick="PAdminLTE.setSidebarState('expanded'); this.classList.add('pa-btn-primary'); this.classList.remove('pa-btn-outline'); this.previousElementSibling.classList.remove('pa-btn-primary'); this.previousElementSibling.classList.add('pa-btn-outline');" data-pa-icon="maximize" data-pa-icon-size="14"> باز</button>
+                  </div>
+                  <div class="pa-hint">در حالت فشرده فقط آیکن‌ها نمایش داده می‌شوند.</div>
+                </div>
+
+                <div class="pa-form-group">
+                  <label>جهت متن</label>
+                  <div class="pa-d-flex pa-gap-2">
+                    <button type="button" class="pa-btn pa-btn-primary pa-btn-block" onclick="PAdminLTE.setDir('rtl'); this.classList.add('pa-btn-primary'); this.classList.remove('pa-btn-outline'); this.nextElementSibling.classList.remove('pa-btn-primary'); this.nextElementSibling.classList.add('pa-btn-outline');" data-pa-icon="arrow_right" data-pa-icon-size="14"> راست‌چین (RTL)</button>
+                    <button type="button" class="pa-btn pa-btn-outline pa-btn-block" onclick="PAdminLTE.setDir('ltr'); this.classList.add('pa-btn-primary'); this.classList.remove('pa-btn-outline'); this.previousElementSibling.classList.remove('pa-btn-primary'); this.previousElementSibling.classList.add('pa-btn-outline');" data-pa-icon="arrow_right" data-pa-icon-size="14"> چپ‌چین (LTR)</button>
+                  </div>
+                  <div class="pa-hint">برای زبان‌های فارسی/عربی از RTL استفاده کنید.</div>
+                </div>
+
+                <hr>
+
+                <div class="pa-form-group">
+                  <label>تم سریع</label>
+                  <div class="pa-d-flex pa-gap-2">
+                    <button type="button" class="pa-btn pa-btn-outline pa-btn-block" onclick="PAdminLTE.setTheme('light'); PAdminLTE.toast({kind:'info',title:'تم',message:'تم روشن فعال شد.'})" data-pa-icon="sun" data-pa-icon-size="14"> روشن</button>
+                    <button type="button" class="pa-btn pa-btn-outline pa-btn-block" onclick="PAdminLTE.setTheme('dark'); PAdminLTE.toast({kind:'info',title:'تم',message:'تم تاریک فعال شد.'})" data-pa-icon="moon" data-pa-icon-size="14"> تاریک</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>خطرناک</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-fs-sm pa-text-muted pa-mb-2">این عملیات قابل بازگشت نیست. با احتیاط استفاده کنید.</p>
+                <button class="pa-btn pa-btn-danger pa-btn-block" data-pa-icon="trash" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'danger',title:'حذف حساب',message:'برای حذف حساب به مدیر سامانه مراجعه کنید.'})"> حذف حساب کاربری</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

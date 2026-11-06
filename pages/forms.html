@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — فرم‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>فرم‌ها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>فرم‌ها</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- General form -->
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>فرم عمومی</h3>
+                <small class="pa-text-muted">اعتبارسنجی خودکار با <code>data-pa-validate-form</code></small>
+              </div>
+              <div class="pa-card-body">
+                <form data-pa-validate-form>
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="f-firstname">نام</label>
+                      <input id="f-firstname" class="pa-input" type="text" placeholder="مثلاً امیر" data-pa-validate="required">
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="f-lastname">نام خانوادگی</label>
+                      <input id="f-lastname" class="pa-input" type="text" placeholder="مثلاً رضایی" data-pa-validate="required">
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="f-email">ایمیل</label>
+                      <input id="f-email" class="pa-input" type="email" placeholder="name@example.com" data-pa-validate="email">
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="f-phone">تلفن همراه</label>
+                      <input id="f-phone" class="pa-input" type="text" placeholder="۰۹۱۲۳۴۵۶۷۸۹" data-pa-validate="number">
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="f-role">نقش</label>
+                      <select id="f-role" class="pa-select">
+                        <option value="admin">مدیر</option>
+                        <option value="editor">ویرایشگر</option>
+                        <option value="user" selected>کاربر</option>
+                      </select>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="f-category">دسته‌بندی</label>
+                      <select id="f-category" class="pa-select">
+                        <option value="">— انتخاب کنید —</option>
+                        <option value="tech">فناوری اطلاعات</option>
+                        <option value="design">طراحی</option>
+                        <option value="marketing">بازاریابی</option>
+                        <option value="support">پشتیبانی</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label for="f-website">وب‌سایت</label>
+                    <div class="pa-input-group">
+                      <span class="pa-input-addon"><span data-pa-icon="link" data-pa-icon-size="14"></span></span>
+                      <input id="f-website" class="pa-input" type="text" placeholder="example.com">
+                    </div>
+                    <div class="pa-hint">نشانی را بدون <code>https://</code> وارد کنید.</div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label for="f-bio">بیوگرافی</label>
+                    <textarea id="f-bio" class="pa-textarea" rows="3" placeholder="چند خط درباره خودتان بنویسید…"></textarea>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <div class="pa-form-check">
+                      <input id="f-news" type="checkbox" checked>
+                      <label for="f-news">دریافت خبرنامه ایمیلی هفتگی</label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input id="f-sms" type="checkbox">
+                      <label for="f-sms">دریافت اطلاع‌رسانی از طریق پیامک</label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input id="f-terms" type="checkbox" data-pa-validate="required">
+                      <label for="f-terms">قوانین و مقررات را می‌پذیرم.</label>
+                      <div class="pa-form-feedback"></div>
+                    </div>
+                  </div>
+
+                  <div class="pa-d-flex pa-gap-2">
+                    <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="save" data-pa-icon-size="16"> ذخیره</button>
+                    <button type="reset" class="pa-btn pa-btn-outline">پاک کردن</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal + toast sample card -->
+          <div class="pa-col-4">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>مدال و توست نمونه</h3></div>
+              <div class="pa-card-body pa-d-flex" style="flex-direction:column; gap:.6rem">
+                <button class="pa-btn pa-btn-primary pa-btn-block" data-pa-icon="external" data-pa-icon-size="16" onclick="PAdminLTE.openModal('form-modal')"> باز کردن مودال</button>
+                <button class="pa-btn pa-btn-success pa-btn-block" data-pa-icon="check_circle" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'success',title:'موفق',message:'عملیات با موفقیت انجام شد.'})"> توست موفق</button>
+                <button class="pa-btn pa-btn-danger pa-btn-block" data-pa-icon="x_circle" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'danger',title:'خطا',message:'خطایی رخ داد.'})"> توست خطا</button>
+                <button class="pa-btn pa-btn-warning pa-btn-block" data-pa-icon="warning" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'warning',title:'هشدار',message:'این یک هشدار است.'})"> توست هشدار</button>
+                <button class="pa-btn pa-btn-info pa-btn-block" data-pa-icon="info" data-pa-icon-size="16" onclick="PAdminLTE.toast({kind:'info',title:'اطلاع',message:'این یک اطلاعات است.'})"> توست اطلاعات</button>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>الرت‌ها</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body"><strong>اطلاع.</strong> این یک پیام اطلاع‌رسانی ساده است.</div><button class="pa-close" aria-label="بستن">&times;</button></div>
+                <div class="pa-alert pa-alert-success"><span data-pa-icon="check_circle"></span><div class="pa-alert-body"><strong>موفق.</strong> عملیات با موفقیت انجام شد.</div><button class="pa-close" aria-label="بستن">&times;</button></div>
+                <div class="pa-alert pa-alert-warning"><span data-pa-icon="warning"></span><div class="pa-alert-body"><strong>هشدار.</strong> به این نکته توجه کنید.</div><button class="pa-close" aria-label="بستن">&times;</button></div>
+                <div class="pa-alert pa-alert-danger"><span data-pa-icon="x_circle"></span><div class="pa-alert-body"><strong>خطا.</strong> یک خطای بحرانی رخ داده است.</div><button class="pa-close" aria-label="بستن">&times;</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="pa-modal-backdrop" id="form-modal" role="dialog" aria-modal="true" aria-labelledby="form-modal-title">
+    <div class="pa-modal">
+      <div class="pa-modal-header">
+        <h3 id="form-modal-title">مودال نمونه</h3>
+        <button class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <p>این مودال با <code>PAdminLTE.openModal('form-modal')</code> باز شده است. برای بستن آن می‌توانید روی دکمهٔ بستن کلیک کنید، کلید <kbd>Esc</kbd> را بزنید، یا روی پس‌زمینه تپ کنید.</p>
+        <div class="pa-form-group">
+          <label for="m-name">نام</label>
+          <input id="m-name" class="pa-input" type="text" placeholder="نام خود را وارد کنید">
+        </div>
+        <div class="pa-form-group pa-mb-0">
+          <label for="m-msg">پیام</label>
+          <textarea id="m-msg" class="pa-textarea" rows="3" placeholder="پیام شما…"></textarea>
+        </div>
+      </div>
+      <div class="pa-modal-footer">
+        <button class="pa-btn pa-btn-outline" data-pa-modal-close>بستن</button>
+        <button class="pa-btn pa-btn-primary" data-pa-modal-close onclick="PAdminLTE.toast({kind:'success',title:'ذخیره شد',message:'اطلاعات مودال ذخیره شد.'})">ذخیره</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

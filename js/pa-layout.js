@@ -1,0 +1,255 @@
+/* =============================================================
+   PAdminLTE — Layout partials
+   ---------------------------------------------------------------
+   Provides PAdminLTE.layout.sidebar(), .header(), .footer() that
+   return HTML strings. Pages inject these into <div data-pa-layout>
+   placeholders on DOMContentLoaded.
+
+   Why a JS-rendered layout (instead of <iframe> or fetch()?
+   Because file:// blocks fetch(), and an iframe-based shell would
+   break the page's own CSS scope. This approach keeps each page
+   a standalone HTML file that runs from any location (file://,
+   http(s)://, or any static host), while still sharing a single
+   source-of-truth layout.
+   ============================================================= */
+
+(function (global) {
+  'use strict';
+  var PAdminLTE = global.PAdminLTE || (global.PAdminLTE = {});
+  var icon = PAdminLTE.icon;
+
+  function navItem(href, iconName, label, badge) {
+    var isExternal = /^https?:/.test(href);
+    var active = ('/' + (location.pathname.split('/').pop() || 'index.html')) === href ||
+                 (location.pathname.split('/').pop() || 'index.html') === href.split('/').pop();
+    return '' +
+      '<a class="pa-sidebar-link' + (active ? ' is-active' : '') + '" href="' + href + '"' +
+        (isExternal ? ' target="_blank" rel="noopener"' : '') + '>' +
+        icon(iconName, 20) +
+        '<span class="pa-label">' + label + '</span>' +
+        (badge ? '<span class="pa-badge-mini">' + badge + '</span>' : '') +
+      '</a>';
+  }
+  function navTree(iconName, label, items) {
+    var anyActive = items.some(function (it) {
+      return (location.pathname.split('/').pop() || 'index.html') === it.href.split('/').pop();
+    });
+    return '' +
+      '<a class="pa-sidebar-link" href="#" data-pa-tree-toggle aria-expanded="' + (anyActive ? 'true' : 'false') + '">' +
+        icon(iconName, 20) +
+        '<span class="pa-label">' + label + '</span>' +
+        icon('chevron_right', 14, ) +
+      '</a>' +
+      '<ul class="pa-sidebar-tree' + (anyActive ? ' is-open' : '') + '">' +
+        items.map(function (it) { return '<li>' + navItem(it.href, it.icon || 'circle', it.label, it.badge) + '</li>'; }).join('') +
+      '</ul>';
+  }
+
+  function sidebar(opts) {
+    opts = opts || {};
+    var brand = opts.brand || 'PAdminLTE';
+    var brandMark = (opts.brandMark || 'P');
+    var sections = opts.sections || [
+      {
+        title: 'اصلی',
+        items: [
+          { href: 'index.html', icon: 'dashboard', label: 'داشبورد' },
+          { href: 'index2.html', icon: 'chartline', label: 'داشبورد ۲' },
+          { href: 'index3.html', icon: 'chartpie', label: 'داشبورد ۳' }
+        ]
+      },
+      {
+        title: 'ابزارها',
+        items: [
+          { href: 'pages/widgets.html', icon: 'grid', label: 'ویجت‌ها' },
+          { href: 'pages/charts.html', icon: 'chart', label: 'نمودارها' },
+          { href: 'pages/tables.html', icon: 'table', label: 'جداول' },
+          { href: 'pages/forms.html', icon: 'form', label: 'فرم‌ها' }
+        ]
+      },
+      {
+        title: 'مدیریت',
+        tree: [
+          { name: 'کاربران', icon: 'users', items: [
+            { href: 'pages/profile.html', icon: 'user', label: 'پروفایل' },
+            { href: 'pages/users.html', icon: 'users', label: 'لیست کاربران' }
+          ]},
+          { name: 'صفحات', icon: 'file', items: [
+            { href: 'pages/blank.html', icon: 'file', label: 'صفحه خالی' },
+            { href: 'pages/settings.html', icon: 'cog', label: 'تنظیمات' },
+            { href: 'pages/calendar.html', icon: 'calendar', label: 'تقویم' }
+          ]}
+        ]
+      },
+      {
+        title: 'نمونه',
+        items: [
+          { href: 'pages/invoice.html', icon: 'file', label: 'فاکتور' },
+          { href: 'pages/faq.html', icon: 'question', label: 'سؤالات متداول' },
+          { href: 'pages/gallery.html', icon: 'image', label: 'گالری' },
+          { href: 'pages/chat.html', icon: 'chat', label: 'گفتگو', badge: '۳' }
+        ]
+      },
+      {
+        title: 'احراز هویت',
+        items: [
+          { href: 'pages/login.html', icon: 'lock', label: 'ورود' },
+          { href: 'pages/register.html', icon: 'user_plus', label: 'ثبت‌نام' },
+          { href: 'pages/404.html', icon: 'x_circle', label: 'خطای ۴۰۴' },
+          { href: 'pages/500.html', icon: 'server', label: 'خطای ۵۰۰' }
+        ]
+      }
+    ];
+
+    var nav = '';
+    sections.forEach(function (sec) {
+      nav += '<div class="pa-sidebar-section">' + sec.title + '</div>';
+      if (sec.items) {
+        sec.items.forEach(function (it) {
+          nav += navItem(it.href, it.icon, it.label, it.badge);
+        });
+      }
+      if (sec.tree) {
+        sec.tree.forEach(function (t) {
+          nav += navTree(t.icon, t.name, t.items);
+        });
+      }
+    });
+
+    return '' +
+      '<aside class="pa-sidebar" aria-label="منوی اصلی">' +
+        '<a class="pa-sidebar-brand" href="index.html">' +
+          '<span class="pa-brand-mark">' + brandMark + '</span>' +
+          '<span class="pa-label">' + brand + '</span>' +
+        '</a>' +
+        '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۰.۰ — بدون وابستگی</div>' +
+      '</aside>';
+  }
+
+  function header(opts) {
+    opts = opts || {};
+    var title = opts.title || 'داشبورد';
+    return '' +
+      '<header class="pa-header" role="banner">' +
+        '<button class="pa-icon-btn" data-pa-sidebar-toggle aria-label="باز/بسته کردن منو">' +
+          icon('menu', 20) +
+        '</button>' +
+        '<div class="pa-search">' +
+          icon('search', 16) +
+          '<input type="search" placeholder="جستجو…" aria-label="جستجو" data-pa-search="[data-pa-searchable-scope]">' +
+        '</div>' +
+        '<div class="pa-header-spacer"></div>' +
+        // Theme toggle
+        '<button class="pa-icon-btn" data-pa-theme-toggle aria-label="تغییر تم"></button>' +
+        // Direction toggle
+        '<button class="pa-icon-btn" data-pa-dir-toggle aria-label="تغییر جهت" title="RTL/LTR">' +
+          icon('arrow_right', 18) +
+        '</button>' +
+        // Notifications dropdown
+        '<div class="pa-dropdown">' +
+          '<button class="pa-icon-btn" data-pa-dropdown-toggle aria-label="اعلان‌ها">' +
+            icon('bell', 20) +
+          '</button>' +
+          '<div class="pa-dropdown-menu" role="menu">' +
+            '<div class="pa-dropdown-header">۵ اعلان جدید</div>' +
+            '<a class="pa-dropdown-item" href="#">' + icon('cart', 16) + 'سفارش جدید دریافت شد</a>' +
+            '<a class="pa-dropdown-item" href="#">' + icon('user_plus', 16) + 'کاربر جدید ثبت‌نام کرد</a>' +
+            '<a class="pa-dropdown-item" href="#">' + icon('server', 16) + 'بار سرور بالا رفت</a>' +
+            '<a class="pa-dropdown-item" href="#">' + icon('warning', 16) + 'هشدار امنیتی</a>' +
+            '<div class="pa-dropdown-divider"></div>' +
+            '<a class="pa-dropdown-item" href="pages/blank.html">' + icon('list', 16) + 'مشاهده همه</a>' +
+            '<div class="pa-dropdown-footer">همه اعلان‌ها</div>' +
+          '</div>' +
+        '</div>' +
+        // Messages dropdown
+        '<div class="pa-dropdown">' +
+          '<button class="pa-icon-btn" data-pa-dropdown-toggle aria-label="پیام‌ها">' +
+            icon('envelope', 20) +
+          '</button>' +
+          '<div class="pa-dropdown-menu" role="menu">' +
+            '<div class="pa-dropdown-header">۳ پیام جدید</div>' +
+            '<a class="pa-dropdown-item" href="#">' +
+              '<span class="pa-avatar pa-avatar-sm">P</span>' +
+              '<span><strong>پویا</strong><br><small>۵ دقیقه پیش</small></span>' +
+            '</a>' +
+            '<a class="pa-dropdown-item" href="#">' +
+              '<span class="pa-avatar pa-avatar-sm">A</span>' +
+              '<span><strong>امیر</strong><br><small>۱۰ دقیقه پیش</small></span>' +
+            '</a>' +
+            '<div class="pa-dropdown-divider"></div>' +
+            '<a class="pa-dropdown-item" href="pages/chat.html">' + icon('chat', 16) + 'مشاهده همه</a>' +
+          '</div>' +
+        '</div>' +
+        // User dropdown
+        '<div class="pa-dropdown">' +
+          '<button class="pa-user-widget" data-pa-dropdown-toggle aria-label="حساب کاربری">' +
+            '<span class="pa-avatar pa-avatar-md">A</span>' +
+            '<span class="pa-uw-text">' +
+              '<span class="pa-uw-name">امیر رضایی</span>' +
+              '<span class="pa-uw-role">مدیر</span>' +
+            '</span>' +
+            icon('chevron_down', 14) +
+          '</button>' +
+          '<div class="pa-dropdown-menu" role="menu">' +
+            '<div class="pa-dropdown-header">حساب کاربری</div>' +
+            '<a class="pa-dropdown-item" href="pages/profile.html">' + icon('user', 16) + 'پروفایل</a>' +
+            '<a class="pa-dropdown-item" href="pages/settings.html">' + icon('cog', 16) + 'تنظیمات</a>' +
+            '<a class="pa-dropdown-item" href="pages/blank.html">' + icon('star', 16) + 'نشانه‌ها</a>' +
+            '<div class="pa-dropdown-divider"></div>' +
+            '<a class="pa-dropdown-item" href="pages/login.html">' + icon('logout', 16) + 'خروج</a>' +
+          '</div>' +
+        '</div>' +
+      '</header>';
+  }
+
+  function footer(opts) {
+    opts = opts || {};
+    var year = new Date().getFullYear();
+    return '' +
+      '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۰.۰ &copy; ' + year + ' &middot; ' +
+        'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
+        '<a href="docs/README.html">مستندات</a>' +
+      '</footer>';
+  }
+
+  /**
+   * Inject sidebar + header into placeholders on the page.
+   * Pages declare <div data-pa-layout="app"></div>,
+   * <div data-pa-layout="header"></div> and <div data-pa-layout="footer"></div>.
+   */
+  function applyLayout(opts) {
+    opts = opts || {};
+    document.querySelectorAll('[data-pa-layout="sidebar"]').forEach(function (el) {
+      el.outerHTML = sidebar(opts.sidebar || {});
+    });
+    document.querySelectorAll('[data-pa-layout="header"]').forEach(function (el) {
+      el.outerHTML = header(opts.header || {});
+    });
+    document.querySelectorAll('[data-pa-layout="footer"]').forEach(function (el) {
+      el.outerHTML = footer(opts.footer || {});
+    });
+    // Re-run icon injection + bindings for newly added nodes
+    if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(document);
+    if (typeof PAdminLTE.boot === 'function') PAdminLTE.boot(document);
+  }
+
+  // Auto-apply on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      if (document.querySelector('[data-pa-layout]')) applyLayout({});
+    });
+  } else if (document.querySelector('[data-pa-layout]')) {
+    applyLayout({});
+  }
+
+  PAdminLTE.layout = {
+    sidebar: sidebar,
+    header: header,
+    footer: footer,
+    apply: applyLayout,
+    navItem: navItem,
+    navTree: navTree
+  };
+})(typeof window !== 'undefined' ? window : this);

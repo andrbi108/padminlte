@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — داشبورد ۲</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div><h1>داشبورد ۲ — نمودار میله‌ای</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>داشبورد ۲</span></div></div>
+        </div>
+
+        <div class="pa-row">
+          <div class="pa-col-6">
+            <div class="pa-card"><div class="pa-card-header"><h3>درآمد فصلی</h3></div>
+              <div class="pa-card-body"><div class="pa-chart-wrap">
+                <canvas data-pa-chart="bar" data-pa-chart-data='{"labels":["بهار","تابستان","پاییز","زمستان"],"series":[{"label":"۱۴۰۲","values":[120,180,150,200]},{"label":"۱۴۰۳","values":[150,210,180,250]}],"colors":["#0d6efd","#198754"]}'></canvas>
+              </div></div>
+            </div>
+          </div>
+          <div class="pa-col-6">
+            <div class="pa-card"><div class="pa-card-header"><h3>دسته‌بندی محصولات</h3></div>
+              <div class="pa-card-body"><div class="pa-chart-wrap">
+                <canvas data-pa-chart="donut" data-pa-chart-data='[{"value":40},{"value":25},{"value":20},{"value":15}]'></canvas>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <div class="pa-col-12">
+            <div class="pa-card"><div class="pa-card-header"><h3>روند ۳۰ روز اخیر</h3></div>
+              <div class="pa-card-body"><div class="pa-chart-wrap">
+                <canvas data-pa-chart="line" data-pa-chart-data='{"labels":["۱","۵","۱۰","۱۵","۲۰","۲۵","۳۰"],"series":[{"label":"بازدید","values":[100,150,180,210,250,300,320]}],"colors":["#198754"]}'></canvas>
+              </div></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

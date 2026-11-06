@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — سؤالات متداول</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-faq-item { border: 1px solid var(--pa-border); border-radius: var(--pa-radius); margin-bottom: .5rem; overflow: hidden; }
+    .pa-faq-q { padding: .9rem 1rem; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; align-items: center; background: var(--pa-surface-2); user-select: none; }
+    .pa-faq-q:hover { background: var(--pa-surface-3); }
+    .pa-faq-a { max-height: 0; overflow: hidden; transition: max-height .25s ease; padding: 0 1rem; }
+    .pa-faq-item.is-open .pa-faq-a { max-height: 300px; padding: .9rem 1rem; border-top: 1px solid var(--pa-border); }
+    .pa-faq-item.is-open .pa-faq-q .pa-faq-chev { transform: rotate(180deg); }
+    .pa-faq-chev { transition: transform .25s ease; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header"><div><h1>سؤالات متداول</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>سؤالات متداول</span></div></div></div>
+
+        <div class="pa-row">
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>پرسش‌های پرتکرار</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-faq-item is-open">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۱. آیا PAdminLTE واقعاً هیچ وابستگی خارجی ندارد؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-faq-a"><p>بله. این نسخه از هیچ کتابخانه خارجی (Bootstrap، jQuery، Chart.js، Font Awesome و...) استفاده نمی‌کند. همه‌چیز با HTML، CSS و JavaScript خالص (vanilla) و به‌صورت فایل‌های محلی ارائه شده است.</p></div>
+                </div>
+                <div class="pa-faq-item">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۲. آیا می‌توانم فایل‌ها را با file:// باز کنم؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-faq-a"><p>بله. هیچ نیازی به سرور وب نیست. کافی است فایل <code>index.html</code> را در مرورگر باز کنید. در صورتی که بخواهید سرور محلی هم استفاده کنید، می‌توانید از <code>python3 -m http.server</code> استفاده کنید.</p></div>
+                </div>
+                <div class="pa-faq-item">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۳. چطور تم تاریک/روشن را تغییر دهم؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-card-body"></div>
+                  <div class="pa-faq-a"><p>روی آیکون ماه/خورشید در نوار بالا کلیک کنید یا از صفحه‌ی <a href="settings.html">تنظیمات</a> استفاده کنید. انتخاب شما در <code>localStorage</code> ذخیره می‌شود.</p></div>
+                </div>
+                <div class="pa-faq-item">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۴. آیا RTL پشتیبانی می‌شود؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-faq-a"><p>بله، PAdminLTE به‌صورت پیش‌فرض RTL است. می‌توانید با دکمه‌ی تغییر جهت در نوار بالا، به LTR سوئیچ کنید. جهت انتخابی نیز در <code>localStorage</code> ذخیره می‌شود.</p></div>
+                </div>
+                <div class="pa-faq-item">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۵. نمودارها با چه ابزاری ساخته می‌شوند؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-faq-a"><p>همه‌ی نمودارها (خطی، میله‌ای، دونات و اسپارک‌لاین) با Canvas API بومی مرورگر و بدون کتابخانه خارجی (مانند Chart.js) رسم می‌شوند.</p></div>
+                </div>
+                <div class="pa-faq-item">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۶. آیا می‌توانم رنگ‌ها را سفارشی کنم؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-faq-a"><p>بله. تمام رنگ‌ها به‌صورت CSS Custom Properties در فایل <code>css/padminlte.css</code> در بخش <code>:root</code> تعریف شده‌اند. می‌توانید مقادیر را مستقیماً ویرایش کنید. برای جزئیات بیشتر <code>docs/CUSTOMIZE.md</code> را ببینید.</p></div>
+                </div>
+                <div class="pa-faq-item">
+                  <div class="pa-faq-q" onclick="this.parentElement.classList.toggle('is-open')">
+                    <span>۷. چه مرورگرهایی پشتیبانی می‌شوند؟</span>
+                    <span class="pa-faq-chev" data-pa-icon="chevron_down" data-pa-icon-size="18"></span>
+                  </div>
+                  <div class="pa-faq-a"><p>هر مرورگر مدرن (Chrome 90+، Firefox 88+، Safari 14+، Edge 90+) که از CSS Custom Properties، Flexbox، Grid و ES2017 پشتیبانی می‌کند. بدون نیاز به polyfill.</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>پشتیبانی</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">سؤال دیگری دارید؟ با ما در تماس باشید.</p>
+                <button class="pa-btn pa-btn-primary pa-btn-block pa-mt-1" onclick="PAdminLTE.toast({kind:'info',message:'فرم تماس در نسخه‌های بعدی فعال می‌شود.'})" data-pa-icon="envelope" data-pa-icon-size="16"> تماس با ما</button>
+                <hr>
+                <p class="pa-fs-sm"><strong>منابع:</strong></p>
+                <ul class="pa-fs-sm pa-text-muted" style="list-style:none; padding:0">
+                  <li class="pa-mb-1"><a href="blank.html">صفحه خالی (شروع سریع)</a></li>
+                  <li class="pa-mb-1"><a href="widgets.html">نمونه ویجت‌ها</a></li>
+                  <li class="pa-mb-1"><a href="forms.html">نمونه فرم‌ها</a></li>
+                  <li><a href="settings.html">تنظیمات</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

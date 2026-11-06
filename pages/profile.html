@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — پروفایل</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header"><div><h1>پروفایل کاربر</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>پروفایل</span></div></div></div>
+
+        <div class="pa-row">
+          <div class="pa-col-4">
+            <div class="pa-card pa-text-center">
+              <div class="pa-card-body">
+                <span class="pa-avatar pa-avatar-lg" style="margin:0 auto .75rem; width:96px; height:96px; background:linear-gradient(135deg,var(--pa-primary),var(--pa-info)); color:#fff; display:grid; place-items:center; font-size:2rem; font-weight:700">A</span>
+                <h3>امیر رضایی</h3>
+                <p class="pa-text-muted">مدیر فنی</p>
+                <p class="pa-fs-sm pa-text-muted">تهران، ایران</p>
+                <div class="pa-d-flex pa-gap-1" style="justify-content:center; margin-top:.75rem">
+                  <span class="pa-badge pa-badge-success">آنلاین</span>
+                  <span class="pa-badge pa-badge-primary">تأیید شده</span>
+                </div>
+              </div>
+              <div class="pa-card-footer pa-d-flex" style="justify-content:space-around">
+                <div><strong>۱٬۲۴۵</strong><br><small>دنبال‌کننده</small></div>
+                <div><strong>۸۹۰</strong><br><small>دنبال‌شده</small></div>
+                <div><strong>۳۲۰</strong><br><small>پروژه</small></div>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>درباره من</h3></div>
+              <div class="pa-card-body">
+                <p>برنامه‌نویس ارشد با ۱۰ سال تجربه در طراحی سامانه‌های توزیع‌شده. علاقه‌مند به مهندسی معکوس و امنیت نرم‌افزار.</p>
+                <hr>
+                <ul style="list-style:none; padding:0; margin:0; font-size:.9rem">
+                  <li class="pa-d-flex pa-align-center pa-gap-2 pa-mb-1"><span data-pa-icon="user" data-pa-icon-size="16"></span> امیر رضایی</li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2 pa-mb-1"><span data-pa-icon="envelope" data-pa-icon-size="16"></span> amir@example.com</li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2 pa-mb-1"><span data-pa-icon="phone" data-pa-icon-size="16"></span> ۰۹۱۲۳۴۵۶۷۸۹</li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2 pa-mb-1"><span data-pa-icon="location" data-pa-icon-size="16"></span> تهران، ایران</li>
+                  <li class="pa-d-flex pa-align-center pa-gap-2"><span data-pa-icon="calendar" data-pa-icon-size="16"></span> عضو از ۱۳۹۸</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-8">
+            <div class="pa-card">
+              <div class="pa-card-body" style="padding:0">
+                <div class="pa-tabs" data-pa-tabs style="padding:0 1rem">
+                  <button class="pa-tab is-active" data-pa-tab="tab-activity">فعالیت‌ها</button>
+                  <button class="pa-tab" data-pa-tab="tab-settings">تنظیمات</button>
+                  <button class="pa-tab" data-pa-tab="tab-projects">پروژه‌ها</button>
+                </div>
+                <div class="pa-card-body">
+                  <div id="tab-activity" class="pa-tab-panel is-active" data-pa-panel="tab-activity">
+                    <div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body">۳ فعالیت جدید در ۲۴ ساعت گذشته.</div></div>
+                    <ul style="list-style:none; padding:0; margin:0">
+                      <li style="padding:.6rem 0; border-bottom:1px solid var(--pa-border)"><strong>پروژه‌ی «سامانه انبار»</strong> را به‌روز کرد.<br><small class="pa-text-muted">۲ ساعت پیش</small></li>
+                      <li style="padding:.6rem 0; border-bottom:1px solid var(--pa-border)"><strong>گزارش ماهانه</strong> را ارسال کرد.<br><small class="pa-text-muted">دیروز</small></li>
+                      <li style="padding:.6rem 0"><strong>۲ کاربر جدید</strong> را به تیم اضافه کرد.<br><small class="pa-text-muted">۳ روز پیش</small></li>
+                    </ul>
+                  </div>
+                  <div id="tab-settings" class="pa-tab-panel" data-pa-panel="tab-settings">
+                    <form data-pa-validate-form>
+                      <div class="pa-form-row">
+                        <div class="pa-form-group"><label>نام</label><input class="pa-input" value="امیر"></div>
+                        <div class="pa-form-group"><label>نام خانوادگی</label><input class="pa-input" value="رضایی"></div>
+                      </div>
+                      <div class="pa-form-group"><label>ایمیل</label><input class="pa-input" type="email" value="amir@example.com" data-pa-validate="email"></div>
+                      <div class="pa-form-group"><label>بیوگرافی</label><textarea class="pa-textarea" rows="3">برنامه‌نویس ارشد...</textarea></div>
+                      <button type="submit" class="pa-btn pa-btn-primary">ذخیره تغییرات</button>
+                    </form>
+                  </div>
+                  <div id="tab-projects" class="pa-tab-panel" data-pa-panel="tab-projects">
+                    <div class="pa-table-wrap">
+                      <table class="pa-table">
+                        <thead><tr><th>پروژه</th><th>پیشرفت</th><th>وضعیت</th></tr></thead>
+                        <tbody>
+                          <tr><td>سامانه انبار</td><td><div class="pa-progress"><div class="pa-progress-bar pa-success" style="width:85%"></div></div></td><td><span class="pa-badge pa-badge-success">در حال انجام</span></td></tr>
+                          <tr><td>اپلیکیشن موبایل</td><td><div class="pa-progress"><div class="pa-progress-bar pa-warning" style="width:45%"></div></div></td><td><span class="pa-badge pa-badge-warning">در انتظار</span></td></tr>
+                          <tr><td>پنل مدیریت</td><td><div class="pa-progress"><div class="pa-progress-bar pa-primary" style="width:100%"></div></div></td><td><span class="pa-badge pa-badge-primary">تکمیل</span></td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

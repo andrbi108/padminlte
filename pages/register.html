@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — ثبت‌نام</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body class="pa-auth-page">
+  <div class="pa-auth-card pa-wide">
+    <div class="pa-auth-logo">P</div>
+    <h1>ایجاد حساب جدید</h1>
+    <p class="pa-sub">برای استفاده از امکانات، ثبت‌نام کنید</p>
+
+    <form data-pa-validate-form onsubmit="return false">
+      <div class="pa-form-row">
+        <div class="pa-form-group">
+          <label for="firstname">نام</label>
+          <input class="pa-input" type="text" id="firstname" data-pa-validate="required" required>
+          <div class="pa-form-feedback"></div>
+        </div>
+        <div class="pa-form-group">
+          <label for="lastname">نام خانوادگی</label>
+          <input class="pa-input" type="text" id="lastname" data-pa-validate="required" required>
+          <div class="pa-form-feedback"></div>
+        </div>
+      </div>
+      <div class="pa-form-group">
+        <label for="email">ایمیل</label>
+        <input class="pa-input" type="email" id="email" data-pa-validate="email" required>
+        <div class="pa-form-feedback"></div>
+      </div>
+      <div class="pa-form-row">
+        <div class="pa-form-group">
+          <label for="password">رمز عبور</label>
+          <input class="pa-input" type="password" id="password" data-pa-validate="minlen" data-pa-minlen="6" required>
+          <div class="pa-form-feedback"></div>
+        </div>
+        <div class="pa-form-group">
+          <label for="confirm">تکرار رمز عبور</label>
+          <input class="pa-input" type="password" id="confirm" data-pa-validate="minlen" data-pa-minlen="6" required>
+          <div class="pa-form-feedback"></div>
+        </div>
+      </div>
+      <div class="pa-form-check">
+        <input type="checkbox" id="agree" required>
+        <label for="agree">با <a href="#">قوانین و مقررات</a> موافقم</label>
+      </div>
+      <button type="submit" class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg">ثبت‌نام</button>
+    </form>
+    <p class="pa-text-center pa-text-muted pa-fs-sm pa-mt-2">حساب دارید؟ <a href="login.html">وارد شوید</a></p>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+</body>
+</html>

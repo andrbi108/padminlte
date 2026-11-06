@@ -1,0 +1,37 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (only relevant if you add build tooling later)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output (none currently — this is a no-build project)
+dist/
+build/
+
+# Logs
+*.log
+
+# Env files (NEVER commit tokens/credentials)
+.env
+.env.local
+.env.*.local
+.ghenv
+*.token
+*-token.txt
+token.txt
+
+# Local test artifacts
+*.local
+.tmp/

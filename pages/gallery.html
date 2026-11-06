@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — گالری</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    .pa-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+    .pa-gallery-item { aspect-ratio: 1/1; border-radius: var(--pa-radius-lg); overflow: hidden; cursor: pointer; position: relative; background: var(--pa-surface-3); display: flex; align-items: center; justify-content: center; color: var(--pa-text-muted); font-weight: 700; transition: transform .2s, box-shadow .2s; }
+    .pa-gallery-item:hover { transform: translateY(-3px); box-shadow: var(--pa-shadow-lg); }
+    .pa-gallery-item::before { content: attr(data-label); position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.5rem; opacity: .5; }
+    .pa-gallery-item .pa-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.7), transparent 60%); opacity: 0; transition: opacity .2s; display: flex; align-items: flex-end; padding: .75rem; }
+    .pa-gallery-item:hover .pa-overlay { opacity: 1; }
+    .pa-gallery-item .pa-overlay .pa-actions { display: flex; gap: .35rem; }
+    .pa-gallery-item .pa-overlay button { background: rgba(255,255,255,.2); border: 0; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: grid; place-items: center; }
+    .pa-gallery-item .pa-overlay button:hover { background: var(--pa-primary); }
+    .pa-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,.9); z-index: 4000; display: none; align-items: center; justify-content: center; padding: 2rem; }
+    .pa-lightbox.is-open { display: flex; }
+    .pa-lightbox .pa-lb-content { max-width: 90vw; max-height: 90vh; background: var(--pa-surface); border-radius: var(--pa-radius-lg); padding: 2rem; text-align: center; color: var(--pa-text); }
+    .pa-lightbox .pa-lb-close { position: absolute; top: 1rem; right: 1rem; background: transparent; border: 0; color: #fff; font-size: 2rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div><h1>گالری</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>گالری</span></div></div>
+          <div class="pa-d-flex pa-gap-2">
+            <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="upload" data-pa-icon-size="16"> بارگذاری</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="plus" data-pa-icon-size="16"> پوشه جدید</button>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-body">
+            <div class="pa-gallery-grid" id="gallery-grid"></div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="pa-lightbox" id="gallery-lightbox">
+    <button class="pa-lb-close" onclick="document.getElementById('gallery-lightbox').classList.remove('is-open')">&times;</button>
+    <div class="pa-lb-content">
+      <h3 id="lb-title">تصویر</h3>
+      <p class="pa-text-muted">نمونه نمایش تصویر در گالری — در نسخه‌ی واقعی، تصویر بارگذاری می‌شود.</p>
+      <div style="width: 320px; height: 240px; background: linear-gradient(135deg, var(--pa-primary), var(--pa-info)); border-radius: var(--pa-radius); margin: 1rem auto;"></div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    // Generate gallery placeholders with gradient backgrounds
+    (function () {
+      var grid = document.getElementById('gallery-grid');
+      var labels = ['کوهستان','دریا','جنگل','شهر','صحرا','غروب','آسمان','گل','پرنده','ساختمان','ماشین','قایق','سگ','گربه','درخت','آبشار'];
+      var palettes = [
+        ['#0d6efd','#6610f2'], ['#198754','#0a3622'], ['#ffc107','#d39e00'],
+        ['#dc3545','#7a1620'], ['#0dcaf0','#08546b'], ['#6c757d','#2a2e33'],
+        ['#fd7e14','#7a3d0a'], ['#20c997','#0a5443'], ['#0d6efd','#198754'],
+        ['#6610f2','#dc3545'], ['#ffc107','#fd7e14'], ['#0dcaf0','#0d6efd']
+      ];
+      labels.forEach(function (label, i) {
+        var pal = palettes[i % palettes.length];
+        var div = document.createElement('div');
+        div.className = 'pa-gallery-item';
+        div.style.background = 'linear-gradient(135deg, ' + pal[0] + ', ' + pal[1] + ')';
+        div.setAttribute('data-label', label);
+        div.innerHTML = '<div class="pa-overlay"><div class="pa-actions">' +
+          '<button title="نمایش" data-pa-icon="eye" data-pa-icon-size="14"></button>' +
+          '<button title="دانلود" data-pa-icon="download" data-pa-icon-size="14"></button>' +
+          '<button title="حذف" data-pa-icon="trash" data-pa-icon-size="14"></button>' +
+          '</div></div>';
+        div.addEventListener('click', function () {
+          document.getElementById('lb-title').textContent = label;
+          document.getElementById('gallery-lightbox').classList.add('is-open');
+        });
+        grid.appendChild(div);
+      });
+      PAdminLTE.injectIcons(grid);
+    })();
+  </script>
+</body>
+</html>
