@@ -18,12 +18,40 @@
   var PAdminLTE = global.PAdminLTE || (global.PAdminLTE = {});
   var icon = PAdminLTE.icon;
 
+  /* ---------- Path resolution ----------
+     Canonical hrefs in this file are written from the project root
+     perspective: "index.html", "pages/xxx.html", "css/...", "js/...".
+     Pages live in two locations (root and pages/), so every link must
+     be resolved relative to the CURRENT page location:
+       - root page:   href used as-is
+       - pages/ page: "pages/" prefix stripped (sibling), root assets get "../"
+  */
+  var IN_PAGES = (function () {
+    var segs = (global.location && global.location.pathname || '').split('/');
+    // The last segment is the file itself; check the directory segments.
+    for (var i = 0; i < segs.length - 1; i++) {
+      if (segs[i] === 'pages') return true;
+    }
+    return false;
+  })();
+
+  function resolve(href) {
+    if (!href) return href;
+    if (/^(https?:|mailto:|tel:|javascript:|#|data:)/.test(href)) return href;
+    if (IN_PAGES) {
+      if (href.indexOf('pages/') === 0) return href.slice('pages/'.length);
+      if (href.indexOf('/') === 0) return href; // absolute — leave alone
+      return '../' + href;
+    }
+    return href;
+  }
+
   function navItem(href, iconName, label, badge) {
     var isExternal = /^https?:/.test(href);
     var active = ('/' + (location.pathname.split('/').pop() || 'index.html')) === href ||
                  (location.pathname.split('/').pop() || 'index.html') === href.split('/').pop();
     return '' +
-      '<a class="pa-sidebar-link' + (active ? ' is-active' : '') + '" href="' + href + '"' +
+      '<a class="pa-sidebar-link' + (active ? ' is-active' : '') + '" href="' + resolve(href) + '"' +
         (isExternal ? ' target="_blank" rel="noopener"' : '') + '>' +
         icon(iconName, 20) +
         '<span class="pa-label">' + label + '</span>' +
@@ -166,7 +194,7 @@
 
     return '' +
       '<aside class="pa-sidebar" aria-label="منوی اصلی">' +
-        '<a class="pa-sidebar-brand" href="index.html">' +
+        '<a class="pa-sidebar-brand" href="' + resolve('index.html') + '">' +
           '<span class="pa-brand-mark">' + brandMark + '</span>' +
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
@@ -206,7 +234,7 @@
             '<a class="pa-dropdown-item" href="#">' + icon('server', 16) + 'بار سرور بالا رفت</a>' +
             '<a class="pa-dropdown-item" href="#">' + icon('warning', 16) + 'هشدار امنیتی</a>' +
             '<div class="pa-dropdown-divider"></div>' +
-            '<a class="pa-dropdown-item" href="pages/blank.html">' + icon('list', 16) + 'مشاهده همه</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/blank.html') + '">' + icon('list', 16) + 'مشاهده همه</a>' +
             '<div class="pa-dropdown-footer">همه اعلان‌ها</div>' +
           '</div>' +
         '</div>' +
@@ -226,7 +254,7 @@
               '<span><strong>امیر</strong><br><small>۱۰ دقیقه پیش</small></span>' +
             '</a>' +
             '<div class="pa-dropdown-divider"></div>' +
-            '<a class="pa-dropdown-item" href="pages/chat.html">' + icon('chat', 16) + 'مشاهده همه</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/chat.html') + '">' + icon('chat', 16) + 'مشاهده همه</a>' +
           '</div>' +
         '</div>' +
         // User dropdown
@@ -241,11 +269,11 @@
           '</button>' +
           '<div class="pa-dropdown-menu" role="menu">' +
             '<div class="pa-dropdown-header">حساب کاربری</div>' +
-            '<a class="pa-dropdown-item" href="pages/profile.html">' + icon('user', 16) + 'پروفایل</a>' +
-            '<a class="pa-dropdown-item" href="pages/settings.html">' + icon('cog', 16) + 'تنظیمات</a>' +
-            '<a class="pa-dropdown-item" href="pages/blank.html">' + icon('star', 16) + 'نشانه‌ها</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/profile.html') + '">' + icon('user', 16) + 'پروفایل</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/settings.html') + '">' + icon('cog', 16) + 'تنظیمات</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/blank.html') + '">' + icon('star', 16) + 'نشانه‌ها</a>' +
             '<div class="pa-dropdown-divider"></div>' +
-            '<a class="pa-dropdown-item" href="pages/login.html">' + icon('logout', 16) + 'خروج</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/login.html') + '">' + icon('logout', 16) + 'خروج</a>' +
           '</div>' +
         '</div>' +
       '</header>';
@@ -256,9 +284,9 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۰.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۱.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
-        '<a href="docs/README.html">مستندات</a>' +
+        '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';
   }
 
