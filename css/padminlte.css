@@ -362,15 +362,20 @@ button.pa-sidebar-link:hover { color: #fff; }
 .pa-small-box .pa-inner h3 { font-size: 1.8rem; font-weight: 700; margin: 0 0 .15rem; }
 .pa-small-box .pa-inner p  { margin: 0; font-size: .9rem; opacity: .9; }
 /* Decorative oversized icon inside small boxes.
-   v2.0 — ONE rule anchored with the logical `inset-inline-end`: it hugs the
-   inline-END edge of the box in both directions, i.e. the LEFTMOST point of
-   .pa-small-box in RTL and the RIGHTMOST point in LTR (as requested).
+   v2.1 — anchored with the logical `inset-inline-end: 0` plus an offset from
+   that edge via `margin-inline-end: 2.75rem`. One rule, exactly the requested
+   per-direction result:
+     RTL → left: 0;           margin-left: 2.75rem  (hugs the LEFT side, 44px in)
+     LTR → right: 0;          margin-right: 2.75rem (hugs the RIGHT side, 44px in)
+   `margin-inline-end` maps to margin-left in RTL and margin-right in LTR, so
+   there is no per-direction override left to drift.
    overflow:hidden on the box clips the oversized bleed for the classic
-   AdminLTE watermark look — no per-direction override left to drift. */
+   AdminLTE watermark look. */
 .pa-small-box .pa-icon-bg {
   position: absolute;
   inset-inline-end: 0;
-  bottom: 2.25rem;
+  margin-inline-end: 2.75rem;
+  bottom: 2rem;
   opacity: .25;
   transform: scale(2.2);
   pointer-events: none;
