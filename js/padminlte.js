@@ -1613,9 +1613,11 @@
     var dur = parseInt(el.getAttribute('data-pa-counter-duration') || '1400', 10);
     var suffix = el.getAttribute('data-pa-counter-suffix') || '';
     var sep = el.getAttribute('data-pa-counter-sep') !== 'off';
+    var fa = el.hasAttribute('data-pa-counter-fa');
     function fmt(n) {
       var s = String(Math.round(n));
       if (sep) s = s.replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+      if (fa) s = s.replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; });
       return s + suffix;
     }
     var start = null;
@@ -2088,6 +2090,43 @@
     }
   };
 
+  /* ---------- Mobile sidebar backdrop (v1.3.1) ----------
+     Auto-injected overlay for the off-canvas sidebar on phones:
+     tap outside or tap a nav link to close.                     */
+  function initSidebarBackdrop() {
+    var app = document.querySelector('.pa-app');
+    if (!app || app.__paBackdrop) return;
+    app.__paBackdrop = true;
+    var bd = document.querySelector('.pa-sidebar-backdrop');
+    if (!bd) {
+      bd = document.createElement('div');
+      bd.className = 'pa-sidebar-backdrop';
+      document.body.appendChild(bd);
+    }
+    function sync() {
+      var open = app.classList.contains('pa-sidebar-open');
+      var mobile = global.innerWidth <= 992;
+      bd.classList.toggle('is-visible', open && mobile);
+      document.body.style.overflow = (open && mobile) ? 'hidden' : '';
+    }
+    bd.addEventListener('click', function () {
+      app.classList.remove('pa-sidebar-open');
+      sync();
+    });
+    app.addEventListener('click', function (e) {
+      var link = e.target.closest('.pa-sidebar-link');
+      if (link && !link.hasAttribute('data-pa-tree-toggle') && global.innerWidth <= 992) {
+        app.classList.remove('pa-sidebar-open');
+        sync();
+      }
+    });
+    global.addEventListener('resize', sync);
+    if (global.MutationObserver) {
+      new MutationObserver(sync).observe(app, { attributes: true, attributeFilter: ['class'] });
+    }
+    sync();
+  }
+
   /* ---------- Auto-init everything ---------- */
   var _origBoot = boot;
   function fullBoot(root) {
@@ -2111,6 +2150,7 @@
     initSkeletons(root);
     initTypewriters(root);
     initPreloaders();
+    initSidebarBackdrop();
     // Bind logout buttons (mock auth)
     (root || document).querySelectorAll('[data-pa-logout]').forEach(function (btn) {
       if (btn.__paBound) return;

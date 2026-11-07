@@ -743,6 +743,22 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 @media (max-width: 992px) {
   [dir="rtl"] .pa-sidebar { transform: translateX(100%); }
   [dir="rtl"] .pa-app.pa-sidebar-open .pa-sidebar { transform: translateX(0); }
+  /* v1.3.1: kill the reserved sidebar margin on phones too (RTL) */
+  [dir="rtl"] .pa-main { margin-right: 0 !important; }
+}
+
+/* v1.3.1 — Mobile off-canvas sidebar backdrop */
+.pa-sidebar-backdrop {
+  position: fixed; inset: 0; z-index: 1029;
+  background: rgba(15, 23, 42, .5);
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility .25s;
+}
+.pa-sidebar-backdrop.is-visible { opacity: 1; visibility: visible; }
+@media (min-width: 993px) { .pa-sidebar-backdrop { display: none; } }
+@media (max-width: 576px) {
+  .pa-content { padding: .85rem; }
+  .pa-page-header h1 { font-size: 1.25rem; }
 }
 
 /* ---------- 29. Extended palette ---------- */
@@ -2220,3 +2236,6 @@ img[data-pa-lazy].is-lazy-loaded {
   .pa-anim-heartbeat, .pa-anim-wiggle, .pa-anim-gradient, .pa-preloader-mark,
   .pa-type-caret, .pa-spinner, .pa-spinner * { animation: none !important; }
 }
+
+/* v1.3.1 — inline icon spacing when the icon sits inside a labelled element */
+.pa-icon-inline { margin-inline-end: .35rem; flex-shrink: 0; }

@@ -327,7 +327,22 @@
     (root || document).querySelectorAll('[data-pa-icon]').forEach(function (el) {
       var name = el.getAttribute('data-pa-icon');
       var size = el.getAttribute('data-pa-icon-size');
-      el.innerHTML = svg(name, size ? parseInt(size, 10) : null);
+      var svgStr = svg(name, size ? parseInt(size, 10) : null);
+      // v1.3.1: never run twice on the same element (boot() may re-run)
+      if (el.__paIconDone) return;
+      el.__paIconDone = true;
+      // v1.3.1: preserve author content — if the element itself has text or
+      // child elements, PREPEND the icon instead of wiping innerHTML.
+      var hasOwnContent = Array.prototype.some.call(el.childNodes, function (n) {
+        if (n.nodeType === 3) return n.textContent.trim().length > 0; // text node
+        if (n.nodeType === 1) return true;                            // element node
+        return false;
+      });
+      if (hasOwnContent) {
+        el.insertAdjacentHTML('afterbegin', svgStr.replace('class="pa-icon"', 'class="pa-icon pa-icon-inline"'));
+      } else {
+        el.innerHTML = svgStr;
+      }
     });
   }
 
