@@ -22,10 +22,10 @@
       <div data-pa-layout="header"></div>
       <main class="pa-content" id="pa-main-content">
         <div class="pa-page-header">
-          <div><h1>فاکتور #۱۰۲۴</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>فاکتور</span></div></div>
+          <div><h1 id="inv-page-title">فاکتور</h1><div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="orders.html">سفارش‌ها</a><span class="pa-sep">›</span><span>فاکتور</span></div></div>
           <div class="pa-d-flex pa-gap-2">
             <button class="pa-btn pa-btn-outline pa-btn-sm" onclick="window.print()" data-pa-icon="printer" data-pa-icon-size="16"> چاپ</button>
-            <button class="pa-btn pa-btn-primary pa-btn-sm" onclick="PAdminLTE.toast({kind:'success',message:'فاکتور دانلود شد (نمونه).'})" data-pa-icon="download" data-pa-icon-size="16"> دانلود PDF</button>
+            <button class="pa-btn pa-btn-primary pa-btn-sm" id="inv-download" data-pa-icon="download" data-pa-icon-size="16"> دانلود CSV</button>
           </div>
         </div>
 
@@ -41,11 +41,11 @@
                 </div>
               </div>
               <div class="pa-text-right">
-                <h2>فاکتور #۱۰۲۴</h2>
+                <h2 id="inv-title">فاکتور</h2>
                 <div class="pa-invoice-meta">
-                  تاریخ صدور: ۱۴۰۳/۰۸/۰۱<br>
-                  تاریخ سررسید: ۱۴۰۳/۰۸/۱۵<br>
-                  <span class="pa-badge pa-badge-warning">در انتظار پرداخت</span>
+                  تاریخ صدور: <span id="inv-date">۱۴۰۳/۰۸/۰۱</span><br>
+                  روش ارسال: <span id="inv-ship">پست پیشتاز</span><br>
+                  <span class="pa-badge pa-badge-warning" id="inv-status">در انتظار پرداخت</span>
                 </div>
               </div>
             </div>
@@ -53,7 +53,7 @@
             <div class="pa-row">
               <div class="pa-col-6">
                 <strong>فاکتور به:</strong>
-                <div class="pa-invoice-meta pa-mt-1">
+                <div class="pa-invoice-meta pa-mt-1" id="inv-customer">
                   شرکت نمونه<br>
                   آقای امیر رضایی<br>
                   تهران، ایران
@@ -70,9 +70,9 @@
             </div>
 
             <div class="pa-table-wrap pa-mt-2">
-              <table class="pa-table">
+              <table class="pa-table" id="inv-table">
                 <thead><tr><th>ردیف</th><th>شرح</th><th>مقدار</th><th>قیمت واحد</th><th>مبلغ کل</th></tr></thead>
-                <tbody>
+                <tbody id="inv-items">
                   <tr><td>۱</td><td>لایسنس سالانه PAdminLTE Pro</td><td>۱</td><td>۲٬۰۰۰٬۰۰۰ ت</td><td>۲٬۰۰۰٬۰۰۰ ت</td></tr>
                   <tr><td>۲</td><td>پشتیبانی اولویت‌دار</td><td>۱۲ ماه</td><td>۵۰۰٬۰۰۰ ت</td><td>۶٬۰۰۰٬۰۰۰ ت</td></tr>
                   <tr><td>۳</td><td>آموزش تخصصی</td><td>۸ ساعت</td><td>۳۵۰٬۰۰۰ ت</td><td>۲٬۸۰۰٬۰۰۰ ت</td></tr>
@@ -82,9 +82,9 @@
             </div>
 
             <div class="pa-row pa-mt-2">
-              <div class="pa-col-6"><div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body">لطفاً پرداخت را تا تاریخ سررسید انجام دهید.</div></div></div>
+              <div class="pa-col-6"><div class="pa-alert pa-alert-info"><span data-pa-icon="info"></span><div class="pa-alert-body" id="inv-note">این یک فاکتور نمونه است. با ثبت سفارش در فروشگاه، فاکتور واقعی همان سفارش اینجا نمایش داده می‌شود.</div></div></div>
               <div class="pa-col-6">
-                <div class="pa-invoice-total">
+                <div class="pa-invoice-total" id="inv-totals">
                   <div class="pa-line"><span>جمع کل:</span><span>۱۲٬۰۰۰٬۰۰۰ ت</span></div>
                   <div class="pa-line"><span>تخفیف (۱۰٪):</span><span>۱٬۲۰۰٬۰۰۰ ت</span></div>
                   <div class="pa-line"><span>مالیات (۹٪):</span><span>۹۷۲٬۰۰۰ ت</span></div>
@@ -105,5 +105,79 @@
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
+  <script>
+  /* ============================================================
+     فاکتور واقعی (v1.8) — با ?no=PA-XXXXXX سفارش از localStorage
+     (کلید pa-orders که تسویه‌حساب می‌نویسد) خوانده و رندر می‌شود؛
+     بدون پارامتر یا سفارش ناموجود، فاکتور نمونهٔ ثابت می‌ماند.
+     ============================================================ */
+  (function () {
+    'use strict';
+    function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+    function money(n) { return fa(String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '٬')) + ' ت'; }
+    function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    var STATUS = {
+      pending:   { label: 'پرداخت‌شده — در انتظار پردازش', badge: 'pa-badge pa-badge-warning' },
+      shipped:   { label: 'ارسال‌شده', badge: 'pa-badge pa-badge-info' },
+      delivered: { label: 'تحویل‌شده', badge: 'pa-badge pa-badge-success' },
+      returned:  { label: 'مرجوعی', badge: 'pa-badge pa-badge-danger' }
+    };
+
+    var no = new URLSearchParams(location.search).get('no') || '';
+    if (!no) return;
+    var orders = PAdminLTE.store ? PAdminLTE.store.get('pa-orders', []) : [];
+    var o = orders.filter(function (x) { return String(x.orderNo) === String(no) || String(x.id) === String(no); })[0];
+    if (!o) { PAdminLTE.toast({ kind: 'warning', message: 'سفارشی با شماره «' + no + '» پیدا نشد؛ فاکتور نمونه نمایش داده می‌شود.' }); return; }
+
+    var st = STATUS[o.status] || STATUS.pending;
+    var orderTitle = 'فاکتور #' + (o.orderNo || no);
+
+    document.getElementById('inv-page-title').textContent = orderTitle;
+    document.getElementById('inv-title').textContent = orderTitle;
+    document.title = 'PAdminLTE — ' + orderTitle;
+    try {
+      document.getElementById('inv-date').textContent =
+        new Date(o.date).toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }) +
+        ' — ' + new Date(o.date).toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
+    } catch (e) {}
+    var badge = document.getElementById('inv-status');
+    badge.className = st.badge;
+    badge.textContent = st.label;
+    document.getElementById('inv-ship').textContent = o.shipping || 'پست پیشتاز';
+
+    document.getElementById('inv-customer').innerHTML =
+      esc(o.customer || '—') + '<br>' +
+      'تلفن: ' + esc(o.phone || '—') + '<br>' +
+      esc([o.province, o.city, o.address].filter(Boolean).join('، ') || '—') +
+      '<br>روش پرداخت: ' + esc(o.payment || '—');
+
+    document.getElementById('inv-items').innerHTML = (o.items || []).map(function (it, i) {
+      var line = (it.price || 0) * (it.qty || 1);
+      return '<tr>' +
+        '<td>' + fa(i + 1) + '</td>' +
+        '<td>' + esc(it.name) + '</td>' +
+        '<td>' + fa(it.qty || 1) + '</td>' +
+        '<td>' + money(it.price) + '</td>' +
+        '<td>' + money(line) + '</td>' +
+      '</tr>';
+    }).join('') || '<tr><td colspan="5" style="text-align:center">اقلامی ثبت نشده است.</td></tr>';
+
+    var off = o.discount || 0;
+    document.getElementById('inv-totals').innerHTML =
+      '<div class="pa-line"><span>جمع کالاها:</span><span>' + money(o.subtotal || 0) + '</span></div>' +
+      (off ? '<div class="pa-line"><span>تخفیف:</span><span style="color:var(--pa-success)">−' + money(off) + '</span></div>' : '') +
+      '<div class="pa-line"><span>هزینهٔ ارسال:</span><span>' + (o.shipCost ? money(o.shipCost) : 'رایگان') + '</span></div>' +
+      '<div class="pa-line pa-strong"><span>مبلغ نهایی:</span><span>' + money(o.total || 0) + '</span></div>';
+
+    document.getElementById('inv-note').textContent =
+      'این فاکتور از سفارش واقعی ثبت‌شده در فروشگاه ساخته شده است' + (o.customer ? ' به نام «' + o.customer + '»' : '') + '.';
+
+    /* خروجی CSV از اقلام فاکتور */
+    document.getElementById('inv-download').addEventListener('click', function () {
+      PAdminLTE.exportTableCSV(document.getElementById('inv-table'), (o.orderNo || 'invoice') + '.csv');
+    });
+  })();
+  </script>
 </body>
 </html>

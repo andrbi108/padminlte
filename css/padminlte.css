@@ -340,7 +340,7 @@ button.pa-sidebar-link:hover { color: #fff; }
 }
 .pa-color-chip:hover { transform: scale(1.12); }
 .pa-col-3  { flex: 0 1 calc(25%   - .75rem); min-width: 0; }
-.pa-col-4  { flex: 0 1 calc(33.3333% - .666rem); min-width: 0; }
+.pa-col-4  { flex: 0 1 calc(33.3333% - .667rem); min-width: 0; } /* v1.8: .667rem so 3 cols + 2×1rem gap never overflow the line by rounding */
 .pa-col-6  { flex: 0 1 calc(50%   - .5rem); min-width: 0; }
 .pa-col-8  { flex: 0 1 calc(66.6666% - .333rem); min-width: 0; }
 .pa-col-9  { flex: 0 1 calc(75%   - .25rem); min-width: 0; }

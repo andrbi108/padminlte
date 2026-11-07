@@ -20,7 +20,7 @@
 - 🧩 **کامپوننت‌های کامل**: کارت، جدول، فرم، مودال، توست، تب، آلرت، بج، آواتار، dropdown، صفحه‌بندی
 - 🔍 **جدول داده‌ی پویا** با جستجو، مرتب‌سازی و صفحه‌بندی — بدون DataTables
 - ✅ **اعتبارسنجی فرم** با قواعد required/email/minlen/number
-- 🧰 **۶۴ صفحه‌ی آماده** در دسته‌های: داشبورد × ۳، ویجت، نمودار، جدول، فرم، پروفایل، کاربران، حساب من، نقش‌ها، تنظیمات، فاکتور، تقویم، گالری، گفتگو، سؤالات متداول، ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP، وبلاگ، نوشتن مطلب، انجمن، موضوع جدید، دسته‌بندی، برچسب، فروشگاه، محصول، سبد خرید، تسویه حساب، صفحه فرود، درباره ما، تماس با ما، قیمت‌گذاری، در حال تعمیر، ایمیل، مدیریت فایل، کانبان، اعلان‌ها، پنل کاربری، نتایج جستجو، ویرایشگر زنده، بارگذاری فایل، CRUD محصولات، CRUD کاربران، سفارش‌ها، کامپوننت‌ها، لودرها، انیمیشن‌ها، آیکون‌ها، تایم‌لاین، تیم، پروژه‌ها، به‌زودی، حریم خصوصی، شرایط استفاده، ۴۰۴، ۵۰۰، صفحهٔ خالی، **مستندات × ۴ (نصب و پیکربندی اولیه، راهنمای استفاده، سفارشی‌سازی، مرجع API)**
+- 🧰 **۶۵ صفحه‌ی آماده** در دسته‌های: داشبورد × ۳، ویجت، نمودار، جدول، فرم، پروفایل، کاربران، حساب من، نقش‌ها، تنظیمات، فاکتور، تقویم، گالری، گفتگو، سؤالات متداول، ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP، وبلاگ، نوشتن مطلب، انجمن، موضوع جدید، دسته‌بندی، برچسب، فروشگاه، محصول، **علاقه‌مندی‌ها**، سبد خرید، تسویه حساب، صفحه فرود، درباره ما، تماس با ما، قیمت‌گذاری، در حال تعمیر، ایمیل، مدیریت فایل، کانبان، اعلان‌ها، پنل کاربری، نتایج جستجو، ویرایشگر زنده، بارگذاری فایل، CRUD محصولات، CRUD کاربران، سفارش‌ها، کامپوننت‌ها، لودرها، انیمیشن‌ها، آیکون‌ها، تایم‌لاین، تیم، پروژه‌ها، به‌زودی، حریم خصوصی، شرایط استفاده، ۴۰۴، ۵۰۰، صفحهٔ خالی، **مستندات × ۴ (نصب و پیکربندی اولیه، راهنمای استفاده، سفارشی‌سازی، مرجع API)**
 - 🎬 **۱۵ انیمیشن آماده** (slide, zoom, bounce, pulse, shake, spin, tada, flash, heartbeat, shimmer, float, glow, ripple) و ۷ الگوی hover
 - 🎨 **طیف گسترده رنگ‌بندی**: ۱۳ رنگ برند با gradient، badge، button و progress bar variants
 - 📝 **LiveEdit playground** برای ویرایش زنده HTML/CSS/JS با پیش‌نمایش در iframe
@@ -28,6 +28,10 @@
 - 🔐 **احراز هویت کامل**: ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP/۲FA با auto-advance
 - 🏪 **پوستهٔ سایت عمومی (v1.7)** — ۱۶ صفحهٔ مستقل از داشبورد (فروشگاه، وبلاگ، انجمن، اطلاعات و قانونی) با ناوبری چسبان مات، فوتر چندستونه، شمارندهٔ زندهٔ سبد و منوی موبایل
 - 🛒 **فروشگاه واقعاً قابل استفاده**: کاتالوگ ۱۴ محصولهٔ مشترک (`js/pa-shop.js`)، فیلتر/مرتب‌سازی/دو نمای کارا، صفحهٔ محصول پویا با `?id=`، سبد خرید پایدار در localStorage با کد تخفیف (`PADMIN10`)، قواعد ارسال و تسویهٔ حساب با ثبت سفارش
+- 💝 **علاقه‌مندی‌ها (v1.8)**: API مشترک `PAdminLTE.wishlist` با نشان زندهٔ قلب در ناوبری سایت و صفحهٔ اختصاصی با افزودن به سبد و حذف
+- 📦 **پشت‌بانهٔ سفارش‌ها (v1.8)**: صفحهٔ سفارش‌ها از همان `pa-orders` که تسویه‌حساب می‌نویسد تغذیه می‌شود؛ آمار زنده، نمودار درآمد ۷ روزه، تغییر وضعیت پایدار و خروجی CSV
+- 🧾 **فاکتور واقعی (v1.8)**: `invoice.html?no=PA-XXXXXX` سفارش واقعی را از localStorage رندر می‌کند و از تسویه‌حساب لینک می‌شود
+- 🔎 **جستجوی واقعی سایت (v1.8)**: `search-results.html?q=` روی محصولات، وبلاگ، انجمن و صفحات جستجو می‌کند؛ برجسته‌سازی نتیجه، فیلتر نوع، صفحه‌بندی، تاریخچه و جستجوهای پرطرفدار
 - 💬 **انجمن و وبلاگ**: لیست مطالب، مطلب کامل، لیست گفتگوها، موضوع انجمن، دسته‌بندی‌ها، ابر برچسب‌ها
 - 📋 **اپ‌های کامل**: صندوق ایمیل، مدیریت فایل، تخته کانبان با drag-and-drop، مرکز اعلان‌ها، پنل کاربری، نتایج جستجو
 - ⌨️ **پالت فرمان (Ctrl+K/⌘K)**: جستجوی زندهٔ همهٔ صفحات + فرمان‌های سریع، بدون وابستگی
@@ -155,6 +159,10 @@ php -S localhost:8000
 | `pages/blog-compose.html` | نوشتن مطلب با ذخیرهٔ واقعی در localStorage |
 | `pages/shop.html` | فروشگاه عمومی: کاتالوگ ۱۴ محصول، فیلتر دسته/برند/قیمت، مرتب‌سازی، نمای شبکه‌ای/لیستی، افزودن به سبد |
 | `pages/product.html` | صفحهٔ محصول پویا با `?id=`: گالری، رنگ/سایز، تعداد، نظرات پایدار، محصولات مرتبط و بازدیدهای اخیر |
+| `pages/wishlist.html` | علاقه‌مندی‌ها با API مشترک `PAdminLTE.wishlist`، افزودن به سبد، حذف و حالت خالی |
+| `pages/orders.html` | پشت‌بانهٔ سفارش‌ها از `pa-orders`: آمار زنده، نمودار درآمد ۷ روزه، تغییر وضعیت پایدار، فاکتور هر سفارش و خروجی CSV |
+| `pages/invoice.html` | فاکتور واقعی سفارش با `?no=` (فاکتور نمونه به‌عنوان جایگزین) |
+| `pages/search-results.html` | جستجوی واقعی `?q=` روی محصولات/وبلاگ/انجمن/صفحات با برجسته‌سازی، فیلتر نوع، صفحه‌بندی و تاریخچه |
 | `pages/cart.html` | سبد خرید واقعی در localStorage: تغییر تعداد، حذف، کد تخفیف (`PADMIN10`)، محاسبهٔ ارسال |
 | `pages/checkout.html` | تسویهٔ حساب: فرم ارسال با اعتبارسنجی، روش پرداخت، ثبت سفارش با شماره و پنل موفقیت |
 | `pages/forum-new.html` | ایجاد موضوع انجمن با ذخیرهٔ واقعی |
@@ -274,10 +282,11 @@ MIT — آزاد برای استفادهٔ تجاری و غیرتجاری. بر�
 - Full component set: cards, tables, forms, modals, toasts, tabs, alerts, badges, avatars, dropdowns, pagination
 - Datatable with search/sort/pagination — no DataTables.js
 - Form validation (required / email / minlen / number)
-- 60 ready-to-use pages — 3 dashboards, CRUD, user management, auth flows, blog & forum (localStorage-backed), gallery with 5 view modes, loaders/skeletons, animations showcase, icon gallery and more
+- 65 ready-to-use pages — 3 dashboards, CRUD, user management, auth flows, blog & forum (localStorage-backed), public shop, wishlist, gallery with 5 view modes, loaders/skeletons, animations showcase, icon gallery and more
 - Mock auth (`PAdminLTE.auth`) with localStorage sessions + content store (`PAdminLTE.store`)
 - Lazy-loaded images, spinner/skeleton/preloader toolkit, scroll-reveal animations (12 modes), typewriter
 - Command palette (Ctrl+K/⌘K), 8 timeline variants, one-click CSV table export
+- Real storefront loop (v1.8): orders placed at checkout appear in the admin Orders page (live stats, 7-day revenue chart, persistent status changes, per-order invoice `invoice.html?no=`), shared wishlist API (`PAdminLTE.wishlist`) with a heart badge in the site navbar, and a real site-wide search (`search-results.html?q=`) across products, blog, forum and pages
 - Multi-step form wizard, form draft auto-save, drag-and-drop sortable lists, offline/online banner, copy-to-clipboard code blocks
 - Keyboard shortcuts sheet (`?`) with Shift+T (theme) / Shift+D (direction); professional `@media print` stylesheet
 - Accessibility: skip links, ARIA, keyboard support, focus-visible, prefers-reduced-motion

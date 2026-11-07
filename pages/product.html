@@ -279,25 +279,22 @@
       PAdminLTE.cart.add({ id: p.id, name: p.name, price: p.price, icon: p.icon, color: p.color, href: 'product.html?id=' + p.id }, addQty());
       location.href = 'checkout.html';
     });
-    /* Wishlist (localStorage) */
+    /* Wishlist (v1.8 shared API — PAdminLTE.wishlist) */
     var wishBtn = document.getElementById('wish-btn');
-    function wishList() {
-      try { return JSON.parse(localStorage.getItem('pa-wishlist') || '[]'); } catch (e) { return []; }
-    }
     function wishSync() {
-      var on = wishList().indexOf(String(p.id)) !== -1;
+      var on = PAdminLTE.wishlist.has(p.id);
       wishBtn.classList.toggle('pa-btn-primary', on);
       wishBtn.classList.toggle('pa-btn-outline', !on);
     }
     wishBtn.addEventListener('click', function () {
-      var w = wishList();
-      var i = w.indexOf(String(p.id));
-      if (i === -1) { w.push(String(p.id)); PAdminLTE.toast({ kind: 'success', message: 'به علاقه‌مندی‌ها اضافه شد.' }); }
-      else { w.splice(i, 1); PAdminLTE.toast({ kind: 'info', message: 'از علاقه‌مندی‌ها حذف شد.' }); }
-      localStorage.setItem('pa-wishlist', JSON.stringify(w));
+      var added = PAdminLTE.wishlist.toggle(p.id);
+      PAdminLTE.toast(added
+        ? { kind: 'success', message: 'به علاقه‌مندی‌ها اضافه شد.' }
+        : { kind: 'info', message: 'از علاقه‌مندی‌ها حذف شد.' });
       wishSync();
     });
     wishSync();
+    document.addEventListener('pa:wishlist', wishSync);
 
     /* Share buttons (demo toast) */
     document.querySelectorAll('.share-btn').forEach(function (b) {

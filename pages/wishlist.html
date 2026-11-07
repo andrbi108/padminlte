@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — علاقه‌مندی‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div data-pa-layout="site-nav"></div>
+
+  <main class="pa-site-main" id="pa-main-content">
+    <div class="pa-page-header pa-anim-slide-up">
+      <div>
+        <h1>علاقه‌مندی‌ها</h1>
+        <div class="pa-breadcrumb">
+          <a href="landing.html">خانه</a><span class="pa-sep">›</span>
+          <a href="shop.html">فروشگاه</a><span class="pa-sep">›</span>
+          <span>علاقه‌مندی‌ها</span>
+        </div>
+      </div>
+      <a class="pa-btn pa-btn-outline" href="shop.html">
+        <span data-pa-icon="shopping_bag" data-pa-icon-size="17"></span> ادامهٔ خرید
+      </a>
+    </div>
+
+    <!-- Empty state -->
+    <div class="pa-card pa-anim-slide-up" id="wish-empty" hidden>
+      <div class="pa-g-empty" style="display:block">
+        <div data-pa-icon="heart" data-pa-icon-size="48" style="opacity:.35"></div>
+        <p style="margin:.8rem 0 1.2rem">فهرست علاقه‌مندی‌های شما خالی است؛ از صفحهٔ محصول با دکمهٔ «افزودن به علاقه‌مندی‌ها» محصولات محبوب‌تان را اینجا ذخیره کنید.</p>
+        <a class="pa-btn pa-btn-primary" href="shop.html"><span data-pa-icon="shopping_bag" data-pa-icon-size="16"></span> رفتن به فروشگاه</a>
+      </div>
+    </div>
+
+    <!-- Grid -->
+    <div id="wish-wrap" hidden>
+      <div class="pa-d-flex pa-align-center pa-gap-2 pa-mb-2 pa-anim-slide-up">
+        <strong id="wish-count">۰</strong>
+        <span class="pa-text-muted">محصول در فهرست علاقه‌مندی‌ها</span>
+        <span style="flex:1"></span>
+        <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm" id="wish-clear" style="color:var(--pa-danger)">
+          <span data-pa-icon="trash" data-pa-icon-size="14"></span> حذف همه
+        </button>
+      </div>
+      <div class="pa-row" id="wish-grid"></div>
+    </div>
+  </main>
+
+  <div data-pa-layout="site-footer"></div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-shop.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var S = PAdminLTE.shop;
+    if (!S) return;
+    var grid  = document.getElementById('wish-grid');
+    var empty = document.getElementById('wish-empty');
+    var wrap  = document.getElementById('wish-wrap');
+
+    function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+    function shade(hex, p) {
+      var n = parseInt(hex.slice(1), 16),
+          t = p < 0 ? 0 : 255, pp = Math.abs(p) / 100,
+          R = n >> 16, G = (n >> 8) & 0x00ff, B = n & 0x0000ff;
+      function ch(c) { return Math.round((t - c) * pp) + c; }
+      return '#' + ('000000' + ((ch(R) << 16) | (ch(G) << 8) | ch(B)).toString(16)).slice(-6);
+    }
+    function stars(r) {
+      var out = '';
+      for (var i = 1; i <= 5; i++) {
+        out += '<span style="color:' + (i <= Math.round(r) ? 'var(--pa-warning)' : 'var(--pa-border)') + '">&#9733;</span>';
+      }
+      return out;
+    }
+    function badgeHTML(p) {
+      if (p.badge === 'discount') return '<span class="pa-product-badge pa-discount">' + S.faDigits(S.discountPct(p)) + '٪ تخفیف</span>';
+      if (p.badge === 'new') return '<span class="pa-product-badge pa-new">جدید</span>';
+      return '';
+    }
+    function cartAttrs(p) {
+      return 'data-pa-cart-add data-pa-id="' + p.id + '" data-pa-name="' + esc(p.name) + '" data-pa-price="' + p.price + '"' +
+             ' data-pa-item-icon="' + p.icon + '" data-pa-item-color="' + p.color + '"';
+    }
+    function cardHTML(p) {
+      return '' +
+        '<div class="pa-col-4" data-wish-item="' + p.id + '">' +
+          '<div class="pa-product-card pa-hover-lift">' +
+            '<div class="pa-product-thumb" style="background:linear-gradient(135deg,' + p.color + ',' + shade(p.color, -40) + '); display:grid; place-items:center; color:#fff">' +
+              '<span data-pa-icon="' + p.icon + '" data-pa-icon-size="56"></span>' +
+              badgeHTML(p) +
+              '<div class="pa-product-actions">' +
+                '<a href="product.html?id=' + p.id + '" aria-label="مشاهدهٔ ' + esc(p.name) + '" data-pa-icon="eye" data-pa-icon-size="16"></a>' +
+                '<button type="button" data-wish-remove="' + p.id + '" aria-label="حذف ' + esc(p.name) + ' از علاقه‌مندی‌ها" data-pa-icon="trash" data-pa-icon-size="16"></button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="pa-product-body">' +
+              '<div class="pa-product-cat">' + p.cat + ' · ' + p.brand + '</div>' +
+              '<h3 class="pa-product-name"><a href="product.html?id=' + p.id + '">' + esc(p.name) + '</a></h3>' +
+              '<div class="pa-product-rating">' + stars(p.rating) + '<span>' + S.faDigits(p.rating) + ' · ' + S.faDigits(p.reviews) + ' نظر</span></div>' +
+              '<div class="pa-product-price">' +
+                '<span class="pa-now">' + S.money(p.price) + '</span>' +
+                (p.old ? '<span class="pa-was">' + S.money(p.old) + '</span>' : '') +
+              '</div>' +
+              '<div class="pa-d-flex pa-gap-1 pa-mt-1">' +
+                '<button type="button" class="pa-btn pa-btn-outline pa-btn-sm" style="flex:1; min-width:0" ' + cartAttrs(p) + '>' +
+                  '<span data-pa-icon="shopping_cart" data-pa-icon-size="15"></span> افزودن به سبد' +
+                '</button>' +
+                '<button type="button" class="pa-btn pa-btn-ghost pa-btn-sm" data-wish-remove="' + p.id + '" aria-label="حذف از علاقه‌مندی‌ها" style="color:var(--pa-danger)">' +
+                  '<span data-pa-icon="trash" data-pa-icon-size="15"></span>' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function render() {
+      var ids = PAdminLTE.wishlist.ids();
+      var items = ids.map(function (id) { return S.byId(id); }).filter(Boolean);
+      empty.hidden = items.length > 0;
+      wrap.hidden = items.length === 0;
+      document.getElementById('wish-count').textContent = S.faDigits(items.length);
+      grid.innerHTML = items.map(cardHTML).join('');
+      if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(wrap);
+    }
+
+    /* Remove from list (delegated — grid is re-rendered) */
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-wish-remove]') : null;
+      if (!btn) return;
+      var id = btn.getAttribute('data-wish-remove');
+      var p = S.byId(id);
+      PAdminLTE.wishlist.remove(id);
+      PAdminLTE.toast({ kind: 'info', message: '«' + (p ? p.name : 'محصول') + '» از علاقه‌مندی‌ها حذف شد.' });
+      render();
+    });
+
+    /* Clear all */
+    document.getElementById('wish-clear').addEventListener('click', function () {
+      PAdminLTE.wishlist.ids().forEach(function (id) { PAdminLTE.wishlist.remove(id); });
+      PAdminLTE.toast({ kind: 'info', message: 'فهرست علاقه‌مندی‌ها خالی شد.' });
+      render();
+    });
+
+    /* Keep card state in sync if wishlist changes elsewhere */
+    document.addEventListener('pa:wishlist', render);
+
+    render();
+  })();
+  </script>
+</body>
+</html>

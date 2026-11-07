@@ -23,14 +23,17 @@
     .pa-sr-result-type { display: inline-flex; align-items: center; gap: .3rem; padding: .15rem .5rem; border-radius: 1rem; font-size: .68rem; font-weight: 600; margin-right: .5rem; vertical-align: middle; }
     .pa-sr-result-type.product { background: var(--pa-primary-soft); color: var(--pa-primary); }
     .pa-sr-result-type.blog { background: var(--pa-success-soft); color: var(--pa-success); }
-    .pa-sr-result-type.user { background: var(--pa-warning-soft); color: var(--pa-warning); }
+    .pa-sr-result-type.forum { background: var(--pa-info-soft); color: var(--pa-info); }
     .pa-sr-result-type.page { background: var(--pa-purple-soft); color: var(--pa-purple); }
+    .pa-sr-url { color: var(--pa-success); font-size: .78rem; direction: ltr; text-align: left; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    /* نمای شبکه‌ای (v1.8) */
+    .pa-sr-result-card.is-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .pa-sr-result-card.is-grid .pa-search-result { border-bottom: 1px solid var(--pa-border); }
     .pa-sr-pagination { display: flex; gap: .35rem; justify-content: center; padding: 1rem 0; flex-wrap: wrap; }
     .pa-sr-page-btn { min-width: 38px; height: 38px; padding: 0 .6rem; border: 1px solid var(--pa-border); background: var(--pa-surface); color: var(--pa-text); border-radius: var(--pa-radius); cursor: pointer; font: inherit; font-weight: 500; display: inline-flex; align-items: center; justify-content: center; transition: all .15s; }
     .pa-sr-page-btn:hover { background: var(--pa-surface-3); }
     .pa-sr-page-btn.is-active { background: var(--pa-primary); color: #fff; border-color: var(--pa-primary); }
     .pa-sr-page-btn.is-disabled { color: var(--pa-text-soft); cursor: not-allowed; }
-    .pa-sr-page-ellipsis { padding: 0 .25rem; color: var(--pa-text-muted); align-self: center; }
     .pa-sr-side-list { list-style: none; padding: 0; margin: 0; }
     .pa-sr-side-list li { padding: .4rem 0; border-bottom: 1px solid var(--pa-border); }
     .pa-sr-side-list li:last-child { border-bottom: 0; }
@@ -59,29 +62,29 @@
           </div>
         </div>
 
-        <!-- Big search bar -->
+        <!-- Big search bar — جستجوی واقعی روی محصولات، وبلاگ، انجمن و صفحات -->
         <div class="pa-sr-hero pa-anim-slide-up">
-          <form class="pa-sr-searchbar" onsubmit="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی مجدد اجرا شد.'})">
+          <form class="pa-sr-searchbar" id="sr-form">
             <span data-pa-icon="search" data-pa-icon-size="22"></span>
-            <input type="search" value="react" aria-label="جستجو" placeholder="عبارت مورد نظر را جستجو کنید...">
+            <input type="search" id="sr-input" value="" aria-label="جستجو" placeholder="عبارت مورد نظر را جستجو کنید… مثلاً لپ‌تاپ، CSS Grid، Docker">
             <button type="submit" class="pa-btn pa-btn-primary pa-sr-submit" data-pa-icon="search" data-pa-icon-size="16"> جستجو</button>
           </form>
         </div>
 
         <!-- Stats + sort + view toggle -->
         <div class="pa-sr-meta">
-          <div class="pa-sr-meta-text">حدود <strong>۱٬۲۴۰٬۰۰۰</strong> نتیجه (۰.۴۲ ثانیه)</div>
+          <div class="pa-sr-meta-text" id="sr-meta">…</div>
           <div class="pa-d-flex pa-align-center pa-gap-1">
             <label class="pa-text-sm pa-text-muted" style="margin:0">مرتب‌سازی:</label>
-            <select class="pa-select" style="width:auto" onchange="PAdminLTE.toast({kind:'info',message:'مرتب‌سازی تغییر کرد.'})">
+            <select class="pa-select" id="sr-sort" style="width:auto" aria-label="مرتب‌سازی نتایج">
               <option value="rel">مرتبط‌ترین</option>
-              <option value="date">جدیدترین</option>
-              <option value="rate">محبوب‌ترین</option>
+              <option value="alpha">الفبایی</option>
+              <option value="type">نوع نتیجه</option>
             </select>
           </div>
           <div class="pa-d-flex pa-align-center pa-gap-1">
-            <button class="pa-btn pa-btn-outline pa-btn-sm is-active" data-pa-icon="list" data-pa-icon-size="14" title="نمای لیست" onclick="PAdminLTE.toast({kind:'info',message:'نمای لیست.'})"></button>
-            <button class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="grid" data-pa-icon-size="14" title="نمای شبکه‌ای" onclick="PAdminLTE.toast({kind:'info',message:'نمای شبکه‌ای.'})"></button>
+            <button class="pa-btn pa-btn-outline pa-btn-sm is-active" id="sr-view-list" data-pa-icon="list" data-pa-icon-size="14" title="نمای لیست" aria-label="نمای لیست"></button>
+            <button class="pa-btn pa-btn-outline pa-btn-sm" id="sr-view-grid" data-pa-icon="grid" data-pa-icon-size="14" title="نمای شبکه‌ای" aria-label="نمای شبکه‌ای"></button>
           </div>
         </div>
 
@@ -89,158 +92,58 @@
 
           <!-- Main: results -->
           <div class="pa-col-9">
-            <div class="pa-sr-result-card">
+            <div class="pa-sr-result-card" id="sr-results"></div>
 
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="blog-post.html"><span class="pa-sr-result-type blog">مطلب وبلاگ</span>آموزش <mark>React</mark> از صفر تا صد</a>
-                </div>
-                <div class="pa-search-result-url">https://blog.example.com/react-tutorial-from-scratch</div>
-                <div class="pa-search-result-excerpt">در این آموزش جامع با <mark>React</mark> از مفاهیم پایه شروع می‌کنیم و تا موضوعات پیشرفته مثل Context API، Hooks و State Management پیش می‌رویم. مناسب برنامه‌نویسان فارسی‌زبانی که می‌خواهند کار با <mark>React</mark> را اصولی یاد بگیرند.</div>
+            <!-- حالت خالی واقعی -->
+            <div class="pa-card" id="sr-empty" hidden>
+              <div class="pa-g-empty" style="display:block">
+                <div data-pa-icon="search" data-pa-icon-size="44" style="opacity:.35"></div>
+                <p style="margin:.8rem 0 .3rem" id="sr-empty-title">نتیجه‌ای پیدا نشد.</p>
+                <p class="pa-text-muted pa-fs-sm" style="margin:0 0 1rem">عبارت کوتاه‌تری امتحان کنید یا یکی از جستجوهای پرطرفدار زیر را باز کنید:</p>
+                <div class="pa-tag-cloud" id="sr-empty-tags" style="justify-content:center"></div>
               </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="blog-post.html"><span class="pa-sr-result-type blog">مطلب وبلاگ</span><mark>React</mark> vs Vue: مقایسه کامل</a>
-                </div>
-                <div class="pa-search-result-url">https://blog.example.com/react-vs-vue-comparison</div>
-                <div class="pa-search-result-excerpt">کدام فریم‌ورک برای پروژه شما مناسب‌تر است؟ در این مقاله <mark>React</mark> و Vue را از نظر کارایی، منحنی یادگیری، اکوسیستم و بازار کار مقایسه می‌کنیم تا انتخاب آسان‌تری داشته باشید.</div>
-              </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="product.html"><span class="pa-sr-result-type product">محصول</span>بهترین کتابخانه‌های <mark>React</mark> در ۲۰۲۴</a>
-                </div>
-                <div class="pa-search-result-url">https://shop.example.com/react-libraries-2024</div>
-                <div class="pa-search-result-excerpt">فهرست کامل و به‌روزرسانی‌شده‌ی بهترین کتابخانه‌های <mark>React</mark> برای سال ۲۰۲۴ شامل فرم‌سازها، روترها، ابزارهای تست و کامپوننت‌های آماده. شامل مقایسه و راهنمای انتخاب.</div>
-              </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="blog-post.html"><span class="pa-sr-result-type blog">مطلب وبلاگ</span>آموزش <mark>React</mark> Hooks</a>
-                </div>
-                <div class="pa-search-result-url">https://blog.example.com/react-hooks-guide</div>
-                <div class="pa-search-result-excerpt">معرفی کامل <mark>React</mark> Hooks با مثال‌های کاربردی: useState، useEffect، useContext، useMemo، useCallback و ساخت هوک سفارشی. یاد بگیرید چطور منطق وضعیت (state) را تمیزتر بنویسید.</div>
-              </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="about.html"><span class="pa-sr-result-type page">صفحه</span><mark>React</mark> Native چیست؟</a>
-                </div>
-                <div class="pa-search-result-url">https://docs.example.com/what-is-react-native</div>
-                <div class="pa-search-result-excerpt"><mark>React</mark> Native فریم‌ورکی است که با استفاده از آن می‌توانید اپلیکیشن‌های موبایل بومی iOS و Android را با همان کد <mark>React</mark> بسازید. در این صفحه با معماری و مزایای آن آشنا می‌شوید.</div>
-              </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="blog-post.html"><span class="pa-sr-result-type blog">مطلب وبلاگ</span>State Management در <mark>React</mark></a>
-                </div>
-                <div class="pa-search-result-url">https://blog.example.com/react-state-management</div>
-                <div class="pa-search-result-excerpt">مدیریت State یکی از مهم‌ترین موضوعات در <mark>React</mark> است. در این مقاله Redux، Zustand، Recoil و Context API را مقایسه می‌کنیم و بهترین روش برای پروژه‌های کوچک و بزرگ را معرفی می‌کنیم.</div>
-              </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="users.html"><span class="pa-sr-result-type user">کاربر</span>Testing در <mark>React</mark></a>
-                </div>
-                <div class="pa-search-result-url">https://example.com/users/react-tester</div>
-                <div class="pa-search-result-excerpt">پروفایل کاربری تخصصی در زمینه تست <mark>React</mark> با Jest و Testing Library. شامل نمونه‌کارهای تست واحد، تست یکپارچه‌سازی و تست کامپوننت‌های <mark>React</mark>.</div>
-              </div>
-
-              <div class="pa-search-result" onclick="PAdminLTE.toast({kind:'info',message:'باز کردن نتیجه.'})">
-                <div class="pa-search-result-title">
-                  <a href="blog-post.html"><span class="pa-sr-result-type blog">مطلب وبلاگ</span><mark>React</mark> Performance Optimization</a>
-                </div>
-                <div class="pa-search-result-url">https://blog.example.com/react-performance</div>
-                <div class="pa-search-result-excerpt">تکنیک‌های بهینه‌سازی کارایی در <mark>React</mark>: استفاده از memo، useMemo، useCallback، code-splitting، lazy loading و virtualization برای کاهش زمان رندر و بهبود تجربه کاربری.</div>
-              </div>
-
             </div>
 
-            <!-- Pagination -->
-            <div class="pa-sr-pagination">
-              <button class="pa-sr-page-btn is-disabled" aria-label="قبلی" onclick="PAdminLTE.toast({kind:'warning',message:'شما در صفحه اول هستید.'})"><span data-pa-icon="chevron_right" data-pa-icon-size="16"></span></button>
-              <button class="pa-sr-page-btn is-active">۱</button>
-              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۲.'})">۲</button>
-              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۳.'})">۳</button>
-              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۴.'})">۴</button>
-              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه ۵.'})">۵</button>
-              <span class="pa-sr-page-ellipsis">…</span>
-              <button class="pa-sr-page-btn" onclick="PAdminLTE.toast({kind:'info',message:'صفحه آخر.'})">۱۲۴٬۰۰۰</button>
-              <button class="pa-sr-page-btn" aria-label="بعدی" onclick="PAdminLTE.toast({kind:'info',message:'صفحه بعدی.'})"><span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
-            </div>
-
+            <!-- Pagination واقعی -->
+            <div class="pa-sr-pagination" id="sr-pagination" hidden></div>
           </div>
 
           <!-- Sidebar: filters -->
           <div class="pa-col-3">
 
             <div class="pa-card">
-              <div class="pa-card-header"><h3>فیلترها</h3></div>
+              <div class="pa-card-header"><h3>فیلتر نوع نتیجه</h3></div>
               <div class="pa-card-body">
-
-                <h4 class="pa-text-sm pa-text-semibold pa-mb-1" style="margin:0 0 .5rem">نوع نتیجه</h4>
                 <div class="pa-form-check">
-                  <input type="checkbox" id="f-all" checked>
-                  <label for="f-all">همه</label>
+                  <input type="checkbox" id="f-products" checked>
+                  <label for="f-products">محصولات <span class="pa-text-muted pa-fs-sm" id="c-products"></span></label>
                 </div>
                 <div class="pa-form-check">
-                  <input type="checkbox" id="f-products">
-                  <label for="f-products">محصولات</label>
+                  <input type="checkbox" id="f-posts" checked>
+                  <label for="f-posts">مطالب وبلاگ <span class="pa-text-muted pa-fs-sm" id="c-posts"></span></label>
                 </div>
                 <div class="pa-form-check">
-                  <input type="checkbox" id="f-posts">
-                  <label for="f-posts">مطالب</label>
+                  <input type="checkbox" id="f-forum" checked>
+                  <label for="f-forum">مباحث انجمن <span class="pa-text-muted pa-fs-sm" id="c-forum"></span></label>
                 </div>
                 <div class="pa-form-check">
-                  <input type="checkbox" id="f-users">
-                  <label for="f-users">کاربران</label>
-                </div>
-                <div class="pa-form-check">
-                  <input type="checkbox" id="f-pages">
-                  <label for="f-pages">صفحات</label>
-                </div>
-
-                <hr class="pa-sr-divider">
-
-                <h4 class="pa-text-sm pa-text-semibold pa-mb-1" style="margin:0 0 .5rem">بازه زمانی</h4>
-                <label class="pa-sr-radio"><input type="radio" name="date" checked> هر زمان</label>
-                <label class="pa-sr-radio"><input type="radio" name="date"> ۲۴ ساعت اخیر</label>
-                <label class="pa-sr-radio"><input type="radio" name="date"> هفته اخیر</label>
-                <label class="pa-sr-radio"><input type="radio" name="date"> ماه اخیر</label>
-
-                <hr class="pa-sr-divider">
-
-                <h4 class="pa-text-sm pa-text-semibold pa-mb-1" style="margin:0 0 .5rem">نویسنده</h4>
-                <input class="pa-input" type="search" placeholder="نام نویسنده...">
-
-                <button class="pa-btn pa-btn-primary pa-btn-block pa-mt-2" data-pa-icon="filter" data-pa-icon-size="14" onclick="PAdminLTE.toast({kind:'success',message:'فیلترها اعمال شد.'})"> اعمال فیلتر</button>
-              </div>
-            </div>
-
-            <div class="pa-card">
-              <div class="pa-card-header"><h3>جستجوهای مرتبط</h3></div>
-              <div class="pa-card-body">
-                <div class="pa-tag-cloud">
-                  <a role="button" class="pa-tag pa-tag-size-md" href="search-results.html?q=redux" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: redux'})">redux</a>
-                  <a role="button" class="pa-tag pa-tag-size-md" href="search-results.html?q=nextjs" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: nextjs'})">nextjs</a>
-                  <a role="button" class="pa-tag pa-tag-size-sm" href="search-results.html?q=typescript" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: typescript'})">typescript</a>
-                  <a role="button" class="pa-tag pa-tag-size-md" href="search-results.html?q=javascript" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: javascript'})">javascript</a>
-                  <a role="button" class="pa-tag pa-tag-size-sm" href="search-results.html?q=vue" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: vue'})">vue</a>
+                  <input type="checkbox" id="f-pages" checked>
+                  <label for="f-pages">صفحات <span class="pa-text-muted pa-fs-sm" id="c-pages"></span></label>
                 </div>
               </div>
             </div>
 
-            <div class="pa-card">
-              <div class="pa-card-header"><h3>جستجوهای اخیر</h3></div>
+            <div class="pa-card" id="sr-history-card" hidden>
+              <div class="pa-card-header"><h3>جستجوهای اخیر شما</h3></div>
               <div class="pa-card-body" style="padding:.5rem 1rem">
-                <ul class="pa-sr-side-list">
-                  <li><a role="button" href="search-results.html?q=react%20hooks" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: react hooks'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> react hooks</a></li>
-                  <li><a role="button" href="search-results.html?q=css%20grid" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: css grid'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> css grid</a></li>
-                  <li><a role="button" href="search-results.html?q=tailwind" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: tailwind'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> tailwind</a></li>
-                  <li><a role="button" href="search-results.html?q=node.js" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: node.js'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> node.js</a></li>
-                  <li><a role="button" href="search-results.html?q=docker" onclick="event.preventDefault(); PAdminLTE.toast({kind:'info',message:'جستجوی: docker'})"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> docker</a></li>
-                </ul>
+                <ul class="pa-sr-side-list" id="sr-history"></ul>
+              </div>
+            </div>
+
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>جستجوهای پرطرفدار</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-tag-cloud" id="sr-popular"></div>
               </div>
             </div>
 
@@ -255,20 +158,306 @@
 
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-shop.js"></script>
   <script src="../js/pa-layout.js"></script>
   <script>
-    // Click result → toast with title
-    document.querySelectorAll('.pa-search-result').forEach(function (r) {
-      r.addEventListener('click', function () {
-        var t = (r.querySelector('.pa-search-result-title') || {}).textContent || 'نتیجه';
-        PAdminLTE.toast({ kind: 'info', message: 'باز کردن: ' + t.trim() });
+    /* ============================================================
+       جستجوی واقعی (v1.8) — روی چهار منبع محلی جستجو می‌کند:
+       ۱) کاتالوگ محصولات (pa-shop.js)   ۲) مطالب وبلاگ (pa-blog-posts)
+       ۳) مباحث انجمن (pa-forum-topics)  ۴) صفحات پروژه
+       همه‌چیز محلی است؛ کوئری از ?q= می‌آید، ارقام فارسی/لاتین و
+       نیم‌فاصله به هم نرمال می‌شوند و نتایج با <mark> برجسته و
+       صفحه‌بندی واقعی می‌شوند.
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      var PAGE = 8; /* نتایج در هر صفحه */
+      var q = (new URLSearchParams(location.search).get('q') || '').trim();
+      var state = { types: { product: true, blog: true, forum: true, page: true }, sort: 'rel', view: 'list', pageNum: 1 };
+      var results = [];
+
+      /* ---------- نرمال‌سازی متن برای تطبیق فارسی/لاتین ---------- */
+      function norm(s) {
+        return String(s || '')
+          .replace(/[۰-۹]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d); })
+          .replace(/\u200c/g, ' ')   /* نیم‌فاصله */
+          .replace(/[يى]/g, 'ی')
+          .replace(/[ك]/g, 'ک')
+          .toLowerCase();
+      }
+      function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+      function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+      function hi(text, query) {
+        var safe = esc(text);
+        var nq = norm(query);
+        if (!nq) return safe;
+        var nT = norm(text);
+        var idx = nT.indexOf(nq), out = '', pos = 0;
+        while (idx !== -1) {
+          out += esc(text.slice(pos, idx)) + '<mark>' + esc(text.slice(idx, idx + query.length)) + '</mark>';
+          pos = idx + query.length;
+          idx = nT.indexOf(nq, pos);
+        }
+        return out + esc(text.slice(pos));
+      }
+
+      /* ---------- منابع جستجو ---------- */
+      var BLOG_SEED = [
+        { id: 'b1', title: 'آموزش طراحی رابط کاربری مدرن', category: 'طراحی', author: 'سارا کریمی', excerpt: 'در این مطلب با اصول طراحی رابط کاربری مدرن، استفاده از فضای سفید، تایپوگرافی مناسب و انتخاب پالت رنگی آشنا می‌شوید.' },
+        { id: 'b2', title: '۱۰ نکته برای بهینه‌سازی Performance', category: 'عملکرد', author: 'امیر رضایی', excerpt: 'بهبود سرعت بارگذاری صفحات وب یکی از مهم‌ترین فاکتورهای تجربه کاربری و سئوست. در این مطلب ۱۰ تکنیک کاربردی را مرور می‌کنیم.' },
+        { id: 'b3', title: 'معرفی CSS Grid', category: 'طراحی', author: 'نگار محمدی', excerpt: 'CSS Grid قدرتمندترین سیستم چیدمان وب است. در این مطلب با مفاهیم اصلی، خطوط شبکه و نواحی قالب آشنا می‌شوید.' },
+        { id: 'b4', title: 'الگوهای طراحی در JavaScript', category: 'برنامه‌نویسی', author: 'علی نوری', excerpt: 'الگوهای طراحی راه‌حل‌های اثبات‌شده برای مسائل رایج برنامه‌نویسی هستند. در این مطلب الگوهای Singleton، Observer و Module را بررسی می‌کنیم.' },
+        { id: 'b5', title: 'دسترسی‌پذیری در وب', category: 'دسترسی‌پذیری', author: 'مریم صادقی', excerpt: 'ساختن وبی برای همه وظیفه‌ی هر توسعه‌دهنده‌ای است. در این مطلب اصول WCAG و تکنیک‌های ARIA را به زبان ساده توضیح می‌دهیم.' },
+        { id: 'b6', title: 'ساختار پروژه‌های مقیاس‌پذیر', category: 'برنامه‌نویسی', author: 'محمد قاسمی', excerpt: 'معماری مناسب پایه‌ی هر پروژه‌ی موفقی است. در این مطلب ساختار MonoRepo، تقسیم ماژول‌ها و مدیریت وابستگی‌ها را بررسی می‌کنیم.' }
+      ];
+      var FORUM_SEED = [
+        { id: 'f1', title: 'بهترین روش یادگیری React در ۲۰۲۴؟', author: 'امیر رضایی', category: 'فرانت‌اند', replies: 24, views: 1245 },
+        { id: 'f2', title: 'مشکل در اجرای Docker روی ویندوز', author: 'محمد قاسمی', category: 'دواپس', replies: 8, views: 320 },
+        { id: 'f3', title: 'ساخت API با Node.js و Express', author: 'سارا کریمی', category: 'بک‌اند', replies: 15, views: 680 },
+        { id: 'f4', title: 'بهینه‌سازی کوئری‌های SQL', author: 'علی نوری', category: 'پایگاه داده', replies: 32, views: 1890 },
+        { id: 'f5', title: 'انتخاب فریم‌ورک فرانت‌اند', author: 'نگار محمدی', category: 'فرانت‌اند', replies: 20, views: 980 },
+        { id: 'f6', title: 'تفاوت TypeScript و JavaScript', author: 'مریم صادقی', category: 'ثابت‌شده', replies: 41, views: 2340 },
+        { id: 'f7', title: 'امنیت در اپلیکیشن‌های موبایل', author: 'رضا فلاح', category: 'امنیت', replies: 3, views: 120 },
+        { id: 'f8', title: 'معرفی ابزارهای توسعه', author: 'زهرا موسوی', category: 'ابزارها', replies: 18, views: 560 },
+        { id: 'f9', title: 'مشکل در تنظیمات NGINX', author: 'حسین رستمی', category: 'شبکه', replies: 2, views: 85 },
+        { id: 'f10', title: 'آموزش Git پیشرفته', author: 'پویا احمدی', category: 'آموزش', replies: 56, views: 3210 }
+      ];
+      var PAGES = [
+        { href: 'index.html', title: 'داشبورد مدیریت', desc: 'نمای کلی داشبورد با آمار سریع، نمودارها و آخرین فعالیت‌ها.', kw: 'dashboard admin آمار نمودار' },
+        { href: 'index2.html', title: 'داشبورد دوم', desc: 'نسخهٔ دوم داشبورد با چیدمان متفاوت ویجت‌ها.', kw: 'dashboard v2' },
+        { href: 'pages/users.html', title: 'مدیریت کاربران', desc: 'فهرست کاربران با جستجو، فیلتر و عملیات CRUD.', kw: 'users کاربر جدول crud' },
+        { href: 'pages/charts.html', title: 'نمودارها', desc: 'نمودارهای خطی، میله‌ای و دونات با Canvas بومی.', kw: 'chart canvas نمودار line bar donut' },
+        { href: 'pages/forms.html', title: 'فرم‌ها', desc: 'همهٔ کنترل‌های فرم، اعتبارسنجی و ویزارد چندمرحله‌ای.', kw: 'form فرم input validation wizard' },
+        { href: 'pages/components.html', title: 'کامپوننت‌ها', desc: 'هشدارها، نشان‌ها، مودال، توست، آکاردئون و …', kw: 'components کامپوننت modal toast alert' },
+        { href: 'pages/tables.html', title: 'جدول‌ها', desc: 'جدول‌های ساده، نواری و دیتاتیبل با جستجو و صفحه‌بندی.', kw: 'table datatable جدول' },
+        { href: 'pages/gallery.html', title: 'گالری', desc: 'پنج نمای گالری: ماسونری، فلکس، کارت، شبکه و لیست.', kw: 'gallery گالری ماسونری masonry' },
+        { href: 'pages/timeline.html', title: 'تایم‌لاین', desc: 'هشت واریانت تایم‌لاین شامل حالت افقی و پیشرفت.', kw: 'timeline تایم‌لاین horizontal افقی' },
+        { href: 'pages/docs-install.html', title: 'نصب و پیکربندی اولیه', desc: 'سه روش اجرا، پیکربندی اولیه و استقرار.', kw: 'install نصب setup راه‌اندازی' },
+        { href: 'pages/docs-api.html', title: 'مرجع API', desc: 'توابع عمومی PAdminLTE با نمونه‌های اجراشدنی.', kw: 'api مرجع توابع' },
+        { href: 'pages/shop.html', title: 'فروشگاه', desc: 'کاتالوگ ۱۴ محصول با فیلتر، جستجو و مرتب‌سازی.', kw: 'shop store فروشگاه محصول' },
+        { href: 'pages/blog-list.html', title: 'وبلاگ', desc: 'فهرست مطالب وبلاگ با فیلتر دسته‌بندی.', kw: 'blog وبلاگ مطلب' },
+        { href: 'pages/forum-list.html', title: 'انجمن', desc: 'مباحث انجمن با برچسب حل‌شده و سنجاق‌شده.', kw: 'forum انجمن بحث' },
+        { href: 'pages/faq.html', title: 'سؤالات متداول', desc: 'پاسخ پرسش‌های رایج در قالب آکاردئون.', kw: 'faq سؤالات' },
+        { href: 'pages/about.html', title: 'درباره ما', desc: 'معرفی پروژهٔ PAdminLTE و اهداف آن.', kw: 'about درباره معرفی' },
+        { href: 'pages/login.html', title: 'ورود', desc: 'صفحهٔ ورود با احراز هویت شبیه‌سازی‌شده.', kw: 'login ورود auth' },
+        { href: 'pages/calendar.html', title: 'تقویم', desc: 'تقویم ماهانه با نمایش رویدادها.', kw: 'calendar تقویم رویداد' },
+        { href: 'pages/kanban.html', title: 'تخته کانبان', desc: 'تخله کانبان با ستون‌ها و کارت‌های قابل جابه‌جایی.', kw: 'kanban کانبان برد' },
+        { href: 'pages/404.html', title: 'خطای ۴۰۴', desc: 'صفحهٔ نمونهٔ پیدا نشدن مسیر.', kw: '404 error خطا' }
+      ];
+
+      function collect() {
+        var S = PAdminLTE.shop, out = [];
+        /* ۱) محصولات */
+        (S ? S.catalog : []).forEach(function (p) {
+          out.push({
+            type: 'product', title: p.name,
+            url: 'product.html?id=' + encodeURIComponent(p.id),
+            urlText: 'padminlte.example/product/' + p.id,
+            excerpt: (p.desc || '') + ' ' + (p.features || []).join('، '),
+            meta: S.money(p.price) + ' · ' + p.cat + ' · ' + p.brand,
+            haystack: norm(p.name + ' ' + p.cat + ' ' + p.brand + ' ' + (p.desc || '') + ' ' + (p.features || []).join(' '))
+          });
+        });
+        /* ۲) مطالب وبلاگ (شامل نوشته‌های جدید کاربر) */
+        var posts = PAdminLTE.store ? PAdminLTE.store.get('pa-blog-posts', BLOG_SEED) : BLOG_SEED;
+        posts.forEach(function (b) {
+          out.push({
+            type: 'blog', title: b.title,
+            url: 'blog-post.html?id=' + encodeURIComponent(b.id),
+            urlText: 'padminlte.example/blog/' + b.id,
+            excerpt: b.excerpt || '',
+            meta: b.author || 'مهمان' + (b.category ? ' · ' + b.category : ''),
+            haystack: norm(b.title + ' ' + (b.excerpt || '') + ' ' + (b.category || '') + ' ' + (b.author || ''))
+          });
+        });
+        /* ۳) مباحث انجمن (شامل موضوع‌های جدید) */
+        var topics = PAdminLTE.store ? PAdminLTE.store.get('pa-forum-topics', FORUM_SEED) : FORUM_SEED;
+        topics.forEach(function (t) {
+          out.push({
+            type: 'forum', title: t.title,
+            url: 'forum-topic.html?id=' + encodeURIComponent(t.id),
+            urlText: 'padminlte.example/forum/' + t.id,
+            excerpt: 'بحث توسط ' + (t.author || 'کاربر') + ' در دستهٔ «' + (t.category || 'عمومی') + '» — ' + fa(t.replies || 0) + ' پاسخ و ' + fa(t.views || 0) + ' بازدید.',
+            meta: t.author || 'کاربر' + (t.category ? ' · ' + t.category : ''),
+            haystack: norm(t.title + ' ' + (t.category || '') + ' ' + (t.author || ''))
+          });
+        });
+        /* ۴) صفحات پروژه */
+        PAGES.forEach(function (p) {
+          var href = p.href;
+          out.push({
+            type: 'page', title: p.title,
+            url: href,
+            urlText: 'padminlte.example/' + href.replace(/^pages\//, ''),
+            excerpt: p.desc,
+            meta: 'صفحهٔ پروژه',
+            haystack: norm(p.title + ' ' + p.desc + ' ' + p.kw)
+          });
+        });
+        return out;
+      }
+      var INDEX = collect();
+
+      /* ---------- جستجو ---------- */
+      function runSearch() {
+        var t0 = performance.now();
+        var nq = norm(q);
+        results = [];
+        if (nq) {
+          INDEX.forEach(function (r) {
+            var score = 0;
+            if (norm(r.title).indexOf(nq) !== -1) score += 5;
+            if (r.haystack.indexOf(nq) !== -1) score += 2;
+            /* تطبیق کلمه‌به‌کلمه برای عبارت‌های چندکلمه‌ای */
+            nq.split(/\s+/).forEach(function (w) {
+              if (w && r.haystack.indexOf(w) !== -1) score += 1;
+            });
+            if (score > 0) { r._score = score; results.push(r); }
+          });
+        }
+        var ms = Math.max(0.01, (performance.now() - t0)); /* میلی‌ثانیه */
+        return { count: results.length, ms: ms };
+      }
+
+      /* ---------- رندر ---------- */
+      var listEl = document.getElementById('sr-results');
+      var emptyEl = document.getElementById('sr-empty');
+      var pageEl = document.getElementById('sr-pagination');
+      var metaEl = document.getElementById('sr-meta');
+
+      function resultHTML(r) {
+        return '<div class="pa-search-result">' +
+          '<div class="pa-search-result-title"><a href="' + r.url + '"><span class="pa-sr-result-type ' + r.type + '">' +
+            ({ product: 'محصول', blog: 'مطلب وبلاگ', forum: 'انجمن', page: 'صفحه' })[r.type] +
+          '</span>' + hi(r.title, q) + '</a></div>' +
+          '<div class="pa-sr-url">' + esc(r.urlText) + '</div>' +
+          '<div class="pa-search-result-excerpt">' + hi(r.excerpt, q) + '</div>' +
+          '<div class="pa-fs-sm pa-text-muted pa-mt-1">' + esc(r.meta || '') + '</div>' +
+        '</div>';
+      }
+
+      function applyFilters() {
+        var filtered = results.filter(function (r) { return state.types[r.type]; });
+        if (state.sort === 'alpha') filtered = filtered.slice().sort(function (a, b) { return a.title.localeCompare(b.title, 'fa'); });
+        else if (state.sort === 'type') filtered = filtered.slice().sort(function (a, b) { return a.type.localeCompare(b.type) || (b._score - a._score); });
+        else filtered = filtered.slice().sort(function (a, b) { return b._score - a._score; });
+
+        var pages = Math.max(1, Math.ceil(filtered.length / PAGE));
+        if (state.pageNum > pages) state.pageNum = pages;
+        var slice = filtered.slice((state.pageNum - 1) * PAGE, state.pageNum * PAGE);
+
+        listEl.innerHTML = slice.map(resultHTML).join('');
+        listEl.classList.toggle('is-grid', state.view === 'grid');
+        listEl.style.display = slice.length ? '' : 'none';
+        emptyEl.hidden = !(q && !slice.length);
+
+        /* صفحه‌بندی واقعی */
+        pageEl.hidden = pages <= 1;
+        if (pages > 1) {
+          var html = '<button class="pa-sr-page-btn' + (state.pageNum === 1 ? ' is-disabled' : '') + '" data-page="prev" aria-label="صفحهٔ قبل"><span data-pa-icon="chevron_right" data-pa-icon-size="16"></span></button>';
+          for (var i = 1; i <= pages; i++) {
+            html += '<button class="pa-sr-page-btn' + (i === state.pageNum ? ' is-active' : '') + '" data-page="' + i + '">' + fa(i) + '</button>';
+          }
+          html += '<button class="pa-sr-page-btn' + (state.pageNum === pages ? ' is-disabled' : '') + '" data-page="next" aria-label="صفحهٔ بعد"><span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>';
+          pageEl.innerHTML = html;
+        }
+        if (PAdminLTE.injectIcons) PAdminLTE.injectIcons(listEl);
+      }
+
+      function renderCounts() {
+        var live = results;
+        [['product', 'c-products'], ['blog', 'c-posts'], ['forum', 'c-forum'], ['page', 'c-pages']].forEach(function (pair) {
+          var n = live.filter(function (r) { return r.type === pair[0]; }).length;
+          document.getElementById(pair[1]).textContent = '(' + fa(n) + ')';
+        });
+      }
+
+      function renderHistory() {
+        var hist = [];
+        try { hist = JSON.parse(localStorage.getItem('pa-search-history') || '[]'); } catch (e) {}
+        var card = document.getElementById('sr-history-card');
+        if (!hist.length) { card.hidden = true; return; }
+        card.hidden = false;
+        document.getElementById('sr-history').innerHTML = hist.map(function (h) {
+          return '<li><a role="button" href="search-results.html?q=' + encodeURIComponent(h) + '"><span data-pa-icon="clock_alt" data-pa-icon-size="14"></span> ' + esc(h) + '</a></li>';
+        }).join('');
+        if (PAdminLTE.injectIcons) PAdminLTE.injectIcons(card);
+      }
+
+      var POPULAR = ['لپ‌تاپ', 'CSS Grid', 'Docker', 'Node.js', 'گیمینگ', 'تایم‌لاین', 'ساعت هوشمند', 'API'];
+      function renderPopular() {
+        var html = POPULAR.map(function (p) {
+          return '<a role="button" class="pa-tag pa-tag-size-md" href="search-results.html?q=' + encodeURIComponent(p) + '">' + esc(p) + '</a>';
+        }).join('');
+        document.getElementById('sr-popular').innerHTML = html;
+        document.getElementById('sr-empty-tags').innerHTML = html;
+      }
+
+      /* ---------- تاریخچهٔ جستجو ---------- */
+      function pushHistory(query) {
+        try {
+          var hist = JSON.parse(localStorage.getItem('pa-search-history') || '[]');
+          hist = hist.filter(function (h) { return h !== query; });
+          hist.unshift(query);
+          localStorage.setItem('pa-search-history', JSON.stringify(hist.slice(0, 6)));
+        } catch (e) {}
+      }
+
+      /* ---------- رویدادها ---------- */
+      document.getElementById('sr-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = document.getElementById('sr-input').value.trim();
+        if (!v) { PAdminLTE.toast({ kind: 'warning', message: 'عبارتی برای جستجو بنویسید.' }); return; }
+        location.href = 'search-results.html?q=' + encodeURIComponent(v);
       });
-    });
-    // Search form: keep "react" as fallback value if cleared
-    document.querySelector('.pa-sr-searchbar').addEventListener('submit', function () {
-      var input = this.querySelector('input');
-      if (!input.value.trim()) input.value = 'react';
-    });
+      document.getElementById('sr-sort').addEventListener('change', function () { state.sort = this.value; state.pageNum = 1; applyFilters(); });
+      document.getElementById('sr-view-list').addEventListener('click', function () { state.view = 'list'; syncView(); applyFilters(); });
+      document.getElementById('sr-view-grid').addEventListener('click', function () { state.view = 'grid'; syncView(); applyFilters(); });
+      function syncView() {
+        document.getElementById('sr-view-list').classList.toggle('is-active', state.view === 'list');
+        document.getElementById('sr-view-grid').classList.toggle('is-active', state.view === 'grid');
+      }
+      [['f-products', 'product'], ['f-posts', 'blog'], ['f-forum', 'forum'], ['f-pages', 'page']].forEach(function (pair) {
+        document.getElementById(pair[0]).addEventListener('change', function () {
+          state.types[pair[1]] = this.checked;
+          state.pageNum = 1;
+          applyFilters();
+        });
+      });
+      pageEl.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('[data-page]') : null;
+        if (!b) return;
+        var p = b.getAttribute('data-page');
+        if (p === 'prev') state.pageNum = Math.max(1, state.pageNum - 1);
+        else if (p === 'next') state.pageNum = state.pageNum + 1;
+        else state.pageNum = parseInt(p, 10) || 1;
+        applyFilters();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* ---------- اجرا ---------- */
+      document.getElementById('sr-input').value = q;
+      renderPopular();
+      renderHistory();
+      var t = runSearch();
+      if (q) {
+        pushHistory(q);
+        renderHistory();
+        var msTxt = t.ms >= 1000 ? fa((t.ms / 1000).toFixed(2)) + ' ثانیه' : fa(Math.round(t.ms)) + ' میلی‌ثانیه';
+        metaEl.innerHTML = '<strong>' + fa(t.count) + '</strong> نتیجه برای «' + esc(q) + '» (' + msTxt + ')';
+        document.getElementById('sr-empty-title').textContent = 'نتیجه‌ای برای «' + esc(q) + '» پیدا نشد.';
+      } else {
+        metaEl.textContent = 'عبارتی برای جستجو وارد نشده است؛ از نوار بالا استفاده کنید یا یکی از جستجوهای پرطرفدار را باز کنید.';
+        listEl.style.display = 'none';
+        emptyEl.hidden = false;
+        document.getElementById('sr-empty-title').textContent = 'جستجو را شروع کنید.';
+        renderCounts();
+        return;
+      }
+      renderCounts();
+      applyFilters();
+    })();
   </script>
 </body>
 </html>

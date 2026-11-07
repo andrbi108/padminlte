@@ -2206,6 +2206,51 @@
     });
   }
 
+  /* ---------- Wishlist (v1.8) ----------
+     Persistent favourites list for the public shop, stored in
+     localStorage (key: "pa-wishlist") as an array of product ids —
+     the same shape product.html wrote before the API existed, so
+     existing visitors keep their list. Every change fires a
+     "pa:wishlist" event and re-syncs [data-pa-wishlist-count] badges. */
+  var WISH_KEY = 'pa-wishlist';
+  function wishIds() {
+    var v = _lsGet(WISH_KEY, []);
+    return Array.isArray(v) ? v.map(String) : [];
+  }
+  function wishHas(id) { return wishIds().indexOf(String(id)) !== -1; }
+  function wishSync() {
+    var n = wishIds().length;
+    document.querySelectorAll('[data-pa-wishlist-count]').forEach(function (b) {
+      b.textContent = faDigits(n);
+      if (n > 0) b.removeAttribute('hidden'); else b.setAttribute('hidden', '');
+    });
+  }
+  function wishFire() {
+    try {
+      document.dispatchEvent(new CustomEvent('pa:wishlist', { detail: { count: wishIds().length } }));
+    } catch (e) {}
+  }
+  function wishSave(ids) {
+    _lsSet(WISH_KEY, ids);
+    wishSync();
+    wishFire();
+  }
+  function wishAdd(id) {
+    var ids = wishIds();
+    if (ids.indexOf(String(id)) === -1) { ids.push(String(id)); wishSave(ids); return true; }
+    return false;
+  }
+  function wishRemove(id) {
+    var ids = wishIds();
+    var next = ids.filter(function (x) { return x !== String(id); });
+    if (next.length !== ids.length) wishSave(next);
+    return next.length !== ids.length;
+  }
+  /* toggle → true when the product was ADDED, false when removed */
+  function wishToggle(id) {
+    return wishHas(id) ? (wishRemove(id), false) : (wishAdd(id), true);
+  }
+
   /* ---------- Mobile sidebar backdrop (v1.3.1) ----------
      Auto-injected overlay for the off-canvas sidebar on phones:
      tap outside or tap a nav link to close.                     */
@@ -2863,6 +2908,8 @@
     /* v1.7 — shopping cart */
     initCartButtons();
     cartSync();
+    /* v1.8 — wishlist */
+    wishSync();
     // Bind logout buttons (mock auth)
     (root || document).querySelectorAll('[data-pa-logout]').forEach(function (btn) {
       if (btn.__paBound) return;
@@ -2988,7 +3035,16 @@
   PAdminLTE.initExportButtons = initExportButtons;
   PAdminLTE.initScrollProgress = initScrollProgress;
   PAdminLTE.store = store;
-  /* ---------- Public API additions (v1.7) ---------- */
+  /* ---------- Public API additions (v1.7/v1.8) ---------- */
+  PAdminLTE.wishlist = {
+    ids: wishIds,
+    count: function () { return wishIds().length; },
+    has: wishHas,
+    add: wishAdd,
+    remove: wishRemove,
+    toggle: wishToggle,
+    sync: wishSync
+  };
   PAdminLTE.faDigits = faDigits;
   PAdminLTE.validateForm = validateForm;
   PAdminLTE.cart = {

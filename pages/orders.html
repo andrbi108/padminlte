@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PAdminLTE — سفارش‌ها</title>
   <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* ردیف اقلام مودال */
+    .pa-om-item { display: flex; align-items: center; gap: .6rem; padding: .5rem 0; border-bottom: 1px dashed var(--pa-border); }
+    .pa-om-item:last-child { border-bottom: 0; }
+    .pa-om-ico { width: 36px; height: 36px; border-radius: var(--pa-radius); flex-shrink: 0; display: grid; place-items: center; color: #fff; }
+    .pa-om-sum { display: flex; justify-content: space-between; padding: .22rem 0; font-size: .9rem; }
+    .pa-om-sum.pa-strong { border-top: 1px solid var(--pa-border); margin-top: .4rem; padding-top: .55rem; font-weight: 700; }
+  </style>
 </head>
 <body>
   <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
@@ -25,19 +33,17 @@
             </div>
           </div>
           <div class="pa-d-flex pa-gap-2">
-            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="14"
-                    onclick="PAdminLTE.toast({kind:'info',message:'خروجی سفارش‌ها آماده دانلود شد (نمونه).'})"> خروجی</button>
-            <button type="button" class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="plus" data-pa-icon-size="14"
-                    onclick="PAdminLTE.toast({kind:'success',message:'فرم ثبت سفارش جدید باز شد (نمونه).'})"> سفارش جدید</button>
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="14" id="orders-export"> خروجی CSV</button>
+            <a class="pa-btn pa-btn-primary pa-btn-sm" href="shop.html" data-pa-icon="plus" data-pa-icon-size="14"> فروشگاه</a>
           </div>
         </div>
 
-        <!-- جعبه‌های آماری -->
+        <!-- جعبه‌های آماری — زنده از دادهٔ واقعی سفارش‌ها -->
         <div class="pa-row">
           <div class="pa-col-3">
             <div class="pa-small-box pa-bg-primary">
               <div class="pa-inner">
-                <h3 data-pa-counter="48">۴۸</h3>
+                <h3 id="st-today">۰</h3>
                 <p>سفارش امروز</p>
               </div>
               <span class="pa-icon-bg" data-pa-icon="shopping_cart" data-pa-icon-size="52"></span>
@@ -46,8 +52,8 @@
           <div class="pa-col-3">
             <div class="pa-small-box pa-bg-warning" style="color:#212529">
               <div class="pa-inner">
-                <h3 data-pa-counter="12">۱۲</h3>
-                <p>در انتظار ارسال</p>
+                <h3 id="st-pending">۰</h3>
+                <p>در انتظار پردازش</p>
               </div>
               <span class="pa-icon-bg" data-pa-icon="truck" data-pa-icon-size="52"></span>
             </div>
@@ -55,7 +61,7 @@
           <div class="pa-col-3">
             <div class="pa-small-box pa-bg-success">
               <div class="pa-inner">
-                <h3 data-pa-counter="1234">۱٬۲۳۴</h3>
+                <h3 id="st-delivered">۰</h3>
                 <p>تحویل‌شده</p>
               </div>
               <span class="pa-icon-bg" data-pa-icon="check_circle" data-pa-icon-size="52"></span>
@@ -64,10 +70,10 @@
           <div class="pa-col-3">
             <div class="pa-small-box pa-bg-danger">
               <div class="pa-inner">
-                <h3 data-pa-counter="3">۳</h3>
-                <p>مرجوعی</p>
+                <h3 id="st-revenue" style="font-size:1.35rem">۰</h3>
+                <p>درآمد کل (تومان)</p>
               </div>
-              <span class="pa-icon-bg" data-pa-icon="refresh" data-pa-icon-size="52"></span>
+              <span class="pa-icon-bg" data-pa-icon="wallet" data-pa-icon-size="52"></span>
             </div>
           </div>
         </div>
@@ -76,6 +82,7 @@
         <div class="pa-card">
           <div class="pa-card-header">
             <h3>لیست سفارش‌ها</h3>
+            <div class="pa-tools pa-text-muted pa-fs-sm">سفارش‌های واقعی فروشگاه + دادهٔ نمونه</div>
           </div>
           <div class="pa-card-body">
 
@@ -91,126 +98,35 @@
             <!-- جستجو -->
             <div class="pa-input-group" style="flex:0 1 340px; margin-bottom:1rem">
               <span class="pa-input-addon"><span data-pa-icon="search" data-pa-icon-size="14"></span></span>
-              <input id="order-search" class="pa-input" type="text" placeholder="جستجو بر اساس نام مشتری یا شناسه سفارش…" aria-label="جستجوی سفارش">
+              <input id="order-search" class="pa-input" type="text" placeholder="جستجو بر اساس نام مشتری یا شماره سفارش…" aria-label="جستجوی سفارش">
             </div>
 
             <div class="pa-table-wrap">
-              <table class="pa-table pa-table-striped pa-table-hover">
+              <table class="pa-table pa-table-striped pa-table-hover" id="orders-table">
                 <thead>
                   <tr>
-                    <th>شناسه</th>
+                    <th>شماره</th>
                     <th>مشتری</th>
-                    <th>محصول</th>
+                    <th>اقلام</th>
                     <th>مبلغ (تومان)</th>
                     <th>وضعیت</th>
                     <th>تاریخ</th>
                     <th>عملیات</th>
                   </tr>
                 </thead>
-                <tbody id="orders-tbody">
-                  <tr data-order="1024" data-status="pending">
-                    <td>#۱۰۲۴</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">س</span><span>سارا محمدی</span></div></td>
-                    <td>لپ‌تاپ ایسوس VivoBook</td>
-                    <td>۴۸٬۵۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-warning">در انتظار</span></td>
-                    <td>۱۴۰۳/۰۸/۱۲</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1024" aria-label="مشاهده جزئیات سفارش ۱۰۲۴"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1023" data-status="shipped">
-                    <td>#۱۰۲۳</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">ع</span><span>علی رضایی</span></div></td>
-                    <td>گوشی سامسونگ گلکسی A54</td>
-                    <td>۲۲٬۹۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-info">ارسال‌شده</span></td>
-                    <td>۱۴۰۳/۰۸/۱۱</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1023" aria-label="مشاهده جزئیات سفارش ۱۰۲۳"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1022" data-status="delivered">
-                    <td>#۱۰۲۲</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">م</span><span>مریم احمدی</span></div></td>
-                    <td>هدفون بی‌سیم سونی</td>
-                    <td>۵٬۴۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-success">تحویل‌شده</span></td>
-                    <td>۱۴۰۳/۰۸/۱۰</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1022" aria-label="مشاهده جزئیات سفارش ۱۰۲۲"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1021" data-status="delivered">
-                    <td>#۱۰۲۱</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">ح</span><span>حسین کریمی</span></div></td>
-                    <td>مانیتور ال‌جی ۲۴ اینچ</td>
-                    <td>۱۱٬۲۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-success">تحویل‌شده</span></td>
-                    <td>۱۴۰۳/۰۸/۰۹</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1021" aria-label="مشاهده جزئیات سفارش ۱۰۲۱"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1020" data-status="returned">
-                    <td>#۱۰۲۰</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ز</span><span>زهرا موسوی</span></div></td>
-                    <td>کیبورد مکانیکال ردراگون</td>
-                    <td>۳٬۸۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-danger">مرجوعی</span></td>
-                    <td>۱۴۰۳/۰۸/۰۹</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1020" aria-label="مشاهده جزئیات سفارش ۱۰۲۰"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1019" data-status="shipped">
-                    <td>#۱۰۱۹</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">ا</span><span>امیر حسینی</span></div></td>
-                    <td>ماوس گیمینگ لاجیتک G102</td>
-                    <td>۲٬۶۵۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-info">ارسال‌شده</span></td>
-                    <td>۱۴۰۳/۰۸/۰۸</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1019" aria-label="مشاهده جزئیات سفارش ۱۰۱۹"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1018" data-status="pending">
-                    <td>#۱۰۱۸</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">ن</span><span>نگار صادقی</span></div></td>
-                    <td>اسپیکر بلوتوثی JBL</td>
-                    <td>۷٬۹۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-warning">در انتظار</span></td>
-                    <td>۱۴۰۳/۰۸/۰۷</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1018" aria-label="مشاهده جزئیات سفارش ۱۰۱۸"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1017" data-status="delivered">
-                    <td>#۱۰۱۷</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">ر</span><span>رضا قاسمی</span></div></td>
-                    <td>هارد اکسترنال ۱ ترابایت</td>
-                    <td>۶٬۳۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-success">تحویل‌شده</span></td>
-                    <td>۱۴۰۳/۰۸/۰۶</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1017" aria-label="مشاهده جزئیات سفارش ۱۰۱۷"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1016" data-status="shipped">
-                    <td>#۱۰۱۶</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">ف</span><span>فاطمه نوری</span></div></td>
-                    <td>وب‌کم لاجیتک C920</td>
-                    <td>۴٬۱۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-info">ارسال‌شده</span></td>
-                    <td>۱۴۰۳/۰۸/۰۵</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1016" aria-label="مشاهده جزئیات سفارش ۱۰۱۶"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                  <tr data-order="1015" data-status="returned">
-                    <td>#۱۰۱۵</td>
-                    <td><div class="pa-d-flex pa-align-center pa-gap-2"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">م</span><span>محمد عزیزی</span></div></td>
-                    <td>پاوربانک انکر ۲۰۰۰۰</td>
-                    <td>۳٬۲۰۰٬۰۰۰</td>
-                    <td><span class="pa-badge pa-badge-danger">مرجوعی</span></td>
-                    <td>۱۴۰۳/۰۸/۰۴</td>
-                    <td><div class="pa-row-actions"><button type="button" class="pa-icon-btn" data-pa-modal-open="#order-modal" data-order="1015" aria-label="مشاهده جزئیات سفارش ۱۰۱۵"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button></div></td>
-                  </tr>
-                </tbody>
+                <tbody id="orders-tbody"></tbody>
               </table>
             </div>
             <p id="orders-empty" class="pa-tl-text" style="display:none; text-align:center; padding:.75rem 0">سفارشی با این مشخصات پیدا نشد.</p>
           </div>
         </div>
 
-        <!-- نمودار سفارش‌های هفته اخیر -->
+        <!-- نمودار درآمد ۷ روز اخیر — محاسبه‌شده از تاریخ واقعی سفارش‌ها -->
         <div class="pa-card">
-          <div class="pa-card-header"><h3>سفارش‌های هفته اخیر</h3></div>
+          <div class="pa-card-header"><h3>درآمد ۷ روز اخیر</h3></div>
           <div class="pa-card-body">
             <div class="pa-chart-wrap">
-              <canvas data-pa-chart="line" data-pa-chart-data='{"labels":["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"],"series":[{"name":"سفارش","values":[42,58,35,47,63,52,30]}]}'></canvas>
+              <canvas id="revenue-chart" data-pa-chart="line"></canvas>
             </div>
           </div>
         </div>
@@ -224,34 +140,36 @@
   <div class="pa-modal-backdrop" id="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
     <div class="pa-modal">
       <div class="pa-modal-header">
-        <h3 id="order-modal-title">جزئیات سفارش <span id="om-id">—</span></h3>
+        <h3 id="order-modal-title">سفارش <span id="om-id">—</span></h3>
         <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
       </div>
       <div class="pa-modal-body">
-        <!-- اطلاعات کلی سفارش -->
-        <div class="pa-d-flex pa-gap-2 pa-flex-wrap pa-mb-2" style="align-items:center; justify-content:space-between">
-          <div>
-            <div class="pa-tl-text">مشتری: <strong id="om-customer">—</strong></div>
-            <div class="pa-tl-text">تاریخ ثبت: <strong id="om-date">—</strong></div>
+        <!-- اطلاعات کلی -->
+        <div class="pa-d-flex pa-gap-2 pa-flex-wrap" style="align-items:center; justify-content:space-between">
+          <div class="pa-fs-sm" style="line-height:2">
+            <div>مشتری: <strong id="om-customer">—</strong></div>
+            <div class="pa-text-muted">تلفن: <span id="om-phone">—</span></div>
+            <div class="pa-text-muted">نشانی: <span id="om-address">—</span></div>
+            <div class="pa-text-muted">ارسال: <span id="om-ship">—</span> · پرداخت: <span id="om-pay">—</span></div>
           </div>
-          <span class="pa-badge pa-badge-warning" id="om-status">—</span>
+          <div style="text-align:left">
+            <span class="pa-badge pa-badge-warning" id="om-status">—</span>
+            <div class="pa-tl-text pa-mt-1">تاریخ ثبت: <strong id="om-date">—</strong></div>
+          </div>
         </div>
 
         <!-- اقلام سفارش -->
-        <h4 style="margin:.25rem 0 .5rem; font-size:.95rem">اقلام سفارش</h4>
+        <h4 style="margin:.9rem 0 .3rem; font-size:.95rem">اقلام سفارش</h4>
         <div id="om-items"></div>
 
         <!-- جمع کل -->
-        <div class="pa-d-flex pa-mb-2" style="justify-content:space-between; border-top:1px solid var(--pa-border); padding-top:.6rem">
-          <strong>جمع کل:</strong>
-          <strong id="om-total">—</strong>
-        </div>
+        <div class="pa-mt-2" id="om-sums"></div>
 
         <!-- تغییر وضعیت -->
-        <div class="pa-form-group pa-mb-0">
+        <div class="pa-form-group pa-mb-0 pa-mt-2">
           <label class="pa-label" for="om-status-select">تغییر وضعیت سفارش</label>
           <select id="om-status-select" class="pa-select">
-            <option value="pending">در انتظار</option>
+            <option value="pending">در انتظار پردازش</option>
             <option value="shipped">ارسال‌شده</option>
             <option value="delivered">تحویل‌شده</option>
             <option value="returned">مرجوعی</option>
@@ -259,6 +177,7 @@
         </div>
       </div>
       <div class="pa-modal-footer">
+        <a class="pa-btn pa-btn-outline" id="om-invoice" href="invoice.html" data-pa-icon="file_text" data-pa-icon-size="14"> فاکتور</a>
         <button type="button" class="pa-btn pa-btn-outline" data-pa-modal-close>انصراف</button>
         <button type="button" class="pa-btn pa-btn-primary" data-pa-icon="save" data-pa-icon-size="14" id="om-save"> ذخیره</button>
       </div>
@@ -267,108 +186,194 @@
 
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-shop.js"></script>
   <script src="../js/pa-layout.js"></script>
   <script>
     /* ============================================================
-       منطق صفحه سفارش‌ها — همه‌چیز محلی و بدون وابستگی خارجی
+       سفارش‌ها — پشت‌بانهٔ واقعی فروشگاه (v1.8)
+       سفارش‌های ثبت‌شده در تسویه‌حساب در localStorage (کلید
+       pa-orders) ذخیره می‌شوند؛ این صفحه همان‌ها را می‌خواند،
+       اجازهٔ تغییر وضعیت پایدار می‌دهد و فاکتور هر سفارش را باز
+       می‌کند. اگر هنوز سفارشی ثبت نشده باشد، دادهٔ نمونه ساخته
+       می‌شود تا صفحه همیشه قابل ارزیابی باشد.
        ============================================================ */
     (function () {
       'use strict';
 
-      // نگاشت وضعیت‌ها به برچسب فارسی و کلاس نشان
       var STATUS = {
-        pending:   { label: 'در انتظار',  badge: 'pa-badge pa-badge-warning' },
-        shipped:   { label: 'ارسال‌شده',  badge: 'pa-badge pa-badge-info' },
-        delivered: { label: 'تحویل‌شده', badge: 'pa-badge pa-badge-success' },
-        returned:  { label: 'مرجوعی',    badge: 'pa-badge pa-badge-danger' }
+        pending:   { label: 'در انتظار پردازش', badge: 'pa-badge pa-badge-warning' },
+        shipped:   { label: 'ارسال‌شده',        badge: 'pa-badge pa-badge-info' },
+        delivered: { label: 'تحویل‌شده',        badge: 'pa-badge pa-badge-success' },
+        returned:  { label: 'مرجوعی',           badge: 'pa-badge pa-badge-danger' }
       };
+      /* وضعیت «paid» که checkout ذخیره می‌کند = پرداخت‌شده و در صف پردازش */
+      function normStatus(s) { return STATUS[s] ? s : 'pending'; }
 
-      // داده نمونه سفارش‌ها برای مودال جزئیات
-      var ORDERS = {
-        '1024': { id: '۱۰۲۴', customer: 'سارا محمدی', date: '۱۴۰۳/۰۸/۱۲', total: '۴۸٬۵۰۰٬۰۰۰ تومان', status: 'pending',
-          items: [
-            { name: 'لپ‌تاپ ایسوس VivoBook 15', qty: '۱ عدد',  price: '۴۵٬۰۰۰٬۰۰۰ تومان' },
-            { name: 'کیف لپ‌تاپ',              qty: '۱ عدد',  price: '۲٬۵۰۰٬۰۰۰ تومان' },
-            { name: 'ماوس بی‌سیم',             qty: '۱ عدد',  price: '۱٬۰۰۰٬۰۰۰ تومان' }
-          ] },
-        '1023': { id: '۱۰۲۳', customer: 'علی رضایی', date: '۱۴۰۳/۰۸/۱۱', total: '۲۲٬۹۰۰٬۰۰۰ تومان', status: 'shipped',
-          items: [
-            { name: 'گوشی سامسونگ گلکسی A54', qty: '۱ عدد', price: '۲۱٬۵۰۰٬۰۰۰ تومان' },
-            { name: 'قاب محافظ',             qty: '۱ عدد', price: '۸۵۰٬۰۰۰ تومان' },
-            { name: 'شارژر فست‌شارژ',        qty: '۱ عدد', price: '۵۵۰٬۰۰۰ تومان' }
-          ] },
-        '1022': { id: '۱۰۲۲', customer: 'مریم احمدی', date: '۱۴۰۳/۰۸/۱۰', total: '۵٬۴۰۰٬۰۰۰ تومان', status: 'delivered',
-          items: [
-            { name: 'هدفون بی‌سیم سونی WH-CH520', qty: '۱ عدد', price: '۴٬۹۰۰٬۰۰۰ تومان' },
-            { name: 'کاور هدفون',                qty: '۱ عدد', price: '۵۰۰٬۰۰۰ تومان' }
-          ] },
-        '1021': { id: '۱۰۲۱', customer: 'حسین کریمی', date: '۱۴۰۳/۰۸/۰۹', total: '۱۱٬۲۰۰٬۰۰۰ تومان', status: 'delivered',
-          items: [
-            { name: 'مانیتور ال‌جی ۲۴ اینچ', qty: '۱ عدد', price: '۱۰٬۵۰۰٬۰۰۰ تومان' },
-            { name: 'کابل HDMI',            qty: '۲ عدد', price: '۷۰۰٬۰۰۰ تومان' }
-          ] },
-        '1020': { id: '۱۰۲۰', customer: 'زهرا موسوی', date: '۱۴۰۳/۰۸/۰۹', total: '۳٬۸۰۰٬۰۰۰ تومان', status: 'returned',
-          items: [
-            { name: 'کیبورد مکانیکال ردراگون K552', qty: '۱ عدد', price: '۳٬۲۰۰٬۰۰۰ تومان' },
-            { name: 'دستکش گیمینگ',               qty: '۱ عدد', price: '۶۰۰٬۰۰۰ تومان' }
-          ] },
-        '1019': { id: '۱۰۱۹', customer: 'امیر حسینی', date: '۱۴۰۳/۰۸/۰۸', total: '۲٬۶۵۰٬۰۰۰ تومان', status: 'shipped',
-          items: [
-            { name: 'ماوس گیمینگ لاجیتک G102',  qty: '۱ عدد', price: '۲٬۱۵۰٬۰۰۰ تومان' },
-            { name: 'پد ماوس بزرگ',            qty: '۱ عدد', price: '۵۰۰٬۰۰۰ تومان' }
-          ] },
-        '1018': { id: '۱۰۱۸', customer: 'نگار صادقی', date: '۱۴۰۳/۰۸/۰۷', total: '۷٬۹۰۰٬۰۰۰ تومان', status: 'pending',
-          items: [
-            { name: 'اسپیکر بلوتوثی JBL Go 3', qty: '۱ عدد', price: '۵٬۹۰۰٬۰۰۰ تومان' },
-            { name: 'کارت هدیه موسیقی',       qty: '۲ عدد', price: '۲٬۰۰۰٬۰۰۰ تومان' }
-          ] },
-        '1017': { id: '۱۰۱۷', customer: 'رضا قاسمی', date: '۱۴۰۳/۰۸/۰۶', total: '۶٬۳۰۰٬۰۰۰ تومان', status: 'delivered',
-          items: [
-            { name: 'هارد اکسترنال ۱ ترابایت', qty: '۱ عدد', price: '۵٬۵۰۰٬۰۰۰ تومان' },
-            { name: 'هاب USB چهار پورت',      qty: '۱ عدد', price: '۸۰۰٬۰۰۰ تومان' }
-          ] },
-        '1016': { id: '۱۰۱۶', customer: 'فاطمه نوری', date: '۱۴۰۳/۰۸/۰۵', total: '۴٬۱۰۰٬۰۰۰ تومان', status: 'shipped',
-          items: [
-            { name: 'وب‌کم لاجیتک C920', qty: '۱ عدد', price: '۳٬۸۰۰٬۰۰۰ تومان' },
-            { name: 'روشنایی رینگ',     qty: '۱ عدد', price: '۳۰۰٬۰۰۰ تومان' }
-          ] },
-        '1015': { id: '۱۰۱۵', customer: 'محمد عزیزی', date: '۱۴۰۳/۰۸/۰۴', total: '۳٬۲۰۰٬۰۰۰ تومان', status: 'returned',
-          items: [
-            { name: 'پاوربانک انکر ۲۰۰۰۰', qty: '۱ عدد', price: '۲٬۹۰۰٬۰۰۰ تومان' },
-            { name: 'کابل تایپ‌سی',       qty: '۱ عدد', price: '۳۰۰٬۰۰۰ تومان' }
-          ] }
-      };
+      function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+      function money(n) {
+        var s = String(Math.round(Number(n) || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, '٬');
+        return fa(s);
+      }
+      /* درآمد کل در جعبهٔ آماری — خلاصه‌شده تا سرریز نکند */
+      function compact(n) {
+        if (n >= 1e9) return fa((n / 1e9).toFixed(1)) + ' میلیارد';
+        if (n >= 1e6) return fa((n / 1e6).toFixed(1)) + ' م';
+        return money(n);
+      }
+      function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+      function faDate(iso) {
+        try { return new Date(iso).toLocaleDateString('fa-IR', { year: 'numeric', month: '2-digit', day: '2-digit' }); }
+        catch (e) { return '—'; }
+      }
+      function faTime(iso) {
+        try { return new Date(iso).toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' }); }
+        catch (e) { return ''; }
+      }
+      function isToday(iso) {
+        var d = new Date(iso), t = new Date();
+        return d.getFullYear() === t.getFullYear() && d.getMonth() === t.getMonth() && d.getDate() === t.getDate();
+      }
 
-      var tbody  = document.getElementById('orders-tbody');
-      var rows   = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+      /* ---------- دادهٔ نمونه (فقط وقتی هیچ سفارشی نیست) ---------- */
+      var ORDERS_KEY = 'pa-orders';
+      var SEED_FLAG = 'pa-orders-seeded';
+      function seedOrders() {
+        function daysAgo(n, h) {
+          var d = new Date(Date.now() - n * 864e5);
+          d.setHours(h || 10, (n * 7) % 60, 0, 0);
+          return d.toISOString();
+        }
+        function pick(pid, qty) {
+          var p = PAdminLTE.shop.byId(pid);
+          return { id: p.id, name: p.name, price: p.price, qty: qty || 1, icon: p.icon, color: p.color };
+        }
+        function mk(o) {
+          var sub = o.items.reduce(function (s, it) { return s + it.price * (it.qty || 1); }, 0);
+          var ship = sub >= 5e6 ? 0 : 80000;
+          return {
+            id: 'seed-' + o.no, orderNo: 'PA-' + o.no,
+            customer: o.customer, phone: o.phone || '۰۹۱۲۰۰۰۰۰۰۰',
+            address: o.address || 'تهران، خیابان ولیعصر، پلاک ۱۲۳',
+            province: o.province || 'تهران', city: o.city || 'تهران',
+            shipping: o.ship || 'پست پیشتاز', payment: o.pay || 'درگاه بانکی',
+            items: o.items, subtotal: sub, discount: 0, shipCost: ship, total: sub + ship,
+            date: o.date, status: o.status
+          };
+        }
+        return [
+          mk({ no: '451021', customer: 'سارا محمدی', date: daysAgo(0, 9), status: 'pending',
+               items: [pick('p1', 1), pick('p7', 2)] }),
+          mk({ no: '451020', customer: 'علی رضایی', date: daysAgo(1, 14), status: 'shipped',
+               items: [pick('p2', 1)], ship: 'تیپاکس' }),
+          mk({ no: '451019', customer: 'مریم احمدی', date: daysAgo(2, 11), status: 'delivered',
+               items: [pick('p3', 1), pick('p8', 1)] }),
+          mk({ no: '451018', customer: 'حسین کریمی', date: daysAgo(3, 16), status: 'delivered',
+               items: [pick('p5', 1)] }),
+          mk({ no: '451017', customer: 'زهرا موسوی', date: daysAgo(4, 12), status: 'returned',
+               items: [pick('p9', 2)] }),
+          mk({ no: '451016', customer: 'امیر حسینی', date: daysAgo(5, 10), status: 'shipped',
+               items: [pick('p10', 1)], pay: 'کیف پول' }),
+          mk({ no: '451015', customer: 'نگار صادقی', date: daysAgo(6, 15), status: 'delivered',
+               items: [pick('p11', 1), pick('p14', 3)] })
+        ];
+      }
+      function loadOrders() {
+        var arr = PAdminLTE.store.get(ORDERS_KEY, []);
+        if (!arr.length) {
+          arr = seedOrders();
+          PAdminLTE.store.save(ORDERS_KEY, arr);
+          try { localStorage.setItem(SEED_FLAG, '1'); } catch (e) {}
+        }
+        return arr;
+      }
+
+      /* ---------- رندر جدول و آمار ---------- */
+      var tbody = document.getElementById('orders-tbody');
       var search = document.getElementById('order-search');
-      var empty  = document.getElementById('orders-empty');
+      var empty = document.getElementById('orders-empty');
       var activeFilter = 'all';
 
-      // ---------- فیلتر چیپ‌ها: جابه‌جایی is-primary و فیلتر ردیف‌ها ----------
-      document.querySelectorAll('#order-filters .pa-chip').forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          document.querySelectorAll('#order-filters .pa-chip').forEach(function (c) { c.classList.remove('is-primary'); });
-          chip.classList.add('is-primary');
-          activeFilter = chip.getAttribute('data-filter');
-          applyFilters();
+      function rowHTML(o) {
+        var st = STATUS[normStatus(o.status)];
+        var items = o.items || [];
+        var firstName = items.length ? items[0].name : '—';
+        var more = items.length > 1 ? ' +' + fa(items.length - 1) : '';
+        var initial = (o.customer || '؟').trim().charAt(0);
+        return '<tr data-order="' + esc(o.id) + '" data-status="' + normStatus(o.status) + '">' +
+          '<td><strong>#' + esc(o.orderNo || '—') + '</strong></td>' +
+          '<td><div class="pa-d-flex pa-align-center pa-gap-2">' +
+            '<span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">' + esc(initial) + '</span>' +
+            '<span>' + esc(o.customer || '—') + '</span></div></td>' +
+          '<td title="' + esc(items.map(function (i) { return i.name + ' ×' + (i.qty || 1); }).join('، ')) + '">' +
+            esc(firstName) + (more ? ' <span class="pa-badge pa-badge-secondary">' + more + '</span>' : '') + '</td>' +
+          '<td>' + money(o.total) + '</td>' +
+          '<td><span class="' + st.badge + '">' + st.label + '</span></td>' +
+          '<td>' + faDate(o.date) + '<br><span class="pa-fs-sm pa-text-muted">' + faTime(o.date) + '</span></td>' +
+          '<td data-no-export><div class="pa-row-actions">' +
+            '<button type="button" class="pa-icon-btn" data-order-view="' + esc(o.id) + '" aria-label="مشاهدهٔ جزئیات سفارش ' + esc(o.orderNo) + '"><span data-pa-icon="eye" data-pa-icon-size="14"></span></button>' +
+            '<a class="pa-icon-btn" href="invoice.html?no=' + encodeURIComponent(o.orderNo || '') + '" aria-label="فاکتور سفارش ' + esc(o.orderNo) + '"><span data-pa-icon="file_text" data-pa-icon-size="14"></span></a>' +
+          '</div></td></tr>';
+      }
+
+      function stats(list) {
+        var today = 0, pending = 0, delivered = 0, revenue = 0;
+        list.forEach(function (o) {
+          if (isToday(o.date)) today++;
+          var s = normStatus(o.status);
+          if (s === 'pending') pending++;
+          if (s === 'delivered') delivered++;
+          if (s !== 'returned') revenue += o.total || 0;
         });
-      });
+        document.getElementById('st-today').textContent = fa(today);
+        document.getElementById('st-pending').textContent = fa(pending);
+        document.getElementById('st-delivered').textContent = fa(delivered);
+        document.getElementById('st-revenue').textContent = compact(revenue);
+      }
 
-      // ---------- جستجوی مشتری / شناسه ----------
-      search.addEventListener('input', applyFilters);
+      function chart(list) {
+        /* جمع درآمد هر روز (به‌جز مرجوعی‌ها) در ۷ روز اخیر */
+        var days = [];
+        for (var i = 6; i >= 0; i--) {
+          var d = new Date(Date.now() - i * 864e5);
+          days.push({ key: d.toISOString().slice(0, 10), label: d.toLocaleDateString('fa-IR', { weekday: 'short' }), v: 0 });
+        }
+        list.forEach(function (o) {
+          if (normStatus(o.status) === 'returned') return;
+          var key = new Date(o.date).toISOString().slice(0, 10);
+          days.forEach(function (d) { if (d.key === key) d.v += o.total || 0; });
+        });
+        var canvas = document.getElementById('revenue-chart');
+        var spec = {
+          labels: days.map(function (d) { return d.label; }),
+          series: [{ name: 'درآمد', values: days.map(function (d) { return Math.round(d.v / 1e6); }) }]
+        };
+        canvas.setAttribute('data-pa-chart-data', JSON.stringify(spec));
+        /* اگر بوت قبلاً اجرا شده (تغییر وضعیت) نمودار را با دادهٔ تازه دوباره بکش؛
+           در بار اول بوتِ هسته خودش از data-pa-chart-data رسم می‌کند */
+        if (document.readyState !== 'loading' && PAdminLTE.lineChart) {
+          try { PAdminLTE.lineChart(canvas, spec, {}); } catch (e) {}
+        }
+      }
 
-      // تبدیل ارقام لاتین به فارسی برای جستجوی شناسه در هر دو حالت
+      function render() {
+        var list = loadOrders();
+        var rows = list.slice().sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
+        tbody.innerHTML = rows.map(rowHTML).join('');
+        stats(list);
+        chart(list);
+        applyFilters();
+        if (PAdminLTE.injectIcons) PAdminLTE.injectIcons(tbody);
+      }
+
+      /* ---------- فیلتر چیپ‌ها + جستجو ---------- */
       function toFa(str) {
         return String(str).replace(/[0-9]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; });
       }
-
-      // اعمال همزمان فیلتر وضعیت و جستجو
       function applyFilters() {
         var q = (search.value || '').trim();
-        if (/[0-9]/.test(q)) q = toFa(q); // جستجوی شناسه با ارقام لاتین هم کار می‌کند
+        if (/[0-9]/.test(q)) q = toFa(q);
         var visible = 0;
-        rows.forEach(function (row) {
+        tbody.querySelectorAll('tr').forEach(function (row) {
           var okStatus = activeFilter === 'all' || row.getAttribute('data-status') === activeFilter;
           var okSearch = !q || row.textContent.indexOf(q) !== -1;
           var show = okStatus && okSearch;
@@ -377,80 +382,94 @@
         });
         empty.style.display = visible ? 'none' : 'block';
       }
-
-      // ---------- مودال جزئیات سفارش ----------
-      var currentOrderId = null;
-
-      // پر کردن مودال هنگام کلیک روی دکمه چشم هر ردیف
-      tbody.querySelectorAll('.pa-row-actions [data-order]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          fillModal(btn.getAttribute('data-order'));
+      document.querySelectorAll('#order-filters .pa-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          document.querySelectorAll('#order-filters .pa-chip').forEach(function (c) { c.classList.remove('is-primary'); });
+          chip.classList.add('is-primary');
+          activeFilter = chip.getAttribute('data-filter');
+          applyFilters();
         });
       });
+      search.addEventListener('input', applyFilters);
 
-      // پر کردن محتوای مودال از داده نمونه
-      function fillModal(orderKey) {
-        var o = ORDERS[orderKey];
+      /* ---------- خروجی CSV ---------- */
+      document.getElementById('orders-export').addEventListener('click', function () {
+        PAdminLTE.exportTableCSV(document.getElementById('orders-table'), 'padminlte-orders.csv');
+      });
+
+      /* ---------- مودال جزئیات + تغییر وضعیت پایدار ---------- */
+      var currentOrderId = null;
+
+      tbody.addEventListener('click', function (e) {
+        var btn = e.target.closest ? e.target.closest('[data-order-view]') : null;
+        if (btn) fillModal(btn.getAttribute('data-order-view'));
+      });
+
+      function findOrder(id) {
+        return loadOrders().filter(function (o) { return String(o.id) === String(id); })[0] || null;
+      }
+
+      function fillModal(id) {
+        var o = findOrder(id);
         if (!o) return;
-        currentOrderId = orderKey;
+        currentOrderId = o.id;
+        var st = STATUS[normStatus(o.status)];
 
-        document.getElementById('om-id').textContent = '#' + o.id;
-        document.getElementById('om-customer').textContent = o.customer;
-        document.getElementById('om-date').textContent = o.date;
-        document.getElementById('om-total').textContent = o.total;
+        document.getElementById('om-id').textContent = '#' + (o.orderNo || '—');
+        document.getElementById('om-customer').textContent = o.customer || '—';
+        document.getElementById('om-phone').textContent = o.phone || '—';
+        document.getElementById('om-address').textContent =
+          [o.province, o.city, o.address].filter(Boolean).join('، ') || '—';
+        document.getElementById('om-ship').textContent = o.shipping || '—';
+        document.getElementById('om-pay').textContent = o.payment || '—';
+        document.getElementById('om-date').textContent = faDate(o.date) + ' — ' + faTime(o.date);
 
-        var st = STATUS[o.status];
         var badge = document.getElementById('om-status');
         badge.className = st.badge;
         badge.textContent = st.label;
+        document.getElementById('om-status-select').value = normStatus(o.status);
 
-        document.getElementById('om-status-select').value = o.status;
+        document.getElementById('om-items').innerHTML = (o.items || []).map(function (it) {
+          return '<div class="pa-om-item">' +
+            '<span class="pa-om-ico" style="background:linear-gradient(135deg,' + (it.color || '#0d6efd') + ',#0a58ca)">' +
+              '<span data-pa-icon="' + (it.icon || 'package_alt') + '" data-pa-icon-size="17"></span></span>' +
+            '<span style="flex:1; min-width:0; font-size:.88rem">' + esc(it.name) + '</span>' +
+            '<span class="pa-fs-sm pa-text-muted" style="white-space:nowrap">' + fa(it.qty || 1) + ' × ' + money(it.price) + '</span>' +
+            '<strong style="white-space:nowrap">' + money((it.price || 0) * (it.qty || 1)) + '</strong>' +
+          '</div>';
+        }).join('') || '<p class="pa-tl-text">اقلامی ثبت نشده است.</p>';
 
-        // ساخت ردیف اقلام سفارش
-        var wrap = document.getElementById('om-items');
-        wrap.innerHTML = '';
-        o.items.forEach(function (it) {
-          var row = document.createElement('div');
-          row.className = 'pa-d-flex pa-gap-2';
-          row.style.cssText = 'justify-content:space-between; padding:.45rem 0; border-bottom:1px dashed var(--pa-border)';
-          var name = document.createElement('span');
-          name.innerHTML = '<span data-pa-icon="package_alt" data-pa-icon-size="14"></span> ' + it.name + ' <span class="pa-tl-text">(' + it.qty + ')</span>';
-          var price = document.createElement('strong');
-          price.style.whiteSpace = 'nowrap';
-          price.textContent = it.price;
-          row.appendChild(name);
-          row.appendChild(price);
-          wrap.appendChild(row);
-        });
-        if (window.PAdminLTE && PAdminLTE.injectIcons) PAdminLTE.injectIcons(wrap);
+        var off = o.discount || 0;
+        document.getElementById('om-sums').innerHTML =
+          '<div class="pa-om-sum"><span class="pa-text-muted">جمع کالاها</span><span>' + money(o.subtotal || 0) + '</span></div>' +
+          (off ? '<div class="pa-om-sum"><span class="pa-text-muted">تخفیف</span><span style="color:var(--pa-success)">−' + money(off) + '</span></div>' : '') +
+          '<div class="pa-om-sum"><span class="pa-text-muted">هزینهٔ ارسال</span><span>' + (o.shipCost ? money(o.shipCost) : 'رایگان') + '</span></div>' +
+          '<div class="pa-om-sum pa-strong"><span>مبلغ نهایی</span><span>' + money(o.total || 0) + '</span></div>';
+
+        document.getElementById('om-invoice').href = 'invoice.html?no=' + encodeURIComponent(o.orderNo || '');
+        if (PAdminLTE.injectIcons) PAdminLTE.injectIcons(document.getElementById('order-modal'));
+        PAdminLTE.openModal ? PAdminLTE.openModal('order-modal') : document.getElementById('order-modal').classList.add('is-open');
       }
 
-      // ---------- دکمه ذخیره: به‌روزرسانی نشان ردیف به‌صورت درجا ----------
       document.getElementById('om-save').addEventListener('click', function () {
         if (!currentOrderId) return;
         var newStatus = document.getElementById('om-status-select').value;
         var st = STATUS[newStatus];
-
-        // به‌روزرسانی داده محلی
-        ORDERS[currentOrderId].status = newStatus;
-
-        // به‌روزرسانی نشان ردیف جدول
+        PAdminLTE.store.update(ORDERS_KEY, currentOrderId, { status: newStatus });
         var row = tbody.querySelector('tr[data-order="' + currentOrderId + '"]');
         if (row) {
           row.setAttribute('data-status', newStatus);
           var badge = row.querySelector('.pa-badge');
           if (badge) { badge.className = st.badge; badge.textContent = st.label; }
         }
-
-        // به‌روزرسانی نشان داخل مودال
-        var mBadge = document.getElementById('om-status');
-        mBadge.className = st.badge;
-        mBadge.textContent = st.label;
-
-        PAdminLTE.toast({ kind: 'success', message: 'وضعیت سفارش #' + ORDERS[currentOrderId].id + ' به «' + st.label + '» تغییر کرد.' });
+        var o = findOrder(currentOrderId);
+        stats(loadOrders());
+        PAdminLTE.toast({ kind: 'success', message: 'وضعیت سفارش #' + (o ? o.orderNo : '') + ' به «' + st.label + '» تغییر کرد و ذخیره شد.' });
         applyFilters();
         PAdminLTE.closeModal('order-modal');
       });
+
+      render();
     })();
   </script>
 </body>

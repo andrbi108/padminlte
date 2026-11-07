@@ -156,7 +156,7 @@
         <p style="font-size:1.4rem; font-weight:800; color:var(--pa-primary); margin:0 0 1rem" id="co-order-no">—</p>
         <p class="pa-fs-sm pa-text-muted" style="margin:0 0 1.4rem">جزئیات سفارش در بخش «سفارش‌ها» پنل مدیریت و فاکتور آن در صفحهٔ فاکتور قابل مشاهده است.</p>
         <div class="pa-d-flex pa-gap-1" style="justify-content:center; flex-wrap:wrap">
-          <a class="pa-btn pa-btn-primary" href="invoice.html"><span data-pa-icon="file_text" data-pa-icon-size="16"></span> مشاهدهٔ فاکتور</a>
+          <a class="pa-btn pa-btn-primary" id="co-invoice-link" href="invoice.html"><span data-pa-icon="file_text" data-pa-icon-size="16"></span> مشاهدهٔ فاکتور</a>
           <a class="pa-btn pa-btn-outline" href="orders.html"><span data-pa-icon="shopping_cart" data-pa-icon-size="16"></span> سفارش‌ها</a>
           <a class="pa-btn pa-btn-outline" href="shop.html"><span data-pa-icon="shopping_bag" data-pa-icon-size="16"></span> بازگشت به فروشگاه</a>
         </div>
@@ -244,6 +244,7 @@
         PAdminLTE.cart.clear();
         try { localStorage.removeItem('pa-coupon'); localStorage.removeItem('pa-coupon-code'); } catch (e) {}
         document.getElementById('co-order-no').textContent = orderNo;
+        document.getElementById('co-invoice-link').href = 'invoice.html?no=' + encodeURIComponent(orderNo);
         WRAP.hidden = true;
         SUCCESS.hidden = false;
         window.scrollTo({ top: 0, behavior: 'smooth' });
