@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — نصب و پیکربندی اولیه</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>نصب و پیکربندی اولیه</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <a href="docs-install.html">مستندات</a>
+              <span class="pa-sep">›</span>
+              <span>نصب و پیکربندی اولیه</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a class="pa-btn pa-btn-outline pa-btn-sm" href="docs-usage.html" data-pa-icon="book_open" data-pa-icon-size="16"> صفحهٔ بعد</a>
+          </div>
+        </div>
+
+        <div class="pa-alert pa-alert-success pa-mb-2">
+          <span data-pa-icon="check_circle" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">
+            این صفحهٔ مستندات <strong>کاملاً کاربردی</strong> است: همهٔ دستورها واقعی‌اند، بلوک‌های کد با یک کلیک کپی می‌شوند و بدون اینترنت هم قابل استفاده‌اند.
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>پیش‌نیازها</h3></div>
+          <div class="pa-card-body">
+            <p>PAdminLTE یک پروژهٔ <strong>صفر-وابستگی</strong> است: هیچ <code>npm</code>، <code>webpack</code>، <code>vite</code> یا CDN لازم نیست و هیچ مرحلهٔ build وجود ندارد. فقط چهار فایل پروژه کنار صفحات HTML شما باشند:</p>
+            <div class="pa-table-responsive">
+              <table class="pa-table pa-table-striped">
+                <thead><tr><th>فایل</th><th>نقش</th></tr></thead>
+                <tbody>
+                  <tr><td><code>css/padminlte.css</code></td><td>کل سیستم طراحی (توکن‌ها + کامپوننت‌ها)</td></tr>
+                  <tr><td><code>js/pa-icons.js</code></td><td>تزریق خودکار SVG از ویژگی <code>data-pa-icon</code></td></tr>
+                  <tr><td><code>js/padminlte.js</code></td><td>هستهٔ runtime (مدال، توست، تم، چارت، فرم و…)</td></tr>
+                  <tr><td><code>js/pa-layout.js</code></td><td>تزریق خودکار sidebar / header / footer</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="pa-mt-2">هیچ‌کدام از این فایل‌ها چیزی از خارج fetch نمی‌کنند؛ به همین دلیل پروژه روی <code>file://</code> هم سالم اجرا می‌شود.</p>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>سه روش اجرا</h3></div>
+          <div class="pa-card-body">
+            <h4>روش ۱ — اجرای مستقیم از <code>file://</code></h4>
+            <p>ساده‌ترین راه: فایل <code>index.html</code> را در مرورگر باز کنید. برای ارزیابی سریع و استفادهٔ آفلاین کامل کافی است.</p>
+            <pre data-pa-code="bash"><code># لینوکس / مک
+xdg-open index.html      # یا: open index.html
+
+# ویندوز
+start index.html</code></pre>
+
+            <h4 class="pa-mt-2">روش ۲ — سرور محلی</h4>
+            <p>اگر می‌خواهید <code>localStorage</code> در همهٔ مرورگرها (از جمله Chrome روی file://) بدون محدودیت کار کند:</p>
+            <pre data-pa-code="bash"><code># با Python 3
+python3 -m http.server 8080
+
+# با Node.js (بدون نصب پکیج)
+npx --yes serve -l 8080 .
+
+# یا با PHP
+php -S localhost:8080</code></pre>
+            <p>سپس به <code>http://localhost:8080</code> بروید.</p>
+
+            <h4 class="pa-mt-2">روش ۳ — میزبان استاتیک</h4>
+            <p>پوشهٔ کامل پروژه را روی هر میزبان استاتیک (GitHub Pages، Netlify، Vercel، Cloudflare Pages، S3، Nginx، Apache، Caddy و…) آپلود کنید. هیچ تنظیم build لازم نیست؛ همهٔ مسیرها نسبی‌اند.</p>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>پیکربندی اولیه</h3></div>
+          <div class="pa-card-body">
+            <h4>۱) اسکلت یک صفحهٔ جدید</h4>
+            <p>هر صفحهٔ PAdminLTE از همین اسکلت ساخته می‌شود. آن را کپی کنید و عنوان و محتوای خود را جایگزین کنید:</p>
+            <pre data-pa-code="html"><code>&lt;!doctype html&gt;
+&lt;html lang="fa" dir="rtl" data-pa-theme="light"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;PAdminLTE — عنوان صفحه&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/padminlte.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;a class="pa-skip-link" href="#pa-main-content"&gt;پرش به محتوا&lt;/a&gt;
+  &lt;div class="pa-app"&gt;
+    &lt;div data-pa-layout="sidebar"&gt;&lt;/div&gt;
+    &lt;div class="pa-main"&gt;
+      &lt;div data-pa-layout="header"&gt;&lt;/div&gt;
+      &lt;main class="pa-content" id="pa-main-content"&gt;
+        &lt;!-- محتوای شما --&gt;
+        &lt;div data-pa-layout="footer"&gt;&lt;/div&gt;
+      &lt;/main&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;script src="js/pa-icons.js"&gt;&lt;/script&gt;
+  &lt;script src="js/padminlte.js"&gt;&lt;/script&gt;
+  &lt;script src="js/pa-layout.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            <p>ترتیب سه اسکریپت پایانی مهم است: <code>pa-icons.js</code> آیکن‌ها را تعریف می‌کند، <code>padminlte.js</code> رفتارها را راه می‌اندازد و <code>pa-layout.js</code> در آخر سایدبار/هدر/فوتر را تزریق و دوباره boot می‌کند.</p>
+
+            <h4 class="pa-mt-2">۲) زبان و جهت صفحه</h4>
+            <p>صفحات نمونه با راست‌به‌چپ شروع می‌شوند. برای چپ‌به‌راست کافی است:</p>
+            <pre data-pa-code="html"><code>&lt;html lang="en" dir="ltr"&gt;</code></pre>
+            <p>یا در زمان اجرا (در <code>localStorage</code> با کلید <code>pa-dir</code> ذخیره می‌شود):</p>
+            <pre data-pa-code="js"><code>PAdminLTE.setDir('ltr');   // یا 'rtl'</code></pre>
+
+            <h4 class="pa-mt-2">۳) تم پیش‌فرض</h4>
+            <p>روی تگ <code>html</code> مقدار <code>data-pa-theme</code> را <code>light</code> یا <code>dark</code> بگذارید، یا در زمان اجرا:</p>
+            <pre data-pa-code="js"><code>PAdminLTE.setTheme('dark');</code></pre>
+            <p>انتخاب کاربر دکمهٔ ماه/خورشید هدر، در <code>localStorage</code> با کلید <code>pa-theme</code> ذخیره می‌شود و در بازدید بعدی خودکار اعمال می‌گردد.</p>
+
+            <h4 class="pa-mt-2">۴) شخصی‌سازی برند و منوی سایدبار</h4>
+            <p>سایدبار از آرایهٔ <code>sections</code> در <code>js/pa-layout.js</code> ساخته می‌شود. برای افزودن صفحهٔ خود، یک آیتم به هر بخش اضافه کنید:</p>
+            <pre data-pa-code="js"><code>{ href: 'pages/my-page.html', icon: 'star', label: 'صفحهٔ من' }</code></pre>
+            <p>و برند بالای منو:</p>
+            <pre data-pa-code="js"><code>PAdminLTE.layout.apply({
+  sidebar: { brand: 'پنل شرکت من', brandMark: 'ش' }
+});</code></pre>
+
+            <h4 class="pa-mt-2">۵) چک‌لیست راه‌اندازی</h4>
+            <ul>
+              <li>چهار فایل اصلی در مسیرهای <code>css/</code> و <code>js/</code> کنار صفحه هستند.</li>
+              <li><code>lang</code> و <code>dir</code> روی تگ <code>html</code> درست تنظیم شده‌اند.</li>
+              <li>سه اسکریپت پایانی به همان ترتیبِ اسکلت بالا قرار دارند.</li>
+              <li>در کنسول مرورگر خطای قرمز یا هشدار <code>[PAdminLTE] Unknown icon:</code> وجود ندارد.</li>
+              <li>سایدبار، هدر و فوتر تزریق شده‌اند (به‌جای <code>data-pa-layout</code> خالی، محتوای واقعی می‌بینید).</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>استقرار روی میزبان‌های معروف</h3></div>
+          <div class="pa-card-body">
+            <h4>GitHub Pages</h4>
+            <pre data-pa-code="bash"><code>git init
+git add .
+git commit -m "feat: initial PAdminLTE import"
+git branch -M main
+git remote add origin https://github.com/&lt;USER&gt;/padminlte.git
+git push -u origin main</code></pre>
+            <p>سپس <strong>Settings → Pages → Deploy from a branch</strong> را روی شاخهٔ <code>main</code> و پوشهٔ <code>/ (root)</code> تنظیم کنید. سایت روی <code>https://&lt;USER&gt;.github.io/padminlte/</code> در دسترس قرار می‌گیرد.</p>
+
+            <h4 class="pa-mt-2">Netlify (کشیدن و رها کردن)</h4>
+            <p>پوشهٔ پروژه را در <code>app.netlify.com/drop</code> رها کنید — در چند ثانیه URL عمومی می‌گیرید. برای CLI:</p>
+            <pre data-pa-code="bash"><code>npm install -g netlify-cli
+netlify deploy --dir=. --prod</code></pre>
+
+            <h4 class="pa-mt-2">Nginx</h4>
+            <pre data-pa-code="nginx"><code>server {
+    listen 80;
+    server_name padminlte.local;
+    root /var/www/padminlte;
+    index index.html;
+    charset utf-8;
+    location / { try_files $uri $uri/ /index.html; }
+    gzip on;
+    gzip_types text/css application/javascript text/html application/json;
+}</code></pre>
+            <p>راهنمای کامل Apache، Vercel و ورک‌فلؤ GitHub Actions در <a href="https://github.com/andrbi108/padminlte/blob/main/docs/INSTALL.md" target="_blank" rel="noopener"><code>docs/INSTALL.md</code></a> آمده است.</p>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>عیب‌یابی سریع</h3></div>
+          <div class="pa-card-body">
+            <div data-pa-accordion>
+              <div class="pa-accordion-item is-open">
+                <button type="button" class="pa-accordion-header">آیکن‌ها نمایش داده نمی‌شوند <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                <div class="pa-accordion-body">
+                  <p>مطمئن شوید <code>js/pa-icons.js</code> <strong>قبل از</strong> <code>js/padminlte.js</code> لود شده است. در کنسول به دنبال هشدار <code>[PAdminLTE] Unknown icon:</code> بگردید — یعنی نام آیکن اشتباه است. برای محتوای پویا، <code>PAdminLTE.injectIcons(root)</code> را روی زیردرخت جدید صدا بزنید.</p>
+                </div>
+              </div>
+              <div class="pa-accordion-item">
+                <button type="button" class="pa-accordion-header">تنظیمات تم ذخیره نمی‌شود <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                <div class="pa-accordion-body">
+                  <p>Chrome روی <code>file://</code> به‌طور پیش‌فرض <code>localStorage</code> را محدود می‌کند. کد با <code>try/catch</code> امن نوشته شده و برنامه نمی‌شکند، اما برای ذخیرهٔ تنظیمات از سرور محلی یا میزبان استاتیک استفاده کنید.</p>
+                </div>
+              </div>
+              <div class="pa-accordion-item">
+                <button type="button" class="pa-accordion-header">سایدبار یا هدر ظاهر نمی‌شود <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                <div class="pa-accordion-body">
+                  <p>وجود <code>&lt;div data-pa-layout="sidebar"&gt;&lt;/div&gt;</code> و <code>&lt;div data-pa-layout="header"&gt;&lt;/div&gt;</code> در صفحه و لود شدن <code>js/pa-layout.js</code> را بررسی کنید و خطاهای کنسول را ببینید.</p>
+                </div>
+              </div>
+              <div class="pa-accordion-item">
+                <button type="button" class="pa-accordion-header">تغییرات CSS را نمی‌بینم <span data-pa-icon="chevron_left" data-pa-icon-size="16"></span></button>
+                <div class="pa-accordion-body">
+                  <p>کش مرورگر را دور بزنید: <code>Ctrl+Shift+R</code> (ویندوز/لینوکس) یا <code>Cmd+Shift+R</code> (مک)، یا در DevTools گزینهٔ <strong>Disable cache</strong> را روشن کنید.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-d-flex pa-gap-2 pa-flex-wrap pa-mb-2">
+          <a class="pa-btn pa-btn-outline" href="docs-usage.html">راهنمای استفاده <span data-pa-icon="arrow_left" data-pa-icon-size="16"></span></a>
+          <a class="pa-btn pa-btn-outline" href="docs-customize.html">سفارشی‌سازی و تم <span data-pa-icon="arrow_left" data-pa-icon-size="16"></span></a>
+          <a class="pa-btn pa-btn-outline" href="docs-api.html">مرجع API <span data-pa-icon="arrow_left" data-pa-icon-size="16"></span></a>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

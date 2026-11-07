@@ -122,31 +122,37 @@
     document.querySelectorAll('.pa-dropdown-menu.is-open').forEach(function (m) { m.classList.remove('is-open'); });
   }
 
-  /* ---------- Sidebar tree (collapsible nav) ---------- */
+  /* ---------- Sidebar tree (collapsible nav) ----------
+     v1.6: works with both markups —
+       a) toggle + <ul.pa-sidebar-tree> wrapped in .pa-tree-item / <li>
+       b) toggle + <ul.pa-sidebar-tree> as plain siblings             */
   function initSidebarTree(root) {
     (root || document).querySelectorAll('[data-pa-tree-toggle]').forEach(function (toggle) {
       if (toggle.__paBound) return;
       toggle.__paBound = true;
       toggle.addEventListener('click', function (e) {
         e.preventDefault();
-        var li = toggle.closest('li');
-        if (!li) return;
-        var tree = li.querySelector(':scope > .pa-sidebar-tree');
+        var host = toggle.closest('.pa-tree-item') || toggle.closest('li');
+        var tree = (host && host.querySelector(':scope > .pa-sidebar-tree')) ||
+                   (function () {
+                     var n = toggle.nextElementSibling;
+                     return (n && n.classList && n.classList.contains('pa-sidebar-tree')) ? n : null;
+                   })();
         if (!tree) return;
         var open = tree.classList.toggle('is-open');
+        if (host) host.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
     });
     // Open the active tree by default
     (root || document).querySelectorAll('.pa-sidebar-link.is-active').forEach(function (link) {
-      var li = link.closest('li');
-      if (li) {
-        var parent = li.parentElement;
-        if (parent && parent.classList.contains('pa-sidebar-tree')) {
-          parent.classList.add('is-open');
-          var trigger = parent.parentElement.querySelector(':scope > [data-pa-tree-toggle]');
-          if (trigger) trigger.setAttribute('aria-expanded', 'true');
-        }
+      var tree = link.closest('.pa-sidebar-tree');
+      if (tree) {
+        tree.classList.add('is-open');
+        var host = tree.closest('.pa-tree-item, li');
+        if (host) host.classList.add('is-open');
+        var trigger = (host || tree.parentElement || tree).querySelector(':scope > [data-pa-tree-toggle]');
+        if (trigger) trigger.setAttribute('aria-expanded', 'true');
       }
     });
   }
@@ -1903,43 +1909,56 @@
 
   /* ---------- Typewriter (data-pa-typewriter) ----------
      <span data-pa-typewriter data-pa-text="…|…|…" data-pa-speed="70"></span>
-     data-pa-text: pipe-separated phrases looped forever.            */
+     data-pa-text: pipe-separated phrases looped forever.
+     v1.6 fix: type/erase operate on ONE dedicated text node.
+     (The old code inserted a new text node per character via
+     insertAdjacentText; erase() only shrank the last node, so
+     previous phrases were never removed and text piled up.)     */
   function initTypewriters(root) {
     (root || document).querySelectorAll('[data-pa-typewriter]').forEach(function (el) {
       if (el.__paBound) return;
       el.__paBound = true;
-      var phrases = (el.getAttribute('data-pa-text') || el.textContent || '').split('|');
+      var phrases = (el.getAttribute('data-pa-text') || el.textContent || '').split('|')
+        .map(function (s) { return s.trim(); })
+        .filter(function (s) { return s.length; });
+      if (!phrases.length) return;
       var speed = parseInt(el.getAttribute('data-pa-speed') || '70', 10);
       var hold = parseInt(el.getAttribute('data-pa-hold') || '1600', 10);
       el.textContent = '';
+      var textNode = document.createTextNode('');
       var caret = document.createElement('span');
       caret.className = 'pa-type-caret';
+      el.appendChild(textNode);
       el.appendChild(caret);
       var pi = 0;
+      var timer = null;
       function type() {
-        var word = phrases[pi % phrases.length] || '';
+        var word = phrases[pi % phrases.length];
         var i = 0;
         (function tick() {
-          if (i <= word.length) {
-            caret.insertAdjacentText('beforebegin', word.charAt(i - 1) || '');
-            var prev = caret.previousSibling;
-            i++;
-            if (i > word.length) {
-              setTimeout(erase, hold);
-            } else setTimeout(tick, speed);
-          } else setTimeout(erase, hold);
+          i++;
+          textNode.textContent = word.slice(0, i);
+          if (i < word.length) {
+            timer = setTimeout(tick, speed);
+          } else {
+            timer = setTimeout(erase, hold);
+          }
         })();
       }
       function erase() {
         (function tick() {
-          var prev = caret.previousSibling;
-          if (prev && prev.nodeType === 3) {
-            prev.textContent = prev.textContent.slice(0, -1);
-            if (prev.textContent.length) setTimeout(tick, speed / 2);
-            else { pi++; setTimeout(type, 240); }
-          } else { pi++; setTimeout(type, 240); }
+          var t = textNode.textContent;
+          if (t.length) {
+            textNode.textContent = t.slice(0, -1);
+            timer = setTimeout(tick, speed / 2);
+          } else {
+            pi++;
+            timer = setTimeout(type, 240);
+          }
         })();
       }
+      // Restart cleanly if the element is re-shown after being hidden
+      el.__paTypeStop = function () { if (timer) clearTimeout(timer); };
       type();
     });
   }

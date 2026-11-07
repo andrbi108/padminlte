@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — راهنمای استفاده</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>راهنمای استفاده</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <a href="docs-install.html">مستندات</a>
+              <span class="pa-sep">›</span>
+              <span>راهنمای استفاده</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-alert pa-alert-info pa-mb-2">
+          <span data-pa-icon="zap" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">
+            اکثر کامپوننت‌ها <strong>اعلانی (declarative)</strong> هستند: فقط ویژگی <code>data-pa-*</code> مربوطه را در HTML بنویسید؛ در زمان بارگذاری صفحه به‌صورت خودکار راه‌اندازی می‌شوند. نمونه‌های زندهٔ همین صفحه را امتحان کنید.
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>نقشهٔ پروژه</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table pa-table-striped">
+                <thead><tr><th>مسیر</th><th>محتوا</th></tr></thead>
+                <tbody>
+                  <tr><td><code>index*.html</code></td><td>سه داشبورد نمونه</td></tr>
+                  <tr><td><code>pages/</code></td><td>بیش از ۶۰ صفحهٔ آماده (CRUD، فروشگاه، وبلاگ، انجمن، احراز هویت و…)</td></tr>
+                  <tr><td><code>css/padminlte.css</code></td><td>تمام استایل‌ها با متغیرهای CSS (<code>--pa-*</code>)</td></tr>
+                  <tr><td><code>js/padminlte.js</code></td><td>هستهٔ runtime و همهٔ کامپوننت‌های تعاملی</td></tr>
+                  <tr><td><code>js/pa-layout.js</code></td><td>تعریف منوی سایدبار و تزریق چیدمان</td></tr>
+                  <tr><td><code>js/pa-icons.js</code></td><td>بیش از ۲۸۰ آیکن SVG درون‌خطی</td></tr>
+                  <tr><td><code>docs/</code></td><td>مستندات متنی (MD) در مخزن گیت‌هاب</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>پرکاربردترین ویژگی‌های اعلانی</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table">
+                <thead><tr><th>ویژگی</th><th>کار</th><th>نمونه</th></tr></thead>
+                <tbody>
+                  <tr><td><code>data-pa-icon</code></td><td>تزریق آیکن SVG</td><td><code>&lt;span data-pa-icon="bell"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-chart</code></td><td>نمودار Canvas بومی</td><td><code>&lt;canvas data-pa-chart="line"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-datatable</code></td><td>جدول جستجو/مرتب‌سازی/صفحه‌بندی</td><td><code>&lt;table data-pa-datatable&gt;</code></td></tr>
+                  <tr><td><code>data-pa-modal</code></td><td>باز کردن مدال</td><td><code>&lt;button data-pa-modal="#m1"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-tip</code></td><td>تولتیپ CSS</td><td><code>&lt;button data-pa-tip="راهنما"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-reveal</code></td><td>ظهور هنگام اسکرول</td><td><code>&lt;div data-pa-reveal="zoom"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-lazy</code></td><td>بارگذاری تنبل تصویر</td><td><code>&lt;img data-pa-lazy src="…"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-counter</code></td><td>شمارندهٔ متحرک</td><td><code>&lt;span data-pa-counter="1250"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-clipboard</code></td><td>کپی متن به کلیپ‌بورد</td><td><code>&lt;button data-pa-clipboard="…"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-code</code></td><td>بلوک کد با دکمهٔ کپی</td><td><code>&lt;pre data-pa-code="bash"&gt;</code></td></tr>
+                  <tr><td><code>data-pa-tree-toggle</code></td><td>زیرمنوی سایدبار</td><td>تولید خودکار توسط pa-layout</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-row pa-mb-2">
+          <div class="pa-col-6">
+            <div class="pa-card pa-h-full">
+              <div class="pa-card-header"><h3>نمونهٔ زنده: توست</h3></div>
+              <div class="pa-card-body">
+                <p>توست‌ها از JavaScript ساخته می‌شوند و روی گوشهٔ صفحه ظاهر می‌شوند:</p>
+                <pre data-pa-code="js"><code>PAdminLTE.toast({
+  kind: 'success',
+  title: 'ذخیره شد',
+  message: 'تغییرات با موفقیت ثبت شد.'
+});</code></pre>
+                <div class="pa-d-flex pa-gap-2 pa-flex-wrap pa-mt-2">
+                  <button type="button" class="pa-btn pa-btn-success" onclick="PAdminLTE.toast({kind:'success',title:'ذخیره شد',message:'این یک توست نمونه است.'})">توست موفق</button>
+                  <button type="button" class="pa-btn pa-btn-danger" onclick="PAdminLTE.toast({kind:'danger',title:'خطا',message:'عملیات ناموفق بود.'})">توست خطا</button>
+                  <button type="button" class="pa-btn pa-btn-outline" onclick="PAdminLTE.toast({kind:'info',message:'پیام اطلاع‌رسانی.'})">توست اطلاعات</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-6">
+            <div class="pa-card pa-h-full">
+              <div class="pa-card-header"><h3>نمونهٔ زنده: مدال</h3></div>
+              <div class="pa-card-body">
+                <p>مدال را با ویژگی <code>data-pa-modal</code> به یک المان هدف وصل کنید:</p>
+                <pre data-pa-code="html"><code>&lt;button data-pa-modal="#demo-modal"&gt;باز کردن&lt;/button&gt;
+
+&lt;div class="pa-modal" id="demo-modal"&gt;
+  &lt;div class="pa-modal-dialog"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                <button type="button" class="pa-btn pa-btn-primary pa-mt-2" data-pa-modal="#usage-demo-modal" data-pa-icon="external" data-pa-icon-size="16"> امتحان کنید</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>نمونهٔ زنده: نمودار بومی</h3></div>
+          <div class="pa-card-body">
+            <p>نمودارها روی Canvas خام رسم می‌شوند (بدون Chart.js) و ابزار نمایش مقدار زیر ماوس دارند:</p>
+            <pre data-pa-code="html"><code>&lt;canvas data-pa-chart="line"
+  data-pa-chart-data='{"labels":["شنبه","یکشنبه","دوشنبه"],
+                       "series":[{"label":"فروش","values":[12,19,8]}]}'&gt;&lt;/canvas&gt;</code></pre>
+            <div class="pa-chart-wrap pa-mt-2">
+              <canvas data-pa-chart="line" height="120"
+                data-pa-chart-data='{"labels":["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه"],"series":[{"label":"بازدید","values":[120,190,80,150,210]}],"colors":["#0d6efd"]}'></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>میان‌برهای صفحه‌کلید</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table">
+                <thead><tr><th>میان‌بر</th><th>عمل</th></tr></thead>
+                <tbody>
+                  <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd></td><td>باز کردن پالت فرمان و پرش سریع به هر صفحه</td></tr>
+                  <tr><td><kbd>?</kbd></td><td>نمایش برگهٔ میان‌برها (Shift + /)</td></tr>
+                  <tr><td><kbd>Shift</kbd> + <kbd>T</kbd></td><td>تغییر تم روشن/تیره</td></tr>
+                  <tr><td><kbd>Shift</kbd> + <kbd>D</kbd></td><td>تغییر جهت RTL/LTR</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-d-flex pa-gap-2 pa-flex-wrap pa-mb-2">
+          <a class="pa-btn pa-btn-outline" href="docs-install.html"><span data-pa-icon="arrow_right" data-pa-icon-size="16"></span> نصب و پیکربندی اولیه</a>
+          <a class="pa-btn pa-btn-outline" href="docs-customize.html">سفارشی‌سازی و تم <span data-pa-icon="arrow_left" data-pa-icon-size="16"></span></a>
+          <a class="pa-btn pa-btn-outline" href="docs-api.html">مرجع API <span data-pa-icon="arrow_left" data-pa-icon-size="16"></span></a>
+        </div>
+
+        <!-- مدال نمونهٔ همین صفحه -->
+        <div class="pa-modal-backdrop" id="usage-demo-modal">
+          <div class="pa-modal" role="dialog" aria-modal="true">
+            <div class="pa-modal-header">
+              <h3>مدال نمونه</h3>
+              <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+            </div>
+            <div class="pa-modal-body">
+              <p>این مدال با همان الگویی باز شد که در بلوک کد بالا دیدید. محتوای مدال کاملاً در اختیار شماست.</p>
+            </div>
+            <div class="pa-modal-footer">
+              <button type="button" class="pa-btn pa-btn-outline" data-pa-modal-close>بستن</button>
+              <button type="button" class="pa-btn pa-btn-primary" data-pa-modal-close>متوجه شدم</button>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+</body>
+</html>

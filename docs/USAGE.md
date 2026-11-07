@@ -5,6 +5,12 @@
 نشان داده شده است.
 
 > برای راهنمای API جاوااسکریپت به [`API.md`](./API.md) و برای سفارشی‌سازی به [`CUSTOMIZE.md`](./CUSTOMIZE.md) مراجعه کنید.
+>
+> 📚 نسخهٔ تعاملی همین مستندات داخل خود قالب هم هست: بخش **«مستندات»** سایدبار —
+> [`pages/docs-install.html`](../pages/docs-install.html) (نصب و پیکربندی اولیه)،
+> [`pages/docs-usage.html`](../pages/docs-usage.html) (راهنمای استفاده)،
+> [`pages/docs-customize.html`](../pages/docs-customize.html) (سفارشی‌سازی و تم) و
+> [`pages/docs-api.html`](../pages/docs-api.html) (مرجع API) — با بلوک‌های کد قابل کپی و نمونه‌های زنده.
 
 ---
 

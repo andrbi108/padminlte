@@ -196,6 +196,15 @@ code { background: var(--pa-surface-3); padding: .1rem .35rem; border-radius: .2
 }
 .pa-sidebar-tree.is-open { max-height: 600px; }
 .pa-sidebar-tree .pa-sidebar-link { padding-left: 3rem; font-size: .9rem; }
+/* v1.6 — tree toggles are real <button>s (no dead '#' links) */
+button.pa-sidebar-link {
+  width: 100%; border: 0; background: none; font: inherit;
+  text-align: start; cursor: pointer; color: var(--pa-sidebar-link);
+}
+button.pa-sidebar-link:hover { color: #fff; }
+/* v1.6 — indent trees from the correct side in RTL */
+[dir="rtl"] .pa-sidebar-tree .pa-sidebar-link { padding-left: 1rem; padding-right: 3rem; }
+[dir="rtl"] .pa-sidebar-tree .pa-sidebar-link.is-active { border-right-color: var(--pa-sidebar-active); }
 .pa-sidebar-footer {
   padding: .8rem 1rem; font-size: .75rem; color: var(--pa-text-soft);
   border-top: 1px solid rgba(255,255,255,.06); flex-shrink: 0;
@@ -323,12 +332,19 @@ code { background: var(--pa-surface-3); padding: .1rem .35rem; border-radius: .2
 /* ---------- 8. Grid ---------- */
 .pa-row { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0 0 1rem; }
 .pa-col { flex: 1 1 0; min-width: 0; }
+.pa-h-full { height: 100%; }
+.pa-color-chip {
+  width: 44px; height: 44px; border-radius: var(--pa-radius);
+  display: inline-block; box-shadow: var(--pa-shadow); cursor: pointer;
+  transition: transform .15s ease;
+}
+.pa-color-chip:hover { transform: scale(1.12); }
 .pa-col-3  { flex: 0 1 calc(25%   - .75rem); min-width: 0; }
 .pa-col-4  { flex: 0 1 calc(33.3333% - .666rem); min-width: 0; }
 .pa-col-6  { flex: 0 1 calc(50%   - .5rem); min-width: 0; }
 .pa-col-8  { flex: 0 1 calc(66.6666% - .333rem); min-width: 0; }
 .pa-col-9  { flex: 0 1 calc(75%   - .25rem); min-width: 0; }
-.pa-col-12 { flex: 0 0 100%; }
+.pa-col-12 { flex: 0 0 100%; min-width: 0; } /* v1.6: min-width:0 — code blocks/tables must not inflate the column */
 @media (max-width: 992px) {
   .pa-col-3, .pa-col-4, .pa-col-6, .pa-col-8, .pa-col-9 { flex: 0 0 calc(50% - .5rem); }
 }
@@ -640,6 +656,9 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-auth-card {
   background: var(--pa-surface); border-radius: var(--pa-radius-lg);
   box-shadow: var(--pa-shadow-lg); width: 100%; max-width: 420px;
+  /* v1.6: min-width:0 — as a grid item the card must shrink to the
+     viewport instead of pushing the page 12px sideways on phones */
+  min-width: 0;
   padding: 2rem 1.75rem; border: 1px solid var(--pa-border);
 }
 .pa-auth-card.pa-wide { max-width: 720px; }
@@ -984,6 +1003,11 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 
 /* ---------- 34. OTP input ---------- */
 .pa-otp-group { display: inline-flex; gap: .5rem; direction: ltr; }
+/* v1.6: 6×48px inputs + gaps overflow 390px phones inside the auth card */
+@media (max-width: 480px) {
+  .pa-otp-input { width: 42px; height: 52px; font-size: 1.3rem; }
+  .pa-otp-group { gap: .4rem; }
+}
 .pa-otp-input {
   width: 48px; height: 56px; text-align: center;
   font-size: 1.5rem; font-weight: 700;
@@ -1973,7 +1997,17 @@ html[dir="ltr"] .pa-carousel-arrow.pa-ca-next, [dir="ltr"] .pa-carousel-arrow.pa
 .pa-gallery-view button.is-active { background: var(--pa-primary); color: #fff; }
 .pa-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
 .pa-gallery.is-masonry { display: block; columns: 4 180px; column-gap: 1rem; }
-.pa-gallery.is-masonry .pa-g-item { margin-bottom: 1rem; break-inside: avoid; aspect-ratio: auto !important; height: auto !important; }
+/* v1.6 fix: gallery items are <button>s, which shrink-to-fit their content.
+   Inside CSS multicol there is no grid stretch, and .pa-g-media uses
+   width:100% (relative to the item), so the item collapsed to width 0.
+   An explicit block display + width:100% breaks the circular sizing. */
+.pa-gallery.is-masonry .pa-g-item {
+  display: block; width: 100%;
+  margin-bottom: 1rem; break-inside: avoid;
+  -webkit-column-break-inside: avoid; page-break-inside: avoid;
+  aspect-ratio: auto !important; height: auto !important;
+}
+.pa-gallery.is-masonry .pa-g-media { width: 100%; }
 .pa-gallery.is-list { display: flex; flex-direction: column; gap: .65rem; }
 .pa-gallery.is-list .pa-g-item { aspect-ratio: auto !important; height: 86px !important; display: flex; }
 .pa-g-item {
@@ -2596,8 +2630,11 @@ img[data-pa-lazy].is-lazy-loaded {
 }
 .pa-code-copy:hover { background: rgba(255,255,255,.12); color: #fff; }
 .pa-code-copy.is-copied { color: #4ade80; }
-.pa-code pre { margin: 0; padding: .9rem 1rem; overflow: auto; }
+.pa-code pre { margin: 0; padding: .9rem 1rem; overflow: auto; background: transparent; }
 .pa-code code { font-family: var(--pa-font-mono); direction: ltr; text-align: left; display: block; }
+/* v1.6 fix: the inline-code chip background (line «code {…}») was covering
+   the actual code text inside dark code blocks — show plain code instead. */
+.pa-code pre code { background: transparent; padding: 0; border-radius: 0; color: inherit; }
 
 /* =============================================================
    77. Keyboard shortcuts sheet (v1.5 — « ? » key)

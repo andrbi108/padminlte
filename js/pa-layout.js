@@ -62,15 +62,22 @@
     var anyActive = items.some(function (it) {
       return (location.pathname.split('/').pop() || 'index.html') === it.href.split('/').pop();
     });
+    // v1.6: group (toggle button + tree) wrapped in .pa-tree-item so
+    // initSidebarTree() can find the tree relative to the toggle.
+    // v1.6: <button> instead of <a href="#"> — no dead link, real control.
+    // v1.6: chevron carries .pa-chevron so the open-state rotation CSS applies.
+    var chevron = icon('chevron_right', 14).replace('class="pa-icon"', 'class="pa-icon pa-chevron"');
     return '' +
-      '<a class="pa-sidebar-link" href="#" data-pa-tree-toggle aria-expanded="' + (anyActive ? 'true' : 'false') + '">' +
-        icon(iconName, 20) +
-        '<span class="pa-label">' + label + '</span>' +
-        icon('chevron_right', 14, ) +
-      '</a>' +
-      '<ul class="pa-sidebar-tree' + (anyActive ? ' is-open' : '') + '">' +
-        items.map(function (it) { return '<li>' + navItem(it.href, it.icon || 'circle', it.label, it.badge) + '</li>'; }).join('') +
-      '</ul>';
+      '<div class="pa-tree-item' + (anyActive ? ' is-open' : '') + '">' +
+        '<button type="button" class="pa-sidebar-link" data-pa-tree-toggle aria-expanded="' + (anyActive ? 'true' : 'false') + '">' +
+          icon(iconName, 20) +
+          '<span class="pa-label">' + label + '</span>' +
+          chevron +
+        '</button>' +
+        '<ul class="pa-sidebar-tree' + (anyActive ? ' is-open' : '') + '">' +
+          items.map(function (it) { return '<li>' + navItem(it.href, it.icon || 'circle', it.label, it.badge) + '</li>'; }).join('') +
+        '</ul>' +
+      '</div>';
   }
 
   function sidebar(opts) {
@@ -193,6 +200,15 @@
         ]
       },
       {
+        title: 'مستندات',
+        items: [
+          { href: 'pages/docs-install.html', icon: 'download', label: 'نصب و پیکربندی اولیه' },
+          { href: 'pages/docs-usage.html', icon: 'book_open', label: 'راهنمای استفاده' },
+          { href: 'pages/docs-customize.html', icon: 'wand', label: 'سفارشی‌سازی و تم' },
+          { href: 'pages/docs-api.html', icon: 'terminal', label: 'مرجع API' }
+        ]
+      },
+      {
         title: 'خطاها',
         items: [
           { href: 'pages/404.html', icon: 'x_circle', label: 'خطای ۴۰۴' },
@@ -226,7 +242,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۴.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۶.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -324,7 +340,7 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۵.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۶.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';

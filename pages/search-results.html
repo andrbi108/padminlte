@@ -10,8 +10,9 @@
     .pa-sr-hero h2 { margin: 0 0 1rem; font-size: 1.1rem; }
     .pa-sr-searchbar { position: relative; }
     .pa-sr-searchbar .pa-icon { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; color: var(--pa-text-muted); }
-    [dir="rtl"] .pa-sr-searchbar input { padding: .85rem 3rem .85rem 1rem; }
-    .pa-sr-searchbar input { width: 100%; border: 1px solid var(--pa-border); border-radius: var(--pa-radius-lg); background: var(--pa-surface); color: var(--pa-text); font-size: 1.05rem; }
+    /* v1.6: reserve room for the embedded submit button (left) and the
+       magnifier icon (right) so typed text never slides under them. */
+    .pa-sr-searchbar input { width: 100%; padding: .85rem 3rem .85rem 8rem; border: 1px solid var(--pa-border); border-radius: var(--pa-radius-lg); background: var(--pa-surface); color: var(--pa-text); font-size: 1.05rem; }
     .pa-sr-searchbar input:focus { outline: 0; border-color: var(--pa-primary); box-shadow: 0 0 0 .2rem rgba(13,110,253,.15); }
     .pa-sr-searchbar .pa-sr-submit { position: absolute; left: .5rem; top: 50%; transform: translateY(-50%); }
     .pa-sr-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding: .5rem 0; margin-bottom: 1rem; }

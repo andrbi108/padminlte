@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — مرجع API</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>مرجع API</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <a href="docs-install.html">مستندات</a>
+              <span class="pa-sep">›</span>
+              <span>مرجع API</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-alert pa-alert-info pa-mb-2">
+          <span data-pa-icon="terminal" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">
+            همهٔ توابع روی شیء جهانی <code>PAdminLTE</code> در دسترس‌اند. این صفحه خلاصهٔ پرکاربردترین‌هاست؛ فهرست کامل با جزئیات در <a href="https://github.com/andrbi108/padminlte/blob/main/docs/API.md" target="_blank" rel="noopener"><code>docs/API.md</code></a> آمده است.
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>ظاهر و پوسته (Theme / Dir / Sidebar)</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table pa-table-striped">
+                <thead><tr><th>تابع</th><th>کار</th><th>نمونه</th></tr></thead>
+                <tbody>
+                  <tr><td><code>getTheme() / setTheme(t)</code></td><td>خواندن/تنظیم تم <code>'light'</code> یا <code>'dark'</code></td><td><code>PAdminLTE.setTheme('dark')</code></td></tr>
+                  <tr><td><code>toggleTheme()</code></td><td>جابجایی بین دو تم</td><td><code>PAdminLTE.toggleTheme()</code></td></tr>
+                  <tr><td><code>getDir() / setDir(d)</code></td><td>خواندن/تنظیم جهت <code>'rtl'</code> یا <code>'ltr'</code></td><td><code>PAdminLTE.setDir('ltr')</code></td></tr>
+                  <tr><td><code>toggleDir()</code></td><td>جابجایی جهت صفحه</td><td><code>PAdminLTE.toggleDir()</code></td></tr>
+                  <tr><td><code>getSidebarState() / setSidebarState(s)</code></td><td>وضعیت سایدبار <code>'normal'</code> یا <code>'mini'</code></td><td><code>PAdminLTE.setSidebarState('mini')</code></td></tr>
+                  <tr><td><code>toggleSidebar()</code></td><td>جمع/باز کردن سایدبار</td><td><code>PAdminLTE.toggleSidebar()</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>مدال، توست و بازخورد</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table pa-table-striped">
+                <thead><tr><th>تابع</th><th>کار</th><th>نمونه</th></tr></thead>
+                <tbody>
+                  <tr><td><code>openModal(sel)</code></td><td>باز کردن مدال با سلکتور بک‌دراپ</td><td><code>PAdminLTE.openModal('#crud-modal')</code></td></tr>
+                  <tr><td><code>closeModal(sel)</code></td><td>بستن مدال</td><td><code>PAdminLTE.closeModal('#crud-modal')</code></td></tr>
+                  <tr><td><code>toast(o)</code></td><td>نمایش اعلان شناور</td><td><code>toast({kind:'success', title:'…', message:'…'})</code></td></tr>
+                  <tr><td><code>notify(o)</code></td><td>افزودن آیتم به فهرست اعلان‌های هدر</td><td><code>notify({title:'…'})</code></td></tr>
+                  <tr><td><code>btnLoading(btn, on)</code></td><td>حالت بارگذاری روی دکمه</td><td><code>btnLoading(el, true)</code></td></tr>
+                  <tr><td><code>loader.show()/hide()</code></td><td>پوشش بارگذاری تمام‌صفحه</td><td><code>PAdminLTE.loader.show()</code></td></tr>
+                  <tr><td><code>copyToClipboard(t)</code></td><td>کپی متن (Promise)</td><td><code>copyToClipboard('متن')</code></td></tr>
+                  <tr><td><code>lightbox.open(items, i)</code></td><td>نمایش گالری نور</td><td>به‌کار رفته در صفحهٔ گالری</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="pa-d-flex pa-gap-2 pa-flex-wrap pa-mt-2">
+              <button type="button" class="pa-btn pa-btn-outline" id="api-toast-demo">امتحان toast</button>
+              <button type="button" class="pa-btn pa-btn-outline" id="api-modal-demo">امتحان openModal</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>نمودارهای بومی (Canvas)</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table pa-table-striped">
+                <thead><tr><th>تابع</th><th>نوع نمودار</th></tr></thead>
+                <tbody>
+                  <tr><td><code>lineChart(canvas, data, opts)</code></td><td>خطی — با انیمیشن رسم و tooltip</td></tr>
+                  <tr><td><code>barChart(canvas, data, opts)</code></td><td>میله‌ای — عمودی/افقی</td></tr>
+                  <tr><td><code>donutChart(canvas, data, opts)</code></td><td>دونات/دایره‌ای با درصد وسط</td></tr>
+                  <tr><td><code>sparkline(canvas, data, opts)</code></td><td>نمودار کوچک تک‌سری برای ویجت‌ها</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="pa-mt-2">در اکثر موارد نیازی به فراخوانی مستقیم نیست؛ ویژگی <code>data-pa-chart="line|bar|donut|sparkline"</code> روی <code>&lt;canvas&gt;</code> کافی است. برای رندر مجدد با دادهٔ تازه، همان تابع را دوباره روی همان canvas صدا بزنید.</p>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>فرم‌ها و داده</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-responsive">
+              <table class="pa-table pa-table-striped">
+                <thead><tr><th>تابع</th><th>کار</th></tr></thead>
+                <tbody>
+                  <tr><td><code>validateForm(form)</code></td><td>اعتبارسنجی بومی فیلدهای required/type/pattern + پیام فارسی</td></tr>
+                  <tr><td><code>serializeForm(form)</code></td><td>تبدیل فیلدهای فرم به شیء JS</td></tr>
+                  <tr><td><code>initDatatable(table)</code></td><td>جستجو، مرتب‌سازی، صفحه‌بندی و خروجی CSV برای جدول</td></tr>
+                  <tr><td><code>exportTableCSV(table, name)</code></td><td>خروجی CSV با BOM (سازگار با Excel فارسی)</td></tr>
+                  <tr><td><code>countdown(el, seconds, onEnd)</code></td><td>شمارش معکوس (OTP و…)</td></tr>
+                  <tr><td><code>animateCount(el, to)</code></td><td>شمارندهٔ عددی متحرک با ارقام فارسی</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>رویدادها و boot</h3></div>
+          <div class="pa-card-body">
+            <p>سیستم رویداد داخلی برای هماهنگی بین کامپوننت‌ها:</p>
+            <pre data-pa-code="js"><code>PAdminLTE.on('pa:theme', function (e) {
+  console.log('تم عوض شد:', e.detail.theme);
+});
+
+PAdminLTE.emit('pa:theme', { theme: 'dark' });</code></pre>
+            <p class="pa-mt-2">رویدادهای منتشرشدهٔ داخلی: <code>pa:theme</code>، <code>pa:dir</code>، <code>pa:sidebar</code>، <code>pa:modal-open</code>، <code>pa:modal-close</code>، <code>pa:wizard-step</code>، <code>pa:net</code> و…</p>
+            <p>برای محتوای تزریق‌شدهٔ پویا (AJAX خودتان)، زیردرخت جدید را دوباره راه‌اندازی کنید:</p>
+            <pre data-pa-code="js"><code>PAdminLTE.boot(newNode);</code></pre>
+          </div>
+        </div>
+
+        <div class="pa-d-flex pa-gap-2 pa-flex-wrap pa-mb-2">
+          <a class="pa-btn pa-btn-outline" href="docs-install.html"><span data-pa-icon="arrow_right" data-pa-icon-size="16"></span> نصب و پیکربندی اولیه</a>
+          <a class="pa-btn pa-btn-outline" href="docs-usage.html"><span data-pa-icon="arrow_right" data-pa-icon-size="16"></span> راهنمای استفاده</a>
+          <a class="pa-btn pa-btn-outline" href="docs-customize.html"><span data-pa-icon="arrow_right" data-pa-icon-size="16"></span> سفارشی‌سازی و تم</a>
+        </div>
+
+        <div class="pa-modal-backdrop" id="api-demo-modal">
+          <div class="pa-modal" role="dialog" aria-modal="true">
+            <div class="pa-modal-header">
+              <h3>openModal کار کرد!</h3>
+              <button type="button" class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+            </div>
+            <div class="pa-modal-body"><p>این مدال با <code>PAdminLTE.openModal('#api-demo-modal')</code> باز شده است.</p></div>
+            <div class="pa-modal-footer"><button type="button" class="pa-btn pa-btn-primary" data-pa-modal-close>بستن</button></div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    document.getElementById('api-toast-demo').addEventListener('click', function () {
+      PAdminLTE.toast({ kind: 'success', title: 'ذخیره شد', message: 'فراخوانی PAdminLTE.toast موفق بود.' });
+    });
+    document.getElementById('api-modal-demo').addEventListener('click', function () {
+      PAdminLTE.openModal('#api-demo-modal');
+    });
+  </script>
+</body>
+</html>
