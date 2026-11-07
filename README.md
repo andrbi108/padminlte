@@ -35,6 +35,7 @@
 - 🚚 **پیگیری سفارش (v1.9)**: `track-order.html?no=PA-XXXXXX` با نوار مراحل وضعیت (ثبت ← پرداخت ← پردازش ← ارسال ← تحویل)، اقلام و جمع‌های واقعی سفارش، لینک فاکتور و نمونهٔ نمایشی یک‌کلیکی
 - ⚡ **مشاهدهٔ سریع محصول (v1.9)**: مودال پیک/افزودن به سبد از خود لیست فروشگاه، بدون ترک صفحه
 - 🧭 **چیدمان اصلاح‌شده (v1.9)**: ستون‌های `pa-col-5/7` تعریف شدند، جعبهٔ خرید صفحهٔ محصول چسبان شد، ۱۰ کلاس پرکاربردِ تعریف‌نشده رنگ و اندازه گرفتند و ممیزی خودکار ۶۶ صفحه × ۳ دیدگاه صفر سرریز نشان می‌دهد
+- 🔀 **جهت‌پذیری با خواص منطقی CSS (v2.0)**: کل پوستهٔ RTL/LTR با `inset-inline-*`، `margin-inline-start` و گوشه‌های منطقی بازنویسی شد — یک قاعده به‌جای دو قاعدهٔ فیزیکی + override؛ آیکون تزئینی جعبه‌های آمار با `inset-inline-end: 0` به لبهٔ درست می‌چسبد (RTL: چپ‌ترین نقطه، LTR: راست‌ترین نقطه)، باگ مارجین ۷۰px حالت مینی در RTL رفع شد و جهت انتخابی دیگر با رفرش از بین نمی‌رود
 - 💬 **انجمن و وبلاگ**: لیست مطالب، مطلب کامل، لیست گفتگوها، موضوع انجمن، دسته‌بندی‌ها، ابر برچسب‌ها
 - 📋 **اپ‌های کامل**: صندوق ایمیل، مدیریت فایل، تخته کانبان با drag-and-drop، مرکز اعلان‌ها، پنل کاربری، نتایج جستجو
 - ⌨️ **پالت فرمان (Ctrl+K/⌘K)**: جستجوی زندهٔ همهٔ صفحات + فرمان‌های سریع، بدون وابستگی
@@ -292,6 +293,7 @@ MIT — آزاد برای استفادهٔ تجاری و غیرتجاری. بر�
 - Command palette (Ctrl+K/⌘K), 8 timeline variants, one-click CSV table export
 - Real storefront loop (v1.8): orders placed at checkout appear in the admin Orders page (live stats, 7-day revenue chart, persistent status changes, per-order invoice `invoice.html?no=`), shared wishlist API (`PAdminLTE.wishlist`) with a heart badge in the site navbar, and a real site-wide search (`search-results.html?q=`) across products, blog, forum and pages
 - Public order tracking + shop quick view (v1.9): `track-order.html?no=PA-XXXXXX` renders the real order record with a status stepper (register → paid → processing → shipped → delivered), items, totals and invoice link; an eye-button on every shop card opens a quick-view modal (details, qty, add-to-cart) without leaving the listing; layout audit defined the missing `pa-col-5/7` columns (product buy box side-by-side + sticky) and 10 other silently-unstyled utility classes
+- Logical-property direction engine (v2.0): the whole RTL/LTR shell was rewritten with `inset-inline-*`, `margin-inline-start` and logical radii — one rule instead of physical rules + `[dir]` overrides; the small-box watermark icon anchors with `inset-inline-end: 0` (flush LEFT in RTL / flush RIGHT in LTR), the RTL mini-sidebar phantom 70px margin is fixed, and the chosen direction now survives reloads
 - Multi-step form wizard, form draft auto-save, drag-and-drop sortable lists, offline/online banner, copy-to-clipboard code blocks
 - Keyboard shortcuts sheet (`?`) with Shift+T (theme) / Shift+D (direction); professional `@media print` stylesheet
 - Accessibility: skip links, ARIA, keyboard support, focus-visible, prefers-reduced-motion

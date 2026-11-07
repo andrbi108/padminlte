@@ -108,7 +108,7 @@ a:hover { text-decoration: underline; }
 img { max-width: 100%; display: block; }
 button { font: inherit; }
 hr { border: 0; border-top: 1px solid var(--pa-border); margin: 1rem 0; }
-ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+ul, ol { margin: 0 0 1rem; padding-inline-start: 1.25rem; }
 small { font-size: .875em; color: var(--pa-text-muted); }
 code, pre { font-family: var(--pa-font-mono); font-size: .9em; }
 pre {
@@ -128,7 +128,7 @@ code { background: var(--pa-surface-3); padding: .1rem .35rem; border-radius: .2
   background: var(--pa-sidebar-bg);
   color: var(--pa-sidebar-text);
   position: fixed;
-  top: 0; left: 0; bottom: 0;
+  top: 0; inset-inline-start: 0; bottom: 0;
   display: flex;
   flex-direction: column;
   z-index: 1030;
@@ -171,14 +171,14 @@ code { background: var(--pa-surface-3); padding: .1rem .35rem; border-radius: .2
   display: flex; align-items: center; gap: .7rem;
   padding: .6rem 1rem;
   color: var(--pa-sidebar-link); text-decoration: none;
-  border-left: 3px solid transparent;
+  border-inline-start: 3px solid transparent;
   white-space: nowrap;
   transition: background var(--pa-transition), color var(--pa-transition);
 }
 .pa-sidebar-link:hover { background: var(--pa-sidebar-hover); color: #fff; text-decoration: none; }
 .pa-sidebar-link.is-active {
   background: var(--pa-sidebar-hover); color: #fff;
-  border-left-color: var(--pa-sidebar-active);
+  border-inline-start-color: var(--pa-sidebar-active);
 }
 .pa-sidebar-link .pa-icon { width: 20px; height: 20px; flex-shrink: 0; opacity: .9; }
 .pa-sidebar-link .pa-label { flex: 1; }
@@ -195,16 +195,13 @@ code { background: var(--pa-surface-3); padding: .1rem .35rem; border-radius: .2
   background: rgba(0,0,0,.18);
 }
 .pa-sidebar-tree.is-open { max-height: 600px; }
-.pa-sidebar-tree .pa-sidebar-link { padding-left: 3rem; font-size: .9rem; }
+.pa-sidebar-tree .pa-sidebar-link { padding-inline-start: 3rem; font-size: .9rem; }
 /* v1.6 — tree toggles are real <button>s (no dead '#' links) */
 button.pa-sidebar-link {
   width: 100%; border: 0; background: none; font: inherit;
   text-align: start; cursor: pointer; color: var(--pa-sidebar-link);
 }
 button.pa-sidebar-link:hover { color: #fff; }
-/* v1.6 — indent trees from the correct side in RTL */
-[dir="rtl"] .pa-sidebar-tree .pa-sidebar-link { padding-left: 1rem; padding-right: 3rem; }
-[dir="rtl"] .pa-sidebar-tree .pa-sidebar-link.is-active { border-right-color: var(--pa-sidebar-active); }
 .pa-sidebar-footer {
   padding: .8rem 1rem; font-size: .75rem; color: var(--pa-text-soft);
   border-top: 1px solid rgba(255,255,255,.06); flex-shrink: 0;
@@ -213,10 +210,10 @@ button.pa-sidebar-link:hover { color: #fff; }
 /* ---------- 4. Main wrapper ---------- */
 .pa-main {
   flex: 1 1 auto;
-  margin-left: var(--pa-sidebar-width);
+  margin-inline-start: var(--pa-sidebar-width);
   display: flex; flex-direction: column;
   min-width: 0;
-  transition: margin-left var(--pa-transition);
+  transition: margin-inline-start var(--pa-transition);
 }
 .pa-header {
   height: var(--pa-header-height);
@@ -240,7 +237,7 @@ button.pa-sidebar-link:hover { color: #fff; }
   position: relative; flex: 0 1 280px;
 }
 .pa-search input {
-  width: 100%; padding: .45rem .75rem .45rem 2.2rem;
+  width: 100%; padding-block: .45rem; padding-inline: 2.2rem .75rem;
   border: 1px solid var(--pa-border); border-radius: var(--pa-radius);
   background: var(--pa-surface); color: var(--pa-text);
   font-size: .9rem; transition: border var(--pa-transition), box-shadow var(--pa-transition);
@@ -249,12 +246,12 @@ button.pa-sidebar-link:hover { color: #fff; }
   outline: 0; border-color: var(--pa-primary);
   box-shadow: 0 0 0 .2rem rgba(13,110,253,.18);
 }
-.pa-search .pa-icon { position: absolute; left: .65rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--pa-text-muted); }
+.pa-search .pa-icon { position: absolute; inset-inline-start: .65rem; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--pa-text-muted); }
 
 /* ---------- 5. Dropdown ---------- */
 .pa-dropdown { position: relative; display: inline-block; }
 .pa-dropdown-menu {
-  position: absolute; right: 0; top: calc(100% + 6px);
+  position: absolute; inset-inline-end: 0; top: calc(100% + 6px);
   min-width: 220px;
   background: var(--pa-surface);
   border: 1px solid var(--pa-border);
@@ -365,23 +362,17 @@ button.pa-sidebar-link:hover { color: #fff; }
 .pa-small-box .pa-inner h3 { font-size: 1.8rem; font-weight: 700; margin: 0 0 .15rem; }
 .pa-small-box .pa-inner p  { margin: 0; font-size: .9rem; opacity: .9; }
 /* Decorative oversized icon inside small boxes.
-   RTL (default, html[dir="rtl"]): icon hugs the LEFT edge.
-   LTR: icon hugs the RIGHT edge. Values per design spec v1.2. */
+   v2.0 — ONE rule anchored with the logical `inset-inline-end`: it hugs the
+   inline-END edge of the box in both directions, i.e. the LEFTMOST point of
+   .pa-small-box in RTL and the RIGHTMOST point in LTR (as requested).
+   overflow:hidden on the box clips the oversized bleed for the classic
+   AdminLTE watermark look — no per-direction override left to drift. */
 .pa-small-box .pa-icon-bg {
   position: absolute;
-  left: 4rem;
+  inset-inline-end: 0;
   bottom: 2.25rem;
   opacity: .25;
-  transform: scale(2.2) translate(-.5rem, .25rem);
-  pointer-events: none;
-}
-html[dir="ltr"] .pa-small-box .pa-icon-bg,
-[dir="ltr"] .pa-small-box .pa-icon-bg {
-  position: absolute;
-  right: 2rem;
-  bottom: 2.25rem;
-  opacity: .25;
-  transform: scale(2.2) translate(-.5rem, .25rem);
+  transform: scale(2.2);
   pointer-events: none;
 }
 .pa-small-box .pa-footer-link {
@@ -505,11 +496,15 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-input-group { display: flex; align-items: stretch; }
 .pa-input-group .pa-input-addon {
   padding: .5rem .75rem; background: var(--pa-surface-3);
-  border: 1px solid var(--pa-border); border-right: 0;
-  border-radius: var(--pa-radius) 0 0 var(--pa-radius);
+  border: 1px solid var(--pa-border); border-inline-end: 0;
+  border-start-start-radius: var(--pa-radius);
+  border-end-start-radius: var(--pa-radius);
   display: flex; align-items: center; color: var(--pa-text-muted); font-size: .9rem;
 }
-.pa-input-group .pa-input { border-radius: 0 var(--pa-radius) var(--pa-radius) 0; }
+.pa-input-group .pa-input {
+  border-start-end-radius: var(--pa-radius);
+  border-end-end-radius: var(--pa-radius);
+}
 .pa-form-check { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; }
 .pa-form-check input { width: 16px; height: 16px; accent-color: var(--pa-primary); cursor: pointer; }
 .pa-form-check label { margin: 0; cursor: pointer; font-weight: 400; }
@@ -543,7 +538,7 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-alert .pa-alert-body { flex: 1; }
 .pa-alert .pa-close {
   background: transparent; border: 0; cursor: pointer; opacity: .6;
-  font-size: 1.2rem; line-height: 1; padding: 0; margin-left: auto;
+  font-size: 1.2rem; line-height: 1; padding: 0; margin-inline-start: auto;
 }
 .pa-alert .pa-close:hover { opacity: 1; }
 .pa-alert-info    { background: var(--pa-info-soft);    border-color: #b6effb; color: #055160; }
@@ -587,21 +582,24 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 
 /* ---------- 18. Toasts ---------- */
 .pa-toast-container {
-  position: fixed; top: 1rem; right: 1rem; z-index: 3000;
+  position: fixed; top: 1rem; inset-inline-end: 1rem; z-index: 3000;
   display: flex; flex-direction: column; gap: .5rem; max-width: 360px;
 }
 .pa-toast {
   background: var(--pa-surface); border: 1px solid var(--pa-border);
-  border-left: 4px solid var(--pa-primary); border-radius: var(--pa-radius);
+  border-inline-start: 4px solid var(--pa-primary); border-radius: var(--pa-radius);
   box-shadow: var(--pa-shadow-lg); padding: .75rem 1rem;
   display: flex; align-items: flex-start; gap: .6rem;
   animation: pa-toast-in .25s ease-out;
 }
 @keyframes pa-toast-in { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-.pa-toast.pa-success { border-left-color: var(--pa-success); }
-.pa-toast.pa-info    { border-left-color: var(--pa-info); }
-.pa-toast.pa-warning { border-left-color: var(--pa-warning); }
-.pa-toast.pa-danger  { border-left-color: var(--pa-danger); }
+/* v2.0 — mirrored slide-in when the stack sits on the LEFT (RTL) */
+[dir="rtl"] .pa-toast { animation-name: pa-toast-in-rtl; }
+@keyframes pa-toast-in-rtl { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+.pa-toast.pa-success { border-inline-start-color: var(--pa-success); }
+.pa-toast.pa-info    { border-inline-start-color: var(--pa-info); }
+.pa-toast.pa-warning { border-inline-start-color: var(--pa-warning); }
+.pa-toast.pa-danger  { border-inline-start-color: var(--pa-danger); }
 .pa-toast .pa-toast-body { flex: 1; font-size: .9rem; }
 .pa-toast .pa-toast-title { font-weight: 600; margin-bottom: .15rem; }
 .pa-toast .pa-toast-close {
@@ -632,8 +630,8 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-avatar-md { width: 40px; height: 40px; }
 .pa-avatar-lg { width: 56px; height: 56px; }
 .pa-avatar-list { display: flex; }
-.pa-avatar-list .pa-avatar { margin-left: -10px; border: 2px solid var(--pa-surface); }
-.pa-avatar-list .pa-avatar:first-child { margin-left: 0; }
+.pa-avatar-list .pa-avatar { margin-inline-start: -10px; border: 2px solid var(--pa-surface); }
+.pa-avatar-list .pa-avatar:first-child { margin-inline-start: 0; }
 
 /* ---------- 21. User widget in header ---------- */
 .pa-user-widget {
@@ -716,16 +714,23 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-app.pa-sidebar-mini .pa-sidebar-brand { padding: 0; justify-content: center; }
 .pa-app.pa-sidebar-mini .pa-sidebar-link { justify-content: center; padding: .65rem 0; }
 .pa-app.pa-sidebar-mini .pa-sidebar-link .pa-icon { margin: 0; }
-.pa-app.pa-sidebar-mini .pa-main { margin-left: var(--pa-sidebar-mini-width); }
+/* v2.0 FIX — was `margin-left`, whose RTL override only added margin-right
+   without resetting margin-left, so RTL content got 70px from BOTH sides.
+   One logical property now reserves space on the sidebar side only
+   (right in LTR … left in RTL). */
+.pa-app.pa-sidebar-mini .pa-main { margin-inline-start: var(--pa-sidebar-mini-width); }
 
 .pa-app.pa-sidebar-collapsed .pa-sidebar { transform: translateX(-100%); }
-.pa-app.pa-sidebar-collapsed .pa-main { margin-left: 0; }
+/* v2.0 FIX — collapsed = off-canvas: slide OUT toward the sidebar edge.
+   transforms are physical, so RTL needs its own direction. */
+[dir="rtl"] .pa-app.pa-sidebar-collapsed .pa-sidebar { transform: translateX(100%); }
+.pa-app.pa-sidebar-collapsed .pa-main { margin-inline-start: 0; }
 
 @media (max-width: 992px) {
   .pa-sidebar { transform: translateX(-100%); }
   .pa-app.pa-sidebar-open .pa-sidebar { transform: translateX(0); }
-  .pa-app.pa-sidebar-open .pa-main { margin-left: 0; }
-  .pa-main { margin-left: 0 !important; }
+  .pa-app.pa-sidebar-open .pa-main { margin-inline-start: 0; }
+  .pa-main { margin-inline-start: 0 !important; }
   .pa-search { display: none; }
 }
 
@@ -765,29 +770,22 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
    (left:-9999px widens the RTL scroll area and lets users scroll
    horizontally into empty space). */
 .pa-skip-link {
-  position: fixed; top: -100px; left: 0;
+  position: fixed; top: -100px; inset-inline-start: 0;
   background: var(--pa-primary); color: #fff; padding: .5rem 1rem;
-  border-radius: 0 0 var(--pa-radius) 0; z-index: 5000;
+  border-end-end-radius: var(--pa-radius); z-index: 5000;
   transition: top .2s ease;
 }
 .pa-skip-link:focus { top: 0; }
 
-/* ---------- 28. RTL support ---------- */
-[dir="rtl"] .pa-sidebar { left: auto; right: 0; }
-[dir="rtl"] .pa-main { margin-left: 0; margin-right: var(--pa-sidebar-width); }
-[dir="rtl"] .pa-app.pa-sidebar-mini .pa-main { margin-right: var(--pa-sidebar-mini-width); }
-[dir="rtl"] .pa-dropdown-menu { right: auto; left: 0; }
-[dir="rtl"] .pa-search .pa-icon { left: auto; right: .65rem; }
-[dir="rtl"] .pa-search input { padding: .45rem 2.2rem .45rem .75rem; }
-[dir="rtl"] .pa-sidebar-link { border-left: 0; border-right: 3px solid transparent; }
-[dir="rtl"] .pa-sidebar-link.is-active { border-left: 0; border-right-color: var(--pa-sidebar-active); }
-[dir="rtl"] .pa-input-group .pa-input-addon { border-right: 1px solid var(--pa-border); border-left: 0; border-radius: 0 var(--pa-radius) var(--pa-radius) 0; }
-[dir="rtl"] .pa-input-group .pa-input { border-radius: var(--pa-radius) 0 0 var(--pa-radius); }
+/* ---------- 28. RTL support ----------
+   v2.0 — the shell (sidebar placement, main offset incl. mini mode,
+   dropdown flip, search gutter, link accents, input-group radii) is now
+   written with CSS logical properties, so it mirrors itself and these
+   direction overrides are no longer needed. Only PHYSICAL constructs that
+   cannot be logical (off-canvas transforms) keep their RTL twin here. */
 @media (max-width: 992px) {
   [dir="rtl"] .pa-sidebar { transform: translateX(100%); }
   [dir="rtl"] .pa-app.pa-sidebar-open .pa-sidebar { transform: translateX(0); }
-  /* v1.3.1: kill the reserved sidebar margin on phones too (RTL) */
-  [dir="rtl"] .pa-main { margin-right: 0 !important; }
 }
 
 /* v1.3.1 — Mobile off-canvas sidebar backdrop */
@@ -1089,7 +1087,7 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 }
 .pa-blog-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .pa-blog-thumb .pa-blog-cat {
-  position: absolute; top: 1rem; right: 1rem;
+  position: absolute; top: 1rem; inset-inline-start: 1rem;
   background: rgba(255,255,255,.95); color: var(--pa-primary);
   padding: .25rem .75rem; border-radius: 1rem; font-size: .75rem; font-weight: 600;
 }
@@ -1115,11 +1113,13 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-article h3 { font-size: 1.25rem; margin: 1.5rem 0 .75rem; }
 .pa-article p { margin: 0 0 1.25rem; }
 .pa-article blockquote {
-  border-right: 4px solid var(--pa-primary); background: var(--pa-surface-2);
-  padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 var(--pa-radius) var(--pa-radius) 0;
+  border-inline-start: 4px solid var(--pa-primary); background: var(--pa-surface-2);
+  padding: 1rem 1.5rem; margin: 1.5rem 0;
+  border-start-end-radius: var(--pa-radius);
+  border-end-end-radius: var(--pa-radius);
   font-style: italic; color: var(--pa-text-muted);
 }
-.pa-article ul, .pa-article ol { padding-right: 1.5rem; margin: 0 0 1.25rem; }
+.pa-article ul, .pa-article ol { padding-inline-start: 1.5rem; margin: 0 0 1.25rem; }
 .pa-article li { margin-bottom: .35rem; }
 .pa-article img { border-radius: var(--pa-radius); margin: 1.5rem 0; }
 .pa-article code { background: var(--pa-surface-3); padding: .15rem .4rem; border-radius: 3px; font-size: .9em; }
@@ -1140,7 +1140,7 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-product-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
 .pa-product-card:hover .pa-product-thumb img { transform: scale(1.06); }
 .pa-product-badge {
-  position: absolute; top: .75rem; right: .75rem;
+  position: absolute; top: .75rem; inset-inline-start: .75rem;
   padding: .25rem .55rem; border-radius: 1rem; font-size: .7rem; font-weight: 700;
   background: var(--pa-danger); color: #fff;
 }
@@ -1278,7 +1278,7 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-kanban-card .pa-kc-desc { font-size: .8rem; color: var(--pa-text-muted); margin-bottom: .5rem; }
 .pa-kanban-card .pa-kc-footer { display: flex; align-items: center; justify-content: space-between; font-size: .75rem; color: var(--pa-text-muted); }
 .pa-kanban-card .pa-kc-priority {
-  width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: .35rem;
+  width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-inline-end: .35rem;
 }
 .pa-kanban-card .pa-kc-priority.high { background: var(--pa-danger); }
 .pa-kanban-card .pa-kc-priority.med  { background: var(--pa-warning); }
@@ -1460,13 +1460,13 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
   display: grid; grid-template-columns: 220px 1fr; min-height: calc(100vh - var(--pa-header-height) - 6rem);
 }
 @media (max-width: 768px) { .pa-mailbox { grid-template-columns: 1fr; } }
-.pa-mailbox-sidebar { background: var(--pa-surface); border-left: 1px solid var(--pa-border); padding: 1rem; overflow-y: auto; }
+.pa-mailbox-sidebar { background: var(--pa-surface); border-inline-end: 1px solid var(--pa-border); padding: 1rem; overflow-y: auto; }
 .pa-mailbox-folder { padding: .55rem .75rem; border-radius: var(--pa-radius); display: flex; align-items: center; gap: .65rem; cursor: pointer; color: var(--pa-text); font-size: .9rem; transition: background .15s; }
 .pa-mailbox-folder:hover { background: var(--pa-surface-2); }
 .pa-mailbox-folder.is-active { background: var(--pa-primary-soft); color: var(--pa-primary); font-weight: 600; }
 .pa-mailbox-folder .pa-icon { width: 16px; height: 16px; }
-.pa-mailbox-folder .pa-ml-count { margin-right: auto; background: var(--pa-surface-3); padding: .1rem .45rem; border-radius: 1rem; font-size: .7rem; }
-.pa-mailbox-list { background: var(--pa-surface); border-left: 1px solid var(--pa-border); overflow-y: auto; }
+.pa-mailbox-folder .pa-ml-count { margin-inline-start: auto; background: var(--pa-surface-3); padding: .1rem .45rem; border-radius: 1rem; font-size: .7rem; }
+.pa-mailbox-list { background: var(--pa-surface); border-inline-end: 1px solid var(--pa-border); overflow-y: auto; }
 .pa-mail-row { padding: .75rem 1rem; border-bottom: 1px solid var(--pa-border); display: flex; gap: .75rem; align-items: center; cursor: pointer; transition: background .15s; }
 .pa-mail-row:hover { background: var(--pa-surface-2); }
 .pa-mail-row.is-unread { background: var(--pa-primary-soft); }
@@ -1523,9 +1523,11 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
   transition: all .15s; text-decoration: none; color: var(--pa-text);
 }
 .pa-category-item:hover { border-color: var(--pa-primary); background: var(--pa-surface-2); text-decoration: none; color: var(--pa-text); transform: translateX(2px); }
+/* v2.0 — nudge toward the reading direction instead of always +x */
+[dir="rtl"] .pa-category-item:hover { transform: translateX(-2px); }
 .pa-category-item .pa-cat-icon { width: 40px; height: 40px; border-radius: var(--pa-radius); background: var(--pa-primary-soft); color: var(--pa-primary); display: grid; place-items: center; flex-shrink: 0; }
 .pa-category-item .pa-cat-name { font-weight: 600; }
-.pa-category-item .pa-cat-count { margin-right: auto; color: var(--pa-text-muted); font-size: .85rem; }
+.pa-category-item .pa-cat-count { margin-inline-start: auto; color: var(--pa-text-muted); font-size: .85rem; }
 .pa-category-item .pa-chevron { color: var(--pa-text-muted); }
 
 /* ---------- 47. Timeline (v1.4 — full variant system, RTL/LTR via logical props) ---------- */
@@ -1717,7 +1719,7 @@ ol.pa-timeline { list-style: none; margin: 0; padding-inline-end: 0; }
   background: var(--pa-surface-2); align-items: center;
 }
 .pa-liveedit-toolbar .pa-btn { padding: .25rem .55rem; font-size: .8rem; }
-.pa-liveedit-toolbar .pa-liveedit-info { margin-right: auto; font-size: .75rem; color: var(--pa-text-muted); }
+.pa-liveedit-toolbar .pa-liveedit-info { margin-inline-start: auto; font-size: .75rem; color: var(--pa-text-muted); }
 
 /* ---------- 49. Stat list ---------- */
 .pa-stat-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
@@ -1848,7 +1850,7 @@ ol.pa-timeline { list-style: none; margin: 0; padding-inline-end: 0; }
    ============================================================= */
 .pa-back-to-top {
   position: fixed; z-index: 3500;
-  bottom: 1.25rem; left: 1.25rem;   /* RTL default */
+  bottom: 1.25rem; inset-inline-end: 1.25rem;   /* end corner in both directions */
   width: 44px; height: 44px; border-radius: 50%;
   border: 0; cursor: pointer;
   background: var(--pa-primary); color: #fff;
@@ -1857,7 +1859,6 @@ ol.pa-timeline { list-style: none; margin: 0; padding-inline-end: 0; }
   opacity: 0; visibility: hidden; transform: translateY(14px);
   transition: opacity .25s, transform .25s, visibility .25s, background .15s;
 }
-html[dir="ltr"] .pa-back-to-top, [dir="ltr"] .pa-back-to-top { left: auto; right: 1.25rem; }
 .pa-back-to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
 .pa-back-to-top:hover { background: var(--pa-indigo, #6610f2); transform: translateY(-3px); }
 .pa-back-to-top:active { transform: translateY(0); }
@@ -1895,17 +1896,14 @@ html[dir="ltr"] .pa-back-to-top, [dir="ltr"] .pa-back-to-top { left: auto; right
   display: grid; place-items: center; transition: background .15s, transform .15s;
 }
 .pa-lightbox .pa-lb-btn:hover { background: var(--pa-primary); transform: translateY(-50%) scale(1.08); }
-.pa-lightbox .pa-lb-prev { right: 1rem; }         /* RTL: prev on right */
-.pa-lightbox .pa-lb-next { left: 1rem; }          /* RTL: next on left */
-html[dir="ltr"] .pa-lightbox .pa-lb-prev, [dir="ltr"] .pa-lightbox .pa-lb-prev { right: auto; left: 1rem; }
-html[dir="ltr"] .pa-lightbox .pa-lb-next, [dir="ltr"] .pa-lightbox .pa-lb-next { left: auto; right: 1rem; }
+.pa-lightbox .pa-lb-prev { inset-inline-start: 1rem; }
+.pa-lightbox .pa-lb-next { inset-inline-end: 1rem; }
 .pa-lightbox .pa-lb-close {
-  position: absolute; top: 1.25rem; right: 1.25rem;
+  position: absolute; top: 1.25rem; inset-inline-start: 1.25rem;
   width: 42px; height: 42px; border-radius: 50%; border: 0; cursor: pointer;
   background: rgba(255,255,255,.12); color: #fff; display: grid; place-items: center;
 }
 .pa-lightbox .pa-lb-close:hover { background: var(--pa-danger); }
-html[dir="ltr"] .pa-lightbox .pa-lb-close, [dir="ltr"] .pa-lightbox .pa-lb-close { right: auto; left: 1.25rem; }
 
 /* =============================================================
    54. Carousel (declarative: data-pa-carousel)
@@ -1929,10 +1927,8 @@ html[dir="ltr"] .pa-lightbox .pa-lb-close, [dir="ltr"] .pa-lightbox .pa-lb-close
   transition: background .15s; backdrop-filter: blur(2px);
 }
 .pa-carousel-arrow:hover { background: rgba(0,0,0,.45); }
-.pa-carousel-arrow.pa-ca-prev { right: .75rem; }
-.pa-carousel-arrow.pa-ca-next { left: .75rem; }
-html[dir="ltr"] .pa-carousel-arrow.pa-ca-prev, [dir="ltr"] .pa-carousel-arrow.pa-ca-prev { right: auto; left: .75rem; }
-html[dir="ltr"] .pa-carousel-arrow.pa-ca-next, [dir="ltr"] .pa-carousel-arrow.pa-ca-next { left: auto; right: .75rem; }
+.pa-carousel-arrow.pa-ca-prev { inset-inline-start: .75rem; }
+.pa-carousel-arrow.pa-ca-next { inset-inline-end: .75rem; }
 
 /* =============================================================
    55. Accordion (declarative: data-pa-accordion)

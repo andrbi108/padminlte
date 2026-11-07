@@ -383,7 +383,7 @@
           h.querySelector('[data-pa-sort-icon]') ? (h.querySelector('[data-pa-sort-icon]').innerHTML = '') : null;
         });
         var iconHolder = th.querySelector('[data-pa-sort-icon]') || (function () {
-          var s = document.createElement('span'); s.setAttribute('data-pa-sort-icon', ''); s.style.marginLeft = '.25rem';
+          var s = document.createElement('span'); s.setAttribute('data-pa-sort-icon', ''); s.style.marginInlineStart = '.25rem';
           th.appendChild(s); return s;
         })();
         iconHolder.innerHTML = PAdminLTE.icon(state.dir === 'asc' ? 'sort_asc' : 'sort_desc', 12);
@@ -2879,6 +2879,13 @@
   /* ---------- Auto-init everything ---------- */
   var _origBoot = boot;
   function fullBoot(root) {
+    /* v2.0 — persist the chosen direction: pages ship <html dir="rtl"> so a
+       stored LTR/RTL choice was lost on every reload. Apply it before any
+       layout-affecting init runs. */
+    var storedDir = (function () { try { return localStorage.getItem('pa-dir'); } catch (e) { return null; } })();
+    if (storedDir === 'rtl' || storedDir === 'ltr') {
+      if (document.documentElement.getAttribute('dir') !== storedDir) setDir(storedDir);
+    }
     _origBoot(root);
     initFileUpload(root);
     initOtpInputs(root);

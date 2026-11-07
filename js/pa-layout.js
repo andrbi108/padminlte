@@ -232,7 +232,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۹.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۲.۰.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -330,7 +330,7 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۹.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۲.۰.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';
@@ -452,7 +452,7 @@
             ]) +
           '</div>' +
           '<div class="pa-site-footer-bar">' +
-            '<span><strong>PAdminLTE</strong> — نسخهٔ ۱.۹.۰ &copy; ' + year + '</span>' +
+            '<span><strong>PAdminLTE</strong> — نسخهٔ ۲.۰.۰ &copy; ' + year + '</span>' +
             '<span>بدون وابستگی خارجی &middot; قابل اجرا با file://</span>' +
             '<a href="https://github.com/andrbi108/padminlte" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:.3rem; color:var(--pa-text-muted)">' + icon('github', 14) + '<span>مخزن GitHub</span></a>' +
           '</div>' +
