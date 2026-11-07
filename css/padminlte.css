@@ -341,12 +341,16 @@ button.pa-sidebar-link:hover { color: #fff; }
 .pa-color-chip:hover { transform: scale(1.12); }
 .pa-col-3  { flex: 0 1 calc(25%   - .75rem); min-width: 0; }
 .pa-col-4  { flex: 0 1 calc(33.3333% - .667rem); min-width: 0; } /* v1.8: .667rem so 3 cols + 2×1rem gap never overflow the line by rounding */
+.pa-col-5  { flex: 0 1 calc(41.6666% - .417rem); min-width: 0; } /* v1.9: 5/12 — pairs with col-7 (product buy box, forms) */
 .pa-col-6  { flex: 0 1 calc(50%   - .5rem); min-width: 0; }
+.pa-col-7  { flex: 0 1 calc(58.3334% - .583rem); min-width: 0; } /* v1.9: 7/12 — pairs with col-5; sums to 100% − 1rem gap exactly */
 .pa-col-8  { flex: 0 1 calc(66.6666% - .333rem); min-width: 0; }
 .pa-col-9  { flex: 0 1 calc(75%   - .25rem); min-width: 0; }
 .pa-col-12 { flex: 0 0 100%; min-width: 0; } /* v1.6: min-width:0 — code blocks/tables must not inflate the column */
 @media (max-width: 992px) {
   .pa-col-3, .pa-col-4, .pa-col-6, .pa-col-8, .pa-col-9 { flex: 0 0 calc(50% - .5rem); }
+  /* v1.9: 7+5 asymmetric pairs collapse to full width (a 50/50 squeeze breaks the product buy box) */
+  .pa-col-5, .pa-col-7 { flex: 0 0 100%; }
 }
 @media (max-width: 576px) {
   .pa-col-3, .pa-col-4, .pa-col-6, .pa-col-8, .pa-col-9 { flex: 0 0 100%; }
@@ -441,6 +445,13 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-btn-danger:hover { background: #b02a37; color: #fff; text-decoration: none; }
 .pa-btn-warning { background: var(--pa-warning); color: #212529; }
 .pa-btn-warning:hover { background: #d39e00; color: #212529; text-decoration: none; }
+.pa-btn-info { background: var(--pa-info); color: #fff; } /* v1.9: was used in forms/file-upload but never defined */
+.pa-btn-info:hover { background: #0aa6c2; color: #fff; text-decoration: none; }
+.pa-btn-outline-danger { /* v1.9: globalized (was inline-only in blog-compose) */
+  background: transparent; border-color: var(--pa-danger); color: var(--pa-danger);
+}
+.pa-btn-outline-danger:hover { background: var(--pa-danger); color: #fff; text-decoration: none; }
+.pa-btn-group { display: inline-flex; gap: .25rem; } /* v1.9: globalized (was inline-only in file-manager) */
 .pa-btn-outline {
   background: transparent; border-color: var(--pa-border); color: var(--pa-text);
 }
@@ -454,6 +465,8 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 
 /* ---------- 13. Tables ---------- */
 .pa-table-wrap { overflow-x: auto; }
+/* v1.9: wrapper div used by docs pages — horizontal scroll safety for wide tables */
+.pa-table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .pa-table {
   width: 100%; border-collapse: collapse; font-size: .9rem;
 }
@@ -514,6 +527,7 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-badge-warning { background: var(--pa-warning-soft); color: #664d03; }
 .pa-badge-danger  { background: var(--pa-danger-soft);  color: #842029; }
 .pa-badge-secondary { background: var(--pa-surface-3); color: var(--pa-text); }
+.pa-badge-sm { padding: .12rem .38rem; font-size: .62rem; } /* v1.9: compact badge used by mailbox/file-manager/kanban/user-panel */
 [data-pa-theme="dark"] .pa-badge-primary { color: #cfe2ff; }
 [data-pa-theme="dark"] .pa-badge-success { color: #d1e7dd; }
 [data-pa-theme="dark"] .pa-badge-info    { color: #cff4fc; }
@@ -717,8 +731,11 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 
 /* ---------- 26. Misc utilities ---------- */
 .pa-d-flex { display: flex; }
+.pa-d-inline-flex { display: inline-flex; } /* v1.9: was used in kanban/widgets but never defined */
 .pa-align-center { align-items: center; }
+.pa-align-start { align-items: flex-start; } /* v1.9 */
 .pa-justify-between { justify-content: space-between; }
+.pa-justify-end { justify-content: flex-end; } /* v1.9: product review form */
 .pa-gap-1 { gap: .25rem; } .pa-gap-2 { gap: .5rem; } .pa-gap-3 { gap: 1rem; }
 .pa-flex-1 { flex: 1; }
 .pa-text-muted { color: var(--pa-text-muted) !important; }
@@ -726,8 +743,15 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-text-danger { color: var(--pa-danger) !important; }
 .pa-text-warning { color: var(--pa-warning) !important; }
 .pa-text-primary { color: var(--pa-primary) !important; }
+.pa-text-info { color: var(--pa-info) !important; } /* v1.9: tags page counters */
 .pa-text-center { text-align: center; }
 .pa-text-right { text-align: right; }
+/* v1.9: icon-only pa-btn (square, centered icon — product wishlist heart) */
+.pa-icon-only { width: 2.5rem; height: 2.5rem; padding: 0; justify-content: center; flex-shrink: 0; }
+/* v1.9: sticky column on desktop (product buy box follows the gallery while scrolling) */
+@media (min-width: 993px) {
+  .pa-sticky-lg { position: sticky; top: 5.25rem; align-self: flex-start; }
+}
 .pa-fs-sm { font-size: .85rem; } .pa-fs-lg { font-size: 1.1rem; }
 .pa-fw-600 { font-weight: 600; } .pa-fw-700 { font-weight: 700; }
 .pa-mt-1 { margin-top: .5rem; } .pa-mt-2 { margin-top: 1rem; }
@@ -2628,8 +2652,11 @@ img[data-pa-lazy].is-lazy-loaded {
   background: var(--pa-warning); color: #212529;
   transform: translateY(101%); transition: transform .25s ease;
   pointer-events: none;
+  /* v1.9: visibility flag so the parked banner can never peek past the
+     viewport edge (full-page captures printed a green band mid-page) */
+  visibility: hidden;
 }
-.pa-net-banner.is-visible { transform: translateY(0); pointer-events: auto; }
+.pa-net-banner.is-visible { transform: translateY(0); pointer-events: auto; visibility: visible; }
 .pa-net-banner.is-online { background: var(--pa-success); color: #fff; }
 
 /* =============================================================

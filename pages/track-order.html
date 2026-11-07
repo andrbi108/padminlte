@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — پیگیری سفارش</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* v1.9 — track-order page-specific styles */
+    .pa-track-search {
+      display: flex; gap: .5rem; flex-wrap: wrap; align-items: stretch;
+      max-width: 560px;
+    }
+    .pa-track-search input {
+      flex: 1; min-width: 200px;
+      padding: .55rem .85rem; border: 1px solid var(--pa-border); border-radius: var(--pa-radius);
+      font-size: .95rem; font-family: inherit; background: var(--pa-surface); color: var(--pa-text);
+      letter-spacing: .04em;
+    }
+    .pa-track-search input:focus-visible { outline: 2px solid var(--pa-primary); outline-offset: 1px; }
+    .pa-track-steps { margin: 1.4rem 0 .6rem; }
+    .pa-track-meta {
+      display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 1rem;
+      font-size: .85rem; color: var(--pa-text-muted);
+    }
+    .pa-track-meta span { display: inline-flex; align-items: center; gap: .35rem; }
+    .pa-track-items { display: flex; flex-direction: column; gap: .55rem; margin-bottom: 1rem; }
+    .pa-track-item {
+      display: flex; align-items: center; gap: .65rem;
+      border: 1px solid var(--pa-border); border-radius: var(--pa-radius);
+      padding: .55rem .75rem; background: var(--pa-surface);
+    }
+    .pa-track-item .ti-thumb {
+      width: 40px; height: 40px; border-radius: var(--pa-radius); flex-shrink: 0;
+      display: grid; place-items: center; color: #fff;
+    }
+    .pa-track-item .ti-name { font-weight: 600; font-size: .9rem; }
+    .pa-track-item .ti-qty { font-size: .78rem; color: var(--pa-text-muted); }
+    .pa-track-item .ti-price { margin-inline-start: auto; font-size: .85rem; font-weight: 600; white-space: nowrap; }
+    .pa-track-totals { border-top: 1px dashed var(--pa-border); padding-top: .8rem; font-size: .88rem; }
+    .pa-track-totals .row { display: flex; justify-content: space-between; gap: 1rem; padding: .18rem 0; }
+    .pa-track-totals .row.grand { font-weight: 800; font-size: 1.02rem; color: var(--pa-primary); margin-top: .35rem; }
+    .pa-track-timeline { list-style: none; margin: .6rem 0 0; padding: 0; font-size: .85rem; }
+    .pa-track-timeline li {
+      display: flex; gap: .55rem; align-items: baseline; padding: .3rem 0; color: var(--pa-text-muted);
+    }
+    .pa-track-timeline li strong { color: var(--pa-text); font-weight: 600; }
+    [dir="rtl"] .pa-track-timeline { text-align: right; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div data-pa-layout="site-nav"></div>
+
+  <main class="pa-site-main" id="pa-main-content">
+    <div class="pa-page-header pa-anim-slide-up">
+      <div>
+        <h1>پیگیری سفارش</h1>
+        <div class="pa-breadcrumb">
+          <a href="landing.html">خانه</a><span class="pa-sep">›</span>
+          <a href="shop.html">فروشگاه</a><span class="pa-sep">›</span>
+          <span>پیگیری سفارش</span>
+        </div>
+      </div>
+      <a class="pa-btn pa-btn-outline" href="shop.html">
+        <span data-pa-icon="shopping_bag" data-pa-icon-size="17"></span> فروشگاه
+      </a>
+    </div>
+
+    <!-- Lookup card -->
+    <div class="pa-card pa-anim-slide-up">
+      <div class="pa-card-body">
+        <h3 style="margin:0 0 .4rem">شمارهٔ سفارش را وارد کنید</h3>
+        <p class="pa-fs-sm pa-text-muted" style="margin:0 0 1rem">
+          شمارهٔ سفارش پس از ثبت، در صفحهٔ پرداخت موفق و فاکتور به شما نشان داده می‌شود — به شکل
+          <code style="direction:ltr; unicode-bidi:embed">PA-XXXXXX</code>.
+        </p>
+        <form id="track-form" class="pa-track-search">
+          <input type="text" id="track-no" placeholder="PA-123456" aria-label="شمارهٔ سفارش" autocomplete="off">
+          <button type="submit" class="pa-btn pa-btn-primary" id="track-btn">
+            <span data-pa-icon="search" data-pa-icon-size="16"></span> پیگیری
+          </button>
+          <button type="button" class="pa-btn pa-btn-ghost" id="track-demo">
+            <span data-pa-icon="package_alt" data-pa-icon-size="16"></span> نمونهٔ نمایشی
+          </button>
+        </form>
+        <p class="pa-fs-sm pa-text-muted" style="margin:.8rem 0 0">
+          <span data-pa-icon="info" data-pa-icon-size="14"></span>
+          سفارش‌های ثبت‌شده در همین مرورگر (localStorage) بررسی می‌شوند — نسخهٔ نمایشی، بدون سرور.
+        </p>
+      </div>
+    </div>
+
+    <!-- Not found -->
+    <div class="pa-card pa-mt-2 pa-anim-slide-up" id="track-none" hidden>
+      <div class="pa-g-empty" style="display:block">
+        <div data-pa-icon="package_alt" data-pa-icon-size="48" style="opacity:.35"></div>
+        <p style="margin:.8rem 0 1.2rem">سفارشی با این شماره پیدا نشد. شماره را بررسی کنید یا «نمونهٔ نمایشی» را ببینید.</p>
+        <a class="pa-btn pa-btn-primary" href="shop.html"><span data-pa-icon="shopping_bag" data-pa-icon-size="16"></span> رفتن به فروشگاه</a>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="track-result" hidden>
+      <div class="pa-row pa-mt-2">
+        <div class="pa-col-8">
+          <div class="pa-card pa-anim-slide-up">
+            <div class="pa-card-header">
+              <h3>وضعیت سفارش <span id="tr-no" style="direction:ltr; unicode-bidi:embed"></span></h3>
+              <span id="tr-badge" class="pa-badge pa-badge-warning">—</span>
+            </div>
+            <div class="pa-card-body">
+              <!-- status stepper (pa-steps) -->
+              <div class="pa-steps pa-track-steps" id="tr-steps"></div>
+              <p id="tr-note" class="pa-fs-sm pa-text-muted" style="margin:.8rem 0 0"></p>
+
+              <h4 style="margin:1.3rem 0 .3rem; font-size:.9rem">اقلام سفارش</h4>
+              <div class="pa-track-items" id="tr-items"></div>
+              <div class="pa-track-totals" id="tr-totals"></div>
+            </div>
+          </div>
+        </div>
+        <div class="pa-col-4">
+          <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
+            <div class="pa-card-header"><h3>جزئیات</h3></div>
+            <div class="pa-card-body">
+              <div class="pa-track-meta" id="tr-meta" style="flex-direction:column; align-items:flex-start; gap:.45rem"></div>
+              <div style="border-top:1px solid var(--pa-border); margin-top:.9rem; padding-top:.7rem">
+                <a class="pa-btn pa-btn-outline pa-btn-sm" id="tr-invoice" href="invoice.html">
+                  <span data-pa-icon="printer" data-pa-icon-size="15"></span> مشاهدهٔ فاکتور
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="pa-card pa-mt-2 pa-anim-slide-up pa-anim-delay-2">
+            <div class="pa-card-header"><h3>تاریخچهٔ وضعیت</h3></div>
+            <div class="pa-card-body">
+              <ul class="pa-track-timeline" id="tr-history"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div data-pa-layout="site-footer"></div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-shop.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var S = PAdminLTE.shop;
+    if (!S) return;
+
+    /* Same status model as the orders back-office (orders.html) */
+    var STEPS = [
+      { key: 'register',  label: 'ثبت سفارش' },
+      { key: 'paid',      label: 'پرداخت' },
+      { key: 'process',   label: 'پردازش' },
+      { key: 'shipped',   label: 'ارسال' },
+      { key: 'delivered', label: 'تحویل' }
+    ];
+    var STATUS = {
+      pending:   { label: 'در انتظار پرداخت', badge: 'pa-badge pa-badge-warning', step: 1, note: 'سفارش ثبت شده است اما پرداخت هنوز تکمیل نشده.' },
+      paid:      { label: 'پرداخت‌شده — در صف پردازش', badge: 'pa-badge pa-badge-info', step: 2, note: 'پرداخت با موفقیت انجام شد؛ سفارش در صف آماده‌سازی است.' },
+      shipped:   { label: 'ارسال‌شده', badge: 'pa-badge pa-badge-info', step: 4, note: 'بسته به شرکت پست تحویل شده است؛ کد رهگیری از طریق پیامک ارسال می‌شود.' },
+      delivered: { label: 'تحویل‌شده', badge: 'pa-badge pa-badge-success', step: 5, note: 'سفارش با موفقیت تحویل داده شد. امیدواریم خرید خوشایندی داشته باشید!' },
+      returned:  { label: 'مرجوعی', badge: 'pa-badge pa-badge-danger', step: 2, note: 'این سفارش مرجوع شده است. برای جزئیات با پشتیبانی تماس بگیرید.', returned: true }
+    };
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function faDate(iso) {
+      try {
+        var d = new Date(iso);
+        return S.faDigits(d.getFullYear()) + '/' + S.faDigits(String(d.getMonth() + 1).padStart(2, '0')) + '/'
+             + S.faDigits(String(d.getDate()).padStart(2, '0')) + ' — ' + S.faDigits(String(d.getHours()).padStart(2, '0'))
+             + ':' + S.faDigits(String(d.getMinutes()).padStart(2, '0'));
+      } catch (e) { return '—'; }
+    }
+
+    var elNone = document.getElementById('track-none');
+    var elRes = document.getElementById('track-result');
+
+    function findByNo(no) {
+      no = String(no || '').trim().toUpperCase();
+      if (no.charAt(0) !== 'P') no = 'PA-' + no; /* tolerate "123456" without prefix */
+      var arr = PAdminLTE.store.get('pa-orders', []);
+      for (var i = 0; i < arr.length; i++) {
+        if (String(arr[i].orderNo || '').toUpperCase() === no) return arr[i];
+      }
+      return null;
+    }
+
+    function render(o) {
+      var st = STATUS[o.status] || STATUS.pending;
+      var isRet = !!st.returned;
+
+      document.getElementById('tr-no').textContent = ' ' + o.orderNo + ' ';
+      var badge = document.getElementById('tr-badge');
+      badge.className = st.badge;
+      badge.textContent = st.label;
+
+      /* stepper — steps before st.step are done, current is active */
+      var active = st.step;
+      document.getElementById('tr-steps').innerHTML = STEPS.map(function (s, i) {
+        var n = i + 1;
+        var cls = isRet ? '' : (n < active ? 'is-done' : (n === active ? 'is-active' : ''));
+        var dot = (n < active && !isRet)
+          ? '<span data-pa-icon="check" data-pa-icon-size="16"></span>'
+          : S.faDigits(n);
+        return '<div class="pa-step ' + cls + '"><div class="pa-step-dot">' + dot + '</div>' +
+               '<div class="pa-step-label">' + s.label + '</div></div>';
+      }).join('');
+
+      var note = document.getElementById('tr-note');
+      note.textContent = st.note;
+      note.style.color = isRet ? 'var(--pa-danger)' : '';
+
+      /* items (catalog-joined when possible) */
+      var items = o.items || [];
+      document.getElementById('tr-items').innerHTML = items.length ? items.map(function (it) {
+        var p = S.byId(it.id) || {};
+        var color = p.color || it.color || '#0d6efd';
+        return '<div class="pa-track-item">' +
+          '<span class="ti-thumb" style="background:linear-gradient(135deg,' + color + ',#0a58ca)">' +
+            '<span data-pa-icon="' + esc(p.icon || it.icon || 'package_alt') + '" data-pa-icon-size="20"></span></span>' +
+          '<span><div class="ti-name">' + esc(it.name || p.name || '—') + '</div>' +
+          '<div class="ti-qty">تعداد: ' + S.faDigits(it.qty || 1) + '</div></span>' +
+          '<span class="ti-price">' + S.money((it.price || p.price || 0) * (it.qty || 1)) + '</span>' +
+        '</div>';
+      }).join('') : '<p class="pa-fs-sm pa-text-muted" style="margin:0">قلمی ثبت نشده است.</p>';
+
+      /* totals — same math as checkout */
+      var sub = o.subtotal || 0, off = o.discount || 0, ship = o.shipCost || 0, tot = o.total || 0;
+      document.getElementById('tr-totals').innerHTML =
+        '<div class="row"><span>جمع اقلام</span><span>' + S.money(sub) + '</span></div>' +
+        (off ? '<div class="row"><span>تخفیف</span><span style="color:var(--pa-success)">' + S.money(-off) + '</span></div>' : '') +
+        '<div class="row"><span>هزینهٔ ارسال</span><span>' + (ship ? S.money(ship) : 'رایگان') + '</span></div>' +
+        '<div class="row grand"><span>مبلغ نهایی</span><span>' + S.money(tot) + '</span></div>';
+
+      /* details */
+      var inv = document.getElementById('tr-invoice');
+      inv.href = 'invoice.html?no=' + encodeURIComponent(o.orderNo);
+      document.getElementById('tr-meta').innerHTML =
+        '<span><span data-pa-icon="user" data-pa-icon-size="15"></span> ' + esc(o.customer || 'مشتری مهمان') + '</span>' +
+        '<span><span data-pa-icon="history" data-pa-icon-size="15"></span> ' + faDate(o.date) + '</span>' +
+        '<span><span data-pa-icon="truck" data-pa-icon-size="15"></span> ' + esc(o.shipping || 'پست پیشتاز') + '</span>' +
+        '<span><span data-pa-icon="credit_card" data-pa-icon-size="15"></span> ' + esc(o.payment || 'درگاه بانکی') + '</span>' +
+        (o.city ? '<span><span data-pa-icon="map_pin" data-pa-icon-size="15"></span> ' + esc(o.province ? o.province + ' — ' : '') + esc(o.city) + '</span>' : '');
+
+      /* status history (simple timeline from the order record) */
+      var hist = [{ t: o.date, label: 'ثبت سفارش' }];
+      if (o.status !== 'pending') hist.push({ t: o.date, label: 'پرداخت تأیید شد' });
+      if (o.status === 'shipped' || o.status === 'delivered') hist.push({ t: o.date, label: 'تحویل به پست' });
+      if (o.status === 'delivered') hist.push({ t: o.date, label: 'تحویل به مشتری' });
+      if (isRet) hist.push({ t: o.date, label: 'درخواست مرجوعی ثبت شد' });
+      document.getElementById('tr-history').innerHTML = hist.map(function (h) {
+        return '<li><span data-pa-icon="clock" data-pa-icon-size="14"></span> <strong>' + h.label + '</strong> <span>' + faDate(h.t) + '</span></li>';
+      }).join('');
+
+      elNone.hidden = true;
+      elRes.hidden = false;
+      if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(elRes);
+    }
+
+    function track(no) {
+      if (!no || !String(no).trim()) {
+        PAdminLTE.toast({ kind: 'warning', message: 'شمارهٔ سفارش را وارد کنید.' });
+        return;
+      }
+      var o = findByNo(no);
+      if (!o) {
+        elRes.hidden = true;
+        elNone.hidden = false;
+        PAdminLTE.toast({ kind: 'error', message: 'سفارشی با شمارهٔ «' + String(no).trim() + '» یافت نشد.' });
+        return;
+      }
+      render(o);
+      elRes.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* demo order — realistic seeded record so the page can be evaluated without checking out */
+    document.getElementById('track-demo').addEventListener('click', function () {
+      var demoNo = 'PA-100200';
+      var arr = PAdminLTE.store.get('pa-orders', []);
+      var exists = arr.some(function (x) { return String(x.orderNo) === demoNo; });
+      if (!exists) {
+        PAdminLTE.store.add('pa-orders', {
+          orderNo: demoNo,
+          customer: 'آرش کریمی',
+          phone: '09121234567', address: 'خیابان ولیعصر، پلاک ۱۲', province: 'تهران', city: 'تهران',
+          shipping: 'پست پیشتاز', payment: 'درگاه بانکی',
+          items: [
+            { id: 'p1', name: 'لپ‌تاپ گیمینگ ایسوس ROG Strix', price: 25000000, qty: 1 },
+            { id: 'p7', name: 'پاوربانک شیائومی ۲۰۰۰۰ میلی‌آمپر', price: 1200000, qty: 2 }
+          ],
+          subtotal: 27400000, discount: 2740000, shipCost: 0, total: 24660000,
+          date: new Date(Date.now() - 3 * 864e5).toISOString(),
+          status: 'shipped'
+        });
+      }
+      document.getElementById('track-no').value = demoNo;
+      track(demoNo);
+      PAdminLTE.toast({ kind: 'info', message: 'سفارش نمونه بارگذاری شد (ارسال‌شده).' });
+    });
+
+    document.getElementById('track-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      track(document.getElementById('track-no').value);
+    });
+
+    /* ?no= deep link (invoice / checkout success / orders) */
+    var m = location.search.match(/[?&]no=([^&]*)/);
+    if (m) {
+      document.getElementById('track-no').value = decodeURIComponent(m[1]);
+      track(decodeURIComponent(m[1]));
+    }
+
+    if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(document);
+  })();
+  </script>
+</body>
+</html>

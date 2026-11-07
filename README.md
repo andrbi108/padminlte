@@ -20,7 +20,7 @@
 - 🧩 **کامپوننت‌های کامل**: کارت، جدول، فرم، مودال، توست، تب، آلرت، بج، آواتار، dropdown، صفحه‌بندی
 - 🔍 **جدول داده‌ی پویا** با جستجو، مرتب‌سازی و صفحه‌بندی — بدون DataTables
 - ✅ **اعتبارسنجی فرم** با قواعد required/email/minlen/number
-- 🧰 **۶۵ صفحه‌ی آماده** در دسته‌های: داشبورد × ۳، ویجت، نمودار، جدول، فرم، پروفایل، کاربران، حساب من، نقش‌ها، تنظیمات، فاکتور، تقویم، گالری، گفتگو، سؤالات متداول، ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP، وبلاگ، نوشتن مطلب، انجمن، موضوع جدید، دسته‌بندی، برچسب، فروشگاه، محصول، **علاقه‌مندی‌ها**، سبد خرید، تسویه حساب، صفحه فرود، درباره ما، تماس با ما، قیمت‌گذاری، در حال تعمیر، ایمیل، مدیریت فایل، کانبان، اعلان‌ها، پنل کاربری، نتایج جستجو، ویرایشگر زنده، بارگذاری فایل، CRUD محصولات، CRUD کاربران، سفارش‌ها، کامپوننت‌ها، لودرها، انیمیشن‌ها، آیکون‌ها، تایم‌لاین، تیم، پروژه‌ها، به‌زودی، حریم خصوصی، شرایط استفاده، ۴۰۴، ۵۰۰، صفحهٔ خالی، **مستندات × ۴ (نصب و پیکربندی اولیه، راهنمای استفاده، سفارشی‌سازی، مرجع API)**
+- 🧰 **۶۶ صفحه‌ی آماده** در دسته‌های: داشبورد × ۳، ویجت، نمودار، جدول، فرم، پروفایل، کاربران، حساب من، نقش‌ها، تنظیمات، فاکتور، تقویم، گالری، گفتگو، سؤالات متداول، ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP، وبلاگ، نوشتن مطلب، انجمن، موضوع جدید، دسته‌بندی، برچسب، فروشگاه، محصول، **علاقه‌مندی‌ها**، سبد خرید، تسویه حساب، **پیگیری سفارش**، صفحه فرود، درباره ما، تماس با ما، قیمت‌گذاری، در حال تعمیر، ایمیل، مدیریت فایل، کانبان، اعلان‌ها، پنل کاربری، نتایج جستجو، ویرایشگر زنده، بارگذاری فایل، CRUD محصولات، CRUD کاربران، سفارش‌ها، کامپوننت‌ها، لودرها، انیمیشن‌ها، آیکون‌ها، تایم‌لاین، تیم، پروژه‌ها، به‌زودی، حریم خصوصی، شرایط استفاده، ۴۰۴، ۵۰۰، صفحهٔ خالی، **مستندات × ۴ (نصب و پیکربندی اولیه، راهنمای استفاده، سفارشی‌سازی، مرجع API)**
 - 🎬 **۱۵ انیمیشن آماده** (slide, zoom, bounce, pulse, shake, spin, tada, flash, heartbeat, shimmer, float, glow, ripple) و ۷ الگوی hover
 - 🎨 **طیف گسترده رنگ‌بندی**: ۱۳ رنگ برند با gradient، badge، button و progress bar variants
 - 📝 **LiveEdit playground** برای ویرایش زنده HTML/CSS/JS با پیش‌نمایش در iframe
@@ -32,6 +32,9 @@
 - 📦 **پشت‌بانهٔ سفارش‌ها (v1.8)**: صفحهٔ سفارش‌ها از همان `pa-orders` که تسویه‌حساب می‌نویسد تغذیه می‌شود؛ آمار زنده، نمودار درآمد ۷ روزه، تغییر وضعیت پایدار و خروجی CSV
 - 🧾 **فاکتور واقعی (v1.8)**: `invoice.html?no=PA-XXXXXX` سفارش واقعی را از localStorage رندر می‌کند و از تسویه‌حساب لینک می‌شود
 - 🔎 **جستجوی واقعی سایت (v1.8)**: `search-results.html?q=` روی محصولات، وبلاگ، انجمن و صفحات جستجو می‌کند؛ برجسته‌سازی نتیجه، فیلتر نوع، صفحه‌بندی، تاریخچه و جستجوهای پرطرفدار
+- 🚚 **پیگیری سفارش (v1.9)**: `track-order.html?no=PA-XXXXXX` با نوار مراحل وضعیت (ثبت ← پرداخت ← پردازش ← ارسال ← تحویل)، اقلام و جمع‌های واقعی سفارش، لینک فاکتور و نمونهٔ نمایشی یک‌کلیکی
+- ⚡ **مشاهدهٔ سریع محصول (v1.9)**: مودال پیک/افزودن به سبد از خود لیست فروشگاه، بدون ترک صفحه
+- 🧭 **چیدمان اصلاح‌شده (v1.9)**: ستون‌های `pa-col-5/7` تعریف شدند، جعبهٔ خرید صفحهٔ محصول چسبان شد، ۱۰ کلاس پرکاربردِ تعریف‌نشده رنگ و اندازه گرفتند و ممیزی خودکار ۶۶ صفحه × ۳ دیدگاه صفر سرریز نشان می‌دهد
 - 💬 **انجمن و وبلاگ**: لیست مطالب، مطلب کامل، لیست گفتگوها، موضوع انجمن، دسته‌بندی‌ها، ابر برچسب‌ها
 - 📋 **اپ‌های کامل**: صندوق ایمیل، مدیریت فایل، تخته کانبان با drag-and-drop، مرکز اعلان‌ها، پنل کاربری، نتایج جستجو
 - ⌨️ **پالت فرمان (Ctrl+K/⌘K)**: جستجوی زندهٔ همهٔ صفحات + فرمان‌های سریع، بدون وابستگی
@@ -163,6 +166,7 @@ php -S localhost:8000
 | `pages/orders.html` | پشت‌بانهٔ سفارش‌ها از `pa-orders`: آمار زنده، نمودار درآمد ۷ روزه، تغییر وضعیت پایدار، فاکتور هر سفارش و خروجی CSV |
 | `pages/invoice.html` | فاکتور واقعی سفارش با `?no=` (فاکتور نمونه به‌عنوان جایگزین) |
 | `pages/search-results.html` | جستجوی واقعی `?q=` روی محصولات/وبلاگ/انجمن/صفحات با برجسته‌سازی، فیلتر نوع، صفحه‌بندی و تاریخچه |
+| `pages/track-order.html` | پیگیری سفارش عمومی با `?no=PA-XXXXXX`: نوار مراحل وضعیت، اقلام، جمع‌ها، تاریخچه و فاکتور |
 | `pages/cart.html` | سبد خرید واقعی در localStorage: تغییر تعداد، حذف، کد تخفیف (`PADMIN10`)، محاسبهٔ ارسال |
 | `pages/checkout.html` | تسویهٔ حساب: فرم ارسال با اعتبارسنجی، روش پرداخت، ثبت سفارش با شماره و پنل موفقیت |
 | `pages/forum-new.html` | ایجاد موضوع انجمن با ذخیرهٔ واقعی |
@@ -282,11 +286,12 @@ MIT — آزاد برای استفادهٔ تجاری و غیرتجاری. بر�
 - Full component set: cards, tables, forms, modals, toasts, tabs, alerts, badges, avatars, dropdowns, pagination
 - Datatable with search/sort/pagination — no DataTables.js
 - Form validation (required / email / minlen / number)
-- 65 ready-to-use pages — 3 dashboards, CRUD, user management, auth flows, blog & forum (localStorage-backed), public shop, wishlist, gallery with 5 view modes, loaders/skeletons, animations showcase, icon gallery and more
+- 66 ready-to-use pages — 3 dashboards, CRUD, user management, auth flows, blog & forum (localStorage-backed), public shop, wishlist, order tracking, gallery with 5 view modes, loaders/skeletons, animations showcase, icon gallery and more
 - Mock auth (`PAdminLTE.auth`) with localStorage sessions + content store (`PAdminLTE.store`)
 - Lazy-loaded images, spinner/skeleton/preloader toolkit, scroll-reveal animations (12 modes), typewriter
 - Command palette (Ctrl+K/⌘K), 8 timeline variants, one-click CSV table export
 - Real storefront loop (v1.8): orders placed at checkout appear in the admin Orders page (live stats, 7-day revenue chart, persistent status changes, per-order invoice `invoice.html?no=`), shared wishlist API (`PAdminLTE.wishlist`) with a heart badge in the site navbar, and a real site-wide search (`search-results.html?q=`) across products, blog, forum and pages
+- Public order tracking + shop quick view (v1.9): `track-order.html?no=PA-XXXXXX` renders the real order record with a status stepper (register → paid → processing → shipped → delivered), items, totals and invoice link; an eye-button on every shop card opens a quick-view modal (details, qty, add-to-cart) without leaving the listing; layout audit defined the missing `pa-col-5/7` columns (product buy box side-by-side + sticky) and 10 other silently-unstyled utility classes
 - Multi-step form wizard, form draft auto-save, drag-and-drop sortable lists, offline/online banner, copy-to-clipboard code blocks
 - Keyboard shortcuts sheet (`?`) with Shift+T (theme) / Shift+D (direction); professional `@media print` stylesheet
 - Accessibility: skip links, ARIA, keyboard support, focus-visible, prefers-reduced-motion

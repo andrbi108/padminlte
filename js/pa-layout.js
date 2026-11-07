@@ -148,6 +148,7 @@
           { href: 'pages/landing.html', icon: 'rocket', label: 'صفحه اصلی' },
           { href: 'pages/shop.html', icon: 'shopping_bag', label: 'فروشگاه' },
           { href: 'pages/wishlist.html', icon: 'heart', label: 'علاقه‌مندی‌ها' },
+          { href: 'pages/track-order.html', icon: 'map', label: 'پیگیری سفارش' },
           { href: 'pages/blog-list.html', icon: 'book', label: 'وبلاگ' },
           { href: 'pages/forum-list.html', icon: 'comments', label: 'انجمن' }
         ]
@@ -231,7 +232,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۸.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۹.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -329,7 +330,7 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۸.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۹.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';
@@ -436,6 +437,7 @@
               { href: 'pages/landing.html', label: 'خانه' },
               { href: 'pages/shop.html', label: 'فروشگاه' },
               { href: 'pages/wishlist.html', label: 'علاقه‌مندی‌ها' },
+              { href: 'pages/track-order.html', label: 'پیگیری سفارش' },
               { href: 'pages/blog-list.html', label: 'وبلاگ' },
               { href: 'pages/forum-list.html', label: 'انجمن' }
             ]) +
@@ -450,7 +452,7 @@
             ]) +
           '</div>' +
           '<div class="pa-site-footer-bar">' +
-            '<span><strong>PAdminLTE</strong> — نسخهٔ ۱.۸.۰ &copy; ' + year + '</span>' +
+            '<span><strong>PAdminLTE</strong> — نسخهٔ ۱.۹.۰ &copy; ' + year + '</span>' +
             '<span>بدون وابستگی خارجی &middot; قابل اجرا با file://</span>' +
             '<a href="https://github.com/andrbi108/padminlte" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:.3rem; color:var(--pa-text-muted)">' + icon('github', 14) + '<span>مخزن GitHub</span></a>' +
           '</div>' +

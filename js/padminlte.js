@@ -2743,6 +2743,10 @@
     var label = banner.querySelector('.pa-net-label');
     var override = null; /* 'offline' | 'online' | null (real state) */
     var hideTimer = null;
+    /* v1.9: flash the green "online" banner only once per browser session —
+       repeating it on every page navigation covered page content for 2.2s each time */
+    var onlineFlashShown = false;
+    try { onlineFlashShown = global.sessionStorage.getItem('pa-net-online-flash') === '1'; } catch (e) {}
     function isOnline() { return override === null ? global.navigator.onLine : override === 'online'; }
     function paint(flashOnline) {
       var on = isOnline();
@@ -2750,8 +2754,10 @@
       iconEl.innerHTML = PAdminLTE.icon(on ? 'wifi' : 'wifi_off', 18);
       if (on) {
         label.textContent = 'اتصال برقرار است';
-        if (flashOnline) {
+        if (flashOnline && !onlineFlashShown) {
           banner.classList.add('is-visible');
+          onlineFlashShown = true;
+          try { global.sessionStorage.setItem('pa-net-online-flash', '1'); } catch (e) {}
           if (hideTimer) clearTimeout(hideTimer);
           hideTimer = setTimeout(function () { if (isOnline()) banner.classList.remove('is-visible'); }, 2200);
         } else {

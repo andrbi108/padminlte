@@ -79,14 +79,14 @@
       </div>
 
       <!-- Info / buy box -->
-      <div class="pa-col-5">
+      <div class="pa-col-5 pa-sticky-lg">
         <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
           <div class="pa-card-body">
             <div class="pa-product-cat" id="pr-cat">—</div>
             <h2 id="pr-name" style="margin:.3rem 0 .5rem; font-size:1.3rem">—</h2>
             <div class="pa-product-rating" id="pr-rating" style="font-size:.85rem"></div>
 
-            <div class="pa-d-flex pa-align-center pa-gap-2 pa-mt-2" style="flex-wrap:wrap">
+            <div class="pa-d-flex pa-align-center pa-gap-2 pa-mt-2" style="flex-wrap:wrap; row-gap:.4rem">
               <span id="pr-price" style="font-size:1.6rem; font-weight:800; color:var(--pa-primary)">—</span>
               <span id="pr-old" class="pa-was" style="font-size:.95rem"></span>
               <span class="pa-badge pa-badge-danger" id="pr-off" hidden></span>
@@ -192,7 +192,7 @@
         ? '<span class="pa-product-badge pa-discount">' + S.faDigits(S.discountPct(p)) + '٪ تخفیف</span>'
         : (p.badge === 'new' ? '<span class="pa-product-badge pa-new">جدید</span>' : '');
       return '' +
-        '<div class="pa-col-4">' +
+        '<div class="pa-col-3">' +
           '<div class="pa-product-card pa-hover-lift">' +
             '<a href="product.html?id=' + p.id + '" class="pa-product-thumb" style="background:' + grad(p.color, -40) + '; display:grid; place-items:center; color:#fff">' +
               '<span data-pa-icon="' + p.icon + '" data-pa-icon-size="52"></span>' + badge +

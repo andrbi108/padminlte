@@ -119,6 +119,46 @@
 
   <div data-pa-layout="site-footer"></div>
 
+  <!-- v1.9 — Quick view modal: peek at a product without leaving the listing -->
+  <div class="pa-modal-backdrop" id="qv-modal" role="dialog" aria-modal="true" aria-labelledby="qv-title">
+    <div class="pa-modal">
+      <div class="pa-modal-header">
+        <h3 id="qv-title">مشاهدهٔ سریع</h3>
+        <button class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <div style="display:flex; gap:1rem; flex-wrap:wrap">
+          <div id="qv-thumb" style="width:130px; height:130px; border-radius:var(--pa-radius-lg); flex-shrink:0; display:grid; place-items:center; color:#fff">
+            <span id="qv-icon" data-pa-icon="package_alt" data-pa-icon-size="64"></span>
+          </div>
+          <div style="flex:1; min-width:180px">
+            <div class="pa-product-cat" id="qv-cat">—</div>
+            <h4 id="qv-name" style="margin:.3rem 0 .4rem; font-size:1.05rem">—</h4>
+            <div class="pa-product-rating" id="qv-rating" style="font-size:.8rem"></div>
+            <div class="pa-product-price" style="margin-top:.5rem; font-size:1.05rem">
+              <span class="pa-now" id="qv-price" style="color:var(--pa-primary); font-weight:800">—</span>
+              <span class="pa-was" id="qv-old"></span>
+            </div>
+            <p id="qv-stock" class="pa-fs-sm" style="margin:.5rem 0 0">—</p>
+          </div>
+        </div>
+        <p id="qv-desc" class="pa-fs-sm" style="margin:.9rem 0 0; line-height:1.9; color:var(--pa-text-muted)">—</p>
+        <ul id="qv-features" class="pa-fs-sm" style="margin:.8rem 0 0; padding-inline-start:1.2rem; line-height:1.9"></ul>
+        <div class="pa-d-flex pa-align-center pa-gap-2 pa-mt-2" style="flex-wrap:wrap">
+          <div class="pa-qty-stepper" data-pa-qty>
+            <button type="button" data-pa-qty-dec aria-label="کاهش">−</button>
+            <input id="qv-qty" value="1" aria-label="تعداد">
+            <button type="button" data-pa-qty-inc aria-label="افزایش">+</button>
+          </div>
+          <button class="pa-btn pa-btn-primary" id="qv-add" type="button">
+            <span data-pa-icon="shopping_cart" data-pa-icon-size="16"></span> افزودن به سبد
+          </button>
+          <a class="pa-btn pa-btn-outline" id="qv-full" href="product.html">صفحهٔ کامل محصول</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-shop.js"></script>
@@ -166,7 +206,7 @@
               '<span data-pa-icon="' + p.icon + '" data-pa-icon-size="56"></span>' +
               badgeHTML(p) +
               '<div class="pa-product-actions">' +
-                '<a href="product.html?id=' + p.id + '" aria-label="مشاهدهٔ ' + p.name + '" data-pa-icon="eye" data-pa-icon-size="16"></a>' +
+                '<button type="button" class="pa-qv-btn" data-qv="' + p.id + '" aria-label="مشاهدهٔ سریع ' + p.name + '" data-pa-icon="eye" data-pa-icon-size="16"></button>' +
                 '<button type="button" aria-label="افزودن ' + p.name + ' به سبد" ' + cartAttrs(p) + ' data-pa-icon="shopping_cart" data-pa-icon-size="16"></button>' +
               '</div>' +
             '</div>' +
@@ -272,6 +312,42 @@
     }
     vg.addEventListener('click', function () { setView('grid'); });
     vl.addEventListener('click', function () { setView('list'); });
+
+    /* ---------- v1.9: Quick view (modal peek without leaving the listing) ---------- */
+    var qvProduct = null;
+    function qvOpen(p) {
+      qvProduct = p;
+      var grad = 'linear-gradient(135deg,' + p.color + ',' + shade(p.color, -40) + ')';
+      document.getElementById('qv-thumb').style.background = grad;
+      document.getElementById('qv-icon').setAttribute('data-pa-icon', p.icon);
+      document.getElementById('qv-cat').textContent = p.cat + ' · ' + p.brand;
+      document.getElementById('qv-name').textContent = p.name;
+      document.getElementById('qv-rating').innerHTML = stars(p.rating) + '<span>' + S.faDigits(p.rating) + ' از ۵ · ' + S.faDigits(p.reviews) + ' نظر</span>';
+      document.getElementById('qv-price').textContent = S.money(p.price);
+      document.getElementById('qv-old').textContent = p.old ? S.money(p.old) : '';
+      var low = p.stock < 10;
+      document.getElementById('qv-stock').innerHTML = low
+        ? '<span style="color:var(--pa-warning)"><span data-pa-icon="warning" data-pa-icon-size="14"></span> تنها ' + S.faDigits(p.stock) + ' عدد در انبار</span>'
+        : '<span style="color:var(--pa-success)"><span data-pa-icon="check_circle" data-pa-icon-size="14"></span> موجود در انبار (' + S.faDigits(p.stock) + ' عدد)</span>';
+      document.getElementById('qv-desc').textContent = p.desc || '';
+      document.getElementById('qv-features').innerHTML = (p.features || []).map(function (f) { return '<li>' + f + '</li>'; }).join('');
+      document.getElementById('qv-qty').value = '1';
+      document.getElementById('qv-full').href = 'product.html?id=' + p.id;
+      PAdminLTE.openModal('qv-modal');
+      if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(document.getElementById('qv-modal'));
+    }
+    grid.addEventListener('click', function (e) {
+      var b = e.target.closest('.pa-qv-btn');
+      if (!b) return;
+      var p = S.byId(b.getAttribute('data-qv'));
+      if (p) qvOpen(p);
+    });
+    document.getElementById('qv-add').addEventListener('click', function () {
+      if (!qvProduct) return;
+      var qty = Math.max(1, parseInt(document.getElementById('qv-qty').value, 10) || 1);
+      PAdminLTE.cart.add({ id: qvProduct.id, name: qvProduct.name, price: qvProduct.price, icon: qvProduct.icon, color: qvProduct.color, href: 'product.html?id=' + qvProduct.id }, qty);
+      PAdminLTE.toast({ kind: 'success', message: '«' + qvProduct.name + '» به سبد اضافه شد.' });
+    });
 
     /* Init */
     renderFilters();

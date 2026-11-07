@@ -178,6 +178,7 @@
       </div>
       <div class="pa-modal-footer">
         <a class="pa-btn pa-btn-outline" id="om-invoice" href="invoice.html" data-pa-icon="file_text" data-pa-icon-size="14"> فاکتور</a>
+        <a class="pa-btn pa-btn-outline" id="om-track" href="track-order.html" data-pa-icon="map" data-pa-icon-size="14"> پیگیری</a>
         <button type="button" class="pa-btn pa-btn-outline" data-pa-modal-close>انصراف</button>
         <button type="button" class="pa-btn pa-btn-primary" data-pa-icon="save" data-pa-icon-size="14" id="om-save"> ذخیره</button>
       </div>
@@ -447,6 +448,7 @@
           '<div class="pa-om-sum pa-strong"><span>مبلغ نهایی</span><span>' + money(o.total || 0) + '</span></div>';
 
         document.getElementById('om-invoice').href = 'invoice.html?no=' + encodeURIComponent(o.orderNo || '');
+        document.getElementById('om-track').href = 'track-order.html?no=' + encodeURIComponent(o.orderNo || '');
         if (PAdminLTE.injectIcons) PAdminLTE.injectIcons(document.getElementById('order-modal'));
         PAdminLTE.openModal ? PAdminLTE.openModal('order-modal') : document.getElementById('order-modal').classList.add('is-open');
       }
