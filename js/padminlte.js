@@ -2357,6 +2357,358 @@
     update();
   }
 
+  /* =============================================================
+     v1.5 — Productivity & accessibility
+     serializeForm / wizard / autosave drafts / sortable lists /
+     connection status / code blocks / shortcuts sheet / skip link
+     ============================================================= */
+
+  /* ---------- Serialize form fields (name or id keyed) ---------- */
+  function serializeForm(form) {
+    var data = {};
+    (form || document).querySelectorAll('input, select, textarea').forEach(function (f) {
+      var key = f.name || f.id;
+      if (!key || f.type === 'file' || f.disabled) return;
+      if (f.type === 'checkbox') data[key] = f.checked;
+      else if (f.type === 'radio') { if (f.checked) data[key] = f.value; }
+      else data[key] = f.value;
+    });
+    return data;
+  }
+  function _restoreFormData(form, data) {
+    Object.keys(data || {}).forEach(function (key) {
+      if (key === '__meta') return;
+      var radios = form.querySelectorAll('input[type="radio"][name="' + key + '"]');
+      if (radios.length) {
+        radios.forEach(function (r) { r.checked = r.value === data[key]; });
+        return;
+      }
+      var f = form.querySelector('[name="' + key + '"]') || form.querySelector('#' + key);
+      if (!f) return;
+      if (f.type === 'checkbox') f.checked = !!data[key];
+      else if (f.type !== 'file') f.value = data[key];
+    });
+  }
+
+  /* ---------- Multi-step form wizard (data-pa-wizard) ----------
+     Markup:
+     <div data-pa-wizard>
+       <ol class="pa-wizard-steps">
+         <li class="pa-wizard-step"><span class="pa-wizard-dot">1</span><span>…</span></li>…
+       </ol>
+       <div class="pa-wizard-progress"><span></span></div>
+       <section class="pa-wizard-pane is-active">…</section>…
+       <div class="pa-wizard-actions">
+         <button data-pa-wizard-prev>…</button><button data-pa-wizard-next data-pa-done-label="…">…</button>
+       </div>
+     </div>                                                        */
+  function initWizards(root) {
+    (root || document).querySelectorAll('[data-pa-wizard]').forEach(function (wiz) {
+      if (wiz.__paWizard) return;
+      wiz.__paWizard = true;
+      var steps = wiz.querySelectorAll('.pa-wizard-step');
+      var panes = wiz.querySelectorAll('.pa-wizard-pane');
+      var prevBtn = wiz.querySelector('[data-pa-wizard-prev]');
+      var nextBtn = wiz.querySelector('[data-pa-wizard-next]');
+      var progress = wiz.querySelector('.pa-wizard-progress > span');
+      if (!panes.length) return;
+      var idx = 0;
+      var last = panes.length - 1;
+      steps.forEach(function (s, i) {
+        var dot = s.querySelector('.pa-wizard-dot');
+        if (dot && !dot.getAttribute('data-pa-n')) dot.setAttribute('data-pa-n', dot.textContent.trim() || String(i + 1));
+      });
+      function validatePane(pane) {
+        var ok = true; var firstBad = null;
+        pane.querySelectorAll('input, select, textarea').forEach(function (f) {
+          if (f.disabled) return;
+          var bad = !f.checkValidity();
+          if (!f.required && !f.value) bad = false;
+          f.classList.toggle('is-invalid', bad);
+          f.classList.toggle('is-valid', !bad && !!f.value);
+          if (bad) { ok = false; firstBad = firstBad || f; }
+        });
+        if (firstBad) firstBad.focus();
+        return ok;
+      }
+      function paint() {
+        steps.forEach(function (s, i) {
+          s.classList.toggle('is-active', i === idx);
+          s.classList.toggle('is-done', i < idx);
+          var dot = s.querySelector('.pa-wizard-dot');
+          if (dot) dot.innerHTML = (i < idx) ? PAdminLTE.icon('check', 16) : dot.getAttribute('data-pa-n');
+        });
+        panes.forEach(function (p, i) { p.classList.toggle('is-active', i === idx); });
+        if (progress) progress.style.width = Math.round(((idx + 1) / panes.length) * 100) + '%';
+        if (prevBtn) prevBtn.disabled = (idx === 0);
+        if (nextBtn) {
+          var doneLabel = nextBtn.getAttribute('data-pa-done-label');
+          if (doneLabel) {
+            if (!nextBtn.getAttribute('data-pa-label')) nextBtn.setAttribute('data-pa-label', nextBtn.textContent);
+            nextBtn.textContent = (idx === last) ? doneLabel : nextBtn.getAttribute('data-pa-label');
+          }
+        }
+        emit('pa:wizard:change', { index: idx, total: panes.length, el: wiz });
+      }
+      if (nextBtn) nextBtn.addEventListener('click', function () {
+        if (!validatePane(panes[idx])) {
+          toast({ kind: 'danger', title: 'خطای اعتبارسنجی', message: 'لطفاً فیلدهای الزامی این مرحله را کامل کنید.' });
+          return;
+        }
+        if (idx === last) {
+          steps.forEach(function (s) { s.classList.add('is-done'); s.classList.remove('is-active'); });
+          steps.forEach(function (s) {
+            var dot = s.querySelector('.pa-wizard-dot');
+            if (dot) dot.innerHTML = PAdminLTE.icon('check', 16);
+          });
+          if (progress) progress.style.width = '100%';
+          emit('pa:wizard:complete', { el: wiz, data: serializeForm(wiz) });
+          toast({ kind: 'success', title: 'انجام شد', message: 'همهٔ مراحل با موفقیت تکمیل شد.' });
+          return;
+        }
+        idx++; paint();
+      });
+      if (prevBtn) prevBtn.addEventListener('click', function () { if (idx > 0) { idx--; paint(); } });
+      steps.forEach(function (s, i) {
+        s.addEventListener('click', function () { if (i < idx) { idx = i; paint(); } });
+      });
+      paint();
+    });
+  }
+
+  /* ---------- Draft auto-save for forms (data-pa-autosave="key") ---------- */
+  function initAutosave(root) {
+    (root || document).querySelectorAll('[data-pa-autosave]').forEach(function (form) {
+      if (form.__paAutosave) return;
+      form.__paAutosave = true;
+      var key = 'pa:autosave:' + (form.getAttribute('data-pa-autosave') || form.id || 'form');
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(key) || 'null'); } catch (e) {}
+      if (saved && typeof saved === 'object') {
+        _restoreFormData(form, saved);
+        emit('pa:autosave:restore', { key: key, el: form, data: saved });
+        toast({ kind: 'info', title: 'پیش‌نویس بازیابی شد', message: 'مقادیر ذخیره‌شدهٔ قبلی به فرم برگردانده شد.' });
+      }
+      var timer = null;
+      form.addEventListener('input', function () {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(function () {
+          var data = serializeForm(form);
+          try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) {}
+          emit('pa:autosave:save', { key: key, el: form, data: data });
+        }, 400);
+      });
+      var clearBtn = form.querySelector('[data-pa-autosave-clear]');
+      if (clearBtn) clearBtn.addEventListener('click', function () {
+        try { localStorage.removeItem(key); } catch (e) {}
+        form.reset();
+        form.querySelectorAll('.is-valid, .is-invalid').forEach(function (f) { f.classList.remove('is-valid', 'is-invalid'); });
+        toast({ kind: 'warning', message: 'پیش‌نویس پاک شد.' });
+      });
+    });
+  }
+
+  /* ---------- Drag & drop sortable lists (data-pa-sortable) ----------
+     Items: <li class="pa-sort-item" data-pa-id="…">
+     Optional drag handle inside item: <span class="pa-sort-handle">       */
+  function initSortables(root) {
+    (root || document).querySelectorAll('[data-pa-sortable]').forEach(function (list) {
+      if (list.__paSortable) return;
+      list.__paSortable = true;
+      list.classList.add('pa-sortable');
+      var dragged = null;
+      function renumber() {
+        var rtl = (document.documentElement.dir || '').toLowerCase() === 'rtl';
+        list.querySelectorAll('.pa-sort-item').forEach(function (it, i) {
+          var badge = it.querySelector('.pa-sort-index');
+          if (badge) {
+            var n = String(i + 1);
+            badge.textContent = rtl ? n.replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }) : n;
+          }
+        });
+      }
+      list.querySelectorAll('.pa-sort-item').forEach(function (item) {
+        if (item.__paSortableItem) return;
+        item.__paSortableItem = true;
+        var handle = item.querySelector('.pa-sort-handle') || item;
+        item.setAttribute('draggable', 'false');
+        handle.addEventListener('mousedown', function () { item.setAttribute('draggable', 'true'); });
+        handle.addEventListener('touchstart', function () { item.setAttribute('draggable', 'true'); }, { passive: true });
+        item.addEventListener('dragstart', function (e) {
+          dragged = item;
+          item.classList.add('is-dragging');
+          try { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', ''); } catch (err) {}
+        });
+        item.addEventListener('dragend', function () {
+          item.classList.remove('is-dragging');
+          list.querySelectorAll('.pa-sort-item').forEach(function (o) { o.classList.remove('is-drop-target'); o.setAttribute('draggable', 'false'); });
+          renumber();
+          if (dragged) {
+            emit('pa:sortable:change', {
+              el: list,
+              order: Array.prototype.map.call(list.querySelectorAll('.pa-sort-item'), function (o) {
+                return o.getAttribute('data-pa-id') || (o.textContent || '').trim();
+              })
+            });
+          }
+          dragged = null;
+        });
+        item.addEventListener('dragover', function (e) {
+          e.preventDefault();
+          if (!dragged || dragged === item) return;
+          var rect = item.getBoundingClientRect();
+          var after = (e.clientY - rect.top) > rect.height / 2;
+          if (after && item.nextSibling) list.insertBefore(dragged, item.nextSibling);
+          else if (!after) list.insertBefore(dragged, item);
+          item.classList.add('is-drop-target');
+        });
+        item.addEventListener('dragleave', function () { item.classList.remove('is-drop-target'); });
+        item.addEventListener('drop', function (e) { e.preventDefault(); item.classList.remove('is-drop-target'); });
+      });
+      renumber();
+    });
+  }
+
+  /* ---------- Connection status (offline / online banner) ---------- */
+  function initNetStatus() {
+    if (initNetStatus.__done) return;
+    initNetStatus.__done = true;
+    var banner = document.createElement('div');
+    banner.className = 'pa-net-banner';
+    banner.setAttribute('data-pa-no-print', '');
+    banner.innerHTML = '<span class="pa-net-icon"></span><span class="pa-net-label"></span>';
+    document.body.appendChild(banner);
+    var iconEl = banner.querySelector('.pa-net-icon');
+    var label = banner.querySelector('.pa-net-label');
+    var override = null; /* 'offline' | 'online' | null (real state) */
+    var hideTimer = null;
+    function isOnline() { return override === null ? global.navigator.onLine : override === 'online'; }
+    function paint(flashOnline) {
+      var on = isOnline();
+      banner.classList.toggle('is-online', on);
+      iconEl.innerHTML = PAdminLTE.icon(on ? 'wifi' : 'wifi_off', 18);
+      if (on) {
+        label.textContent = 'اتصال برقرار است';
+        if (flashOnline) {
+          banner.classList.add('is-visible');
+          if (hideTimer) clearTimeout(hideTimer);
+          hideTimer = setTimeout(function () { if (isOnline()) banner.classList.remove('is-visible'); }, 2200);
+        } else {
+          banner.classList.remove('is-visible');
+        }
+      } else {
+        label.textContent = 'اتصال اینترنت قطع است — تغییرات به‌صورت محلی ذخیره می‌شود';
+        banner.classList.add('is-visible');
+        if (hideTimer) clearTimeout(hideTimer);
+      }
+      emit(on ? 'pa:net:online' : 'pa:net:offline', { simulated: override !== null });
+    }
+    global.addEventListener('offline', function () { if (override === null) paint(false); });
+    global.addEventListener('online', function () { if (override === null) paint(true); });
+    PAdminLTE.net = {
+      get online() { return isOnline(); },
+      /* override('offline' | 'online' | null) — for demos & testing */
+      override: function (state) {
+        override = (state === 'offline' || state === 'online') ? state : null;
+        paint(override === 'online');
+        return isOnline();
+      }
+    };
+    paint(false);
+  }
+
+  /* ---------- Code blocks with copy button (pre[data-pa-code="lang"]) ---------- */
+  function initCodeBlocks(root) {
+    (root || document).querySelectorAll('pre[data-pa-code]').forEach(function (pre) {
+      if (pre.__paCode) return;
+      pre.__paCode = true;
+      var lang = (pre.getAttribute('data-pa-code') || 'code').toLowerCase();
+      var wrap = pre.parentNode;
+      if (!wrap.classList || !wrap.classList.contains('pa-code')) {
+        wrap = document.createElement('div');
+        wrap.className = 'pa-code';
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+      }
+      if (wrap.querySelector('.pa-code-head')) return;
+      var head = document.createElement('div');
+      head.className = 'pa-code-head';
+      head.setAttribute('data-pa-no-print', '');
+      head.innerHTML =
+        '<span class="pa-code-lang">' + PAdminLTE.icon('code', 13) + lang + '</span>' +
+        '<button type="button" class="pa-code-copy">' + PAdminLTE.icon('copy', 13) + '<span>کپی</span></button>';
+      wrap.insertBefore(head, wrap.firstChild);
+      var btn = head.querySelector('.pa-code-copy');
+      btn.addEventListener('click', function () {
+        var code = pre.querySelector('code');
+        copyToClipboard(code ? code.textContent : pre.textContent).then(function () {
+          btn.classList.add('is-copied');
+          var lbl = btn.querySelector('span');
+          lbl.textContent = 'کپی شد';
+          setTimeout(function () { btn.classList.remove('is-copied'); lbl.textContent = 'کپی'; }, 1600);
+        });
+      });
+    });
+  }
+
+  /* ---------- Keyboard shortcuts sheet (« ? » key) ---------- */
+  function initShortcutsSheet() {
+    if (initShortcutsSheet.__done) return;
+    initShortcutsSheet.__done = true;
+    var overlay = document.createElement('div');
+    overlay.className = 'pa-shortcuts-overlay';
+    overlay.setAttribute('data-pa-no-print', '');
+    overlay.innerHTML =
+      '<div class="pa-shortcuts" role="dialog" aria-modal="true" aria-label="میانبرهای کیبورد">' +
+        '<div class="pa-shortcuts-head"><span>میانبرهای کیبورد</span>' +
+          '<button type="button" class="pa-icon-btn" data-pa-shortcuts-close aria-label="بستن">&times;</button>' +
+        '</div>' +
+        '<div class="pa-shortcuts-body">' +
+          '<div class="pa-shortcut-row"><span>پالت فرمان</span><span><span class="pa-kbd">Ctrl</span> + <span class="pa-kbd">K</span></span></div>' +
+          '<div class="pa-shortcut-row"><span>همین برگهٔ میانبرها</span><span class="pa-kbd">Shift + ?</span></div>' +
+          '<div class="pa-shortcut-row"><span>تغییر تم روشن/تاریک</span><span class="pa-kbd">Shift + T</span></div>' +
+          '<div class="pa-shortcut-row"><span>تغییر جهت صفحه (RTL/LTR)</span><span class="pa-kbd">Shift + D</span></div>' +
+          '<div class="pa-shortcut-row"><span>ناوبری در پالت فرمان</span><span><span class="pa-kbd">↑</span> <span class="pa-kbd">↓</span></span></div>' +
+          '<div class="pa-shortcut-row"><span>اجرای مورد انتخاب‌شده</span><span class="pa-kbd">Enter</span></div>' +
+          '<div class="pa-shortcut-row"><span>بستن پنجره‌های باز</span><span class="pa-kbd">Esc</span></div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    function open() { overlay.classList.add('is-open'); }
+    function close() { overlay.classList.remove('is-open'); }
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    overlay.querySelector('[data-pa-shortcuts-close]').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      var t = e.target;
+      var typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
+      if (typing) return;
+      if (e.key === '?' || (e.shiftKey && e.code === 'Slash')) {
+        e.preventDefault();
+        if (overlay.classList.contains('is-open')) close(); else open();
+      } else if (e.shiftKey && (e.key === 'T' || e.key === 't')) {
+        e.preventDefault(); toggleTheme();
+      } else if (e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+        e.preventDefault(); toggleDir();
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+    PAdminLTE.shortcuts = { open: open, close: close };
+  }
+
+  /* ---------- Skip link (completes the a11y pair with CSS §27) ---------- */
+  function injectSkipLink() {
+    var main = document.getElementById('pa-main-content');
+    if (!main || document.querySelector('.pa-skip-link')) return;
+    var a = document.createElement('a');
+    a.className = 'pa-skip-link';
+    a.href = '#pa-main-content';
+    a.textContent = 'پرش به محتوای اصلی';
+    a.setAttribute('data-pa-no-print', '');
+    document.body.insertBefore(a, document.body.firstChild);
+    if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
+  }
+
   /* ---------- Auto-init everything ---------- */
   var _origBoot = boot;
   function fullBoot(root) {
@@ -2384,6 +2736,14 @@
     initPalette();
     initExportButtons(root);
     initScrollProgress();
+    /* v1.5 */
+    initWizards(root);
+    initAutosave(root);
+    initSortables(root);
+    initCodeBlocks(root);
+    initNetStatus();
+    initShortcutsSheet();
+    injectSkipLink();
     // Bind logout buttons (mock auth)
     (root || document).querySelectorAll('[data-pa-logout]').forEach(function (btn) {
       if (btn.__paBound) return;
@@ -2417,6 +2777,21 @@
         markAllNotificationsRead(btn.getAttribute('data-pa-mark-all-read') || null);
         toast({ kind: 'success', message: 'همه اعلان‌ها خوانده شدند.' });
       });
+    });
+    // Bind connection-status demo buttons (v1.5)
+    (root || document).querySelectorAll('[data-pa-net-demo]').forEach(function (btn) {
+      if (btn.__paBound) return;
+      btn.__paBound = true;
+      btn.addEventListener('click', function () {
+        var state = btn.getAttribute('data-pa-net-demo'); /* offline | online | real */
+        PAdminLTE.net.override(state === 'real' ? null : state);
+      });
+    });
+    // Bind print buttons (v1.5 — professional print stylesheet)
+    (root || document).querySelectorAll('[data-pa-print]').forEach(function (btn) {
+      if (btn.__paBound) return;
+      btn.__paBound = true;
+      btn.addEventListener('click', function () { global.print(); });
     });
     // Bind OTP resend buttons
     (root || document).querySelectorAll('[data-pa-otp-resend]').forEach(function (btn) {
@@ -2474,6 +2849,15 @@
   PAdminLTE.btnLoading = btnLoading;
   PAdminLTE.initSkeletons = initSkeletons;
   PAdminLTE.initTypewriters = initTypewriters;
+  /* ---------- Public API additions (v1.5) ---------- */
+  PAdminLTE.serializeForm = serializeForm;
+  PAdminLTE.initWizards = initWizards;
+  PAdminLTE.initAutosave = initAutosave;
+  PAdminLTE.initSortables = initSortables;
+  PAdminLTE.initNetStatus = initNetStatus;
+  PAdminLTE.initCodeBlocks = initCodeBlocks;
+  PAdminLTE.initShortcutsSheet = initShortcutsSheet;
+
   /* ---------- Public API additions (v1.4) ---------- */
   PAdminLTE.palette = {
     open: paletteOpen,

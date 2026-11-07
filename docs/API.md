@@ -445,6 +445,13 @@ PAdminLTE.off('pa:dir', handler);
 | `pa:card:refresh`      | `{ card }`              | کلیک روی `data-pa-card-tool="refresh"`       |
 | `pa:datatable:render`  | `{ total, page, pages }`| بعد از هر `render()` در datatable             |
 | `pa:form:valid`        | `{ form }`              | ارسال موفق یک `form[data-pa-validate-form]`   |
+| `pa:wizard:change`     | `{ index, total, el }`  | هر تغییر مرحله در `data-pa-wizard` (v1.5)     |
+| `pa:wizard:complete`   | `{ el, data }`          | تکمیل آخرین مرحلهٔ ویزارد (v1.5)              |
+| `pa:autosave:save`     | `{ key, el, data }`     | ذخیرهٔ پیش‌نویس فرم (v1.5)                    |
+| `pa:autosave:restore`  | `{ key, el, data }`     | بازیابی پیش‌نویس پس از بارگذاری (v1.5)        |
+| `pa:sortable:change`   | `{ el, order }`         | پایان درگ در `data-pa-sortable` (v1.5)        |
+| `pa:net:online`        | `{ simulated }`         | بازگشت اتصال (v1.5)                           |
+| `pa:net:offline`       | `{ simulated }`         | قطع اتصال (v1.5)                              |
 
 ---
 
@@ -779,3 +786,117 @@ PAdminLTE.store.remove(key, id, seed)
 
 نوار پیشرفت مطالعه؛ صفحه باید `<div data-pa-scroll-progress></div>` داشته باشد
 (کلاس `pa-scroll-progress` خودکار اضافه می‌شود). در `boot()` خودکار اجرا می‌شود.
+
+---
+
+## Form serialization (v1.5)
+
+### `PAdminLTE.serializeForm(form)`
+
+مقادیر همهٔ `input`/`select`/`textarea` فرم را به یک شیء ساده تبدیل می‌کند.
+کلید هر فیلد `name` است و اگر نداشت `id`. چک‌باکس‌ها بولی، رادیو فقط مقدار انتخاب‌شده،
+و فیلدهای `file` و `disabled` نادیده گرفته می‌شوند.
+
+---
+
+## Form wizard (v1.5)
+
+### `PAdminLTE.initWizards(root)`
+
+اتصال ویزاردهای `[data-pa-wizard]` — در `boot()` خودکار اجرا می‌شود.
+اعتبارسنجی هر مرحله با اعتبارسنجی بومی مرورگر (`required`, `type`, `minlength`, …)
+انجام می‌شود؛ فیلدهای نامعتبر کلاس `is-invalid` می‌گیرند.
+
+رویدادها:
+
+| نام | payload | زمان emit |
+| --- | --- | --- |
+| `pa:wizard:change` | `{ index, total, el }` | هر تغییر مرحله |
+| `pa:wizard:complete` | `{ el, data }` | کلیک «ثبت نهایی» در آخرین مرحله |
+
+نکته: کلیک روی مرحلهٔ `is-done` به همان مرحله برمی‌گردد.
+
+---
+
+## Draft auto-save (v1.5)
+
+### `PAdminLTE.initAutosave(root)`
+
+اتصال فرم‌های `[data-pa-autosave="key"]` — در `boot()` خودکار اجرا می‌شود.
+مقادیر با تأخیر ۴۰۰ms در `localStorage` با کلید `pa:autosave:<key>` ذخیره و در
+بارگذاری بعدی صفحه بازیابی می‌شود (به‌همراه توست اطلاع‌رسانی). دکمهٔ
+`[data-pa-autosave-clear]` پیش‌نویس را پاک می‌کند.
+
+رویدادها: `pa:autosave:save` و `pa:autosave:restore` با `{ key, el, data }`.
+
+---
+
+## Sortable lists (v1.5)
+
+### `PAdminLTE.initSortables(root)`
+
+اتصال لیست‌های `[data-pa-sortable]` — در `boot()` خودکار اجرا می‌شود.
+آیتم‌ها باید `.pa-sort-item` باشند؛ اگر `.pa-sort-handle` داخل آیتم باشد فقط
+دستگیره درگ می‌شود، در غیر این صورت کل آیتم. شماره‌گذاری `.pa-sort-index` خودکار است.
+
+رویداد: `pa:sortable:change` با `{ el, order }` — آرایهٔ `data-pa-id` به ترتیب جدید.
+
+---
+
+## Connection status (v1.5)
+
+### `PAdminLTE.initNetStatus()`
+
+بنر وضعیت اتصال را می‌سازد و به رویدادهای `online`/`offline` گوش می‌دهد —
+در `boot()` خودکار اجرا می‌شود (یک بار برای کل صفحه).
+
+### `PAdminLTE.net.online`
+
+وضعیت فعلی اتصال (`true`/`false`) — با احتساب override.
+
+### `PAdminLTE.net.override(state)`
+
+شبیه‌سازی وضعیت برای تست: `'offline'`، `'online'` یا `null` (بازگشت به وضعیت واقعی).
+مقدار بازگشتی: وضعیت جدید.
+
+رویدادها: `pa:net:online` و `pa:net:offline` با `{ simulated }`.
+
+---
+
+## Code blocks (v1.5)
+
+### `PAdminLTE.initCodeBlocks(root)`
+
+هر `pre[data-pa-code="lang"]` را در قاب `.pa-code` با هدر (برچسب زبان + دکمهٔ کپی)
+می‌پیچد — در `boot()` خودکار اجرا می‌شود. دکمهٔ کپی از `copyToClipboard` استفاده می‌کند.
+
+---
+
+## Keyboard shortcuts (v1.5)
+
+### `PAdminLTE.initShortcutsSheet()`
+
+برگهٔ میانبرها (`?`) را می‌سازد و میان‌برهای سراسری را متصل می‌کند —
+در `boot()` خودکار اجرا می‌شود. میان‌برها هنگام تایپ در فیلدها غیرفعال‌اند.
+
+### `PAdminLTE.shortcuts.open()` / `.close()`
+
+باز/بستن دستی برگهٔ میانبرها.
+
+| میانبر | عمل |
+| --- | --- |
+| `Ctrl+K` / `⌘K` | پالت فرمان |
+| `Shift+?` | برگهٔ میانبرها |
+| `Shift+T` | `toggleTheme()` |
+| `Shift+D` | `toggleDir()` |
+| `Esc` | بستن برگهٔ میانبرها |
+
+---
+
+## Skip link (v1.5)
+
+### `PAdminLTE.injectSkipLink()`
+
+اگر صفحه لینک پرش نداشته باشد و `<main id="pa-main-content">` موجود باشد، لینک
+«پرش به محتوای اصلی» را به‌عنوان اولین المان `body` تزریق می‌کند و `tabindex="-1"`
+را روی main می‌گذارد — در `boot()` خودکار اجرا می‌شود (تکرار نمی‌شود).

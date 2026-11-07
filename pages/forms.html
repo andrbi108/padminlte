@@ -145,6 +145,124 @@
           </div>
         </div>
 
+        <div class="pa-row">
+          <!-- Multi-step form wizard (v1.5) -->
+          <div class="pa-col-7">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>فرم‌ویزارد چندمرحله‌ای</h3>
+                <small class="pa-text-muted">اعلانی با <code>data-pa-wizard</code> — اعتبارسنجی هر مرحله + نوار پیشرفت</small>
+              </div>
+              <div class="pa-card-body">
+                <div data-pa-wizard>
+                  <ol class="pa-wizard-steps">
+                    <li class="pa-wizard-step is-active">
+                      <span class="pa-wizard-dot">۱</span>
+                      <span>حساب کاربری</span>
+                    </li>
+                    <li class="pa-wizard-step">
+                      <span class="pa-wizard-dot">۲</span>
+                      <span>پروفایل</span>
+                    </li>
+                    <li class="pa-wizard-step">
+                      <span class="pa-wizard-dot">۳</span>
+                      <span>تایید نهایی</span>
+                    </li>
+                  </ol>
+                  <div class="pa-wizard-progress"><span></span></div>
+
+                  <section class="pa-wizard-pane is-active">
+                    <h4 class="pa-wizard-pane-title">اطلاعات ورود</h4>
+                    <div class="pa-form-row">
+                      <div class="pa-form-group">
+                        <label for="w-email">ایمیل</label>
+                        <input id="w-email" name="email" class="pa-input" type="email" placeholder="name@example.com" required>
+                      </div>
+                      <div class="pa-form-group">
+                        <label for="w-pass">گذرواژه</label>
+                        <input id="w-pass" name="password" class="pa-input" type="password" placeholder="حداقل ۶ کاراکتر" minlength="6" required>
+                      </div>
+                    </div>
+                    <p class="pa-text-muted pa-mb-0" style="font-size:.85rem">گذرواژه باید حداقل ۶ کاراکتر باشد؛ ایمیل باید قالب معتبر داشته باشد.</p>
+                  </section>
+
+                  <section class="pa-wizard-pane">
+                    <h4 class="pa-wizard-pane-title">پروفایل کاربر</h4>
+                    <div class="pa-form-row">
+                      <div class="pa-form-group">
+                        <label for="w-name">نام و نام خانوادگی</label>
+                        <input id="w-name" name="fullname" class="pa-input" type="text" placeholder="مثلاً امیر رضایی" required>
+                      </div>
+                      <div class="pa-form-group">
+                        <label for="w-role">نقش سازمانی</label>
+                        <select id="w-role" name="role" class="pa-select">
+                          <option value="admin">مدیر</option>
+                          <option value="editor" selected>ویرایشگر</option>
+                          <option value="viewer">بیننده</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="w-bio">دربارهٔ من</label>
+                      <textarea id="w-bio" name="bio" class="pa-textarea" rows="3" placeholder="معرفی کوتاه (اختیاری)"></textarea>
+                    </div>
+                  </section>
+
+                  <section class="pa-wizard-pane">
+                    <h4 class="pa-wizard-pane-title">تایید نهایی</h4>
+                    <div class="pa-form-check">
+                      <input id="w-terms" name="terms" type="checkbox" required>
+                      <label for="w-terms">صحت اطلاعات وارد شده را تایید می‌کنم و <a href="../pages/terms.html">قوانین</a> را می‌پذیرم.</label>
+                    </div>
+                    <div class="pa-form-check">
+                      <input id="w-news" name="newsletter" type="checkbox">
+                      <label for="w-news">خبرنامهٔ ماهانه برای من ارسال شود.</label>
+                    </div>
+                  </section>
+
+                  <div class="pa-wizard-actions">
+                    <button type="button" class="pa-btn pa-btn-outline" data-pa-wizard-prev data-pa-icon="arrow_right" data-pa-icon-size="16"> مرحلهٔ قبل</button>
+                    <button type="button" class="pa-btn pa-btn-primary" data-pa-wizard-next>مرحلهٔ بعد</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Draft auto-save (v1.5) -->
+          <div class="pa-col-5">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>ذخیرهٔ خودکار پیش‌نویس</h3>
+                <small class="pa-text-muted">اعلانی با <code>data-pa-autosave</code> — ذخیره در localStorage</small>
+              </div>
+              <div class="pa-card-body">
+                <form data-pa-autosave="post-draft">
+                  <div class="pa-form-group">
+                    <label for="d-title">عنوان پیش‌نویس</label>
+                    <input id="d-title" name="title" class="pa-input" type="text" placeholder="مثلاً یادداشت جلسهٔ هفتگی">
+                  </div>
+                  <div class="pa-form-group">
+                    <label for="d-body">متن</label>
+                    <textarea id="d-body" name="body" class="pa-textarea" rows="5" placeholder="بنویسید… پس از نیم ثانیه توقف، پیش‌نویس ذخیره می‌شود. این صفحه را بازآوری کنید تا بازیابی خودکار را ببینید."></textarea>
+                  </div>
+                  <div class="pa-form-group">
+                    <label for="d-status">وضعیت</label>
+                    <select id="d-status" name="status" class="pa-select">
+                      <option value="draft" selected>پیش‌نویس</option>
+                      <option value="review">در حال بازبینی</option>
+                      <option value="published">منتشر شده</option>
+                    </select>
+                  </div>
+                  <div class="pa-d-flex pa-gap-2">
+                    <button type="button" class="pa-btn pa-btn-outline" data-pa-autosave-clear data-pa-icon="trash" data-pa-icon-size="16"> پاک کردن پیش‌نویس</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div data-pa-layout="footer"></div>
       </main>
     </div>

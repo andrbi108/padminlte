@@ -35,6 +35,13 @@
 - [CSV export](#csv-export)
 - [Empty state](#empty-state)
 - [Scroll progress](#scroll-progress)
+- [Form wizard (v1.5)](#form-wizard-v15)
+- [Draft auto-save (v1.5)](#draft-auto-save-v15)
+- [Sortable lists (v1.5)](#sortable-lists-v15)
+- [Connection status (v1.5)](#connection-status-v15)
+- [Code blocks (v1.5)](#code-blocks-v15)
+- [Keyboard shortcuts (v1.5)](#keyboard-shortcuts-v15)
+- [Print styles (v1.5)](#print-styles-v15)
 
 ---
 
@@ -781,4 +788,125 @@ PAdminLTE.palette.toggle(); // تغییر وضعیت
 
 ```html
 <div data-pa-scroll-progress aria-hidden="true"></div>
+```
+
+---
+
+## Form wizard (v1.5)
+
+ویزارد چندمرحله‌ای اعلانی. با `data-pa-wizard` فعال می‌شود؛ هر مرحله فقط بعد از
+گذراندن اعتبارسنجی بومی (required/type/minlength) جلو می‌رود. نقطه‌های مراحل
+پس از تکمیل تیک می‌خورند و با کلیک روی مرحلهٔ «انجام‌شده» می‌توان به عقب برگشت.
+
+```html
+<div data-pa-wizard>
+  <ol class="pa-wizard-steps">
+    <li class="pa-wizard-step is-active"><span class="pa-wizard-dot">۱</span><span>حساب</span></li>
+    <li class="pa-wizard-step"><span class="pa-wizard-dot">۲</span><span>پروفایل</span></li>
+  </ol>
+  <div class="pa-wizard-progress"><span></span></div>
+
+  <section class="pa-wizard-pane is-active">
+    <input name="email" type="email" class="pa-input" required>
+  </section>
+  <section class="pa-wizard-pane">…</section>
+
+  <div class="pa-wizard-actions">
+    <button type="button" class="pa-btn pa-btn-outline" data-pa-wizard-prev>قبلی</button>
+    <button type="button" class="pa-btn pa-btn-primary" data-pa-wizard-next data-pa-done-label="ثبت نهایی">بعدی</button>
+  </div>
+</div>
+```
+
+رویدادها: `pa:wizard:change` (`{index, total, el}`) و `pa:wizard:complete` (`{el, data}`).
+
+---
+
+## Draft auto-save (v1.5)
+
+ذخیرهٔ خودکار مقادیر فرم در `localStorage` (با تأخیر ۴۰۰ms) و بازیابی خودکار
+پس از بازآوری صفحه به‌همراه توست اطلاع‌رسانی.
+
+```html
+<form data-pa-autosave="post-draft"> …
+  <button type="button" data-pa-autosave-clear>پاک کردن پیش‌نویس</button>
+</form>
+```
+
+رویدادها: `pa:autosave:save` و `pa:autosave:restore` (`{key, el, data}`).
+
+---
+
+## Sortable lists (v1.5)
+
+لیست عمودی مرتب‌شدنی با کشیدن و رها کردن (HTML5 Drag &amp; Drop). کلاس `pa-sortable`
+به‌خودی‌سر به خود لیست اضافه می‌شود؛ شماره‌گذاری `.pa-sort-index` نیز خودکار (و در RTL
+با ارقام فارسی) به‌روز می‌شود. اگر داخل آیتم `.pa-sort-handle` داشته باشید
+فقط از دستگیره می‌توان کشید.
+
+```html
+<ul data-pa-sortable>
+  <li class="pa-sort-item" data-pa-id="design">
+    <span class="pa-sort-handle" data-pa-icon="command"></span>
+    <span class="pa-sort-index">۱</span>
+    <span>طراحی رابط کاربری</span>
+  </li>
+</ul>
+```
+
+رویداد: `pa:sortable:change` (`{el, order}`).
+
+---
+
+## Connection status (v1.5)
+
+بنر وضعیت اتصال که خودکار ساخته می‌شود: هنگام `offline` بنر زرد در پایین صفحه
+ظاهر می‌شود و هنگام بازگشت اتصال، بنر سبز لحظه‌ای فلش می‌زند. رویدادهای
+`pa:net:online` / `pa:net:offline` منتشر می‌شوند.
+
+```js
+PAdminLTE.net.online;              // وضعیت فعلی (true/false)
+PAdminLTE.net.override('offline'); // شبیه‌سازی قطعی برای تست/دمو
+PAdminLTE.net.override(null);      // بازگشت به وضعیت واقعی
+```
+
+دکمه‌های اعلانی دمو: `<button data-pa-net-demo="offline|online|real">`.
+
+---
+
+## Code blocks (v1.5)
+
+هر `<pre data-pa-code="lang">` به‌خودی‌سر در قاب تیره با هدر (زبان + دکمهٔ کپی)
+قرار می‌گیرد؛ محتوای کد باید HTML-escape شده باشد.
+
+```html
+<pre data-pa-code="html"><code>&lt;div class="pa-card"&gt;…&lt;/div&gt;</code></pre>
+```
+
+---
+
+## Keyboard shortcuts (v1.5)
+
+برگهٔ میانبرها با کلید `?` (Shift+/) باز می‌شود و `Esc` آن را می‌بندد:
+
+| میانبر | عمل |
+| --- | --- |
+| `Ctrl+K` / `⌘K` | پالت فرمان |
+| `Shift+?` | برگهٔ میانبرها |
+| `Shift+T` | تغییر تم روشن/تاریک |
+| `Shift+D` | تغییر جهت RTL/LTR |
+| `↑` `↓` / `Enter` | ناوبری و اجرا در پالت فرمان |
+| `Esc` | بستن پنجره‌های باز |
+
+---
+
+## Print styles (v1.5)
+
+شیوه‌نامهٔ چاپ حرفه‌ای: سایدبار/هدر/فوتر/دکمه‌ها چاپ نمی‌شوند، کارت‌ها کادر ساده
+می‌گیرند و جدول‌ها با تکرار سرستون در هر صفحه چاپ می‌شوند.
+
+```html
+<button data-pa-print>چاپ</button>        <!-- دکمهٔ چاپ -->
+<div data-pa-no-print>در چاپ نمی‌آید</div>
+<div class="pa-print-only">فقط در چاپ دیده می‌شود</div>
 ```

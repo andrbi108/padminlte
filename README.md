@@ -32,7 +32,14 @@
 - ⌨️ **پالت فرمان (Ctrl+K/⌘K)**: جستجوی زندهٔ همهٔ صفحات + فرمان‌های سریع، بدون وابستگی
 - 📈 **۸ حالت تایم‌لاین** (پایه، آیکونی، یک‌درمیان، فشرده، گروهی، رسانه‌ای، افقی، رهگیری پیشرفت) با پشتیبانی کامل RTL/LTR
 - 📤 **خروجی CSV جداول** با یک کلیک (سازگار با Excel فارسی)
-- ♿ **دسترسی‌پذیری**: skip-link، ARIA، پشتیبانی کیبورد، focus-visible
+- 🧙 **فرم‌ویزارد چندمرحله‌ای** با نوار پیشرفت، تیک مراحل و اعتبارسنجی هر گام (`data-pa-wizard`)
+- 💾 **ذخیرهٔ خودکار پیش‌نویس فرم** در localStorage با بازیابی خودکار (`data-pa-autosave`)
+- ↕️ **لیست مرتب‌شدنی** با کشیدن و رها کردن و شماره‌گذاری خودکار (`data-pa-sortable`)
+- 📶 **بنر خودکار وضعیت اتصال** (قطع/وصل اینترنت) با شبیه‌ساز تست
+- 💻 **بلوک کد با هدر و دکمهٔ کپی** (`pre[data-pa-code]`)
+- ⌨️ **برگهٔ میانبرهای کیبورد** با کلید `?` — شامل Shift+T (تم) و Shift+D (جهت)
+- 🖨️ **چاپ حرفه‌ای**: `@media print` کامل، دکمهٔ چاپ، `data-pa-no-print` / `.pa-print-only`
+- ♿ **دسترسی‌پذیری**: skip-link خودکار، ARIA، پشتیبانی کیبورد، `:focus-visible`، `prefers-reduced-motion`
 - 📦 **ساختار ساده** — سه فایل اصلی (`css/padminlte.css`, `js/pa-icons.js`, `js/padminlte.js`, `js/pa-layout.js`) و صفحات HTML
 - 🆓 **مجوز MIT** — آزاد برای استفادهٔ تجاری و غیرتجاری
 
@@ -129,7 +136,7 @@ php -S localhost:8000
 | `pages/widgets.html` | نمایش تمام ویجت‌ها (small-box, info-box, progress, badges, avatars) |
 | `pages/charts.html` | نمونهٔ تمام انواع نمودار |
 | `pages/tables.html` | جدول با جستجو/مرتب‌سازی/صفحه‌بندی + جدول ساده + جدول فشرده |
-| `pages/forms.html` | فرم اعتبارسنجی‌دار، مودال، توست، آلرت |
+| `pages/forms.html` | فرم اعتبارسنجی‌دار، مودال، توست، آلرت + فرم‌ویزارد چندمرحله‌ای + ذخیرهٔ خودکار پیش‌نویس |
 | `pages/users.html` | لیست کاربران با جدول پویا و مودال افزودن |
 | `pages/profile.html` | پروفایل کاربر با تب |
 | `pages/settings.html` | تنظیمات حساب + تنظیمات ظاهری (تم، منو، جهت) |
@@ -264,6 +271,9 @@ MIT — آزاد برای استفادهٔ تجاری و غیرتجاری. بر�
 - 60 ready-to-use pages — 3 dashboards, CRUD, user management, auth flows, blog & forum (localStorage-backed), gallery with 5 view modes, loaders/skeletons, animations showcase, icon gallery and more
 - Mock auth (`PAdminLTE.auth`) with localStorage sessions + content store (`PAdminLTE.store`)
 - Lazy-loaded images, spinner/skeleton/preloader toolkit, scroll-reveal animations (12 modes), typewriter
+- Command palette (Ctrl+K/⌘K), 8 timeline variants, one-click CSV table export
+- Multi-step form wizard, form draft auto-save, drag-and-drop sortable lists, offline/online banner, copy-to-clipboard code blocks
+- Keyboard shortcuts sheet (`?`) with Shift+T (theme) / Shift+D (direction); professional `@media print` stylesheet
 - Accessibility: skip links, ARIA, keyboard support, focus-visible, prefers-reduced-motion
 - MIT licensed
 

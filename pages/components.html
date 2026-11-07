@@ -340,6 +340,100 @@
             </div>
           </div>
 
+          <!-- ۱۴. لیست مرتب‌شدنی (v1.5) -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>لیست مرتب‌شدنی</h3>
+                <small class="pa-text-muted">کشیدن و رها کردن با <code>data-pa-sortable</code> — ترتیب جدید رویداد <code>pa:sortable:change</code> می‌دهد</small>
+              </div>
+              <div class="pa-card-body">
+                <ul data-pa-sortable>
+                  <li class="pa-sort-item" data-pa-id="design">
+                    <span class="pa-sort-handle" data-pa-icon="command" data-pa-icon-size="15" title="بکشید"></span>
+                    <span class="pa-sort-index">۱</span>
+                    <span>طراحی رابط کاربری</span>
+                  </li>
+                  <li class="pa-sort-item" data-pa-id="backend">
+                    <span class="pa-sort-handle" data-pa-icon="command" data-pa-icon-size="15" title="بکشید"></span>
+                    <span class="pa-sort-index">۲</span>
+                    <span>پیاده‌سازی رابط برنامه‌نویسی</span>
+                  </li>
+                  <li class="pa-sort-item" data-pa-id="tests">
+                    <span class="pa-sort-handle" data-pa-icon="command" data-pa-icon-size="15" title="بکشید"></span>
+                    <span class="pa-sort-index">۳</span>
+                    <span>نوشتن تست‌های یکپارچگی</span>
+                  </li>
+                  <li class="pa-sort-item" data-pa-id="docs">
+                    <span class="pa-sort-handle" data-pa-icon="command" data-pa-icon-size="15" title="بکشید"></span>
+                    <span class="pa-sort-index">۴</span>
+                    <span>تدوین مستندات فنی</span>
+                  </li>
+                  <li class="pa-sort-item" data-pa-id="deploy">
+                    <span class="pa-sort-handle" data-pa-icon="command" data-pa-icon-size="15" title="بکشید"></span>
+                    <span class="pa-sort-index">۵</span>
+                    <span>استقرار روی سرور تولید</span>
+                  </li>
+                </ul>
+                <p class="pa-text-muted pa-mb-0" style="font-size:.82rem; margin-top:.8rem">شماره‌ها پس از هر جابه‌جایی خودکار به‌روز می‌شوند.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۱۵. وضعیت اتصال (v1.5) -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>وضعیت اتصال</h3>
+                <small class="pa-text-muted">بنر خودکار قطع/وصل اینترنت + شبیه‌ساز برای تست</small>
+              </div>
+              <div class="pa-card-body">
+                <p style="margin-top:0">به‌محض قطع اینترنت، بنری زرد در پایین صفحه ظاهر می‌شود و با وصل شدن مجدد، پیام سبز موفقیت فلش می‌زند. رویدادهای <code>pa:net:online</code> و <code>pa:net:offline</code> روی باس رویداد منتشر می‌شوند.</p>
+                <div class="pa-d-flex pa-gap-2" style="flex-wrap:wrap">
+                  <button type="button" class="pa-btn pa-btn-warning" data-pa-net-demo="offline" data-pa-icon="wifi_off" data-pa-icon-size="15"> شبیه‌سازی قطعی</button>
+                  <button type="button" class="pa-btn pa-btn-success" data-pa-net-demo="online" data-pa-icon="wifi" data-pa-icon-size="15"> شبیه‌سازی اتصال</button>
+                  <button type="button" class="pa-btn pa-btn-outline" data-pa-net-demo="real" data-pa-icon="refresh" data-pa-icon-size="15"> بازگشت به حالت واقعی</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ۱۶. بلوک‌های کد با دکمهٔ کپی (v1.5) -->
+          <div class="pa-col-12">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>بلوک‌های کد با دکمهٔ کپی</h3>
+                <small class="pa-text-muted">هر <code>&lt;pre data-pa-code="…"&gt;</code> به‌خودی‌سر هدر و دکمهٔ کپی می‌گیرد</small>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-row">
+                  <div class="pa-col-6">
+                    <pre data-pa-code="html"><code>&lt;div data-pa-wizard&gt;
+  &lt;ol class="pa-wizard-steps"&gt;
+    &lt;li class="pa-wizard-step is-active"&gt;
+      &lt;span class="pa-wizard-dot"&gt;۱&lt;/span&gt;
+      &lt;span&gt;حساب کاربری&lt;/span&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;div class="pa-wizard-progress"&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;section class="pa-wizard-pane is-active"&gt;…&lt;/section&gt;
+&lt;/div&gt;</code></pre>
+                  </div>
+                  <div class="pa-col-6">
+                    <pre data-pa-code="javascript"><code>// ترتیب جدید پس از جابه‌جایی آیتم‌ها
+PAdminLTE.on('pa:sortable:change', function (e) {
+  console.log('ترتیب جدید:', e.order.join(' → '));
+});
+
+// شبیه‌سازی قطع اینترنت برای تست
+PAdminLTE.net.override('offline');
+PAdminLTE.net.override(null); // بازگشت به حالت واقعی</code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <div data-pa-layout="footer"></div>
