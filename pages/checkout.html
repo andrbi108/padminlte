@@ -8,372 +8,252 @@
 </head>
 <body>
   <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
-  <div class="pa-app">
-    <div data-pa-layout="sidebar"></div>
-    <div class="pa-main">
-      <div data-pa-layout="header"></div>
-      <main class="pa-content" id="pa-main-content">
-        <div class="pa-page-header">
-          <div>
-            <h1>تسویه حساب</h1>
-            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="cart.html">سبد خرید</a><span class="pa-sep">›</span><span>تسویه حساب</span></div>
-          </div>
+  <div data-pa-layout="site-nav"></div>
+
+  <main class="pa-site-main" id="pa-main-content">
+    <div class="pa-page-header pa-anim-slide-up">
+      <div>
+        <h1>تسویه حساب</h1>
+        <div class="pa-breadcrumb">
+          <a href="landing.html">خانه</a><span class="pa-sep">›</span>
+          <a href="shop.html">فروشگاه</a><span class="pa-sep">›</span>
+          <a href="cart.html">سبد خرید</a><span class="pa-sep">›</span>
+          <span>تسویه حساب</span>
         </div>
-
-        <!-- Horizontal stepper -->
-        <div class="pa-card pa-anim-slide-up pa-mb-2">
-          <div class="pa-card-body">
-            <div class="pa-d-flex pa-align-center" id="checkout-steps" style="flex-wrap:wrap; gap:.5rem">
-              <div class="pa-d-flex pa-align-center pa-gap-1 pa-flex-1" style="min-width:200px">
-                <span class="pa-d-flex" style="width:32px; height:32px; border-radius:50%; background:var(--pa-success); color:#fff; place-items:center; display:grid; font-weight:700">
-                  <span data-pa-icon="check" data-pa-icon-size="16"></span>
-                </span>
-                <div>
-                  <div class="pa-fs-sm pa-text-muted">گام ۱</div>
-                  <div class="pa-fw-600">سبد خرید</div>
-                </div>
-              </div>
-              <span data-pa-icon="chevron_left" data-pa-icon-size="20" style="color:var(--pa-text-muted)" class="pa-text-muted"></span>
-
-              <div class="pa-d-flex pa-align-center pa-gap-1 pa-flex-1" style="min-width:200px">
-                <span class="pa-d-flex" style="width:32px; height:32px; border-radius:50%; background:var(--pa-primary); color:#fff; place-items:center; display:grid; font-weight:700">۲</span>
-                <div>
-                  <div class="pa-fs-sm pa-text-muted">گام ۲ — جاری</div>
-                  <div class="pa-fw-600">آدرس</div>
-                </div>
-              </div>
-              <span data-pa-icon="chevron_left" data-pa-icon-size="20" style="color:var(--pa-text-muted)" class="pa-text-muted"></span>
-
-              <div class="pa-d-flex pa-align-center pa-gap-1 pa-flex-1" style="min-width:200px">
-                <span class="pa-d-flex" style="width:32px; height:32px; border-radius:50%; background:var(--pa-surface-3); color:var(--pa-text-muted); place-items:center; display:grid; font-weight:700">۳</span>
-                <div>
-                  <div class="pa-fs-sm pa-text-muted">گام ۳</div>
-                  <div class="pa-fw-600">پرداخت</div>
-                </div>
-              </div>
-              <span data-pa-icon="chevron_left" data-pa-icon-size="20" style="color:var(--pa-text-muted)" class="pa-text-muted"></span>
-
-              <div class="pa-d-flex pa-align-center pa-gap-1 pa-flex-1" style="min-width:200px">
-                <span class="pa-d-flex" style="width:32px; height:32px; border-radius:50%; background:var(--pa-surface-3); color:var(--pa-text-muted); place-items:center; display:grid; font-weight:700">۴</span>
-                <div>
-                  <div class="pa-fs-sm pa-text-muted">گام ۴</div>
-                  <div class="pa-fw-600">تأیید</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pa-row">
-          <!-- Main column -->
-          <div class="pa-col-8">
-            <!-- Address form -->
-            <div class="pa-card pa-anim-slide-up">
-              <div class="pa-card-header"><h3>آدرس حمل و نقل</h3><span data-pa-icon="map_pin" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></div>
-              <div class="pa-card-body">
-                <form data-pa-validate-form>
-                  <div class="pa-form-row">
-                    <div class="pa-form-group">
-                      <label>نام</label>
-                      <input class="pa-input" type="text" data-pa-validate="required" placeholder="مثال: امیر">
-                      <div class="pa-form-feedback">این فیلد اجباری است.</div>
-                    </div>
-                    <div class="pa-form-group">
-                      <label>نام خانوادگی</label>
-                      <input class="pa-input" type="text" data-pa-validate="required" placeholder="مثال: رضایی">
-                      <div class="pa-form-feedback">این فیلد اجباری است.</div>
-                    </div>
-                  </div>
-                  <div class="pa-form-row">
-                    <div class="pa-form-group">
-                      <label>ایمیل</label>
-                      <input class="pa-input" type="email" data-pa-validate="email" placeholder="example@mail.com">
-                      <div class="pa-form-feedback">ایمیل معتبر نیست.</div>
-                    </div>
-                    <div class="pa-form-group">
-                      <label>شمارهٔ تماس</label>
-                      <input class="pa-input" type="tel" data-pa-validate="number" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
-                      <div class="pa-form-feedback">مقدار عددی وارد کنید.</div>
-                    </div>
-                  </div>
-                  <div class="pa-form-group">
-                    <label>نشانی کامل</label>
-                    <textarea class="pa-textarea" rows="2" data-pa-validate="required" placeholder="خیابان، کوچه، پلاک، واحد"></textarea>
-                    <div class="pa-form-feedback">این فیلد اجباری است.</div>
-                  </div>
-                  <div class="pa-form-row">
-                    <div class="pa-form-group">
-                      <label>شهر</label>
-                      <input class="pa-input" type="text" data-pa-validate="required" placeholder="تهران">
-                      <div class="pa-form-feedback">این فیلد اجباری است.</div>
-                    </div>
-                    <div class="pa-form-group">
-                      <label>کد پستی</label>
-                      <input class="pa-input" type="text" data-pa-validate="required" placeholder="۱۲۳۴۵۶۷۸۹۰" inputmode="numeric">
-                      <div class="pa-form-feedback">این فیلد اجباری است.</div>
-                    </div>
-                  </div>
-                  <div class="pa-form-group">
-                    <label>کشور</label>
-                    <select class="pa-select">
-                      <option>ایران</option>
-                      <option>افغانستان</option>
-                      <option>ترکیه</option>
-                      <option>امارات متحدهٔ عربی</option>
-                      <option>آلمان</option>
-                    </select>
-                  </div>
-                  <div class="pa-form-check">
-                    <input type="checkbox" id="save-addr" checked>
-                    <label for="save-addr">ذخیره این آدرس برای خریدهای بعدی</label>
-                  </div>
-                  <button type="submit" class="pa-btn pa-btn-primary">
-                    <span data-pa-icon="check_circle" data-pa-icon-size="16"></span>
-                    ذخیرهٔ آدرس و ادامه
-                  </button>
-                </form>
-              </div>
-            </div>
-
-            <!-- Shipping method -->
-            <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
-              <div class="pa-card-header"><h3>روش حمل</h3><span data-pa-icon="truck" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></div>
-              <div class="pa-card-body">
-                <label class="pa-d-flex pa-align-center pa-gap-2" style="padding:.75rem; border:1px solid var(--pa-primary); border-radius:var(--pa-radius); margin-bottom:.5rem; cursor:pointer; background:var(--pa-primary-soft)">
-                  <input type="radio" name="shipping" checked style="width:18px; height:18px; accent-color:var(--pa-primary)">
-                  <span data-pa-icon="truck" data-pa-icon-size="22" style="color:var(--pa-primary)"></span>
-                  <div class="pa-flex-1">
-                    <div class="pa-fw-600">ارسال عادی (۳-۵ روز)</div>
-                    <small class="pa-text-muted">تحویل در ۳ تا ۵ روز کاری</small>
-                  </div>
-                  <span class="pa-badge pa-badge-success">رایگان</span>
-                </label>
-                <label class="pa-d-flex pa-align-center pa-gap-2" style="padding:.75rem; border:1px solid var(--pa-border); border-radius:var(--pa-radius); margin-bottom:.5rem; cursor:pointer">
-                  <input type="radio" name="shipping" style="width:18px; height:18px; accent-color:var(--pa-primary)">
-                  <span data-pa-icon="rocket" data-pa-icon-size="22" style="color:var(--pa-warning)"></span>
-                  <div class="pa-flex-1">
-                    <div class="pa-fw-600">ارسال سریع (۱-۲ روز)</div>
-                    <small class="pa-text-muted">تحویل در ۱ تا ۲ روز کاری</small>
-                  </div>
-                  <span class="pa-fw-600">۵۰٬۰۰۰ ت</span>
-                </label>
-                <label class="pa-d-flex pa-align-center pa-gap-2" style="padding:.75rem; border:1px solid var(--pa-border); border-radius:var(--pa-radius); cursor:pointer">
-                  <input type="radio" name="shipping" style="width:18px; height:18px; accent-color:var(--pa-primary)">
-                  <span data-pa-icon="zap" data-pa-icon-size="22" style="color:var(--pa-danger)"></span>
-                  <div class="pa-flex-1">
-                    <div class="pa-fw-600">ارسال همان روز</div>
-                    <small class="pa-text-muted">فقط برای تهران — تحویل در کمتر از ۶ ساعت</small>
-                  </div>
-                  <span class="pa-fw-600">۱۵۰٬۰۰۰ ت</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Payment method -->
-            <div class="pa-card pa-anim-slide-up pa-anim-delay-2">
-              <div class="pa-card-header"><h3>روش پرداخت</h3><span data-pa-icon="credit_card" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></div>
-              <div class="pa-card-body">
-                <label class="pa-d-flex pa-align-center pa-gap-2" style="padding:.75rem; border:1px solid var(--pa-primary); border-radius:var(--pa-radius); margin-bottom:.5rem; cursor:pointer; background:var(--pa-primary-soft)">
-                  <input type="radio" name="payment" value="card" checked style="width:18px; height:18px; accent-color:var(--pa-primary)">
-                  <span data-pa-icon="credit_card" data-pa-icon-size="22" style="color:var(--pa-primary)"></span>
-                  <div class="pa-flex-1">
-                    <div class="pa-fw-600">کارت اعتباری</div>
-                    <small class="pa-text-muted">پرداخت آنلاین با کارت بانکی</small>
-                  </div>
-                </label>
-                <div id="card-form" style="padding:.5rem 0 1rem; margin-top:-.25rem">
-                  <div class="pa-form-group">
-                    <label>شمارهٔ کارت</label>
-                    <div class="pa-input-group">
-                      <span class="pa-input-addon"><span data-pa-icon="credit_card_alt" data-pa-icon-size="16"></span></span>
-                      <input class="pa-input" type="text" placeholder="۱۲۳۴-۵۶۷۸-۹۰۱۲-۳۴۵۶" inputmode="numeric" maxlength="19">
-                    </div>
-                    <div class="pa-hint">شمارهٔ ۱۶ رقمی درج‌شده روی کارت را وارد کنید.</div>
-                  </div>
-                  <div class="pa-form-group">
-                    <label>نام دارندهٔ کارت</label>
-                    <input class="pa-input" type="text" placeholder="AMIR REZAEE">
-                  </div>
-                  <div class="pa-form-row">
-                    <div class="pa-form-group">
-                      <label>تاریخ انقضا</label>
-                      <input class="pa-input" type="text" placeholder="MM/YY" maxlength="5">
-                    </div>
-                    <div class="pa-form-group">
-                      <label>کد CVV2</label>
-                      <input class="pa-input" type="text" placeholder="۱۲۳" inputmode="numeric" maxlength="4">
-                    </div>
-                  </div>
-                </div>
-
-                <label class="pa-d-flex pa-align-center pa-gap-2" style="padding:.75rem; border:1px solid var(--pa-border); border-radius:var(--pa-radius); margin-bottom:.5rem; cursor:pointer">
-                  <input type="radio" name="payment" value="cod" style="width:18px; height:18px; accent-color:var(--pa-primary)">
-                  <span data-pa-icon="package_alt" data-pa-icon-size="22" style="color:var(--pa-warning)"></span>
-                  <div class="pa-flex-1">
-                    <div class="pa-fw-600">پرداخت در محل</div>
-                    <small class="pa-text-muted">پرداخت هنگام تحویل کالا</small>
-                  </div>
-                </label>
-                <label class="pa-d-flex pa-align-center pa-gap-2" style="padding:.75rem; border:1px solid var(--pa-border); border-radius:var(--pa-radius); cursor:pointer">
-                  <input type="radio" name="payment" value="bank" style="width:18px; height:18px; accent-color:var(--pa-primary)">
-                  <span data-pa-icon="database_alt" data-pa-icon-size="22" style="color:var(--pa-success)"></span>
-                  <div class="pa-flex-1">
-                    <div class="pa-fw-600">انتقال بانکی</div>
-                    <small class="pa-text-muted">پرداخت با کارت به کارت و ارسال رسید</small>
-                  </div>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Summary -->
-          <div class="pa-col-4">
-            <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
-              <div class="pa-card-header"><h3>خلاصه سفارش</h3></div>
-              <div class="pa-card-body">
-                <!-- 3 mini cart items -->
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mb-2">
-                  <div style="width:48px; height:48px; border-radius:var(--pa-radius); background:linear-gradient(135deg,#0d6efd,#0a58ca); display:grid; place-items:center; color:#fff; flex-shrink:0">
-                    <span data-pa-icon="monitor" data-pa-icon-size="22"></span>
-                  </div>
-                  <div class="pa-flex-1" style="min-width:0">
-                    <div class="pa-fw-600 pa-fs-sm">لپ‌تاپ ایسوس ROG</div>
-                    <small class="pa-text-muted">۱ عدد</small>
-                  </div>
-                  <span class="pa-fw-600 pa-fs-sm">۲۵٬۰۰۰٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mb-2">
-                  <div style="width:48px; height:48px; border-radius:var(--pa-radius); background:linear-gradient(135deg,#6610f2,#4c0bd1); display:grid; place-items:center; color:#fff; flex-shrink:0">
-                    <span data-pa-icon="smartphone" data-pa-icon-size="22"></span>
-                  </div>
-                  <div class="pa-flex-1" style="min-width:0">
-                    <div class="pa-fw-600 pa-fs-sm">گوشی سامسونگ S24</div>
-                    <small class="pa-text-muted">۲ عدد</small>
-                  </div>
-                  <span class="pa-fw-600 pa-fs-sm">۳۶٬۰۰۰٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mb-2">
-                  <div style="width:48px; height:48px; border-radius:var(--pa-radius); background:linear-gradient(135deg,#0dcaf0,#0aa6c2); display:grid; place-items:center; color:#fff; flex-shrink:0">
-                    <span data-pa-icon="volume" data-pa-icon-size="22"></span>
-                  </div>
-                  <div class="pa-flex-1" style="min-width:0">
-                    <div class="pa-fw-600 pa-fs-sm">هدفون سونی</div>
-                    <small class="pa-text-muted">۱ عدد</small>
-                  </div>
-                  <span class="pa-fw-600 pa-fs-sm">۳٬۵۰۰٬۰۰۰ ت</span>
-                </div>
-
-                <hr>
-
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">جمع کل</span>
-                  <span>۶۴٬۵۰۰٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">هزینهٔ ارسال</span>
-                  <span class="pa-text-success pa-fw-600">رایگان</span>
-                </div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">مالیات (۹٪)</span>
-                  <span>۵٬۸۰۵٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">تخفیف</span>
-                  <span class="pa-text-danger">− ۶٬۷۰۰٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mb-2">
-                  <span class="pa-badge pa-badge-success"><span data-pa-icon="check_circle" data-pa-icon-size="12"></span> کد تخفیف PADMIN20 اعمال شد</span>
-                </div>
-                <hr>
-                <div class="pa-d-flex pa-justify-between pa-align-center pa-mb-2">
-                  <span class="pa-fw-700">مبلغ نهایی</span>
-                  <span class="pa-text-2xl pa-text-bold" style="color:var(--pa-success)">۶۳٬۶۰۵٬۰۰۰ ت</span>
-                </div>
-                <button class="pa-btn pa-btn-success pa-btn-block pa-btn-lg" id="final-pay-btn" type="button">
-                  <span data-pa-icon="lock" data-pa-icon-size="18"></span>
-                  پرداخت نهایی
-                </button>
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mt-2" style="justify-content:center">
-                  <span data-pa-icon="shield_check" data-pa-icon-size="14" style="color:var(--pa-success)"></span>
-                  <small class="pa-text-muted">پرداخت از طریق درگاه امن بانکی</small>
-                </div>
-                <a href="cart.html" class="pa-d-block pa-text-center pa-fs-sm pa-hover-underline pa-mt-2">
-                  <span data-pa-icon="arrow_right" data-pa-icon-size="14"></span> بازگشت به سبد
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div data-pa-layout="footer"></div>
-      </main>
+      </div>
     </div>
-  </div>
+
+    <!-- Steps -->
+    <div class="pa-card pa-mb-2 pa-anim-slide-up">
+      <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2" style="flex-wrap:wrap">
+        <a href="cart.html" class="pa-btn pa-btn-ghost pa-btn-sm" style="color:var(--pa-success)">
+          <span data-pa-icon="check_circle" data-pa-icon-size="16"></span> ۱ — سبد خرید
+        </a>
+        <span data-pa-icon="chevron_left" data-pa-icon-size="16" style="color:var(--pa-text-muted)"></span>
+        <span class="pa-btn pa-btn-sm pa-btn-primary" style="cursor:default">
+          ۲ — اطلاعات ارسال و پرداخت
+        </span>
+        <span data-pa-icon="chevron_left" data-pa-icon-size="16" style="color:var(--pa-text-muted)"></span>
+        <span class="pa-btn pa-btn-ghost pa-btn-sm" style="cursor:default; color:var(--pa-text-muted)">
+          ۳ — تایید و پرداخت
+        </span>
+      </div>
+    </div>
+
+    <!-- Empty cart notice -->
+    <div class="pa-card pa-anim-slide-up" id="co-empty" hidden>
+      <div class="pa-g-empty" style="display:block">
+        <div data-pa-icon="shopping_cart" data-pa-icon-size="48" style="opacity:.35"></div>
+        <p style="margin:.8rem 0 1.2rem">برای تسویهٔ حساب ابتدا محصولی به سبد اضافه کنید.</p>
+        <a class="pa-btn pa-btn-primary" href="shop.html"><span data-pa-icon="shopping_bag" data-pa-icon-size="16"></span> رفتن به فروشگاه</a>
+      </div>
+    </div>
+
+    <div class="pa-row" id="co-wrap" hidden>
+      <!-- Address & payment form -->
+      <div class="pa-col-8">
+        <form id="checkout-form" novalidate>
+          <div class="pa-card pa-mb-2 pa-anim-slide-up">
+            <div class="pa-card-header"><h3><span data-pa-icon="truck" data-pa-icon-size="17"></span> اطلاعات ارسال</h3></div>
+            <div class="pa-card-body">
+              <div class="pa-form-row">
+                <div class="pa-form-group">
+                  <label for="f-name">نام <b style="color:var(--pa-danger)">*</b></label>
+                  <input class="pa-input" id="f-name" data-pa-validate="required" placeholder="مثلاً امیر">
+                  <div class="pa-form-feedback">نام را وارد کنید.</div>
+                </div>
+                <div class="pa-form-group">
+                  <label for="f-family">نام خانوادگی <b style="color:var(--pa-danger)">*</b></label>
+                  <input class="pa-input" id="f-family" data-pa-validate="required" placeholder="مثلاً رضایی">
+                  <div class="pa-form-feedback">نام خانوادگی را وارد کنید.</div>
+                </div>
+              </div>
+              <div class="pa-form-row">
+                <div class="pa-form-group">
+                  <label for="f-phone">شمارهٔ موبایل <b style="color:var(--pa-danger)">*</b></label>
+                  <input class="pa-input" id="f-phone" data-pa-validate="required" inputmode="tel" placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+                  <div class="pa-form-feedback">شمارهٔ موبایل را وارد کنید.</div>
+                </div>
+                <div class="pa-form-group">
+                  <label for="f-zip">کد پستی</label>
+                  <input class="pa-input" id="f-zip" inputmode="numeric" placeholder="۱۰ رقم">
+                </div>
+              </div>
+              <div class="pa-form-row">
+                <div class="pa-form-group">
+                  <label for="f-province">استان <b style="color:var(--pa-danger)">*</b></label>
+                  <select class="pa-select" id="f-province" data-pa-validate="required">
+                    <option value="">انتخاب کنید…</option>
+                    <option>تهران</option><option>اصفهان</option><option>فارس</option>
+                    <option>خراسان رضوی</option><option>آذربایجان شرقی</option><option>مازندران</option>
+                    <option>گیلان</option><option>سایر استان‌ها</option>
+                  </select>
+                  <div class="pa-form-feedback">استان را انتخاب کنید.</div>
+                </div>
+                <div class="pa-form-group">
+                  <label for="f-city">شهر <b style="color:var(--pa-danger)">*</b></label>
+                  <input class="pa-input" id="f-city" data-pa-validate="required" placeholder="مثلاً تهران">
+                  <div class="pa-form-feedback">شهر را وارد کنید.</div>
+                </div>
+              </div>
+              <div class="pa-form-group">
+                <label for="f-address">آدرس کامل <b style="color:var(--pa-danger)">*</b></label>
+                <textarea class="pa-textarea" id="f-address" rows="3" data-pa-validate="required" placeholder="خیابان، کوچه، پلاک، واحد…"></textarea>
+                <div class="pa-form-feedback">آدرس را وارد کنید.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-1">
+            <div class="pa-card-header"><h3>روش ارسال</h3></div>
+            <div class="pa-card-body">
+              <div class="pa-form-check"><input type="radio" name="ship" id="ship1" value="پست پیشتاز (۳ تا ۵ روز کاری)" checked><label for="ship1">پست پیشتاز — ۳ تا ۵ روز کاری</label></div>
+              <div class="pa-form-check"><input type="radio" name="ship" id="ship2" value="ارسال اکسپرس (فقط تهران، یک روزه)"><label for="ship2">ارسال اکسپرس — فقط تهران، یک روزه</label></div>
+              <div class="pa-form-check"><input type="radio" name="ship" id="ship3" value="مرسولات ویژه (بیمهٔ کامل)"><label for="ship3">مرسولات ویژه — با بیمهٔ کامل مرسوله</label></div>
+            </div>
+          </div>
+
+          <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-2">
+            <div class="pa-card-header"><h3><span data-pa-icon="credit_card_alt" data-pa-icon-size="17"></span> روش پرداخت</h3></div>
+            <div class="pa-card-body">
+              <div class="pa-form-check"><input type="radio" name="pay" id="pay1" value="درگاه بانکی" checked><label for="pay1">درگاه بانکی (شبیه‌سازی‌شده)</label></div>
+              <div class="pa-form-check"><input type="radio" name="pay" id="pay2" value="کیف پول"><label for="pay2">کیف پول حساب</label></div>
+              <div class="pa-form-check"><input type="radio" name="pay" id="pay3" value="پرداخت در محل"><label for="pay3">پرداخت در محل هنگام تحویل</label></div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Summary + pay -->
+      <div class="pa-col-4">
+        <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
+          <div class="pa-card-header"><h3>خلاصهٔ سفارش</h3></div>
+          <div class="pa-card-body">
+            <div id="co-items" style="display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem"></div>
+            <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">جمع کالاها</span><strong id="co-sub">—</strong></div>
+            <div class="pa-d-flex pa-justify-between pa-mb-1" id="co-row-off" hidden><span class="pa-text-muted">تخفیف</span><strong style="color:var(--pa-success)" id="co-off">—</strong></div>
+            <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">ارسال</span><strong id="co-ship">—</strong></div>
+            <div class="pa-d-flex pa-justify-between" style="border-top:1px dashed var(--pa-border); padding-top:.7rem; margin-top:.4rem">
+              <strong>مبلغ قابل پرداخت</strong><strong id="co-total" style="color:var(--pa-primary); font-size:1.15rem">—</strong>
+            </div>
+            <button class="pa-btn pa-btn-primary pa-btn-block pa-mt-2" id="pay-btn" type="button">
+              <span data-pa-icon="shield_check" data-pa-icon-size="16"></span> پرداخت و ثبت سفارش
+            </button>
+            <p class="pa-fs-sm pa-text-muted pa-mt-1" style="text-align:center">پرداخت در نسخهٔ نمونه شبیه‌سازی می‌شود.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success panel -->
+    <div class="pa-card pa-anim-slide-up" id="co-success" hidden>
+      <div class="pa-card-body" style="text-align:center; padding:2.5rem 1rem">
+        <div style="width:74px; height:74px; margin:0 auto .9rem; border-radius:50%; background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center">
+          <span data-pa-icon="check_circle" data-pa-icon-size="40"></span>
+        </div>
+        <h2 style="margin:0 0 .4rem">سفارش شما با موفقیت ثبت شد!</h2>
+        <p class="pa-text-muted" style="margin:0 0 .3rem">شمارهٔ سفارش:</p>
+        <p style="font-size:1.4rem; font-weight:800; color:var(--pa-primary); margin:0 0 1rem" id="co-order-no">—</p>
+        <p class="pa-fs-sm pa-text-muted" style="margin:0 0 1.4rem">جزئیات سفارش در بخش «سفارش‌ها» پنل مدیریت و فاکتور آن در صفحهٔ فاکتور قابل مشاهده است.</p>
+        <div class="pa-d-flex pa-gap-1" style="justify-content:center; flex-wrap:wrap">
+          <a class="pa-btn pa-btn-primary" href="invoice.html"><span data-pa-icon="file_text" data-pa-icon-size="16"></span> مشاهدهٔ فاکتور</a>
+          <a class="pa-btn pa-btn-outline" href="orders.html"><span data-pa-icon="shopping_cart" data-pa-icon-size="16"></span> سفارش‌ها</a>
+          <a class="pa-btn pa-btn-outline" href="shop.html"><span data-pa-icon="shopping_bag" data-pa-icon-size="16"></span> بازگشت به فروشگاه</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div data-pa-layout="site-footer"></div>
 
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-shop.js"></script>
   <script src="../js/pa-layout.js"></script>
   <script>
-    // Toggle credit-card form based on selected payment method
-    (function () {
-      var cardForm = document.getElementById('card-form');
-      if (!cardForm) return;
-      document.querySelectorAll('input[name="payment"]').forEach(function (r) {
-        r.addEventListener('change', function () {
-          var selected = document.querySelector('input[name="payment"]:checked');
-          if (selected && selected.value === 'card') {
-            cardForm.style.display = '';
-          } else {
-            cardForm.style.display = 'none';
-          }
-          // Update container border styles
-          document.querySelectorAll('input[name="payment"]').forEach(function (r2) {
-            var lbl = r2.closest('label');
-            if (r2.checked) {
-              lbl.style.borderColor = 'var(--pa-primary)';
-              lbl.style.background = 'var(--pa-primary-soft)';
-            } else {
-              lbl.style.borderColor = 'var(--pa-border)';
-              lbl.style.background = '';
-            }
-          });
-        });
-      });
+  (function () {
+    'use strict';
+    var S = PAdminLTE.shop;
+    if (!S) return;
+    var items = PAdminLTE.cart.items();
+    var EMPTY = document.getElementById('co-empty');
+    var WRAP = document.getElementById('co-wrap');
+    var SUCCESS = document.getElementById('co-success');
 
-      // Shipping selection visual toggle
-      document.querySelectorAll('input[name="shipping"]').forEach(function (r) {
-        r.addEventListener('change', function () {
-          document.querySelectorAll('input[name="shipping"]').forEach(function (r2) {
-            var lbl = r2.closest('label');
-            if (r2.checked) {
-              lbl.style.borderColor = 'var(--pa-primary)';
-              lbl.style.background = 'var(--pa-primary-soft)';
-            } else {
-              lbl.style.borderColor = 'var(--pa-border)';
-              lbl.style.background = '';
-            }
-          });
-        });
-      });
+    EMPTY.hidden = items.length > 0;
+    WRAP.hidden = items.length === 0;
+    if (!items.length) return;
 
-      // Final pay button: success toast + redirect
-      var btn = document.getElementById('final-pay-btn');
-      if (btn) {
-        btn.addEventListener('click', function () {
-          PAdminLTE.toast({
-            kind: 'success',
-            title: 'پرداخت موفق',
-            message: 'سفارش شما با موفقیت ثبت شد. در حال انتقال به صفحهٔ اصلی…',
-            duration: 0
-          });
-          btn.disabled = true;
-          btn.innerHTML = '<span data-pa-icon="refresh_alt" data-pa-icon-size="18" class="pa-anim-spin"></span> در حال پردازش…';
-          // Re-inject the spinner icon
-          if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(btn);
-          setTimeout(function () { window.location.href = '../index.html'; }, 1800);
-        });
+    function getCoupon() {
+      try { return parseInt(localStorage.getItem('pa-coupon') || '0', 10) || 0; } catch (e) { return 0; }
+    }
+
+    /* Summary */
+    var sub = PAdminLTE.cart.total();
+    var pct = getCoupon();
+    var off = Math.round(sub * pct / 100);
+    var ship = S.shippingCost(sub - off);
+    var total = sub - off + ship;
+    document.getElementById('co-items').innerHTML = items.map(function (it) {
+      return '' +
+        '<div class="pa-d-flex pa-align-center pa-gap-2">' +
+          '<span style="width:38px; height:38px; border-radius:var(--pa-radius); flex-shrink:0; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg,' + (it.color || '#0d6efd') + ',#0a58ca)">' +
+            '<span data-pa-icon="' + (it.icon || 'package_alt') + '" data-pa-icon-size="18"></span>' +
+          '</span>' +
+          '<span style="flex:1; min-width:0; font-size:.88rem">' + it.name + '</span>' +
+          '<span class="pa-fs-sm pa-text-muted" style="white-space:nowrap">' + S.faDigits(it.qty || 1) + ' × ' + S.money(it.price, false) + '</span>' +
+        '</div>';
+    }).join('');
+    document.getElementById('co-sub').textContent = S.money(sub);
+    var rowOff = document.getElementById('co-row-off');
+    rowOff.hidden = !pct;
+    if (pct) document.getElementById('co-off').textContent = '−' + S.money(off);
+    document.getElementById('co-ship').innerHTML = ship === 0 ? '<span style="color:var(--pa-success)">رایگان</span>' : S.money(ship);
+    document.getElementById('co-total').textContent = S.money(total);
+
+    /* Pay */
+    var payBtn = document.getElementById('pay-btn');
+    payBtn.addEventListener('click', function () {
+      var form = document.getElementById('checkout-form');
+      var ok = PAdminLTE.validateForm ? PAdminLTE.validateForm(form) : true;
+      if (!ok) {
+        PAdminLTE.toast({ kind: 'danger', title: 'خطا', message: 'لطفاً فیلدهای اجباری را کامل کنید.' });
+        var firstBad = form.querySelector('.is-invalid');
+        if (firstBad) firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       }
-    })();
+      PAdminLTE.btnLoading(payBtn, true, 'در حال پردازش…');
+      setTimeout(function () {
+        var shipMethod = (form.querySelector('input[name="ship"]:checked') || {}).value || 'پست پیشتاز';
+        var payMethod = (form.querySelector('input[name="pay"]:checked') || {}).value || 'درگاه بانکی';
+        var orderNo = 'PA-' + String(Math.floor(100000 + Math.random() * 900000));
+        PAdminLTE.store.add('pa-orders', {
+          orderNo: orderNo,
+          customer: ((document.getElementById('f-name').value || '') + ' ' + (document.getElementById('f-family').value || '')).trim(),
+          phone: document.getElementById('f-phone').value || '',
+          address: document.getElementById('f-address').value || '',
+          province: document.getElementById('f-province').value || '',
+          city: document.getElementById('f-city').value || '',
+          shipping: shipMethod,
+          payment: payMethod,
+          items: items,
+          subtotal: sub, discount: off, shipCost: ship, total: total,
+          date: new Date().toISOString(),
+          status: 'paid'
+        });
+        PAdminLTE.cart.clear();
+        try { localStorage.removeItem('pa-coupon'); localStorage.removeItem('pa-coupon-code'); } catch (e) {}
+        document.getElementById('co-order-no').textContent = orderNo;
+        WRAP.hidden = true;
+        SUCCESS.hidden = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        PAdminLTE.toast({ kind: 'success', title: 'پرداخت موفق', message: 'سفارش ' + orderNo + ' ثبت شد.' });
+        if (typeof PAdminLTE.btnLoading === 'function') PAdminLTE.btnLoading(payBtn, false);
+      }, 1400);
+    });
+
+    if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(document);
+  })();
   </script>
 </body>
 </html>

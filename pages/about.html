@@ -72,18 +72,16 @@
 </head>
 <body>
   <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
-  <div class="pa-app">
-    <div data-pa-layout="sidebar"></div>
-    <div class="pa-main">
-      <div data-pa-layout="header"></div>
-      <main class="pa-content" id="pa-main-content">
+  <div data-pa-layout="site-nav"></div>
+
+  <main class="pa-site-main" id="pa-main-content">
 
         <!-- Page header -->
         <div class="pa-page-header pa-anim-slide-up">
           <div>
             <h1>درباره ما</h1>
             <div class="pa-breadcrumb">
-              <a href="../index.html">خانه</a>
+              <a href="landing.html">خانه</a>
               <span class="pa-sep">›</span>
               <span>درباره ما</span>
             </div>
@@ -328,10 +326,9 @@
           <a href="register.html" class="pa-btn pa-btn-lg" style="background:#fff;color:var(--pa-primary);" data-pa-icon="user_plus" data-pa-icon-size="18"> ثبت‌نام کنید</a>
         </div>
 
-        <div data-pa-layout="footer"></div>
-      </main>
-    </div>
-  </div>
+  </main>
+
+  <div data-pa-layout="site-footer"></div>
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>

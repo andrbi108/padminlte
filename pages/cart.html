@@ -8,228 +8,210 @@
 </head>
 <body>
   <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
-  <div class="pa-app">
-    <div data-pa-layout="sidebar"></div>
-    <div class="pa-main">
-      <div data-pa-layout="header"></div>
-      <main class="pa-content" id="pa-main-content">
-        <div class="pa-page-header">
-          <div>
-            <h1>سبد خرید</h1>
-            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><span>سبد خرید</span></div>
-          </div>
-          <div class="pa-d-flex pa-gap-2">
-            <a class="pa-btn pa-btn-outline" href="shop.html"><span data-pa-icon="arrow_right" data-pa-icon-size="16"></span> ادامه خرید</a>
-          </div>
+  <div data-pa-layout="site-nav"></div>
+
+  <main class="pa-site-main" id="pa-main-content">
+    <div class="pa-page-header pa-anim-slide-up">
+      <div>
+        <h1>سبد خرید</h1>
+        <div class="pa-breadcrumb">
+          <a href="landing.html">خانه</a><span class="pa-sep">›</span>
+          <a href="shop.html">فروشگاه</a><span class="pa-sep">›</span>
+          <span>سبد خرید</span>
         </div>
-
-        <div class="pa-row">
-          <!-- Main: items + promo -->
-          <div class="pa-col-8">
-            <div class="pa-card pa-anim-slide-up">
-              <div class="pa-card-header">
-                <h3>۳ کالا در سبد</h3>
-                <span class="pa-badge pa-badge-info">مجموع: ۴ کالا</span>
-              </div>
-              <div class="pa-card-body" style="display:flex; flex-direction:column; gap:1rem">
-
-                <!-- Cart item 1: لپ‌تاپ ایسوس ROG -->
-                <div class="pa-cart-item">
-                  <div class="pa-cart-thumb" style="background:linear-gradient(135deg,#0d6efd,#0a58ca); display:grid; place-items:center; color:#fff">
-                    <span data-pa-icon="monitor" data-pa-icon-size="28"></span>
-                  </div>
-                  <div class="pa-cart-info">
-                    <div class="pa-d-flex pa-justify-between pa-align-center" style="gap:.5rem; flex-wrap:wrap">
-                      <h4 class="pa-cart-name"><a href="product.html" style="color:var(--pa-text); text-decoration:none">لپ‌تاپ ایسوس ROG</a></h4>
-                      <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="حذف" onclick="this.closest('.pa-cart-item').remove(); PAdminLTE.toast({kind:'warning', message:'«لپ‌تاپ ایسوس ROG» از سبد حذف شد.'});" style="color:var(--pa-danger)">
-                        <span data-pa-icon="trash" data-pa-icon-size="16"></span>
-                      </button>
-                    </div>
-                    <div class="pa-cart-meta">
-                      رنگ: مشکی · حافظه: ۵۱۲ گیگابایت · گارانتی ۲۴ ماهه
-                    </div>
-                    <div class="pa-d-flex pa-align-center pa-justify-between pa-mt-1" style="flex-wrap:wrap; gap:.5rem">
-                      <div class="pa-qty-stepper" data-pa-qty data-pa-qty-min="1" data-pa-qty-max="10">
-                        <button data-pa-qty-dec>−</button>
-                        <input type="text" value="1" aria-label="تعداد">
-                        <button data-pa-qty-inc>+</button>
-                      </div>
-                      <div class="pa-d-flex pa-align-center pa-gap-2">
-                        <span class="pa-text-muted pa-fs-sm" style="text-decoration:line-through">۳۱٬۰۰۰٬۰۰۰ ت</span>
-                        <strong style="color:var(--pa-primary); font-size:1.1rem">۲۵٬۰۰۰٬۰۰۰ ت</strong>
-                      </div>
-                    </div>
-                    <a role="button" tabindex="0" class="pa-fs-sm pa-text-muted pa-hover-underline" style="display:inline-block; margin-top:.5rem" onclick="PAdminLTE.toast({kind:'info', message:'«لپ‌تاپ ایسوس ROG» برای بعد ذخیره شد.'}); return false;">
-                      <span data-pa-icon="bookmark" data-pa-icon-size="14"></span> ذخیره برای بعد
-                    </a>
-                  </div>
-                </div>
-
-                <!-- Cart item 2: گوشی سامسونگ S24 -->
-                <div class="pa-cart-item">
-                  <div class="pa-cart-thumb" style="background:linear-gradient(135deg,#6610f2,#4c0bd1); display:grid; place-items:center; color:#fff">
-                    <span data-pa-icon="smartphone" data-pa-icon-size="28"></span>
-                  </div>
-                  <div class="pa-cart-info">
-                    <div class="pa-d-flex pa-justify-between pa-align-center" style="gap:.5rem; flex-wrap:wrap">
-                      <h4 class="pa-cart-name"><a href="product.html" style="color:var(--pa-text); text-decoration:none">گوشی سامسونگ S24</a></h4>
-                      <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="حذف" onclick="this.closest('.pa-cart-item').remove(); PAdminLTE.toast({kind:'warning', message:'«گوشی سامسونگ S24» از سبد حذف شد.'});" style="color:var(--pa-danger)">
-                        <span data-pa-icon="trash" data-pa-icon-size="16"></span>
-                      </button>
-                    </div>
-                    <div class="pa-cart-meta">
-                      رنگ: بنفش · حافظه: ۲۵۶ گیگابایت · گارانتی ۱۸ ماهه
-                    </div>
-                    <div class="pa-d-flex pa-align-center pa-justify-between pa-mt-1" style="flex-wrap:wrap; gap:.5rem">
-                      <div class="pa-qty-stepper" data-pa-qty data-pa-qty-min="1" data-pa-qty-max="5">
-                        <button data-pa-qty-dec>−</button>
-                        <input type="text" value="2" aria-label="تعداد">
-                        <button data-pa-qty-inc>+</button>
-                      </div>
-                      <div class="pa-d-flex pa-align-center pa-gap-2">
-                        <span class="pa-text-muted pa-fs-sm">۱۸٬۰۰۰٬۰۰۰ ت × ۲</span>
-                        <strong style="color:var(--pa-primary); font-size:1.1rem">۳۶٬۰۰۰٬۰۰۰ ت</strong>
-                      </div>
-                    </div>
-                    <a role="button" tabindex="0" class="pa-fs-sm pa-text-muted pa-hover-underline" style="display:inline-block; margin-top:.5rem" onclick="PAdminLTE.toast({kind:'info', message:'«گوشی سامسونگ S24» برای بعد ذخیره شد.'}); return false;">
-                      <span data-pa-icon="bookmark" data-pa-icon-size="14"></span> ذخیره برای بعد
-                    </a>
-                  </div>
-                </div>
-
-                <!-- Cart item 3: هدفون سونی -->
-                <div class="pa-cart-item">
-                  <div class="pa-cart-thumb" style="background:linear-gradient(135deg,#0dcaf0,#0aa6c2); display:grid; place-items:center; color:#fff">
-                    <span data-pa-icon="volume" data-pa-icon-size="28"></span>
-                  </div>
-                  <div class="pa-cart-info">
-                    <div class="pa-d-flex pa-justify-between pa-align-center" style="gap:.5rem; flex-wrap:wrap">
-                      <h4 class="pa-cart-name"><a href="product.html" style="color:var(--pa-text); text-decoration:none">هدفون سونی</a></h4>
-                      <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="حذف" onclick="this.closest('.pa-cart-item').remove(); PAdminLTE.toast({kind:'warning', message:'«هدفون سونی» از سبد حذف شد.'});" style="color:var(--pa-danger)">
-                        <span data-pa-icon="trash" data-pa-icon-size="16"></span>
-                      </button>
-                    </div>
-                    <div class="pa-cart-meta">
-                      رنگ: سفید · بلوتوث ۵.۳ · ضد نویز
-                    </div>
-                    <div class="pa-d-flex pa-align-center pa-justify-between pa-mt-1" style="flex-wrap:wrap; gap:.5rem">
-                      <div class="pa-qty-stepper" data-pa-qty data-pa-qty-min="1" data-pa-qty-max="10">
-                        <button data-pa-qty-dec>−</button>
-                        <input type="text" value="1" aria-label="تعداد">
-                        <button data-pa-qty-inc>+</button>
-                      </div>
-                      <div class="pa-d-flex pa-align-center pa-gap-2">
-                        <span class="pa-text-muted pa-fs-sm" style="text-decoration:line-through">۴٬۲۰۰٬۰۰۰ ت</span>
-                        <strong style="color:var(--pa-primary); font-size:1.1rem">۳٬۵۰۰٬۰۰۰ ت</strong>
-                      </div>
-                    </div>
-                    <a role="button" tabindex="0" class="pa-fs-sm pa-text-muted pa-hover-underline" style="display:inline-block; margin-top:.5rem" onclick="PAdminLTE.toast({kind:'info', message:'«هدفون سونی» برای بعد ذخیره شد.'}); return false;">
-                      <span data-pa-icon="bookmark" data-pa-icon-size="14"></span> ذخیره برای بعد
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="pa-card-footer pa-d-flex pa-justify-between pa-align-center" style="flex-wrap:wrap; gap:.5rem">
-                <a href="shop.html" class="pa-fs-sm pa-hover-underline"><span data-pa-icon="arrow_right" data-pa-icon-size="14"></span> ادامه خرید</a>
-                <button class="pa-btn pa-btn-ghost pa-btn-sm" onclick="if(confirm('سبد خالی شود؟')){document.querySelectorAll('.pa-cart-item').forEach(function(i){i.remove();});PAdminLTE.toast({kind:'warning',message:'سبد خرید خالی شد.'});}">
-                  <span data-pa-icon="trash" data-pa-icon-size="14"></span> خالی کردن سبد
-                </button>
-              </div>
-            </div>
-
-            <!-- Promo code -->
-            <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
-              <div class="pa-card-header"><h3>کد تخفیف</h3></div>
-              <div class="pa-card-body">
-                <div class="pa-input-group">
-                  <span class="pa-input-addon"><span data-pa-icon="gift" data-pa-icon-size="16"></span></span>
-                  <input class="pa-input" type="text" id="promo-input" placeholder="کد تخفیف خود را وارد کنید…" aria-label="کد تخفیف">
-                  <button class="pa-btn pa-btn-primary" onclick="var v=document.getElementById('promo-input').value; if(v){PAdminLTE.toast({kind:'success', message:'کد تخفیف «'+v+'» اعمال شد (نمونه).'});}else{PAdminLTE.toast({kind:'warning', message:'کد تخفیف را وارد کنید.'});}" style="border-radius:0">اعمال</button>
-                </div>
-                <p class="pa-fs-sm pa-text-muted pa-mt-1">
-                  <a href="shop.html" class="pa-hover-underline">کد تخفیف ندارید؟</a> — با عضویت در خبرنامه ۱۰٪ تخفیف اولین خرید دریافت کنید.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Summary -->
-          <div class="pa-col-4">
-            <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
-              <div class="pa-card-header"><h3>خلاصه سفارش</h3></div>
-              <div class="pa-card-body">
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">جمع کل</span>
-                  <span>۶۴٬۵۰۰٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">هزینهٔ ارسال</span>
-                  <span class="pa-text-success pa-fw-600">رایگان</span>
-                </div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1">
-                  <span class="pa-text-muted">مالیات (۹٪)</span>
-                  <span>۵٬۸۰۵٬۰۰۰ ت</span>
-                </div>
-                <div class="pa-d-flex pa-justify-between pa-mb-2">
-                  <span class="pa-text-muted">تخفیف</span>
-                  <span class="pa-text-danger">− ۶٬۷۰۰٬۰۰۰ ت</span>
-                </div>
-                <hr>
-                <div class="pa-d-flex pa-justify-between pa-align-center pa-mb-2">
-                  <span class="pa-fw-700">مبلغ نهایی</span>
-                  <span class="pa-text-2xl pa-text-bold" style="color:var(--pa-primary)">۶۳٬۶۰۵٬۰۰۰ ت</span>
-                </div>
-                <a class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg" href="checkout.html">
-                  <span data-pa-icon="credit_card" data-pa-icon-size="18"></span>
-                  تسویه حساب
-                </a>
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mt-2" style="justify-content:center; flex-wrap:wrap; color:var(--pa-text-muted)">
-                  <span class="pa-fs-sm">روش‌های پرداخت:</span>
-                  <span data-pa-icon="credit_card" data-pa-icon-size="22"></span>
-                  <span data-pa-icon="credit_card_alt" data-pa-icon-size="22"></span>
-                  <span data-pa-icon="wallet" data-pa-icon-size="22"></span>
-                  <span data-pa-icon="smartphone" data-pa-icon-size="22"></span>
-                </div>
-                <a href="shop.html" class="pa-d-block pa-text-center pa-fs-sm pa-hover-underline pa-mt-2">ادامه خرید</a>
-              </div>
-            </div>
-
-            <!-- Trust badges -->
-            <div class="pa-card pa-anim-slide-up pa-anim-delay-2">
-              <div class="pa-card-body">
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mb-2">
-                  <span data-pa-icon="shield_check" data-pa-icon-size="20" style="color:var(--pa-success)"></span>
-                  <div>
-                    <div class="pa-fw-600 pa-fs-sm">پرداخت امن</div>
-                    <small class="pa-text-muted">با درگاه معتبر بانکی</small>
-                  </div>
-                </div>
-                <div class="pa-d-flex pa-align-center pa-gap-1 pa-mb-2">
-                  <span data-pa-icon="refresh_alt" data-pa-icon-size="20" style="color:var(--pa-primary)"></span>
-                  <div>
-                    <div class="pa-fw-600 pa-fs-sm">ضمانت بازگشت</div>
-                    <small class="pa-text-muted">۷ روز ضمانت بازگشت کالا</small>
-                  </div>
-                </div>
-                <div class="pa-d-flex pa-align-center pa-gap-1">
-                  <span data-pa-icon="truck" data-pa-icon-size="20" style="color:var(--pa-warning)"></span>
-                  <div>
-                    <div class="pa-fw-600 pa-fs-sm">ارسال سریع</div>
-                    <small class="pa-text-muted">تحویل ۱ الی ۳ روزه</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div data-pa-layout="footer"></div>
-      </main>
+      </div>
+      <a class="pa-btn pa-btn-outline" href="shop.html">
+        <span data-pa-icon="shopping_bag" data-pa-icon-size="17"></span> ادامهٔ خرید
+      </a>
     </div>
-  </div>
+
+    <!-- Empty state -->
+    <div class="pa-card pa-anim-slide-up" id="cart-empty" hidden>
+      <div class="pa-g-empty" style="display:block">
+        <div data-pa-icon="shopping_cart" data-pa-icon-size="48" style="opacity:.35"></div>
+        <p style="margin:.8rem 0 1.2rem">سبد خرید شما خالی است.</p>
+        <a class="pa-btn pa-btn-primary" href="shop.html"><span data-pa-icon="shopping_bag" data-pa-icon-size="16"></span> رفتن به فروشگاه</a>
+      </div>
+    </div>
+
+    <div class="pa-row" id="cart-wrap" hidden>
+      <!-- Items -->
+      <div class="pa-col-8">
+        <div class="pa-card pa-anim-slide-up">
+          <div class="pa-card-header">
+            <h3>اقلام سبد (<span id="cart-count">۰</span>)</h3>
+            <div class="pa-tools">
+              <button class="pa-btn pa-btn-ghost pa-btn-sm" id="cart-clear" type="button" data-pa-cart-clear style="color:var(--pa-danger)">
+                <span data-pa-icon="trash" data-pa-icon-size="14"></span> خالی کردن سبد
+              </button>
+            </div>
+          </div>
+          <div class="pa-card-body" id="cart-items" style="display:flex; flex-direction:column; gap:.85rem"></div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="pa-col-4">
+        <div class="pa-card pa-anim-slide-up pa-anim-delay-1">
+          <div class="pa-card-header"><h3>خلاصهٔ سفارش</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">جمع کالاها</span><strong id="sum-sub">—</strong></div>
+            <div class="pa-d-flex pa-justify-between pa-mb-1" id="row-discount" hidden><span class="pa-text-muted">تخفیف (<span id="coupon-label"></span>)</span><strong style="color:var(--pa-success)" id="sum-off">—</strong></div>
+            <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">هزینهٔ ارسال</span><strong id="sum-ship">—</strong></div>
+            <div class="pa-d-flex pa-justify-between" style="border-top:1px dashed var(--pa-border); padding-top:.7rem; margin-top:.4rem">
+              <strong>مبلغ نهایی</strong><strong id="sum-total" style="color:var(--pa-primary); font-size:1.15rem">—</strong>
+            </div>
+
+            <div class="pa-mt-2">
+              <label class="pa-fs-sm pa-text-muted" for="coupon">کد تخفیف دارید؟ (نمونه: PADMIN10)</label>
+              <div class="pa-d-flex pa-gap-1 pa-mt-1">
+                <input class="pa-input" id="coupon" placeholder="PADMIN10" aria-label="کد تخفیف">
+                <button class="pa-btn pa-btn-outline" id="coupon-apply" type="button">اعمال</button>
+              </div>
+              <p class="pa-fs-sm pa-mt-1" id="coupon-msg" style="min-height:1.2em"></p>
+            </div>
+
+            <a class="pa-btn pa-btn-primary pa-btn-block pa-mt-2" id="go-checkout" href="checkout.html">
+              <span data-pa-icon="credit_card_alt" data-pa-icon-size="16"></span> ادامه و تسویهٔ حساب
+            </a>
+            <p class="pa-fs-sm pa-text-muted pa-mt-1" style="text-align:center" id="ship-note"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div data-pa-layout="site-footer"></div>
 
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-shop.js"></script>
   <script src="../js/pa-layout.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var S = PAdminLTE.shop;
+    if (!S) return;
+    var itemsEl = document.getElementById('cart-items');
+    var EMPTY = document.getElementById('cart-empty');
+    var WRAP = document.getElementById('cart-wrap');
+
+    function getCoupon() {
+      try { return parseInt(localStorage.getItem('pa-coupon') || '0', 10) || 0; } catch (e) { return 0; }
+    }
+    function setCoupon(pct, code) {
+      try {
+        if (pct) localStorage.setItem('pa-coupon', String(pct));
+        else localStorage.removeItem('pa-coupon');
+        if (pct && code) localStorage.setItem('pa-coupon-code', code);
+        else localStorage.removeItem('pa-coupon-code');
+      } catch (e) {}
+    }
+
+    function render() {
+      var items = PAdminLTE.cart.items();
+      var n = PAdminLTE.cart.count();
+      document.getElementById('cart-count').textContent = S.faDigits(n);
+      EMPTY.hidden = items.length > 0;
+      WRAP.hidden = items.length === 0;
+      if (!items.length) { itemsEl.innerHTML = ''; return; }
+
+      itemsEl.innerHTML = items.map(function (it) {
+        var dark = '#0a58ca';
+        return '' +
+          '<div class="pa-cart-item" data-row="' + it.id + '">' +
+            '<div class="pa-cart-thumb" style="background:linear-gradient(135deg,' + (it.color || '#0d6efd') + ',' + dark + '); display:grid; place-items:center; color:#fff">' +
+              '<span data-pa-icon="' + (it.icon || 'package_alt') + '" data-pa-icon-size="30"></span>' +
+            '</div>' +
+            '<div class="pa-cart-info">' +
+              '<h4 class="pa-cart-name"><a href="' + (it.href || 'product.html?id=' + it.id) + '" style="color:var(--pa-text); text-decoration:none">' + it.name + '</a></h4>' +
+              '<div class="pa-cart-meta">قیمت واحد: ' + S.money(it.price) + '</div>' +
+              '<div class="pa-d-flex pa-align-center pa-gap-2 pa-mt-1" style="flex-wrap:wrap">' +
+                '<div class="pa-qty-stepper">' +
+                  '<button type="button" data-dec="' + it.id + '" aria-label="کاهش">−</button>' +
+                  '<input value="' + S.faDigits(it.qty || 1) + '" data-qty-in="' + it.id + '" aria-label="تعداد">' +
+                  '<button type="button" data-inc="' + it.id + '" aria-label="افزایش">+</button>' +
+                '</div>' +
+                '<button class="pa-btn pa-btn-ghost pa-btn-sm" type="button" data-remove="' + it.id + '" style="color:var(--pa-danger)">' +
+                  '<span data-pa-icon="trash" data-pa-icon-size="14"></span> حذف' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+            '<div style="align-self:center; font-weight:700; white-space:nowrap">' + S.money(it.price * (it.qty || 1)) + '</div>' +
+          '</div>';
+      }).join('');
+
+      /* Totals */
+      var sub = PAdminLTE.cart.total();
+      var pct = getCoupon();
+      var off = Math.round(sub * pct / 100);
+      var ship = S.shippingCost(sub - off);
+      document.getElementById('sum-sub').textContent = S.money(sub);
+      var rowOff = document.getElementById('row-discount');
+      rowOff.hidden = !pct;
+      if (pct) {
+        document.getElementById('coupon-label').textContent = localStorage.getItem('pa-coupon-code') || '';
+        document.getElementById('sum-off').textContent = '−' + S.money(off);
+      }
+      document.getElementById('sum-ship').innerHTML = ship === 0 ? '<span style="color:var(--pa-success)">رایگان</span>' : S.money(ship);
+      document.getElementById('sum-total').textContent = S.money(sub - off + ship);
+      document.getElementById('ship-note').textContent = ship === 0
+        ? 'ارسال این سفارش رایگان است.'
+        : 'با ' + S.money(5000000 - (sub - off)) + ' خرید بیشتر، ارسال رایگان می‌شود.';
+      if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(itemsEl);
+    }
+
+    /* Item actions (delegation — survives re-render) */
+    itemsEl.addEventListener('click', function (e) {
+      var t = e.target;
+      var dec = t.closest ? t.closest('[data-dec]') : null;
+      var inc = t.closest ? t.closest('[data-inc]') : null;
+      var rem = t.closest ? t.closest('[data-remove]') : null;
+      if (dec) {
+        var it = PAdminLTE.cart.items().filter(function (x) { return String(x.id) === dec.dataset.dec; })[0];
+        if (it) PAdminLTE.cart.setQty(it.id, (it.qty || 1) - 1);
+      } else if (inc) {
+        var it2 = PAdminLTE.cart.items().filter(function (x) { return String(x.id) === inc.dataset.inc; })[0];
+        if (it2) PAdminLTE.cart.setQty(it2.id, (it2.qty || 1) + 1);
+      } else if (rem) {
+        var it3 = PAdminLTE.cart.items().filter(function (x) { return String(x.id) === rem.dataset.remove; })[0];
+        PAdminLTE.cart.remove(rem.dataset.remove);
+        if (it3) PAdminLTE.toast({ kind: 'warning', message: '«' + it3.name + '» از سبد حذف شد.' });
+      }
+    });
+
+    /* Coupon */
+    document.getElementById('coupon-apply').addEventListener('click', function () {
+      var code = document.getElementById('coupon').value;
+      var pct = S.couponPct(code);
+      var msg = document.getElementById('coupon-msg');
+      if (pct) {
+        setCoupon(pct, code.toUpperCase());
+        msg.textContent = 'کد «' + code.toUpperCase() + '» اعمال شد — ' + S.faDigits(pct) + '٪ تخفیف.';
+        msg.style.color = 'var(--pa-success)';
+        PAdminLTE.toast({ kind: 'success', message: 'کد تخفیف اعمال شد.' });
+      } else {
+        setCoupon(0);
+        msg.textContent = 'کد واردشده معتبر نیست. نمونهٔ معتبر: PADMIN10';
+        msg.style.color = 'var(--pa-danger)';
+      }
+      render();
+    });
+    /* Restore coupon UI state */
+    (function () {
+      var pct = getCoupon();
+      if (pct) {
+        document.getElementById('coupon').value = localStorage.getItem('pa-coupon-code') || '';
+        var msg = document.getElementById('coupon-msg');
+        msg.textContent = 'کد فعلی: ' + S.faDigits(pct) + '٪ تخفیف';
+        msg.style.color = 'var(--pa-success)';
+      }
+    })();
+
+    /* Re-render on any cart change */
+    document.addEventListener('pa:cart', render);
+    render();
+  })();
+  </script>
 </body>
 </html>

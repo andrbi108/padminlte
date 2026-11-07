@@ -31,6 +31,8 @@
 - [Command palette](#command-palette)
 - [CSV export](#csv-export-1)
 - [Scroll progress](#scroll-progress-1)
+- [Site chrome (v1.7)](#site-chrome-v17)
+- [Shopping cart & store (v1.7)](#shopping-cart--store-v17)
 - [Auto-init با data attributes](#auto-init-با-data-attributes)
 
 ---
@@ -516,6 +518,8 @@ PAdminLTE.layout.apply({
 - `PAdminLTE.layout.sidebar(opts)` — رشتهٔ HTML سایدبار.
 - `PAdminLTE.layout.header(opts)` — رشتهٔ HTML header.
 - `PAdminLTE.layout.footer(opts)` — رشتهٔ HTML footer.
+- `PAdminLTE.layout.siteNav(opts)` — رشتهٔ HTML ناوبری عمومی سایت (v1.7).
+- `PAdminLTE.layout.siteFooter(opts)` — رشتهٔ HTML فوتر عمومی سایت (v1.7).
 - `PAdminLTE.layout.navItem(href, icon, label, badge)` — HTML یک لینک تکی.
 - `PAdminLTE.layout.navTree(icon, label, items)` — HTML یک درخت قابل جمع‌شدن.
 
@@ -900,3 +904,74 @@ PAdminLTE.store.remove(key, id, seed)
 اگر صفحه لینک پرش نداشته باشد و `<main id="pa-main-content">` موجود باشد، لینک
 «پرش به محتوای اصلی» را به‌عنوان اولین المان `body` تزریق می‌کند و `tabindex="-1"`
 را روی main می‌گذارد — در `boot()` خودکار اجرا می‌شود (تکرار نمی‌شود).
+
+---
+
+## Site chrome (v1.7)
+
+صفحات عمومیِ مستقل از داشبورد (فروشگاه، وبلاگ، انجمن و صفحات اطلاعاتی) به‌جای
+سایدبار/هدرِ مدیریتی از یک پوستهٔ عمومی استفاده می‌کنند. کافی است در صفحه این دو
+placeholder را بگذارید:
+
+```html
+<div data-pa-layout="site-nav"></div>     <!-- ناوبری چسبان با blur -->
+<main class="pa-site-main" id="pa-main-content"> … </main>
+<div data-pa-layout="site-footer"></div>  <!-- فوتر چندستونه -->
+```
+
+- ناوبری شامل: برند، لینک‌های خانه/فروشگاه/وبلاگ/انجمن/درباره/تماس، دکمهٔ تم و جهت،
+  **سبد خرید با شمارندهٔ زندهٔ `[data-pa-cart-count]`** و ناحیهٔ احراز هویت
+  (اگر کاربر وارد شده باشد منوی کاربر، وگرنه دکمهٔ «ورود») است.
+- زیر ۹۰۰px لینک‌ها پشت دکمهٔ همبرگری جمع می‌شوند (`data-pa-site-burger`).
+- لینک فعال صفحهٔ جاری خودکار کلاس `is-active` می‌گیرد.
+
+## Shopping cart & store (v1.7)
+
+### `PAdminLTE.cart`
+
+سبد خرید واقعی و پایدار در `localStorage` (کلید `pa-cart`) — از `file://` هم کار می‌کند.
+
+| متد | توضیح |
+| --- | --- |
+| `items()` | آرایهٔ اقلام سبد |
+| `count()` | تعداد کل اقلام (با احتساب qty) |
+| `total()` | جمع کل به تومان |
+| `add(item, qty)` | افزودن/افزایش قلم؛ `item = {id, name, price, icon, color, href}` |
+| `setQty(id, qty)` | تغییر تعداد؛ صفر یا منفی = حذف |
+| `remove(id)` | حذف قلم |
+| `clear()` | خالی کردن سبد |
+| `sync()` | همگام‌سازی همهٔ نشان‌های `[data-pa-cart-count]` |
+
+هر تغییر، رویداد `pa:cart` را روی `document` منتشر می‌کند (detail: `{count, total}`).
+
+### روش declarative برای افزودن به سبد
+
+```html
+<button data-pa-cart-add
+        data-pa-id="p1" data-pa-name="لپ‌تاپ ایسوس" data-pa-price="25000000"
+        data-pa-item-icon="monitor" data-pa-item-color="#0d6efd"
+        data-pa-qty="1">
+  افزودن به سبد
+</button>
+```
+
+اتصال رویدادها به‌صورت delegation روی `document` است؛ بنابراین روی گریدهای
+بازرندرشده هم بدون `boot()` مجدد کار می‌کند. افزودن `data-pa-cart-goto` پس از افزودن
+به سبد پرش به `cart.html` را انجام می‌دهد.
+
+### `PAdminLTE.shop` (js/pa-shop.js)
+
+منبع یگانهٔ دادهٔ فروشگاه نمونه — در shop/product/cart/checkout مشترک است.
+
+| عضو | توضیح |
+| --- | --- |
+| `catalog` | آرایهٔ ۱۴ محصول: `{id, name, cat, brand, price, old, rating, reviews, badge, icon, color, stock, sold, added, desc, features}` |
+| `byId(id)` | یافتن محصول با id |
+| `money(n)` | «۲۵٬۰۰۰٬۰۰۰ ت» با ارقام فارسی |
+| `discountPct(p)` | درصد تخفیف از `price` و `old` |
+| `cats()` / `brands()` | دسته‌ها/برندهای یکتا با تعداد محصول |
+| `shippingCost(subtotal)` | رایگان بالای ۵٬۰۰۰٬۰۰۰ تومان، وگرنه ۸۰٬۰۰۰ تومان |
+| `couponPct(code)` | درصد کدهای تخفیف نمونه: `PADMIN10` و `WELCOME5` |
+
+صفحات `product.html?id=…`، سبد خرید و تسویهٔ حساب همه از همین کاتالوگ و قواعد
+سفارش استفاده می‌کنند؛ سفارش ثبت‌شده در `localStorage` (کلید `pa-orders`) ذخیره می‌شود.

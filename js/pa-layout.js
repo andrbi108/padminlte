@@ -90,8 +90,7 @@
         items: [
           { href: 'index.html', icon: 'dashboard', label: 'داشبورد' },
           { href: 'index2.html', icon: 'chartline', label: 'داشبورد ۲' },
-          { href: 'index3.html', icon: 'chartpie', label: 'داشبورد ۳' },
-          { href: 'pages/landing.html', icon: 'rocket', label: 'صفحه فرود' }
+          { href: 'index3.html', icon: 'chartpie', label: 'داشبورد ۳' }
         ]
       },
       {
@@ -138,29 +137,18 @@
         ]
       },
       {
-        title: 'محتوا',
-        tree: [
-          { name: 'وبلاگ', icon: 'book_open', items: [
-            { href: 'pages/blog-list.html', icon: 'book', label: 'لیست مطالب' },
-            { href: 'pages/blog-compose.html', icon: 'pen', label: 'نوشتن مطلب' },
-            { href: 'pages/blog-post.html', icon: 'file_text', label: 'مطلب نمونه' },
-            { href: 'pages/categories.html', icon: 'folder', label: 'دسته‌بندی‌ها' },
-            { href: 'pages/tags.html', icon: 'hashtag', label: 'برچسب‌ها' }
-          ]},
-          { name: 'انجمن', icon: 'comments', items: [
-            { href: 'pages/forum-list.html', icon: 'message_square', label: 'لیست گفتگوها' },
-            { href: 'pages/forum-new.html', icon: 'message_circle', label: 'موضوع جدید' },
-            { href: 'pages/forum-topic.html', icon: 'message_circle', label: 'موضوع نمونه' }
-          ]}
+        title: 'محتوا (مدیریت)',
+        items: [
+          { href: 'pages/blog-compose.html', icon: 'pen', label: 'نوشتن مطلب' }
         ]
       },
       {
-        title: 'فروشگاه',
+        title: 'سایت عمومی',
         items: [
+          { href: 'pages/landing.html', icon: 'rocket', label: 'صفحه اصلی' },
           { href: 'pages/shop.html', icon: 'shopping_bag', label: 'فروشگاه' },
-          { href: 'pages/product.html', icon: 'package_alt', label: 'صفحه محصول' },
-          { href: 'pages/cart.html', icon: 'shopping_cart', label: 'سبد خرید' },
-          { href: 'pages/checkout.html', icon: 'credit_card_alt', label: 'تسویه حساب' }
+          { href: 'pages/blog-list.html', icon: 'book', label: 'وبلاگ' },
+          { href: 'pages/forum-list.html', icon: 'comments', label: 'انجمن' }
         ]
       },
       {
@@ -242,7 +230,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۶.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۷.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -340,9 +328,127 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۶.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۷.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
+      '</footer>';
+  }
+
+  /* ---------- Public site chrome (v1.7) ----------
+     Pages independent of the dashboard (shop, blog, forum, info pages)
+     declare <div data-pa-layout="site-nav"> and
+     <div data-pa-layout="site-footer"> and get a public-site shell:
+     sticky blurred navbar + multi-column footer. Session-aware like the
+     admin header: shows the user avatar dropdown when logged in. */
+  function siteNav(opts) {
+    opts = opts || {};
+    var brand = opts.brand || 'PAdminLTE';
+    var links = opts.links || [
+      { href: 'pages/landing.html', label: 'خانه' },
+      { href: 'pages/shop.html', label: 'فروشگاه' },
+      { href: 'pages/blog-list.html', label: 'وبلاگ' },
+      { href: 'pages/forum-list.html', label: 'انجمن' },
+      { href: 'pages/about.html', label: 'درباره ما' },
+      { href: 'pages/contact.html', label: 'تماس با ما' }
+    ];
+    var here = location.pathname.split('/').pop() || 'index.html';
+    var navLinks = links.map(function (l) {
+      var active = here === l.href.split('/').pop();
+      return '<a href="' + resolve(l.href) + '"' + (active ? ' class="is-active" aria-current="page"' : '') + '>' + l.label + '</a>';
+    }).join('');
+    // Session-aware auth area (mock auth, see PAdminLTE.auth)
+    var u = null;
+    try { u = PAdminLTE.auth && PAdminLTE.auth.currentUser && PAdminLTE.auth.currentUser(); } catch (e) {}
+    var authArea;
+    if (u) {
+      var initial = (u.name || 'A').trim().charAt(0);
+      var color = u.color ? ' style="background:' + u.color + '"' : '';
+      authArea =
+        '<div class="pa-dropdown">' +
+          '<button class="pa-user-widget" data-pa-dropdown-toggle aria-label="حساب کاربری">' +
+            '<span class="pa-avatar pa-avatar-md"' + color + '>' + initial + '</span>' +
+            '<span class="pa-uw-text"><span class="pa-uw-name">' + u.name + '</span></span>' +
+            icon('chevron_down', 14) +
+          '</button>' +
+          '<div class="pa-dropdown-menu" role="menu">' +
+            '<div class="pa-dropdown-header">حساب کاربری</div>' +
+            '<a class="pa-dropdown-item" href="' + resolve('index.html') + '">' + icon('dashboard', 16) + 'داشبورد</a>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/account.html') + '">' + icon('user_cog', 16) + 'حساب من</a>' +
+            '<div class="pa-dropdown-divider"></div>' +
+            '<button type="button" class="pa-dropdown-item pa-link-btn" data-pa-logout>' + icon('logout', 16) + 'خروج از حساب</button>' +
+          '</div>' +
+        '</div>';
+    } else {
+      authArea = '<a class="pa-btn pa-btn-primary pa-btn-sm" href="' + resolve('pages/login.html') + '" aria-label="ورود">' + icon('log_in', 15) + '<span>ورود</span></a>';
+    }
+    return '' +
+      '<header class="pa-site-nav" role="banner">' +
+        '<div class="pa-site-nav-in">' +
+          '<a class="pa-site-brand" href="' + resolve('pages/landing.html') + '">' +
+            '<span class="pa-brand-mark">' + (opts.brandMark || 'P') + '</span>' +
+            '<span>' + brand + '</span>' +
+          '</a>' +
+          '<nav class="pa-site-links" aria-label="ناوبری سایت">' + navLinks + '</nav>' +
+          '<div class="pa-site-actions">' +
+            '<button class="pa-icon-btn" data-pa-theme-toggle aria-label="تغییر تم"></button>' +
+            '<button class="pa-icon-btn" data-pa-dir-toggle aria-label="تغییر جهت" title="RTL/LTR">' + icon('arrow_right', 18) + '</button>' +
+            '<a class="pa-site-cart" href="' + resolve('pages/cart.html') + '" aria-label="سبد خرید">' +
+              icon('shopping_cart', 20) +
+              '<span class="pa-site-cart-badge" data-pa-cart-count hidden></span>' +
+            '</a>' +
+            authArea +
+            '<button class="pa-icon-btn pa-site-burger" data-pa-site-burger aria-label="باز و بسته کردن منو" aria-expanded="false">' + icon('menu', 20) + '</button>' +
+          '</div>' +
+        '</div>' +
+      '</header>';
+  }
+
+  function siteFooter(opts) {
+    opts = opts || {};
+    var year = new Date().getFullYear();
+    function col(title, hrefs) {
+      return '<div><h4>' + title + '</h4><div class="pa-site-footer-links">' +
+        hrefs.map(function (h) {
+          return '<a href="' + resolve(h.href) + '">' + icon('chevron_left', 12) + '<span>' + h.label + '</span></a>';
+        }).join('') + '</div></div>';
+    }
+    return '' +
+      '<footer class="pa-site-footer" role="contentinfo">' +
+        '<div class="pa-site-footer-in">' +
+          '<div class="pa-site-footer-grid">' +
+            '<div>' +
+              '<a class="pa-site-footer-brand" href="' + resolve('pages/landing.html') + '">' +
+                '<span class="pa-brand-mark">' + (opts.brandMark || 'P') + '</span><span>' + (opts.brand || 'PAdminLTE') + '</span>' +
+              '</a>' +
+              '<p class="pa-site-footer-about">پنل مدیریت و سایت‌نمونهٔ تماماً بومی — بدون Bootstrap، بدون jQuery، بدون Chart.js و بدون هیچ وابستگی خارجی؛ همهٔ فایل‌ها حتی از file:// هم اجرا می‌شوند.</p>' +
+              '<div class="pa-d-flex pa-gap-1" style="flex-wrap:wrap">' +
+                '<span class="pa-badge pa-badge-primary">بدون وابستگی</span>' +
+                '<span class="pa-badge pa-badge-success">RTL/LTR</span>' +
+                '<span class="pa-badge pa-badge-info">تم تاریک</span>' +
+              '</div>' +
+            '</div>' +
+            col('دسترسی سریع', [
+              { href: 'pages/landing.html', label: 'خانه' },
+              { href: 'pages/shop.html', label: 'فروشگاه' },
+              { href: 'pages/blog-list.html', label: 'وبلاگ' },
+              { href: 'pages/forum-list.html', label: 'انجمن' }
+            ]) +
+            col('شرکت', [
+              { href: 'pages/about.html', label: 'درباره ما' },
+              { href: 'pages/contact.html', label: 'تماس با ما' },
+              { href: 'pages/faq.html', label: 'سؤالات متداول' }
+            ]) +
+            col('قانونی', [
+              { href: 'pages/privacy.html', label: 'حریم خصوصی' },
+              { href: 'pages/terms.html', label: 'شرایط استفاده' }
+            ]) +
+          '</div>' +
+          '<div class="pa-site-footer-bar">' +
+            '<span><strong>PAdminLTE</strong> — نسخهٔ ۱.۷.۰ &copy; ' + year + '</span>' +
+            '<span>بدون وابستگی خارجی &middot; قابل اجرا با file://</span>' +
+            '<a href="https://github.com/andrbi108/padminlte" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:.3rem; color:var(--pa-text-muted)">' + icon('github', 14) + '<span>مخزن GitHub</span></a>' +
+          '</div>' +
+        '</div>' +
       '</footer>';
   }
 
@@ -362,9 +468,43 @@
     document.querySelectorAll('[data-pa-layout="footer"]').forEach(function (el) {
       el.outerHTML = footer(opts.footer || {});
     });
+    document.querySelectorAll('[data-pa-layout="site-nav"]').forEach(function (el) {
+      el.outerHTML = siteNav(opts.siteNav || {});
+    });
+    document.querySelectorAll('[data-pa-layout="site-footer"]').forEach(function (el) {
+      el.outerHTML = siteFooter(opts.siteFooter || {});
+    });
+    bindSiteNav();
     // Re-run icon injection + bindings for newly added nodes
     if (typeof PAdminLTE.injectIcons === 'function') PAdminLTE.injectIcons(document);
     if (typeof PAdminLTE.boot === 'function') PAdminLTE.boot(document);
+    // Cart badges inside the freshly injected site nav
+    if (PAdminLTE.cart && typeof PAdminLTE.cart.sync === 'function') PAdminLTE.cart.sync();
+  }
+
+  /* Burger toggle for the mobile site nav + close on link click */
+  function bindSiteNav() {
+    document.querySelectorAll('[data-pa-site-burger]').forEach(function (btn) {
+      if (btn.__paBurgerBound) return;
+      btn.__paBurgerBound = true;
+      btn.addEventListener('click', function () {
+        var nav = btn.closest('.pa-site-nav');
+        if (!nav) return;
+        var open = nav.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    });
+    document.querySelectorAll('.pa-site-nav .pa-site-links a').forEach(function (a) {
+      if (a.__paNavCloseBound) return;
+      a.__paNavCloseBound = true;
+      a.addEventListener('click', function () {
+        var nav = a.closest('.pa-site-nav');
+        if (!nav) return;
+        nav.classList.remove('is-open');
+        var b = nav.querySelector('[data-pa-site-burger]');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    });
   }
 
   // Auto-apply on DOMContentLoaded
@@ -380,6 +520,8 @@
     sidebar: sidebar,
     header: header,
     footer: footer,
+    siteNav: siteNav,
+    siteFooter: siteFooter,
     apply: applyLayout,
     navItem: navItem,
     navTree: navTree

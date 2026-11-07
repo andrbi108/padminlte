@@ -1145,6 +1145,20 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-product-price { display: flex; align-items: baseline; gap: .4rem; margin-top: .5rem; }
 .pa-product-price .pa-now   { font-size: 1.1rem; font-weight: 700; color: var(--pa-primary); }
 .pa-product-price .pa-was   { font-size: .85rem; color: var(--pa-text-muted); text-decoration: line-through; }
+/* Actions can also be links (view product) — same pill as buttons */
+.pa-product-actions a {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--pa-surface); color: var(--pa-text); cursor: pointer;
+  display: grid; place-items: center; box-shadow: var(--pa-shadow);
+  transition: all .15s ease;
+}
+.pa-product-actions a:hover { background: var(--pa-primary); color: #fff; }
+/* Shop list view (v1.7): one product per row */
+.pa-shop-list .pa-col-lg-4, .pa-shop-list .pa-col-4 { flex: 0 0 100%; max-width: 100%; }
+.pa-shop-list .pa-product-card { display: grid; grid-template-columns: 200px 1fr; }
+.pa-shop-list .pa-product-thumb { aspect-ratio: auto; height: 100%; min-height: 160px; }
+.pa-shop-list .pa-product-body { align-self: center; }
+@media (max-width: 560px) { .pa-shop-list .pa-product-card { grid-template-columns: 1fr; } .pa-shop-list .pa-product-thumb { min-height: 0; aspect-ratio: 1/1; } }
 
 /* Cart item */
 .pa-cart-item {
@@ -1590,22 +1604,39 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-tl-people { display: flex; align-items: center; gap: .35rem; margin-top: .5rem; }
 .pa-tl-people .pa-avatar { width: 26px; height: 26px; font-size: .7rem; }
 
-/* Variant: horizontal (scrollable) — dots on a top line, cards below */
+/* Variant: horizontal (scrollable) — dots on a top line, cards below.
+   v1.7: the 18px marker previously shared the same row as .pa-tl-title /
+   .pa-tl-time (both started at the item's top edge), so the dot sat ON the
+   title. Fix: each item reserves a marker row sized from the real dot
+   height, and the line is aligned to the dot's true center — so content
+   can never collide with the marker at any viewport width or scroll
+   position, and marker/content stay in sync if the dot size ever changes. */
 .pa-timeline--horizontal {
-  display: flex; overflow-x: auto; padding: 2rem .5rem .5rem; gap: .5rem;
+  --tlh-dot: 18px;           /* marker diameter — keep in sync with ::before */
+  --tlh-gap: .75rem;         /* breathing room between marker row and content */
+  display: flex; overflow-x: auto; scroll-snap-type: x proximity;
+  padding: 2rem .5rem .5rem; gap: .5rem;
 }
 .pa-timeline--horizontal::before {
-  content: ''; position: absolute; top: calc(2rem + 8px);
+  content: ''; position: absolute; top: calc(2rem + var(--tlh-dot) / 2);
   inset-inline-start: 2rem; inset-inline-end: 2rem;
   width: auto; height: 2px; background: var(--pa-border);
 }
 .pa-timeline--horizontal .pa-timeline-item {
-  flex: 1 0 170px; text-align: center; padding-bottom: .5rem;
+  flex: 1 0 170px; text-align: center;
+  scroll-snap-align: start;
+  /* Reserve the marker row: dot height + gap. Content (title/time/text)
+     starts BELOW the dot regardless of markup order. */
+  padding-top: calc(var(--tlh-dot) + var(--tlh-gap));
+  padding-bottom: .5rem;
 }
 .pa-timeline--horizontal .pa-timeline-item::before {
-  inset-inline-start: calc(50% - 9px); top: 0;
+  inset-inline-start: calc(50% - var(--tlh-dot) / 2); top: 0;
 }
 .pa-timeline--horizontal .pa-tl-time { margin-top: .35rem; }
+@media (max-width: 480px) {
+  .pa-timeline--horizontal .pa-timeline-item { flex-basis: 150px; }
+}
 
 /* Variant: progress tracker (done / active / pending states) */
 @keyframes pa-tl-pulse {
@@ -2675,6 +2706,129 @@ img[data-pa-lazy].is-lazy-loaded {
 /* =============================================================
    78. Accessibility — focus ring & reduced motion (v1.5)
    ============================================================= */
+/* ---------- 49-bis. Public site chrome (v1.7 — pages independent of the dashboard) ---------- */
+/* Sticky top navigation for public pages (shop/blog/forum/info) */
+.pa-site-nav {
+  position: sticky; top: 0; z-index: 900;
+  background: var(--pa-surface);
+  background: color-mix(in srgb, var(--pa-surface) 82%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--pa-border);
+}
+.pa-site-nav-in {
+  max-width: 1200px; margin-inline: auto; padding: 0 1rem;
+  display: flex; align-items: center; gap: .5rem; min-height: 62px; position: relative;
+}
+.pa-site-brand {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-weight: 800; font-size: 1.05rem; color: var(--pa-text); text-decoration: none;
+  flex-shrink: 0;
+}
+.pa-site-brand .pa-brand-mark {
+  width: 32px; height: 32px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--pa-primary), var(--pa-info));
+  border-radius: 7px; display: grid; place-items: center; color: #fff; font-weight: 800;
+}
+.pa-site-links { display: flex; align-items: center; gap: .2rem; margin-inline-start: .75rem; flex-wrap: wrap; }
+.pa-site-links a {
+  padding: .45rem .85rem; border-radius: 999px;
+  color: var(--pa-text-muted); text-decoration: none;
+  font-size: .92rem; font-weight: 600; white-space: nowrap;
+  transition: color .15s, background .15s;
+}
+.pa-site-links a:hover { color: var(--pa-text); background: var(--pa-surface-2); }
+.pa-site-links a.is-active { color: var(--pa-primary); background: var(--pa-primary-soft); }
+.pa-site-actions { display: flex; align-items: center; gap: .3rem; margin-inline-start: auto; }
+.pa-site-nav .pa-icon-btn {
+  background: transparent; border: 0; color: var(--pa-text-muted);
+  width: 40px; height: 40px; border-radius: var(--pa-radius);
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.pa-site-nav .pa-icon-btn:hover { background: var(--pa-surface-2); color: var(--pa-text); }
+/* Cart button with live item-count badge */
+.pa-site-cart {
+  position: relative; width: 40px; height: 40px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--pa-radius); color: var(--pa-text-muted);
+  text-decoration: none; transition: background .15s, color .15s;
+}
+.pa-site-cart:hover { background: var(--pa-surface-2); color: var(--pa-text); }
+.pa-site-cart-badge {
+  position: absolute; top: 2px; inset-inline-end: 2px;
+  min-width: 17px; height: 17px; padding: 0 4px; border-radius: 999px;
+  background: var(--pa-danger); color: #fff;
+  font-size: .66rem; font-weight: 800; line-height: 17px; text-align: center;
+}
+.pa-site-cart-badge[hidden] { display: none; }
+@keyframes pa-badge-bump { 0% { transform: scale(1); } 40% { transform: scale(1.5); } 100% { transform: scale(1); } }
+.pa-site-cart-badge.pa-bump { animation: pa-badge-bump .45s ease; }
+/* Mobile: links collapse behind the burger button */
+.pa-site-burger { display: none; }
+@media (max-width: 900px) {
+  .pa-site-links {
+    display: none;
+    position: absolute; top: 100%; inset-inline: 0; z-index: 20;
+    flex-direction: column; align-items: stretch; flex-wrap: nowrap;
+    background: var(--pa-surface);
+    border-bottom: 1px solid var(--pa-border);
+    padding: .5rem .75rem .75rem; margin: 0;
+    box-shadow: var(--pa-shadow-lg);
+  }
+  .pa-site-nav.is-open .pa-site-links { display: flex; }
+  .pa-site-links a { padding: .65rem .85rem; border-radius: var(--pa-radius); white-space: normal; }
+  .pa-site-burger { display: inline-flex; }
+}
+/* Very small screens: compact action cluster — icon-only login button;
+   at ≤340px the direction toggle hides (Shift+D still works) so nothing
+   can push the navbar wider than the viewport. */
+@media (max-width: 560px) {
+  .pa-site-nav-in { gap: .3rem; padding: 0 .75rem; }
+  .pa-site-brand { font-size: .95rem; gap: .4rem; }
+  .pa-site-actions { gap: .2rem; }
+  .pa-site-nav .pa-icon-btn, .pa-site-cart { width: 36px; height: 36px; }
+  .pa-site-actions .pa-btn { padding-inline: .55rem; }
+  .pa-site-actions .pa-btn span { display: none; }
+}
+@media (max-width: 340px) {
+  .pa-site-nav [data-pa-dir-toggle] { display: none; }
+}
+/* Public page canvas (mirrors .pa-content rhythm without the app shell) */
+.pa-site-main {
+  width: 100%; max-width: 1200px; margin-inline: auto;
+  padding: 1.25rem 1rem 2rem;
+}
+@media (max-width: 768px) { .pa-site-main { padding: .85rem .85rem 1.5rem; } }
+/* Multi-column site footer */
+.pa-site-footer { margin-top: 3rem; border-top: 1px solid var(--pa-border); background: var(--pa-surface-2); }
+.pa-site-footer-in { max-width: 1200px; margin-inline: auto; padding: 2.25rem 1rem 1.25rem; }
+.pa-site-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1.75rem; }
+.pa-site-footer-brand {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font-weight: 800; color: var(--pa-text); text-decoration: none; margin-bottom: .6rem;
+}
+.pa-site-footer-brand .pa-brand-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, var(--pa-primary), var(--pa-info));
+  border-radius: 7px; display: grid; place-items: center; color: #fff; font-weight: 800;
+}
+.pa-site-footer-about {
+  color: var(--pa-text-muted); font-size: .88rem; line-height: 1.85; margin: 0 0 .8rem; max-width: 36ch;
+}
+.pa-site-footer h4 { margin: 0 0 .55rem; font-size: .95rem; }
+.pa-site-footer-links a {
+  display: flex; align-items: center; gap: .4rem; width: fit-content;
+  color: var(--pa-text-muted); text-decoration: none; padding: .24rem 0; font-size: .88rem;
+  transition: color .15s;
+}
+.pa-site-footer-links a:hover { color: var(--pa-primary); }
+.pa-site-footer-bar {
+  display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--pa-border); margin-top: 1.75rem; padding: 1rem 0 .25rem;
+  color: var(--pa-text-muted); font-size: .82rem;
+}
+@media (max-width: 860px) { .pa-site-footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .pa-site-footer-grid { grid-template-columns: 1fr; } }
+
 /* Clear keyboard focus ring (mouse clicks stay untouched) */
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible,
 textarea:focus-visible, [tabindex]:focus-visible, summary:focus-visible {

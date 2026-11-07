@@ -2109,6 +2109,103 @@
     }
   };
 
+  /* ---------- Shopping cart (v1.7) ----------
+     Real, persistent cart for the public shop pages. Items live in
+     localStorage (key: "pa-cart"), survive reloads and work from file://.
+     Every change fires a "pa:cart" event and re-syncs all
+     [data-pa-cart-count] badges (site navbar, toolbars, …).           */
+  var CART_KEY = 'pa-cart';
+  function faDigits(v) {
+    return String(v).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; });
+  }
+  function cartItems() { return store.get(CART_KEY, []); }
+  function cartCount() {
+    return cartItems().reduce(function (s, it) { return s + (it.qty || 1); }, 0);
+  }
+  function cartTotal() {
+    return cartItems().reduce(function (s, it) { return s + (it.price || 0) * (it.qty || 1); }, 0);
+  }
+  function cartFire() {
+    try {
+      document.dispatchEvent(new CustomEvent('pa:cart', { detail: { count: cartCount(), total: cartTotal() } }));
+    } catch (e) {}
+  }
+  function cartSync() {
+    var n = cartCount();
+    document.querySelectorAll('[data-pa-cart-count]').forEach(function (b) {
+      b.textContent = faDigits(n);
+      if (n > 0) b.removeAttribute('hidden'); else b.setAttribute('hidden', '');
+    });
+  }
+  function cartSave(items) {
+    store.save(CART_KEY, items);
+    cartSync();
+    cartFire();
+  }
+  function cartAdd(item, qty) {
+    qty = Math.max(1, parseInt(qty || 1, 10) || 1);
+    var items = cartItems();
+    var found = null;
+    items.forEach(function (x) { if (String(x.id) === String(item.id)) found = x; });
+    if (found) found.qty = (found.qty || 1) + qty;
+    else { item.qty = qty; items.push(item); }
+    cartSave(items);
+    return item;
+  }
+  function cartSetQty(id, qty) {
+    var items = cartItems();
+    qty = parseInt(qty, 10) || 0;
+    items.forEach(function (x) {
+      if (String(x.id) === String(id)) x.qty = qty;
+    });
+    cartSave(items.filter(function (x) { return x.qty > 0; }));
+  }
+  function cartRemove(id) {
+    cartSave(cartItems().filter(function (x) { return String(x.id) !== String(id); }));
+  }
+  function cartClear() { cartSave([]); }
+
+  /* Declarative bindings: [data-pa-cart-add] adds the product described by
+     data-pa-id / data-pa-name / data-pa-price / data-pa-icon / data-pa-color.
+     Document-level delegation, so re-rendered product grids keep working. */
+  function initCartButtons() {
+    if (initCartButtons.__bound) return;
+    initCartButtons.__bound = true;
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-pa-cart-add]') : null;
+      if (!btn) return;
+      var item = {
+        id: btn.getAttribute('data-pa-id') || ('x-' + Date.now()),
+        name: btn.getAttribute('data-pa-name') || 'محصول',
+        price: parseInt(btn.getAttribute('data-pa-price') || '0', 10) || 0,
+        icon: btn.getAttribute('data-pa-item-icon') || 'package_alt',
+        color: btn.getAttribute('data-pa-item-color') || '#0d6efd',
+        href: btn.getAttribute('data-pa-href') || ''
+      };
+      var qty = parseInt(btn.getAttribute('data-pa-qty') || '1', 10) || 1;
+      cartAdd(item, qty);
+      toast({ kind: 'success', message: '«' + item.name + '» به سبد اضافه شد.' });
+      // Bump every visible badge
+      document.querySelectorAll('[data-pa-cart-count]').forEach(function (b) {
+        b.classList.remove('pa-bump');
+        void b.offsetWidth; /* restart animation */
+        b.classList.add('pa-bump');
+      });
+      var gotoCart = btn.hasAttribute('data-pa-cart-goto');
+      if (gotoCart) {
+        setTimeout(function () {
+          global.location.href = IN_PAGES_DIR() ? 'cart.html' : 'pages/cart.html';
+        }, 500);
+      }
+    });
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-pa-cart-clear]') : null;
+      if (!btn) return;
+      cartClear();
+      toast({ kind: 'info', message: 'سبد خرید خالی شد.' });
+    });
+  }
+
   /* ---------- Mobile sidebar backdrop (v1.3.1) ----------
      Auto-injected overlay for the off-canvas sidebar on phones:
      tap outside or tap a nav link to close.                     */
@@ -2763,6 +2860,9 @@
     initNetStatus();
     initShortcutsSheet();
     injectSkipLink();
+    /* v1.7 — shopping cart */
+    initCartButtons();
+    cartSync();
     // Bind logout buttons (mock auth)
     (root || document).querySelectorAll('[data-pa-logout]').forEach(function (btn) {
       if (btn.__paBound) return;
@@ -2888,6 +2988,19 @@
   PAdminLTE.initExportButtons = initExportButtons;
   PAdminLTE.initScrollProgress = initScrollProgress;
   PAdminLTE.store = store;
+  /* ---------- Public API additions (v1.7) ---------- */
+  PAdminLTE.faDigits = faDigits;
+  PAdminLTE.validateForm = validateForm;
+  PAdminLTE.cart = {
+    items: cartItems,
+    count: cartCount,
+    total: cartTotal,
+    add: cartAdd,
+    setQty: cartSetQty,
+    remove: cartRemove,
+    clear: cartClear,
+    sync: cartSync
+  };
   PAdminLTE.auth = {
     users: authUsers,
     currentUser: authCurrentUser,
