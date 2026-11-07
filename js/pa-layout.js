@@ -226,7 +226,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۳.۱ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۴.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -249,6 +249,12 @@
           icon('search', 16) +
           '<input type="search" placeholder="جستجو…" aria-label="جستجو" data-pa-search="[data-pa-searchable-scope]">' +
         '</div>' +
+        // Command palette trigger (Ctrl+K)
+        '<button class="pa-palette-trigger" data-pa-palette-open aria-label="پالت فرمان (Ctrl+K)" title="پالت فرمان — Ctrl+K">' +
+          icon('command', 14) +
+          '<span>پالت فرمان</span>' +
+          '<span class="pa-palette-kbd">Ctrl+K</span>' +
+        '</button>' +
         '<div class="pa-header-spacer"></div>' +
         // Theme toggle
         '<button class="pa-icon-btn" data-pa-theme-toggle aria-label="تغییر تم"></button>' +

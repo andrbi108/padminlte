@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PAdminLTE — تایم‌لاین فعالیت‌ها</title>
+  <title>PAdminLTE — تایم‌لاین‌ها (۸ حالت)</title>
   <link rel="stylesheet" href="../css/padminlte.css">
 </head>
 <body>
@@ -17,135 +17,356 @@
         <!-- سربرگ صفحه -->
         <div class="pa-page-header">
           <div>
-            <h1>تایم‌لاین فعالیت‌ها</h1>
+            <h1>تایم‌لاین‌ها</h1>
             <div class="pa-breadcrumb">
               <a href="../index.html">خانه</a>
               <span class="pa-sep">›</span>
-              <span>تایم‌لاین فعالیت‌ها</span>
+              <span>تایم‌لاین‌ها</span>
             </div>
           </div>
           <div class="pa-d-flex pa-gap-2">
             <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="14"
-                    onclick="PAdminLTE.toast({kind:'info',message:'گزارش فعالیت‌ها آماده دانلود شد (نمونه).'})"> خروجی گزارش</button>
-            <button type="button" class="pa-btn pa-btn-primary pa-btn-sm" data-pa-icon="plus" data-pa-icon-size="14"
-                    onclick="PAdminLTE.toast({kind:'success',message:'فرم ثبت رخداد جدید باز شد (نمونه).'})"> رخداد جدید</button>
+                    onclick="PAdminLTE.toast({kind:'info',message:'گزارش کامل فعالیت‌ها آماده دانلود شد (نمونه).'})"> خروجی گزارش</button>
           </div>
         </div>
 
-        <!-- کارت راهنمای رنگ نقطه‌ها -->
+        <!-- نوار پرش سریع به حالت‌ها -->
         <div class="pa-card">
           <div class="pa-card-body">
             <div class="pa-d-flex pa-gap-2 pa-flex-wrap" style="align-items:center">
-              <strong style="font-size:.9rem">راهنمای رنگ نقطه‌ها:</strong>
-              <span class="pa-badge pa-badge-success">نقطه سبز = رخداد موفق و انتشارهای تکمیل‌شده</span>
-              <span class="pa-badge pa-badge-danger">نقطه قرمز = باگ‌ها و رخدادهای بحرانی</span>
-              <span class="pa-tl-text">نقطه آبی پیش‌فرض برای فعالیت‌های عادی و نقطه زرد برای هشدارها استفاده می‌شود.</span>
+              <strong style="font-size:.9rem">هشت حالت آمادهٔ تایم‌لاین:</strong>
+              <a class="pa-chip is-clickable is-primary" href="#tl-base">پایه</a>
+              <a class="pa-chip is-clickable" href="#tl-icons">آیکونی</a>
+              <a class="pa-chip is-clickable" href="#tl-alternate">یک‌درمیان</a>
+              <a class="pa-chip is-clickable" href="#tl-compact">فشرده</a>
+              <a class="pa-chip is-clickable" href="#tl-grouped">گروهی</a>
+              <a class="pa-chip is-clickable" href="#tl-media">رسانه‌ای</a>
+              <a class="pa-chip is-clickable" href="#tl-horizontal">افقی</a>
+              <a class="pa-chip is-clickable" href="#tl-progress">رهگیری پیشرفت</a>
             </div>
           </div>
         </div>
 
-        <!-- تایم‌لاین فعالیت‌ها -->
-        <div class="pa-card">
+        <!-- ۱) حالت پایه: خط عمودی با نقطه‌های رنگی -->
+        <div class="pa-card" id="tl-base">
           <div class="pa-card-header">
-            <h3>رخدادهای اخیر پروژه</h3>
+            <h3>۱ — حالت پایه <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-timeline</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">خط عمودی با نقطه‌های رنگی؛ کلاس‌های <code>is-success</code>، <code>is-warning</code>، <code>is-danger</code> و <code>is-info</code> رنگ نقطه را تغییر می‌دهند.</p>
           </div>
           <div class="pa-card-body">
-            <div class="pa-timeline">
+            <ul class="pa-timeline">
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-time">امروز، ۰۹:۳۰</div>
+                <div class="pa-tl-title">نسخهٔ ۱.۴.۰ منتشر شد</div>
+                <div class="pa-tl-text">پالت فرمان، خروجی CSV و ۸ حالت تایم‌لاین به پروژه اضافه شد.</div>
+              </li>
+              <li class="pa-timeline-item is-warning">
+                <div class="pa-tl-time">دیروز، ۱۸:۱۲</div>
+                <div class="pa-tl-title">هشدار مصرف حافظهٔ سرور</div>
+                <div class="pa-tl-text">مصرف RAM به ۸۲٪ رسید؛ سرویس کش ری‌استارت شد.</div>
+              </li>
+              <li class="pa-timeline-item is-danger">
+                <div class="pa-tl-time">دیروز، ۱۱:۰۵</div>
+                <div class="pa-tl-title">قطعی موقت API پرداخت</div>
+                <div class="pa-tl-text">۴ دقیقه قطعی و بازیابی خودکار؛ هیچ تراکنشی از دست نرفت.</div>
+              </li>
+              <li class="pa-timeline-item is-info">
+                <div class="pa-tl-time">۲ روز پیش</div>
+                <div class="pa-tl-title">یادداشت تیمی</div>
+                <div class="pa-tl-text">جلسهٔ بررسی طراحی نسخهٔ بعدی ساعت ۱۰ برگزار می‌شود.</div>
+              </li>
+              <li class="pa-timeline-item">
+                <div class="pa-tl-time">۳ روز پیش</div>
+                <div class="pa-tl-title">بازآرایی کدهای هسته</div>
+                <div class="pa-tl-text">ماژول‌های نمودار و جدول به‌صورت مستقل سازمان‌دهی شدند.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-              <!-- رخداد ۱ -->
-              <div class="pa-timeline-item" data-pa-reveal>
-                <div class="pa-tl-time">۱۴۰۳/۰۸/۱۲ — ۱۰:۳۰</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="rocket" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">انتشار نسخه ۱٫۲ قالب</h4>
-                  <span class="pa-badge pa-badge-primary">انتشار</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">نسخه ۱٫۲ با ۹ کامپوننت جدید شامل کاروسل، آکاردئون و حلقه پیشرفت منتشر شد. مستندات و نمونه‌های مربوطه نیز به‌روزرسانی شدند.</p>
-              </div>
+        <!-- ۲) حالت آیکونی: حباب‌های آیکون به‌جای نقطه -->
+        <div class="pa-card" id="tl-icons">
+          <div class="pa-card-header">
+            <h3>۲ — حالت آیکونی <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-timeline--icons</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">هر رخداد یک آیکون رنگی روی خط دارد؛ برای تاریخچهٔ نرم‌افزار و گزارش انتشار مناسب است.</p>
+          </div>
+          <div class="pa-card-body">
+            <ul class="pa-timeline pa-timeline--icons">
+              <li class="pa-timeline-item is-success">
+                <span class="pa-tl-icon" data-pa-icon="rocket" data-pa-icon-size="16"></span>
+                <div class="pa-tl-time">آبان ۱۴۰۵</div>
+                <div class="pa-tl-title">انتشار عمومی v1.3</div>
+                <div class="pa-tl-text">احراز هویت، وبلاگ، انجمن و گالری چندحالته فعال شد.</div>
+              </li>
+              <li class="pa-timeline-item is-info">
+                <span class="pa-tl-icon" data-pa-icon="upload" data-pa-icon-size="16"></span>
+                <div class="pa-tl-time">مهر ۱۴۰۵</div>
+                <div class="pa-tl-title">افزودن ۲۶ صفحهٔ جدید</div>
+                <div class="pa-tl-text">فروشگاه، سبد خرید، تسویه حساب و پنل کاربری.</div>
+              </li>
+              <li class="pa-timeline-item is-warning">
+                <span class="pa-tl-icon" data-pa-icon="bug" data-pa-icon-size="16"></span>
+                <div class="pa-tl-time">شهریور ۱۴۰۵</div>
+                <div class="pa-tl-title">رفع ۱۸۴ لینک مرده</div>
+                <div class="pa-tl-text">کل لینک‌دهی صفحات ممیزی و اصلاح شد.</div>
+              </li>
+              <li class="pa-timeline-item">
+                <span class="pa-tl-icon" data-pa-icon="zap" data-pa-icon-size="16"></span>
+                <div class="pa-tl-time">مرداد ۱۴۰۵</div>
+                <div class="pa-tl-title">تولد PAdminLTE</div>
+                <div class="pa-tl-text">بازنویسی کامل AdminLTE بدون هیچ وابستگی خارجی.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-              <!-- رخداد ۲ -->
-              <div class="pa-timeline-item is-danger" data-pa-reveal data-pa-delay="60">
-                <div class="pa-tl-time">۱۴۰۳/۰۸/۱۰ — ۱۶:۴۵</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-danger" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="bug" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">رفع باگ صفحه پرداخت</h4>
-                  <span class="pa-badge pa-badge-danger">رفع باگ</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">خطای محاسبه مبلغ نهایی سبد خرید در حالت ارسال رایگان شناسایی و اصلاح شد. تست‌های مربوطه به مجموعه آزمون‌ها اضافه شدند.</p>
-              </div>
+        <!-- ۳) حالت یک‌درمیان: خط وسط و کارت‌های چپ/راست -->
+        <div class="pa-card" id="tl-alternate">
+          <div class="pa-card-header">
+            <h3>۳ — حالت یک‌درمیان <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-timeline--alternate</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">رخدادها دو‌به‌دو در دو طرف خط مرکزی قرار می‌گیرند؛ در موبایل به‌صورت خودکار تک‌ستونی می‌شود.</p>
+          </div>
+          <div class="pa-card-body">
+            <ul class="pa-timeline pa-timeline--alternate">
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-time">فروردین ۱۴۰۵</div>
+                <div class="pa-tl-title">شروع پروژه</div>
+                <div class="pa-tl-text">تحلیل AdminLTE و تعیین معماری بدون وابستگی.</div>
+              </li>
+              <li class="pa-timeline-item">
+                <div class="pa-tl-time">اردیبهشت ۱۴۰۵</div>
+                <div class="pa-tl-title">هستهٔ CSS و JS</div>
+                <div class="pa-tl-text">۲٬۲۰۰ خط CSS و ۲٬۵۰۰ خط جاوااسکریپت خالص.</div>
+              </li>
+              <li class="pa-timeline-item is-info">
+                <div class="pa-tl-time">خرداد ۱۴۰۵</div>
+                <div class="pa-tl-title">پشتیبانی کامل RTL</div>
+                <div class="pa-tl-text">چیدمان راست‌به‌چپ با ویژگی‌های منطقی CSS.</div>
+              </li>
+              <li class="pa-timeline-item is-warning">
+                <div class="pa-tl-time">تیر ۱۴۰۵</div>
+                <div class="pa-tl-title">ممیزی دسترسی‌پذیری</div>
+                <div class="pa-tl-text">لینک پرش، برچسب‌های ARIA و کنتراست رنگ‌ها.</div>
+              </li>
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-time">اکنون</div>
+                <div class="pa-tl-title">۶۰ صفحه و ۲۸۱ آیکون</div>
+                <div class="pa-tl-text">و همچنان در حال رشد — کاملاً آفلاین.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-              <!-- رخداد ۳ -->
-              <div class="pa-timeline-item is-success" data-pa-reveal data-pa-delay="120">
-                <div class="pa-tl-time">۱۴۰۳/۰۸/۰۸ — ۰۹:۱۵</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-success" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="tag_alt" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">امضای قرارداد با شرکت نوین‌داده</h4>
-                  <span class="pa-badge pa-badge-success">قرارداد</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">قرارداد یک‌ساله پشتیبانی و توسعه قالب با شرکت نوین‌داده امضا شد؛ بر اساس آن پنل اختصاصی گزارش‌گیری برای آن‌ها ساخته خواهد شد.</p>
-              </div>
+        <!-- ۴) حالت فشرده: فید فعالیت با فاصلهٔ کم -->
+        <div class="pa-card" id="tl-compact">
+          <div class="pa-card-header">
+            <h3>۴ — حالت فشرده <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-timeline--compact</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">نقطه‌های کوچک و فاصلهٔ کم؛ مناسب ویجت‌های کناری و فید فعالیت داشبورد.</p>
+          </div>
+          <div class="pa-card-body">
+            <ul class="pa-timeline pa-timeline--compact">
+              <li class="pa-timeline-item">
+                <div class="pa-tl-time">۲ دقیقه پیش</div>
+                <div class="pa-tl-title"><strong>سارا محمدی</strong> روی «طراحی صفحهٔ فرود» دیدگاه گذاشت</div>
+              </li>
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-time">۱۵ دقیقه پیش</div>
+                <div class="pa-tl-title"><strong>پویا کریمی</strong> کار «مستندسازی API» را تمام کرد</div>
+              </li>
+              <li class="pa-timeline-item is-warning">
+                <div class="pa-tl-time">۱ ساعت پیش</div>
+                <div class="pa-tl-title">مهلت «بازبینی امنیتی» فردا است</div>
+              </li>
+              <li class="pa-timeline-item is-info">
+                <div class="pa-tl-time">۳ ساعت پیش</div>
+                <div class="pa-tl-title"><strong>امیر رضایی</strong> ۳ فایل به پروژه اضافه کرد</div>
+              </li>
+              <li class="pa-timeline-item">
+                <div class="pa-tl-time">دیروز</div>
+                <div class="pa-tl-title">۱۲ کامیت جدید روی شاخهٔ اصلی</div>
+              </li>
+            </ul>
+          </div>
+        </div>
 
-              <!-- رخداد ۴ -->
-              <div class="pa-timeline-item" data-pa-reveal data-pa-delay="180">
-                <div class="pa-tl-time">۱۴۰۳/۰۸/۰۵ — ۱۴:۰۰</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="users" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">استخدام دو توسعه‌دهنده فرانت‌اند</h4>
-                  <span class="pa-badge pa-badge-primary">استخدام</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">پس از سه مرحله مصاحبه فنی، دو توسعه‌دهنده جدید به تیم فرانت‌اند پیوستند. جلسه آشنایی با معماری قالب برای هفته آینده برنامه‌ریزی شده است.</p>
-              </div>
-
-              <!-- رخداد ۵ -->
-              <div class="pa-timeline-item is-warning" data-pa-reveal data-pa-delay="240">
-                <div class="pa-tl-time">۱۴۰۳/۰۸/۰۲ — ۱۱:۲۰</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-warning" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#212529; flex-shrink:0"><span data-pa-icon="server" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">هشدار مصرف بالای حافظه سرور</h4>
-                  <span class="pa-badge pa-badge-warning">هشدار</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">مصرف حافظه سرور میزبانی به ۹۲ درصد رسید. کش صفحات پویا پاک‌سازی شد و انتقال موقت بخش استاتیک به هاست دانلود انجام گرفت.</p>
-              </div>
-
-              <!-- رخداد ۶ -->
-              <div class="pa-timeline-item" data-pa-reveal data-pa-delay="300">
-                <div class="pa-tl-time">۱۴۰۳/۰۷/۲۹ — ۱۳:۴۰</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="zap" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">بهینه‌سازی سرعت بارگذاری داشبورد</h4>
-                  <span class="pa-badge pa-badge-primary">بهبود</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">با حذف استایل‌های بلااستفاده و تأخیردهی مقداردهی اولیه نمودارها، زمان بارگذاری داشبورد از ۲٫۱ ثانیه به ۱٫۳ ثانیه کاهش یافت.</p>
-              </div>
-
-              <!-- رخداد ۷ -->
-              <div class="pa-timeline-item is-success" data-pa-reveal data-pa-delay="360">
-                <div class="pa-tl-time">۱۴۰۳/۰۷/۲۶ — ۰۸:۳۰</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-success" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="git_branch" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">ادغام شاخه امنیتی در نسخه پایدار</h4>
-                  <span class="pa-badge pa-badge-success">امنیت</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">شاخه امنیتی شامل اعتبارسنجی سخت‌گیرانه‌تر ورودی‌ها و محدودسازی نرخ درخواست‌ها پس از بازبینی کد با نسخه پایدار ادغام شد.</p>
-              </div>
-
-              <!-- رخداد ۸ -->
-              <div class="pa-timeline-item" data-pa-reveal data-pa-delay="420">
-                <div class="pa-tl-time">۱۴۰۳/۰۷/۲۲ — ۱۷:۱۰</div>
-                <div class="pa-d-flex pa-gap-2" style="align-items:center; flex-wrap:wrap">
-                  <span class="pa-bg-primary" style="width:30px; height:30px; border-radius:50%; display:inline-grid; place-items:center; color:#fff; flex-shrink:0"><span data-pa-icon="send" data-pa-icon-size="15"></span></span>
-                  <h4 class="pa-tl-title" style="margin:0">ارسال دعوت‌نامه بتا به مشتریان قدیمی</h4>
-                  <span class="pa-badge pa-badge-primary">بتا</span>
-                </div>
-                <p class="pa-tl-text" style="margin-top:.35rem">ایمیل دعوت‌نامه برای نسخه بتا به ۴۸۰ مشتری قدیمی ارسال شد. تا امروز ۱۳۶ نفر ثبت‌نام کرده و بازخورد اولیه خود را ثبت کرده‌اند.</p>
-              </div>
-
+        <!-- ۵) حالت گروهی: دسته‌بندی بر اساس تاریخ -->
+        <div class="pa-card" id="tl-grouped">
+          <div class="pa-card-header">
+            <h3>۵ — حالت گروهی بر اساس تاریخ <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-tl-group</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">سرگروه‌های تاریخ (امروز / دیروز / قدیمی‌تر) با نشانگر رنگی؛ الگوی رایج فیدهای اعلان.</p>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-tl-group">
+              <span class="pa-tl-date" data-pa-icon="clock_alt" data-pa-icon-size="13"> امروز</span>
+              <ul class="pa-timeline pa-timeline--compact">
+                <li class="pa-timeline-item is-success">
+                  <div class="pa-tl-title">پشتیبان‌گیری خودکار انجام شد</div>
+                  <div class="pa-tl-time">۰۸:۰۰ — حجم ۲.۴ گیگابایت</div>
+                </li>
+                <li class="pa-timeline-item">
+                  <div class="pa-tl-title">۴ کاربر جدید ثبت‌نام کردند</div>
+                  <div class="pa-tl-time">۰۹:۲۰ تا ۱۰:۱۵</div>
+                </li>
+              </ul>
+            </div>
+            <div class="pa-tl-group">
+              <span class="pa-tl-date" data-pa-icon="clock_alt" data-pa-icon-size="13"> دیروز</span>
+              <ul class="pa-timeline pa-timeline--compact">
+                <li class="pa-timeline-item is-warning">
+                  <div class="pa-tl-title">گواهی SSL تمدید شد</div>
+                  <div class="pa-tl-time">۱۶:۴۰ — اعتبار ۹۰ روز</div>
+                </li>
+                <li class="pa-timeline-item is-info">
+                  <div class="pa-tl-title">به‌روزرسانی مستندات معماری</div>
+                  <div class="pa-tl-time">۱۲:۱۰</div>
+                </li>
+              </ul>
+            </div>
+            <div class="pa-tl-group">
+              <span class="pa-tl-date" data-pa-icon="history" data-pa-icon-size="13"> قدیمی‌تر</span>
+              <ul class="pa-timeline pa-timeline--compact">
+                <li class="pa-timeline-item">
+                  <div class="pa-tl-title">مهاجرت مخزن به GitHub Pages</div>
+                  <div class="pa-tl-time">۲ هفته پیش</div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
-        <div data-pa-layout="footer"></div>
+        <!-- ۶) حالت رسانه‌ای: تصویر و آواتار در رخدادها -->
+        <div class="pa-card" id="tl-media">
+          <div class="pa-card-header">
+            <h3>۶ — حالت رسانه‌ای <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-tl-media</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">تصاویر بندانگشتی و آواتارهای مشارکت‌کنندگان داخل هر رخداد؛ برای خبرها و گزارش‌های تصویری.</p>
+          </div>
+          <div class="pa-card-body">
+            <ul class="pa-timeline" id="tl-media-list">
+              <li class="pa-timeline-item is-info">
+                <div class="pa-tl-time">امروز، ۱۰:۰۰</div>
+                <div class="pa-tl-title">گزارش تصویری از رویداد معرفی نسخهٔ ۱.۴</div>
+                <div class="pa-tl-media">
+                  <img data-pa-lazy alt="اسلاید معرفی" data-photo="0">
+                  <img data-pa-lazy alt="حاضران رویداد" data-photo="1">
+                  <img data-pa-lazy alt="پرسش و پاسخ" data-photo="2">
+                </div>
+                <div class="pa-tl-people">
+                  <span class="pa-avatar" style="background:#6366f1">ا</span>
+                  <span class="pa-avatar" style="background:#0ea5e9">س</span>
+                  <span class="pa-avatar" style="background:#10b981">پ</span>
+                  <small style="color:var(--pa-text-muted)">۳ مشارکت‌کننده</small>
+                </div>
+              </li>
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-time">دیروز</div>
+                <div class="pa-tl-title">تکمیل گالری چندحالته</div>
+                <div class="pa-tl-media">
+                  <img data-pa-lazy alt="نمای شبکه‌ای" data-photo="3">
+                  <img data-pa-lazy alt="نمای ماسونری" data-photo="4">
+                </div>
+              </li>
+              <li class="pa-timeline-item">
+                <div class="pa-tl-time">این هفته</div>
+                <div class="pa-tl-title">تمرکز بعدی: تقویم شمسی و ویرایشگر غنی</div>
+                <div class="pa-tl-text">بر اساس نظرسنجی کاربران، این دو قابلیت بیشترین اولویت را دارند.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ۷) حالت افقی: اسکرول‌پذیر در موبایل -->
+        <div class="pa-card" id="tl-horizontal">
+          <div class="pa-card-header">
+            <h3>۷ — حالت افقی <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-timeline--horizontal</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">نقطه‌ها روی یک خط افقی و کارت‌ها زیر آن؛ در صفحه‌های باریک به‌صورت افقی اسکرول می‌شود.</p>
+          </div>
+          <div class="pa-card-body">
+            <ul class="pa-timeline pa-timeline--horizontal">
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-title">تحلیل نیاز</div>
+                <div class="pa-tl-time">۲۵ آبان</div>
+                <div class="pa-tl-text">مصاحبه با ذی‌نفعان و تعیین دامنهٔ نسخهٔ ۱.۵</div>
+              </li>
+              <li class="pa-timeline-item is-success">
+                <div class="pa-tl-title">طراحی رابط</div>
+                <div class="pa-tl-time">۲۸ آبان</div>
+                <div class="pa-tl-text">ماکت ۸ صفحهٔ جدید در ۳ اندازهٔ نمایشگر</div>
+              </li>
+              <li class="pa-timeline-item is-active">
+                <div class="pa-tl-title">توسعهٔ هسته</div>
+                <div class="pa-tl-time">در جریان</div>
+                <div class="pa-tl-text">۶۰٪ پیشرفت — تایم‌لاین و تقویم شمسی</div>
+              </li>
+              <li class="pa-timeline-item is-pending">
+                <div class="pa-tl-title">آزمون و پایدارسازی</div>
+                <div class="pa-tl-time">۵ آذر</div>
+                <div class="pa-tl-text">اجرای کامل مجموعهٔ تست‌های دود</div>
+              </li>
+              <li class="pa-timeline-item is-pending">
+                <div class="pa-tl-title">انتشار</div>
+                <div class="pa-tl-time">۸ آذر</div>
+                <div class="pa-tl-text">کامیت، تگ و به‌روزرسانی مخزن</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ۸) حالت رهگیری پیشرفت: انجام‌شده / فعال / در انتظار -->
+        <div class="pa-card" id="tl-progress">
+          <div class="pa-card-header">
+            <h3>۸ — رهگیری پیشرفت <span class="pa-badge pa-badge-primary" style="margin-inline-start:.4rem">pa-timeline--progress</span></h3>
+            <p style="margin:.2rem 0 0; font-size:.82rem; color:var(--pa-text-muted)">وضعیت‌های <code>is-done</code>، <code>is-active</code> (با ضربان) و <code>is-pending</code>؛ برای رهگیری سفارش و مراحل پروژه.</p>
+          </div>
+          <div class="pa-card-body">
+            <ul class="pa-timeline pa-timeline--progress">
+              <li class="pa-timeline-item is-done is-success">
+                <div class="pa-tl-time">۱ آذر، ۰۹:۱۵</div>
+                <div class="pa-tl-title">سفارش ثبت شد</div>
+                <div class="pa-tl-text">شناسهٔ سفارش: #P-۱۰۲۴ — پرداخت با کارت بانکی تأیید شد.</div>
+              </li>
+              <li class="pa-timeline-item is-done is-success">
+                <div class="pa-tl-time">۱ آذر، ۱۴:۳۰</div>
+                <div class="pa-tl-title">بسته‌بندی در انبار</div>
+                <div class="pa-tl-text">۳ قلم کالا با بسته‌بندی ضدضربه آمادهٔ ارسال شد.</div>
+              </li>
+              <li class="pa-timeline-item is-active">
+                <div class="pa-tl-time">۲ آذر، ۰۸:۰۰</div>
+                <div class="pa-tl-title">تحویل به پیک</div>
+                <div class="pa-tl-text">مرسوله در مسیر تهران — کد رهگیری: ۱۰۹۴۸۳۷۲</div>
+              </li>
+              <li class="pa-timeline-item is-pending">
+                <div class="pa-tl-time">تخمینی: ۳ آذر</div>
+                <div class="pa-tl-title">تحویل به مشتری</div>
+                <div class="pa-tl-text">پیش از تحویل، پیامک اطلاع‌رسانی ارسال می‌شود.</div>
+              </li>
+            </ul>
+            <div class="pa-d-flex pa-gap-2 pa-flex-wrap" style="margin-top:1rem">
+              <span class="pa-badge pa-badge-success">انجام‌شده</span>
+              <span class="pa-badge pa-badge-primary">در جریان (ضربان‌دار)</span>
+              <span class="pa-badge pa-badge-secondary">در انتظار</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- راهنمای استفاده -->
+        <div class="pa-card">
+          <div class="pa-card-header"><h3>راهنمای سریع</h3></div>
+          <div class="pa-card-body">
+            <p style="margin:0 0 .5rem">هر حالت فقط با افزودن یک کلاس به <code>ul.pa-timeline</code> فعال می‌شود و همهٔ حالت‌ها در RTL و LTR و هر دو تم درست کار می‌کنند (ویژگی‌های منطقی CSS):</p>
+            <pre style="background:var(--pa-surface-2); border:1px solid var(--pa-border); border-radius:var(--pa-radius); padding:.9rem; overflow-x:auto; font-size:.8rem; line-height:1.9">&lt;ul class="pa-timeline <mark>pa-timeline--icons</mark>"&gt;
+  &lt;li class="pa-timeline-item <mark>is-success</mark>"&gt;
+    &lt;span class="pa-tl-icon" data-pa-icon="rocket" data-pa-icon-size="16"&gt;&lt;/span&gt;
+    &lt;div class="pa-tl-time"&gt;امروز، ۰۹:۳۰&lt;/div&gt;
+    &lt;div class="pa-tl-title"&gt;عنوان رخداد&lt;/div&gt;
+    &lt;div class="pa-tl-text"&gt;توضیح کوتاه…&lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</pre>
+            <p style="margin:.6rem 0 0; font-size:.85rem; color:var(--pa-text-muted)">کلاس‌های حالت: <code>pa-timeline--icons</code> · <code>pa-timeline--alternate</code> · <code>pa-timeline--compact</code> · <code>pa-timeline--horizontal</code> · <code>pa-timeline--progress</code> — کلاس‌های وضعیت: <code>is-success</code> · <code>is-warning</code> · <code>is-danger</code> · <code>is-info</code> · <code>is-done</code> · <code>is-active</code> · <code>is-pending</code></p>
+          </div>
+        </div>
+
       </main>
+      <div data-pa-layout="footer"></div>
     </div>
   </div>
 
@@ -154,16 +375,36 @@
   <script src="../js/pa-layout.js"></script>
   <script>
     /* ============================================================
-       منطق صفحه تایم‌لاین — ظاهر شدن آیتم‌ها هنگام اسکرول
-       به‌صورت خودکار با ویژگی data-pa-reveal انجام می‌شود و
-       این اسکریپت فقط یک پیام خوش‌آمد نمایش می‌دهد.
+       دادهٔ تصویر نمونه: گرادیان SVG درون‌خطی — بدون هیچ درخواست
+       شبکه، پس حتی با file:// هم نمایش داده می‌شود.
        ============================================================ */
     (function () {
       'use strict';
-      var items = document.querySelectorAll('.pa-timeline-item');
-      if (items.length) {
-        PAdminLTE.toast({ kind: 'info', message: items.length + ' رخداد اخیر پروژه بارگذاری شد.' });
+      var palettes = [
+        ['#6366f1', '#8b5cf6'], ['#0ea5e9', '#22d3ee'], ['#f59e0b', '#f97316'],
+        ['#10b981', '#34d399'], ['#ec4899', '#f43f5e']
+      ];
+      function svgPhoto(colors, label, w, h) {
+        var svg =
+          '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">' +
+          '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="' + colors[0] + '"/>' +
+          '<stop offset="1" stop-color="' + colors[1] + '"/></linearGradient></defs>' +
+          '<rect width="' + w + '" height="' + h + '" fill="url(#g)"/>' +
+          '<circle cx="' + (w * 0.78) + '" cy="' + (h * 0.24) + '" r="' + Math.round(h * 0.11) + '" fill="rgba(255,255,255,.35)"/>' +
+          '<path d="M0 ' + Math.round(h * 0.72) + ' L' + Math.round(w * 0.3) + ' ' + Math.round(h * 0.5) +
+          ' L' + Math.round(w * 0.62) + ' ' + Math.round(h * 0.8) + ' L' + w + ' ' + Math.round(h * 0.58) +
+          ' L' + w + ' ' + h + ' L0 ' + h + ' Z" fill="rgba(255,255,255,.22)"/>' +
+          '<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" ' +
+          'font-family="sans-serif" font-size="' + Math.round(h * 0.11) + '" fill="rgba(255,255,255,.85)" font-weight="700">' + label + '</text>' +
+          '</svg>';
+        return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
       }
+      var labels = ['معرفی', 'حاضران', 'پرسش و پاسخ', 'شبکه‌ای', 'ماسونری'];
+      document.querySelectorAll('#tl-media-list img[data-photo]').forEach(function (img) {
+        var i = parseInt(img.getAttribute('data-photo'), 10) || 0;
+        img.src = svgPhoto(palettes[i % palettes.length], labels[i % labels.length], 192, 128);
+      });
     })();
   </script>
 </body>

@@ -2127,6 +2127,236 @@
     sync();
   }
 
+  /* =============================================================
+     v1.4 — Command palette (Ctrl+K / ⌘K)
+     ---------------------------------------------------------------
+     Fuzzy-free substring launcher over every sidebar link plus
+     quick actions (theme, direction, back-to-top, logout).
+     Fully zero-dependency; built lazily on first open.
+     ============================================================= */
+  var paletteEl = null, paletteInput = null, paletteList = null, paletteSel = -1, paletteItems = [];
+
+  function paletteBuild() {
+    if (paletteEl) return;
+    paletteEl = document.createElement('div');
+    paletteEl.className = 'pa-palette-backdrop';
+    paletteEl.setAttribute('role', 'dialog');
+    paletteEl.setAttribute('aria-modal', 'true');
+    paletteEl.setAttribute('aria-label', 'پالت فرمان');
+    paletteEl.innerHTML =
+      '<div class="pa-palette">' +
+        '<div class="pa-palette-input-row">' +
+          '<span class="pa-palette-glyph">' + PAdminLTE.icon('search', 18) + '</span>' +
+          '<input class="pa-palette-input" type="text" placeholder="جستجوی صفحه یا فرمان…" aria-label="جستجوی پالت">' +
+          '<span class="pa-palette-kbd">Esc</span>' +
+        '</div>' +
+        '<div class="pa-palette-list" role="listbox"></div>' +
+        '<div class="pa-palette-footer">' +
+          '<span>↑↓ حرکت</span><span>Enter بازکردن</span><span>Esc بستن</span>' +
+          '<span style="margin-inline-start:auto">PAdminLTE</span>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(paletteEl);
+    paletteInput = paletteEl.querySelector('.pa-palette-input');
+    paletteList = paletteEl.querySelector('.pa-palette-list');
+
+    paletteEl.addEventListener('mousedown', function (e) {
+      if (e.target === paletteEl) { paletteClose(); }
+    });
+    paletteEl.querySelector('.pa-palette').addEventListener('click', function (e) {
+      var item = e.target.closest('.pa-palette-item');
+      if (item) { paletteRun(item); }
+    });
+    paletteInput.addEventListener('input', function () { paletteRender(paletteInput.value); });
+    paletteInput.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); paletteMove(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); paletteMove(-1); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (paletteItems[paletteSel]) paletteRun(paletteItems[paletteSel].el); }
+      else if (e.key === 'Escape') { e.preventDefault(); paletteClose(); }
+    });
+  }
+
+  function paletteSource() {
+    var items = [];
+    // Every real sidebar link becomes a navigation entry
+    document.querySelectorAll('.pa-sidebar a.pa-sidebar-link[href]').forEach(function (a) {
+      if (a.hasAttribute('data-pa-tree-toggle')) return;
+      var label = (a.querySelector('.pa-label') || {}).textContent || a.textContent || '';
+      label = label.trim();
+      if (!label) return;
+      items.push({ label: label, hint: 'صفحه', icon: 'compass', href: a.getAttribute('href') });
+    });
+    // Quick actions
+    var themeBtn = document.querySelector('[data-pa-theme-toggle]');
+    if (themeBtn) items.push({ label: 'تغییر تم روشن/تاریک', hint: 'فرمان', icon: 'moon', action: function () { themeBtn.click(); } });
+    var dirBtn = document.querySelector('[data-pa-dir-toggle]');
+    if (dirBtn) items.push({ label: 'تغییر جهت صفحه (RTL/LTR)', hint: 'فرمان', icon: 'arrow_right', action: function () { dirBtn.click(); } });
+    items.push({ label: 'بازگشت به بالای صفحه', hint: 'فرمان', icon: 'arrow_up', action: function () { global.scrollTo({ top: 0, behavior: 'smooth' }); } });
+    var logoutBtn = document.querySelector('[data-pa-logout]');
+    if (logoutBtn) items.push({ label: 'خروج از حساب', hint: 'فرمان', icon: 'log_out_alt', action: function () { logoutBtn.click(); } });
+    return items;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function paletteRender(q) {
+    q = (q || '').trim().toLowerCase();
+    var src = paletteSource();
+    var filtered = !q ? src : src.filter(function (it) { return it.label.toLowerCase().indexOf(q) !== -1; });
+    paletteList.innerHTML = '';
+    paletteItems = [];
+    paletteSel = -1;
+    if (!filtered.length) {
+      paletteList.innerHTML = '<div class="pa-palette-empty">نتیجه‌ای برای «' + esc(q) + '» پیدا نشد</div>';
+      return;
+    }
+    var lastHint = null;
+    filtered.forEach(function (it) {
+      if (it.hint !== lastHint) {
+        var g = document.createElement('div');
+        g.className = 'pa-palette-group';
+        g.textContent = it.hint;
+        paletteList.appendChild(g);
+        lastHint = it.hint;
+      }
+      var el = document.createElement(it.href ? 'a' : 'button');
+      el.className = 'pa-palette-item';
+      if (it.href) el.href = it.href;
+      var label = it.label;
+      if (q) {
+        var idx = it.label.toLowerCase().indexOf(q);
+        if (idx !== -1) {
+          label = esc(it.label.slice(0, idx)) + '<mark>' + esc(it.label.slice(idx, idx + q.length)) + '</mark>' + esc(it.label.slice(idx + q.length));
+        } else label = esc(label);
+      } else label = esc(label);
+      el.innerHTML = '<span class="pa-palette-icon">' + PAdminLTE.icon(it.icon, 16) + '</span>' +
+                     '<span class="pa-palette-label">' + label + '</span>' +
+                     '<span class="pa-palette-hint">' + esc(it.hint) + '</span>';
+      paletteList.appendChild(el);
+      paletteItems.push({ el: el, run: it });
+    });
+    paletteSel = 0;
+    paletteItems[0].el.classList.add('is-selected');
+  }
+
+  function paletteMove(dir) {
+    if (!paletteItems.length) return;
+    paletteItems[paletteSel].el.classList.remove('is-selected');
+    paletteSel = (paletteSel + dir + paletteItems.length) % paletteItems.length;
+    var el = paletteItems[paletteSel].el;
+    el.classList.add('is-selected');
+    if (el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+  }
+
+  function paletteRun(el) {
+    var found = null;
+    for (var i = 0; i < paletteItems.length; i++) if (paletteItems[i].el === el) found = paletteItems[i].run;
+    paletteClose();
+    if (!found) return;
+    if (found.action) { setTimeout(found.action, 50); }
+    else if (found.href) { global.location.href = found.href; }
+  }
+
+  function paletteOpen() {
+    paletteBuild();
+    paletteRender('');
+    paletteEl.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { paletteInput.focus(); }, 30);
+    emit('pa:palette:open', {});
+  }
+  function paletteClose() {
+    if (!paletteEl) return;
+    paletteEl.classList.remove('is-open');
+    document.body.style.overflow = '';
+    if (paletteInput) paletteInput.value = '';
+    emit('pa:palette:close', {});
+  }
+  function paletteToggle() { (paletteEl && paletteEl.classList.contains('is-open')) ? paletteClose() : paletteOpen(); }
+
+  function initPalette() {
+    // Global shortcut
+    if (!initPalette.__bound) {
+      initPalette.__bound = true;
+      document.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+          e.preventDefault();
+          paletteToggle();
+        }
+      });
+    }
+    // Header trigger buttons
+    document.querySelectorAll('[data-pa-palette-open]').forEach(function (btn) {
+      if (btn.__paBound) return;
+      btn.__paBound = true;
+      btn.addEventListener('click', function (e) { e.preventDefault(); paletteOpen(); });
+    });
+  }
+
+  /* =============================================================
+     v1.4 — CSV export for tables (data-pa-export="#tableId")
+     ============================================================= */
+  function exportTableCSV(table, filename) {
+    if (!table) { toast({ kind: 'danger', message: 'جدولی برای خروجی پیدا نشد.' }); return false; }
+    var rows = [];
+    table.querySelectorAll('tr').forEach(function (tr) {
+      if (tr.closest('tfoot') || tr.closest('.pa-datatable-filters')) return;
+      var cells = [];
+      tr.querySelectorAll('th,td').forEach(function (cell) {
+        if (cell.closest('.pa-dt-tools') || cell.hasAttribute('data-no-export')) return;
+        var text = (cell.getAttribute('data-export-value') || cell.textContent || '').replace(/\s+/g, ' ').trim();
+        cells.push('"' + text.replace(/"/g, '""') + '"');
+      });
+      if (cells.length) rows.push(cells.join(','));
+    });
+    var csv = '\uFEFF' + rows.join('\r\n'); // BOM → Excel opens UTF-8 correctly
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename || ('export-' + Date.now() + '.csv');
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 400);
+    toast({ kind: 'success', message: 'خروجی CSV با ' + rows.length + ' سطر دانلود شد.' });
+    emit('pa:export:csv', { rows: rows.length, filename: a.download });
+    return true;
+  }
+
+  function initExportButtons(root) {
+    (root || document).querySelectorAll('[data-pa-export]').forEach(function (btn) {
+      if (btn.__paBound) return;
+      btn.__paBound = true;
+      btn.addEventListener('click', function () {
+        var table = document.querySelector(btn.getAttribute('data-pa-export'));
+        exportTableCSV(table, btn.getAttribute('data-pa-filename') || null);
+      });
+    });
+  }
+
+  /* =============================================================
+     v1.4 — Scroll progress bar (data-pa-scroll-progress)
+     ============================================================= */
+  function initScrollProgress() {
+    var bar = document.querySelector('[data-pa-scroll-progress]');
+    if (!bar || bar.__paBound) return;
+    bar.__paBound = true;
+    bar.classList.add('pa-scroll-progress');
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var doc = document.documentElement;
+      var max = (doc.scrollHeight - global.innerHeight);
+      var pct = max > 0 ? Math.min(100, Math.max(0, (global.scrollY || doc.scrollTop) / max * 100)) : 0;
+      bar.style.width = pct + '%';
+    }
+    global.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; global.requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  }
+
   /* ---------- Auto-init everything ---------- */
   var _origBoot = boot;
   function fullBoot(root) {
@@ -2151,6 +2381,9 @@
     initTypewriters(root);
     initPreloaders();
     initSidebarBackdrop();
+    initPalette();
+    initExportButtons(root);
+    initScrollProgress();
     // Bind logout buttons (mock auth)
     (root || document).querySelectorAll('[data-pa-logout]').forEach(function (btn) {
       if (btn.__paBound) return;
@@ -2241,6 +2474,16 @@
   PAdminLTE.btnLoading = btnLoading;
   PAdminLTE.initSkeletons = initSkeletons;
   PAdminLTE.initTypewriters = initTypewriters;
+  /* ---------- Public API additions (v1.4) ---------- */
+  PAdminLTE.palette = {
+    open: paletteOpen,
+    close: paletteClose,
+    toggle: paletteToggle
+  };
+  PAdminLTE.exportTableCSV = exportTableCSV;
+  PAdminLTE.initPalette = initPalette;
+  PAdminLTE.initExportButtons = initExportButtons;
+  PAdminLTE.initScrollProgress = initScrollProgress;
   PAdminLTE.store = store;
   PAdminLTE.auth = {
     users: authUsers,

@@ -30,6 +30,11 @@
 - [User widget in header](#user-widget-in-header)
 - [Skip link for a11y](#skip-link-for-a11y)
 - [Icons](#icons)
+- [Timelines — ۸ حالت](#timelines--۸-حالت)
+- [Command palette (Ctrl+K)](#command-palette-ctrlk)
+- [CSV export](#csv-export)
+- [Empty state](#empty-state)
+- [Scroll progress](#scroll-progress)
 
 ---
 
@@ -685,4 +690,95 @@ PAdminLTE.toast({
 
 ```js
 PAdminLTE.injectIcons(myContainer);
+```
+
+---
+
+## Timelines — ۸ حالت
+
+هستهٔ تایم‌لاین `ul.pa-timeline` است و هر رخداد یک `li.pa-timeline-item`.
+با یک کلاس حالت، شکل کل تایم‌لاین عوض می‌شود و در RTL/LTR هر دو درست است:
+
+| کلاس | حالت |
+|---|---|
+| — (پایه) | خط عمودی با نقطه؛ رنگ نقطه با `is-success/is-warning/is-danger/is-info` |
+| `pa-timeline--icons` | حباب آیکون `.pa-tl-icon` به‌جای نقطه |
+| `pa-timeline--alternate` | یک‌درمیان دو طرف خط مرکزی (موبایل: تک‌ستون) |
+| `pa-timeline--compact` | فشرده، برای ویجت و فید فعالیت |
+| `pa-timeline--horizontal` | افقی و اسکرول‌پذیر |
+| `pa-timeline--progress` | رهگیری با `is-done` / `is-active` / `is-pending` |
+
+گروه‌بندی تاریخی با `.pa-tl-group` + `.pa-tl-date`؛ رسانه در آیتم با `.pa-tl-media` و `.pa-tl-people`.
+
+```html
+<ul class="pa-timeline pa-timeline--icons">
+  <li class="pa-timeline-item is-success">
+    <span class="pa-tl-icon" data-pa-icon="rocket" data-pa-icon-size="16"></span>
+    <div class="pa-tl-time">امروز، ۰۹:۳۰</div>
+    <div class="pa-tl-title">انتشار نسخهٔ جدید</div>
+    <div class="pa-tl-text">توضیح کوتاه…</div>
+  </li>
+</ul>
+```
+
+نمونهٔ کامل هر ۸ حالت: [`pages/timeline.html`](../pages/timeline.html).
+
+---
+
+## Command palette (Ctrl+K)
+
+با `Ctrl+K` یا `⌘K` (یا دکمهٔ «پالت فرمان» در هدر) باز می‌شود؛ همهٔ صفحات سایدبار
+و فرمان‌های سریع را با جستجوی زنده فیلتر می‌کند. ناوبری کامل با کیبورد.
+
+```html
+<!-- دکمهٔ دلخواه برای باز کردن -->
+<button data-pa-palette-open>جستجوی فرمان</button>
+```
+
+```js
+PAdminLTE.palette.open();   // باز
+PAdminLTE.palette.close();  // بستن
+PAdminLTE.palette.toggle(); // تغییر وضعیت
+```
+
+رویدادها: `pa:palette:open` و `pa:palette:close`.
+
+---
+
+## CSV export
+
+```html
+<table id="tbl-users">…</table>
+<button data-pa-export="#tbl-users" data-pa-filename="users.csv">خروجی CSV</button>
+```
+
+- خروجی UTF-8 با BOM؛ Excel فارسی را درست نشان می‌دهد.
+- سلول/ستونی که نباید در خروجی بیاید را با `data-no-export` علامت بزنید.
+- مقدار دلخواه برای هر سلول: `data-export-value` روی خود سلول.
+- فراخوانی دستی: `PAdminLTE.exportTableCSV(tableEl, 'name.csv')`.
+
+---
+
+## Empty state
+
+```html
+<div class="pa-empty">
+  <div class="pa-empty-icon" data-pa-icon="search" data-pa-icon-size="30"></div>
+  <h4 class="pa-empty-title">نتیجه‌ای پیدا نشد</h4>
+  <p class="pa-empty-text">توضیح کوتاه برای کاربر…</p>
+  <div class="pa-empty-action">
+    <button class="pa-btn pa-btn-primary pa-btn-sm">اقدام اصلی</button>
+  </div>
+</div>
+```
+
+---
+
+## Scroll progress
+
+المان زیر را بعد از `<body>` بگذارید؛ نوار ۳ پیکسلی گرادیانی بالای صفحه،
+پیشرفت مطالعه را نشان می‌دهد (rAF throttled):
+
+```html
+<div data-pa-scroll-progress aria-hidden="true"></div>
 ```

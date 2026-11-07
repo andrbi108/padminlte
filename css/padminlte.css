@@ -1466,25 +1466,144 @@ html[dir="ltr"] .pa-small-box .pa-icon-bg,
 .pa-category-item .pa-cat-count { margin-right: auto; color: var(--pa-text-muted); font-size: .85rem; }
 .pa-category-item .pa-chevron { color: var(--pa-text-muted); }
 
-/* ---------- 47. Timeline ---------- */
-.pa-timeline { position: relative; padding-right: 2rem; }
+/* ---------- 47. Timeline (v1.4 — full variant system, RTL/LTR via logical props) ---------- */
+/* Base: vertical line + dots */
+.pa-timeline { position: relative; padding-inline-start: 2rem; }
 .pa-timeline::before {
-  content: ''; position: absolute; right: 8px; top: 0; bottom: 0;
+  content: ''; position: absolute; inset-inline-start: 8px; top: 0; bottom: 0;
   width: 2px; background: var(--pa-border);
 }
 .pa-timeline-item { position: relative; padding-bottom: 1.5rem; }
+.pa-timeline-item:last-child { padding-bottom: .25rem; }
 .pa-timeline-item::before {
-  content: ''; position: absolute; right: 0; top: 4px;
+  content: ''; position: absolute; inset-inline-start: -2rem; top: 4px;
   width: 18px; height: 18px; border-radius: 50%;
   background: var(--pa-surface); border: 3px solid var(--pa-primary);
-  transform: translateX(50%);
 }
 .pa-timeline-item.is-success::before { border-color: var(--pa-success); }
 .pa-timeline-item.is-warning::before { border-color: var(--pa-warning); }
 .pa-timeline-item.is-danger::before  { border-color: var(--pa-danger); }
+.pa-timeline-item.is-info::before    { border-color: var(--pa-info); }
+@keyframes pa-tl-pulse {
+  0%   { box-shadow: 0 0 0 0 var(--pa-primary-soft); }
+  70%  { box-shadow: 0 0 0 9px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+.pa-timeline-item.is-active::before {
+  background: var(--pa-primary); border-color: var(--pa-primary);
+  animation: pa-tl-pulse 1.8s infinite;
+}
+.pa-timeline-item.is-pending::before { border-color: var(--pa-border); }
+.pa-timeline-item.is-pending .pa-tl-title { color: var(--pa-text-muted); font-weight: 500; }
 .pa-timeline-item .pa-tl-time { font-size: .75rem; color: var(--pa-text-muted); margin-bottom: .15rem; }
 .pa-timeline-item .pa-tl-title { font-weight: 600; margin: 0 0 .25rem; }
 .pa-timeline-item .pa-tl-text { font-size: .85rem; color: var(--pa-text-muted); }
+.pa-timeline-item .pa-tl-body { margin-top: .4rem; }
+
+/* Variant: icon bubbles instead of plain dots */
+.pa-timeline--icons { padding-inline-start: 3rem; }
+.pa-timeline--icons::before { inset-inline-start: 16px; }
+.pa-timeline--icons .pa-timeline-item::before { display: none; }
+.pa-tl-icon {
+  position: absolute; inset-inline-start: -3rem; top: 0;
+  width: 34px; height: 34px; border-radius: 50%; z-index: 1;
+  display: grid; place-items: center; color: #fff;
+  background: var(--pa-primary); box-shadow: 0 0 0 3px var(--pa-surface);
+}
+.pa-timeline-item.is-success .pa-tl-icon { background: var(--pa-success); }
+.pa-timeline-item.is-warning .pa-tl-icon { background: var(--pa-warning); }
+.pa-timeline-item.is-danger  .pa-tl-icon { background: var(--pa-danger); }
+.pa-timeline-item.is-info    .pa-tl-icon { background: var(--pa-info); }
+
+/* Variant: alternating sides around a center line (stacks on mobile) */
+.pa-timeline--alternate { padding-inline-start: 0; }
+.pa-timeline--alternate::before { inset-inline-start: 50%; margin-inline-start: -1px; }
+.pa-timeline--alternate .pa-timeline-item { width: calc(50% - 2rem); }
+.pa-timeline--alternate .pa-timeline-item:nth-child(odd)  { text-align: end; }
+.pa-timeline--alternate .pa-timeline-item:nth-child(even) { margin-inline-start: calc(50% + 2rem); }
+.pa-timeline--alternate .pa-timeline-item:nth-child(odd)::before {
+  inset-inline-start: calc(100% + 2rem - 9px);
+}
+.pa-timeline--alternate .pa-timeline-item:nth-child(even)::before {
+  inset-inline-start: calc(-2rem - 9px);
+}
+@media (max-width: 767.98px) {
+  .pa-timeline--alternate { padding-inline-start: 2rem; }
+  .pa-timeline--alternate::before { inset-inline-start: 8px; margin-inline-start: 0; }
+  .pa-timeline--alternate .pa-timeline-item,
+  .pa-timeline--alternate .pa-timeline-item:nth-child(odd),
+  .pa-timeline--alternate .pa-timeline-item:nth-child(even) {
+    width: auto; margin-inline-start: 0; text-align: start;
+  }
+  .pa-timeline--alternate .pa-timeline-item:nth-child(odd)::before,
+  .pa-timeline--alternate .pa-timeline-item:nth-child(even)::before {
+    inset-inline-start: -2rem;
+  }
+}
+
+/* Variant: compact activity feed */
+.pa-timeline--compact { padding-inline-start: 1.25rem; }
+.pa-timeline--compact::before { inset-inline-start: 4px; }
+.pa-timeline--compact .pa-timeline-item { padding-bottom: .85rem; }
+.pa-timeline--compact .pa-timeline-item::before {
+  inset-inline-start: -1.25rem; top: 6px;
+  width: 10px; height: 10px; border-width: 2px;
+}
+
+/* Grouped feed: sticky date headers (mark-up: .pa-tl-group > .pa-tl-date + .pa-timeline) */
+.pa-tl-group { margin-bottom: 1.25rem; }
+.pa-tl-group:last-child { margin-bottom: 0; }
+.pa-tl-date {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .78rem; font-weight: 700; color: var(--pa-primary);
+  background: var(--pa-primary-soft); border: 1px solid var(--pa-primary);
+  border-radius: 999px; padding: .2rem .75rem; margin-bottom: .85rem;
+}
+
+/* Variant: media / avatars inside items */
+.pa-tl-media { display: flex; gap: .6rem; margin-top: .5rem; flex-wrap: wrap; }
+.pa-tl-media img { width: 96px; height: 64px; object-fit: cover; border-radius: var(--pa-radius); display: block; }
+.pa-tl-people { display: flex; align-items: center; gap: .35rem; margin-top: .5rem; }
+.pa-tl-people .pa-avatar { width: 26px; height: 26px; font-size: .7rem; }
+
+/* Variant: horizontal (scrollable) — dots on a top line, cards below */
+.pa-timeline--horizontal {
+  display: flex; overflow-x: auto; padding: 2rem .5rem .5rem; gap: .5rem;
+}
+.pa-timeline--horizontal::before {
+  content: ''; position: absolute; top: calc(2rem + 8px);
+  inset-inline-start: 2rem; inset-inline-end: 2rem;
+  width: auto; height: 2px; background: var(--pa-border);
+}
+.pa-timeline--horizontal .pa-timeline-item {
+  flex: 1 0 170px; text-align: center; padding-bottom: .5rem;
+}
+.pa-timeline--horizontal .pa-timeline-item::before {
+  inset-inline-start: calc(50% - 9px); top: 0;
+}
+.pa-timeline--horizontal .pa-tl-time { margin-top: .35rem; }
+
+/* Variant: progress tracker (done / active / pending states) */
+@keyframes pa-tl-pulse {
+  0%   { box-shadow: 0 0 0 0 var(--pa-primary-soft); }
+  70%  { box-shadow: 0 0 0 9px rgba(0,0,0,0); }
+  100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+.pa-timeline--progress .pa-timeline-item.is-done::before {
+  background: var(--pa-primary); border-color: var(--pa-primary);
+}
+.pa-timeline--progress .pa-timeline-item.is-active::before {
+  background: var(--pa-primary); border-color: var(--pa-primary);
+  animation: pa-tl-pulse 1.8s infinite;
+}
+.pa-timeline--progress .pa-timeline-item.is-pending::before { border-color: var(--pa-border); }
+.pa-timeline--progress .pa-timeline-item.is-pending .pa-tl-title { color: var(--pa-text-muted); font-weight: 500; }
+.pa-timeline--progress .pa-timeline-item.is-done.is-success::before { background: var(--pa-success); }
+.pa-timeline--progress .pa-timeline-item.is-active.is-danger::before { background: var(--pa-danger); }
+
+/* Timeline inside cards: neutralize list defaults */
+ul.pa-timeline { list-style: none; margin: 0; padding-inline-end: 0; }
+ol.pa-timeline { list-style: none; margin: 0; padding-inline-end: 0; }
 
 /* ---------- 48. LiveEdit playground ---------- */
 .pa-liveedit {
@@ -2239,3 +2358,95 @@ img[data-pa-lazy].is-lazy-loaded {
 
 /* v1.3.1 — inline icon spacing when the icon sits inside a labelled element */
 .pa-icon-inline { margin-inline-end: .35rem; flex-shrink: 0; }
+
+/* =============================================================
+   70. Command palette (v1.4 — Ctrl+K / ⌘K, zero-dependency)
+   ============================================================= */
+.pa-palette-backdrop {
+  position: fixed; inset: 0; z-index: 3000;
+  background: rgba(15, 23, 42, .55); backdrop-filter: blur(2px);
+  display: none; align-items: flex-start; justify-content: center;
+  padding: 10vh 1rem 1rem;
+}
+.pa-palette-backdrop.is-open { display: flex; animation: pa-fade-in .15s ease-out; }
+@keyframes pa-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.pa-palette {
+  width: 100%; max-width: 560px; max-height: 65vh;
+  background: var(--pa-surface); border: 1px solid var(--pa-border);
+  border-radius: var(--pa-radius-lg, .75rem);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, .25);
+  display: flex; flex-direction: column; overflow: hidden;
+  animation: pa-palette-pop .18s cubic-bezier(.2, .9, .3, 1.2);
+}
+@keyframes pa-palette-pop { from { opacity: 0; transform: translateY(-12px) scale(.98); } to { opacity: 1; transform: none; } }
+.pa-palette-input-row {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .8rem 1rem; border-bottom: 1px solid var(--pa-border);
+}
+.pa-palette-input-row .pa-palette-glyph { color: var(--pa-text-muted); display: grid; place-items: center; }
+.pa-palette-input {
+  flex: 1; border: 0; outline: 0; background: transparent;
+  font: inherit; color: var(--pa-text); min-width: 0;
+}
+.pa-palette-input::placeholder { color: var(--pa-text-muted); }
+.pa-palette-kbd {
+  font-family: inherit; font-size: .72rem; color: var(--pa-text-muted);
+  border: 1px solid var(--pa-border); border-radius: .3rem;
+  padding: .12rem .45rem; background: var(--pa-surface-2); white-space: nowrap;
+}
+.pa-palette-list { overflow-y: auto; padding: .4rem; flex: 1; }
+.pa-palette-group {
+  font-size: .7rem; font-weight: 700; letter-spacing: .03em;
+  color: var(--pa-text-muted); padding: .55rem .6rem .25rem; text-transform: uppercase;
+}
+.pa-palette-item {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .55rem .65rem; border-radius: var(--pa-radius);
+  cursor: pointer; color: var(--pa-text); text-decoration: none;
+  border: 0; background: transparent; width: 100%; text-align: start; font: inherit;
+}
+.pa-palette-item .pa-palette-icon { color: var(--pa-text-muted); flex-shrink: 0; display: grid; place-items: center; }
+.pa-palette-item .pa-palette-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pa-palette-item .pa-palette-hint { font-size: .72rem; color: var(--pa-text-muted); white-space: nowrap; }
+.pa-palette-item:hover { background: var(--pa-surface-2); }
+.pa-palette-item.is-selected { background: var(--pa-primary-soft); color: var(--pa-primary); }
+.pa-palette-item.is-selected .pa-palette-icon { color: var(--pa-primary); }
+.pa-palette-item mark { background: transparent; color: var(--pa-primary); font-weight: 700; padding: 0; }
+.pa-palette-empty { padding: 1.5rem 1rem; text-align: center; color: var(--pa-text-muted); font-size: .9rem; }
+.pa-palette-footer {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .55rem 1rem; border-top: 1px solid var(--pa-border);
+  font-size: .72rem; color: var(--pa-text-muted); background: var(--pa-surface-2);
+}
+/* Header trigger button (desktop) */
+.pa-palette-trigger {
+  display: inline-flex; align-items: center; gap: .5rem;
+  border: 1px solid var(--pa-border); background: var(--pa-surface-2);
+  color: var(--pa-text-muted); border-radius: var(--pa-radius);
+  padding: .3rem .6rem; cursor: pointer; font: inherit; font-size: .8rem;
+  transition: all .15s;
+}
+.pa-palette-trigger:hover { border-color: var(--pa-primary); color: var(--pa-primary); }
+@media (max-width: 575.98px) { .pa-palette-trigger { display: none; } }
+
+/* =============================================================
+   71. Empty state (v1.4)
+   ============================================================= */
+.pa-empty { text-align: center; padding: 3rem 1.25rem; color: var(--pa-text-muted); }
+.pa-empty-icon {
+  width: 72px; height: 72px; margin: 0 auto 1rem; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--pa-primary-soft); color: var(--pa-primary);
+}
+.pa-empty-title { font-size: 1.05rem; font-weight: 700; color: var(--pa-text); margin: 0 0 .35rem; }
+.pa-empty-text { font-size: .88rem; max-width: 420px; margin: 0 auto 1.1rem; }
+.pa-empty-action { display: flex; justify-content: center; gap: .5rem; flex-wrap: wrap; }
+
+/* =============================================================
+   72. Scroll progress bar (v1.4 — data-pa-scroll-progress)
+   ============================================================= */
+.pa-scroll-progress {
+  position: fixed; top: 0; inset-inline-start: 0; height: 3px; width: 0;
+  background: linear-gradient(90deg, var(--pa-primary), var(--pa-info));
+  z-index: 2500; transition: width .08s linear; pointer-events: none;
+}

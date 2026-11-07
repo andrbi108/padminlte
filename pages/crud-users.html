@@ -22,6 +22,7 @@
           </div>
           <div class="pa-d-flex pa-gap-2">
             <button type="button" class="pa-btn pa-btn-primary js-add" data-pa-modal-open="#crud-modal" data-pa-icon="plus" data-pa-icon-size="16">افزودن کاربر</button>
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="16" data-pa-export="#tbl-crud-users" data-pa-filename="crud-users.csv"> خروجی CSV</button>
           </div>
         </div>
 
@@ -77,6 +78,7 @@
               </select>
               <div class="pa-spacer"></div>
               <button type="button" class="pa-btn pa-btn-primary js-add" data-pa-modal-open="#crud-modal" data-pa-icon="plus" data-pa-icon-size="16">افزودن کاربر</button>
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="download" data-pa-icon-size="16" data-pa-export="#tbl-crud-users" data-pa-filename="crud-users.csv"> خروجی CSV</button>
             </div>
 
             <!-- نوار عملیات گروهی -->
@@ -88,16 +90,16 @@
             </div>
 
             <!-- جدول کاربران -->
-            <table class="pa-table pa-table-striped pa-table-hover">
+            <table id="tbl-crud-users" class="pa-table pa-table-striped pa-table-hover">
               <thead>
                 <tr>
-                  <th style="width:36px"><input type="checkbox" id="check-all" aria-label="انتخاب همه ردیف‌های این صفحه"></th>
+                  <th style="width:36px" data-no-export><input type="checkbox" id="check-all" aria-label="انتخاب همه ردیف‌های این صفحه"></th>
                   <th>نام و نام خانوادگی</th>
                   <th>ایمیل</th>
                   <th>نقش</th>
                   <th>وضعیت</th>
                   <th>تاریخ عضویت</th>
-                  <th style="width:132px">عملیات</th>
+                  <th style="width:132px" data-no-export>عملیات</th>
                 </tr>
               </thead>
               <tbody id="crud-tbody"><!-- ردیف‌ها با جاوااسکریپت رندر می‌شوند --></tbody>
@@ -428,7 +430,7 @@
       var stBadge = STATUS_BADGE[it.status] || 'pa-badge-secondary';
       var initial = esc(String(it.name || '?').trim().charAt(0));
       return '<tr>' +
-        '<td><input type="checkbox" class="pa-row-check" data-id="' + it.id + '" aria-label="انتخاب ردیف"' + checked + '></td>' +
+        '<td data-no-export><input type="checkbox" class="pa-row-check" data-id="' + it.id + '" aria-label="انتخاب ردیف"' + checked + '></td>' +
         '<td><div style="display:flex;align-items:center;gap:.5rem">' +
           '<span class="pa-avatar pa-avatar-sm" style="background:' + avatarColor(it.id) + ';color:#fff;font-weight:700">' + initial + '</span>' +
           '<span>' + esc(it.name) + '</span>' +
@@ -437,7 +439,7 @@
         '<td><span class="pa-badge ' + roleBadge + '">' + esc(it.role) + '</span></td>' +
         '<td><span class="pa-badge ' + stBadge + '">' + esc(it.status) + '</span></td>' +
         '<td>' + esc(it.date) + '</td>' +
-        '<td><div class="pa-row-actions">' +
+        '<td data-no-export><div class="pa-row-actions">' +
           '<button type="button" class="pa-icon-btn" data-act="edit" data-id="' + it.id + '" title="ویرایش" aria-label="ویرایش"><span data-pa-icon="edit" data-pa-icon-size="16"></span></button>' +
           '<button type="button" class="pa-icon-btn danger" data-act="del" data-id="' + it.id + '" title="حذف" aria-label="حذف"><span data-pa-icon="trash" data-pa-icon-size="16"></span></button>' +
           '<button type="button" class="pa-icon-btn" data-act="view" data-id="' + it.id + '" title="مشاهده" aria-label="مشاهده"><span data-pa-icon="eye" data-pa-icon-size="16"></span></button>' +

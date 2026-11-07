@@ -28,6 +28,9 @@
 - [Event bus](#event-bus)
 - [Boot & layout](#boot--layout)
 - [Icons](#icons-1)
+- [Command palette](#command-palette)
+- [CSV export](#csv-export-1)
+- [Scroll progress](#scroll-progress-1)
 - [Auto-init با data attributes](#auto-init-با-data-attributes)
 
 ---
@@ -730,3 +733,49 @@ PAdminLTE.store.remove(key, id, seed)
 | `data-pa-skeleton="ms"` | ظرف اسکلتون | تعویض خودکار با `data-pa-skeleton-content` |
 | `data-pa-typewriter` | المان متنی | تایپ‌رایتر |
 | `data-pa-logout` | دکمه | خروج از حساب |
+
+---
+
+## Command palette
+
+پالت فرمان با `Ctrl+K`/`⌘K` باز می‌شود؛ منبع داده‌اش لینک‌های سایدبار و
+فرمان‌های سریع است و نیازی به تنظیم ندارد.
+
+### `PAdminLTE.palette.open()` / `.close()` / `.toggle()`
+
+باز/بستن/تغییر وضعیت پالت.
+
+### `PAdminLTE.initPalette()`
+
+اتصال کلید میان‌بر و دکمه‌های `[data-pa-palette-open]` — در `boot()` خودکار اجرا می‌شود.
+
+رویدادها: `pa:palette:open`، `pa:palette:close`.
+
+---
+
+## CSV export
+
+### `PAdminLTE.exportTableCSV(table, filename)`
+
+جدول را به CSV تبدیل و دانلود می‌کند. `table` المان جدول است؛ اگر `null` باشد توست خطا نمایش داده می‌شود و `false` برمی‌گردد.
+
+| نکته | توضیح |
+|---|---|
+| BOM | خروجی با `\uFEFF` شروع می‌شود تا Excel رشته‌های فارسی را درست بخواند |
+| `data-no-export` | ستون/سلول‌های حذف‌شده از خروجی |
+| `data-export-value` | مقدار جایگزین سلول در خروجی |
+| `tfoot` | همیشه نادیده گرفته می‌شود |
+
+### `PAdminLTE.initExportButtons(root)`
+
+اتصال دکمه‌های `[data-pa-export]` — در `boot()` خودکار اجرا می‌شود.
+رویداد: `pa:export:csv` با `{rows, filename}`.
+
+---
+
+## Scroll progress
+
+### `PAdminLTE.initScrollProgress()`
+
+نوار پیشرفت مطالعه؛ صفحه باید `<div data-pa-scroll-progress></div>` داشته باشد
+(کلاس `pa-scroll-progress` خودکار اضافه می‌شود). در `boot()` خودکار اجرا می‌شود.

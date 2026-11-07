@@ -29,6 +29,9 @@
 - 🛒 **فروشگاه کامل**: لیست محصولات، صفحهٔ جزئیات محصول، سبد خرید با qty stepper، تسویه حساب
 - 💬 **انجمن و وبلاگ**: لیست مطالب، مطلب کامل، لیست گفتگوها، موضوع انجمن، دسته‌بندی‌ها، ابر برچسب‌ها
 - 📋 **اپ‌های کامل**: صندوق ایمیل، مدیریت فایل، تخته کانبان با drag-and-drop، مرکز اعلان‌ها، پنل کاربری، نتایج جستجو
+- ⌨️ **پالت فرمان (Ctrl+K/⌘K)**: جستجوی زندهٔ همهٔ صفحات + فرمان‌های سریع، بدون وابستگی
+- 📈 **۸ حالت تایم‌لاین** (پایه، آیکونی، یک‌درمیان، فشرده، گروهی، رسانه‌ای، افقی، رهگیری پیشرفت) با پشتیبانی کامل RTL/LTR
+- 📤 **خروجی CSV جداول** با یک کلیک (سازگار با Excel فارسی)
 - ♿ **دسترسی‌پذیری**: skip-link، ARIA، پشتیبانی کیبورد، focus-visible
 - 📦 **ساختار ساده** — سه فایل اصلی (`css/padminlte.css`, `js/pa-icons.js`, `js/padminlte.js`, `js/pa-layout.js`) و صفحات HTML
 - 🆓 **مجوز MIT** — آزاد برای استفادهٔ تجاری و غیرتجاری
@@ -45,7 +48,7 @@ padminlte/
 ├── css/
 │   └── padminlte.css        # تمام طراحی (CSS Custom Properties)
 ├── js/
-│   ├── pa-icons.js          # ۱۰۰+ آیکون SVG inline (به جای Font Awesome)
+│   ├── pa-icons.js          # ۲۸۱ آیکون SVG inline (به جای Font Awesome)
 │   ├── padminlte.js         # هستهٔ runtime (theme, dropdown, modal, toast, chart, datatable, ...)
 │   └── pa-layout.js         # partial های sidebar/header/footer (inject خودکار)
 ├── pages/
@@ -144,7 +147,7 @@ php -S localhost:8000
 | `pages/forum-new.html` | ایجاد موضوع انجمن با ذخیرهٔ واقعی |
 | `pages/loaders.html` | نمایشگاه اسپینرها، پری‌لودر، اسکلتون و نوارهای پیشرفت |
 | `pages/animations.html` | نمایشگاه ۱۲ حالت reveal، شمارنده‌ها، تایپ‌رایتر و هاورها |
-| `pages/icons.html` | نمایشگاه ۲۸۰ آیکون با جستجو و کپی با یک کلیک |
+| `pages/icons.html` | نمایشگاه ۲۸۱ آیکون با جستجو و کپی با یک کلیک |
 | `pages/404.html` | صفحهٔ خطای ۴۰۴ |
 | `pages/500.html` | صفحهٔ خطای ۵۰۰ |
 
