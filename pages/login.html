@@ -12,7 +12,15 @@
     <h1>ورود به حساب</h1>
     <p class="pa-sub">برای ورود، اطلاعات خود را وارد کنید</p>
 
-    <form data-pa-validate-form onsubmit="return false">
+    <div class="pa-alert pa-alert-info pa-fs-sm" style="margin-bottom:1rem;">
+      <span data-pa-icon="info" data-pa-icon-size="18"></span>
+      <div class="pa-alert-body">
+        حساب نمونه: <strong>admin@example.com</strong> / <strong>admin123</strong>
+        <button type="button" class="pa-link-btn" style="color:var(--pa-primary); margin-inline-start:.35rem;" id="fill-demo">پرکردن خودکار</button>
+      </div>
+    </div>
+
+    <form id="login-form">
       <div class="pa-form-group">
         <label for="email">ایمیل</label>
         <input class="pa-input" type="email" id="email" name="email" placeholder="name@example.com" data-pa-validate="email" required>
@@ -26,8 +34,11 @@
         </div>
         <div class="pa-form-feedback"></div>
       </div>
-      <div class="pa-form-check">
-        <input type="checkbox" id="remember"><label for="remember">مرا به خاطر بسپار</label>
+      <div class="pa-form-row" style="align-items:center; justify-content:space-between;">
+        <div class="pa-form-check">
+          <input type="checkbox" id="remember"><label for="remember">مرا به خاطر بسپار</label>
+        </div>
+        <a href="forgot-password.html" class="pa-fs-sm">فراموشی رمز؟</a>
       </div>
       <button type="submit" class="pa-btn pa-btn-primary pa-btn-block pa-btn-lg">ورود</button>
     </form>
@@ -45,5 +56,44 @@
   </div>
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('login-form');
+      var btn = form.querySelector('button[type="submit"]');
+      var email = document.getElementById('email');
+      var pass = document.getElementById('password');
+      var fill = document.getElementById('fill-demo');
+      if (fill) fill.addEventListener('click', function () {
+        email.value = 'admin@example.com';
+        pass.value = 'admin123';
+      });
+      // Already logged in? Offer to continue.
+      var current = PAdminLTE.auth.currentUser();
+      if (current) {
+        PAdminLTE.toast({ kind: 'success', title: 'خوش آمدید', message: current.name + ' عزیز، شما قبلاً وارد شده‌اید.' });
+      }
+      function nextUrl() {
+        var p = new URLSearchParams(location.search).get('next');
+        return p || '../index.html';
+      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!PAdminLTE.validateForm(form)) return;
+        PAdminLTE.btnLoading(btn, true, 'در حال ورود…');
+        setTimeout(function () {
+          var u = PAdminLTE.auth.login(email.value, pass.value);
+          PAdminLTE.btnLoading(btn, false);
+          if (u) {
+            PAdminLTE.toast({ kind: 'success', title: 'ورود موفق', message: 'به ' + u.name + ' خوش آمدید!' });
+            setTimeout(function () { location.href = nextUrl(); }, 700);
+          } else {
+            PAdminLTE.toast({ kind: 'danger', title: 'خطای ورود', message: 'ایمیل یا رمز عبور اشتباه است. از حساب نمونه استفاده کنید.' });
+            form.classList.remove('pa-anim-shake'); void form.offsetWidth;
+            form.classList.add('pa-anim-shake');
+          }
+        }, 900);
+      });
+    })();
+  </script>
 </body>
 </html>

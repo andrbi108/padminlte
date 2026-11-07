@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — انیمیشن‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>انیمیشن‌ها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>انیمیشن‌ها</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="sparkles" data-pa-icon-size="14"
+                    onclick="PAdminLTE.toast({kind:'info',message:'تمام انیمیشن‌های PAdminLTE با CSS خالص اجرا می‌شوند و به prefers-reduced-motion احترام می‌گذارند.'})">درباره انیمیشن‌ها</button>
+          </div>
+        </div>
+
+        <!-- ۱. حالت‌های ورود (Scroll Reveal) -->
+        <div class="pa-row">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <div class="pa-d-flex pa-justify-between" style="align-items:center; flex-wrap:wrap; gap:.5rem">
+                  <h3 style="margin:0">حالت‌های ورود (Scroll Reveal)</h3>
+                  <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" id="btn-reveal-replay">
+                    <span data-pa-icon="refresh" data-pa-icon-size="14"></span> پخش دوباره
+                  </button>
+                </div>
+              </div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">به هر عنصر ویژگی <code>data-pa-reveal</code> بدهید تا هنگام رسیدن به دید کاربر با یکی از ۱۲ حالت زیر وارد شود؛ حالت پیش‌فرض «بالا» است و تأخیر هر کارت در این شبکه با <code>data-pa-stagger="80"</code> روی والد به‌صورت خودکار تنظیم شده است. با دکمه «پخش دوباره» انیمیشن از نو اجرا می‌شود.</p>
+                <div class="pa-row" id="reveal-grid" data-pa-stagger="80">
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-primary)"><span data-pa-icon="arrow_up" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">بالا (پیش‌فرض)</h4>
+                        <code style="font-size:.72rem">data-pa-reveal</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="down">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-primary)"><span data-pa-icon="arrow_down" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">پایین</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="down"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="right">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-success)"><span data-pa-icon="chevron_right" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">از راست</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="right"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="left">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-success)"><span data-pa-icon="chevron_left" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">از چپ</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="left"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="start">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-info)"><span data-pa-icon="flag" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">ابتدا</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="start"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="end">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-info)"><span data-pa-icon="flag_alt" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">انتها</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="end"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="zoom">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-warning)"><span data-pa-icon="search" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">بزرگ‌نمایی</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="zoom"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="zoom-out">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-warning)"><span data-pa-icon="grid" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">کوچک‌نمایی</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="zoom-out"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="blur">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-danger)"><span data-pa-icon="eye" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">محو</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="blur"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="flip-x">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-purple)"><span data-pa-icon="layers" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">فلیپ افقی</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="flip-x"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="flip-y">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-purple)"><span data-pa-icon="book" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">فلیپ عمودی</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="flip-y"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal="rotate">
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-danger)"><span data-pa-icon="compass" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">چرخش</h4>
+                        <code style="font-size:.72rem">data-pa-reveal="rotate"</code>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">حالت سیزدهم یعنی <code>bounce</code> (جهشی با فنر) نیز موجود است؛ تأخیر دستی هر عنصر هم با <code>data-pa-delay="میلی‌ثانیه"</code> قابل تنظیم است.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۲. شمارنده‌ها -->
+        <div class="pa-row">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <div class="pa-d-flex pa-justify-between" style="align-items:center; flex-wrap:wrap; gap:.5rem">
+                  <h3 style="margin:0">شمارنده‌ها</h3>
+                  <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" id="btn-counter-replay">
+                    <span data-pa-icon="refresh" data-pa-icon-size="14"></span> پخش دوباره
+                  </button>
+                </div>
+              </div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">شمارش هر عدد با رسیدن به دید کاربر آغاز می‌شود؛ برای تعیین مقدار کافی است <code>data-pa-counter="4800"</code> را روی عنصر بنویسید.</p>
+                <div class="pa-row" id="counter-stats" data-pa-stagger="110">
+                  <div class="pa-col-4 pa-text-center" data-pa-reveal>
+                    <div style="color:var(--pa-primary); margin-bottom:.35rem"><span data-pa-icon="users" data-pa-icon-size="26"></span></div>
+                    <h2 data-pa-counter="4820" style="margin:0; font-weight:700; color:var(--pa-primary)">۴٬۸۲۰</h2>
+                    <p class="pa-text-muted pa-mb-0">کاربر فعال</p>
+                  </div>
+                  <div class="pa-col-4 pa-text-center" data-pa-reveal>
+                    <div style="color:var(--pa-success); margin-bottom:.35rem"><span data-pa-icon="cart" data-pa-icon-size="26"></span></div>
+                    <h2 data-pa-counter="13500" style="margin:0; font-weight:700; color:var(--pa-success)">۱۳٬۵۰۰</h2>
+                    <p class="pa-text-muted pa-mb-0">سفارش موفق</p>
+                  </div>
+                  <div class="pa-col-4 pa-text-center" data-pa-reveal>
+                    <div style="color:var(--pa-warning); margin-bottom:.35rem"><span data-pa-icon="thumbs_up" data-pa-icon-size="26"></span></div>
+                    <h2 data-pa-counter="96" style="margin:0; font-weight:700; color:var(--pa-warning)">۹۶</h2>
+                    <p class="pa-text-muted pa-mb-0">درصد رضایت مشتریان</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۳. انیمیشن‌های بی‌پایان -->
+        <div class="pa-row">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>انیمیشن‌های بی‌پایان</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">کلاس‌های آماده برای تزریق حرکت به هر عنصر؛ کافی است کلاس را اضافه کنید. دو نمونه «تک‌ضرب» با کلیک دوباره اجرا می‌شوند.</p>
+                <div class="pa-row" data-pa-stagger="80">
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="pa-anim-float" style="height:60px; display:grid; place-items:center; color:var(--pa-primary)"><span data-pa-icon="rocket" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">شناور</h4>
+                        <code style="font-size:.72rem">pa-anim-float</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">بی‌پایان</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="pa-anim-pulse" style="height:60px; display:grid; place-items:center; color:var(--pa-danger)"><span data-pa-icon="activity" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">تپنده</h4>
+                        <code style="font-size:.72rem">pa-anim-pulse</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">بی‌پایان</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="pa-anim-spin" style="height:60px; display:grid; place-items:center; color:var(--pa-info)"><span data-pa-icon="spinner" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">چرخان</h4>
+                        <code style="font-size:.72rem">pa-anim-spin</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">بی‌پایان</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="pa-anim-heartbeat" style="height:60px; display:grid; place-items:center; color:var(--pa-danger)"><span data-pa-icon="heart" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">ضربان</h4>
+                        <code style="font-size:.72rem">pa-anim-heartbeat</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">بی‌پایان</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="pa-anim-wiggle" style="height:60px; display:grid; place-items:center; color:var(--pa-warning)"><span data-pa-icon="star" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">تلوتلو</h4>
+                        <code style="font-size:.72rem">pa-anim-wiggle</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">بی‌پایان</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div style="height:60px; display:grid; place-items:center; color:var(--pa-primary)">
+                          <div class="pa-anim-gradient" style="width:64px; height:44px; border-radius:var(--pa-radius); display:grid; place-items:center; color:#fff"><span data-pa-icon="sparkles" data-pa-icon-size="24"></span></div>
+                        </div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">گرادیان متحرک</h4>
+                        <code style="font-size:.72rem">pa-anim-gradient</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">بی‌پایان</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="js-anim-replay pa-anim-shake" data-anim="pa-anim-shake" role="button" tabindex="0" title="برای اجرای دوباره کلیک کنید" style="height:60px; display:grid; place-items:center; color:var(--pa-danger); cursor:pointer"><span data-pa-icon="bell_ring" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">لرزش</h4>
+                        <code style="font-size:.72rem">pa-anim-shake</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">تک‌ضرب — برای تکرار کلیک کنید</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-3" data-pa-reveal>
+                    <div class="pa-card">
+                      <div class="pa-card-body pa-text-center">
+                        <div class="js-anim-replay pa-anim-bounce" data-anim="pa-anim-bounce" role="button" tabindex="0" title="برای اجرای دوباره کلیک کنید" style="height:60px; display:grid; place-items:center; color:var(--pa-success); cursor:pointer"><span data-pa-icon="zap" data-pa-icon-size="30"></span></div>
+                        <h4 style="font-size:.95rem; margin:.4rem 0 .25rem">جهش</h4>
+                        <code style="font-size:.72rem">pa-anim-bounce</code>
+                        <p class="pa-text-muted pa-fs-sm pa-mb-0">تک‌ضرب — برای تکرار کلیک کنید</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۴. انیمیشن‌های هاور -->
+        <div class="pa-row">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>انیمیشن‌های هاور</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">ماوس را روی کادرهای نمونه ببرید تا اثر هر کلاس هاور را ببینید؛ این کلاس‌ها روی کارت‌ها، دکمه‌ها و تصاویر هم کار می‌کنند.</p>
+                <div class="pa-row" data-pa-stagger="90">
+
+                  <div class="pa-col-4" data-pa-reveal>
+                    <div class="pa-hover-zoom" style="border:1px dashed var(--pa-border); border-radius:var(--pa-radius); background:var(--pa-surface-2); padding:1.5rem 1rem; display:grid; place-items:center; gap:.35rem; color:var(--pa-primary); text-align:center">
+                      <span data-pa-icon="camera" data-pa-icon-size="28"></span>
+                      <strong class="pa-fs-sm">بزرگ‌نمایی</strong>
+                      <code style="font-size:.72rem">pa-hover-zoom</code>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-4" data-pa-reveal>
+                    <div class="pa-hover-lift" style="border:1px dashed var(--pa-border); border-radius:var(--pa-radius); background:var(--pa-surface-2); padding:1.5rem 1rem; display:grid; place-items:center; gap:.35rem; color:var(--pa-success); text-align:center">
+                      <span data-pa-icon="upload" data-pa-icon-size="28"></span>
+                      <strong class="pa-fs-sm">برخاستن</strong>
+                      <code style="font-size:.72rem">pa-hover-lift</code>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-4" data-pa-reveal>
+                    <div class="pa-hover-rotate" style="border:1px dashed var(--pa-border); border-radius:var(--pa-radius); background:var(--pa-surface-2); padding:1.5rem 1rem; display:grid; place-items:center; gap:.35rem; color:var(--pa-info); text-align:center">
+                      <span data-pa-icon="aperture" data-pa-icon-size="28"></span>
+                      <strong class="pa-fs-sm">چرخش</strong>
+                      <code style="font-size:.72rem">pa-hover-rotate</code>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-4" data-pa-reveal>
+                    <div class="pa-hover-glow" style="border:1px dashed var(--pa-border); border-radius:var(--pa-radius); background:var(--pa-surface-2); padding:1.5rem 1rem; display:grid; place-items:center; gap:.35rem; color:var(--pa-warning); text-align:center">
+                      <span data-pa-icon="sun" data-pa-icon-size="28"></span>
+                      <strong class="pa-fs-sm">درخشش</strong>
+                      <code style="font-size:.72rem">pa-hover-glow</code>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-4" data-pa-reveal>
+                    <div class="pa-hover-ring" style="border:1px dashed var(--pa-border); border-radius:var(--pa-radius); background:var(--pa-surface-2); padding:1.5rem 1rem; display:grid; place-items:center; gap:.35rem; color:var(--pa-danger); text-align:center">
+                      <span data-pa-icon="target" data-pa-icon-size="28"></span>
+                      <strong class="pa-fs-sm">حلقه نورانی</strong>
+                      <code style="font-size:.72rem">pa-hover-ring</code>
+                    </div>
+                  </div>
+
+                  <div class="pa-col-4" data-pa-reveal>
+                    <div class="pa-hover-zoom pa-hover-glow" style="border:1px dashed var(--pa-border); border-radius:var(--pa-radius); background:var(--pa-surface-2); padding:1.5rem 1rem; display:grid; place-items:center; gap:.35rem; color:var(--pa-purple); text-align:center">
+                      <span data-pa-icon="wand" data-pa-icon-size="28"></span>
+                      <strong class="pa-fs-sm">ترکیبی</strong>
+                      <code style="font-size:.72rem">zoom + glow</code>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۵. تایپ‌رایتر -->
+        <div class="pa-row">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>تایپ‌رایتر</h3></div>
+              <div class="pa-card-body pa-text-center">
+                <p class="pa-text-muted pa-fs-sm">چند عبارت با کاراکتر <code>|</code> جدا کنید تا به‌صورت حلقه‌ای تایپ و پاک شوند:</p>
+                <h2 style="font-size:1.7rem; min-height:2.4rem; margin:.5rem 0; color:var(--pa-primary)">
+                  <span data-pa-typewriter data-pa-text="سریع و بدون وابستگی|کاملاً فارسی و راست‌چین|آماده برای پروژه‌های واقعی" data-pa-speed="70"></span>
+                </h2>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">سرعت تایپ با <code>data-pa-speed</code> (میلی‌ثانیه) و مکث روی هر عبارت با <code>data-pa-hold</code> تنظیم می‌شود.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۶. شخصی‌سازی و دسترس‌پذیری -->
+        <div class="pa-row">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>شخصی‌سازی و دسترس‌پذیری</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-alert pa-alert-info">
+                  <span data-pa-icon="info" data-pa-icon-size="20"></span>
+                  <div class="pa-alert-body">
+                    <strong>پشتیبانی از prefers-reduced-motion:</strong>
+                    اگر کاربر در سیستم‌عامل خود «کاهش حرکت» را فعال کرده باشد، PAdminLTE به‌طور خودکار انیمیشن‌های بی‌پایان، ورودهای اسکرول، درخشش اسکلتون و نشانگر تایپ‌رایتر را با قاعده <code>@media (prefers-reduced-motion: reduce)</code> خاموش می‌کند و همه عناصر بلافاصله و بدون حرکت نمایش داده می‌شوند.
+                  </div>
+                </div>
+                <ul class="pa-mb-0">
+                  <li>مدت و منحنی همه ورودها از داخل <code>padminlte.css</code> و با متغیرهای <code>--pa-transition</code> و شبه‌کلاس‌های زمان‌بندی قابل تغییر است.</li>
+                  <li>برای کنترل دقیق‌تر، تأخیر هر عنصر با <code>data-pa-delay</code> و تأخیر پلکانی گروه با <code>data-pa-stagger</code> تعیین می‌شود.</li>
+                  <li>هیچ کتابخانه خارجی مانند AOS یا Animate.css به کار نرفته است؛ کل سیستم انیمیشن با CSS و چند ده خط جاوااسکریپت خالص پیاده‌سازی شده است.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه انیمیشن‌ها
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      /* ---------- ۱. پخش دوباره حالت‌های ورود ---------- */
+      document.getElementById('btn-reveal-replay').addEventListener('click', function () {
+        document.querySelectorAll('#reveal-grid [data-pa-reveal]').forEach(function (el) {
+          el.classList.remove('is-revealed');
+        });
+        PAdminLTE.initReveals(document);
+        PAdminLTE.toast({ kind: 'info', title: 'پخش دوباره', message: 'انیمیشن ورود کارت‌ها از نو اجرا شد.' });
+      });
+
+      /* ---------- ۲. پخش دوباره شمارنده‌ها ---------- */
+      document.getElementById('btn-counter-replay').addEventListener('click', function () {
+        document.querySelectorAll('#counter-stats [data-pa-counter]').forEach(function (el) {
+          el.textContent = '۰';
+          el.__paCounted = false;
+        });
+        PAdminLTE.initCounters(document);
+        PAdminLTE.toast({ kind: 'info', title: 'پخش دوباره', message: 'شمارنده‌ها از صفر شروع به شمارش کردند.' });
+      });
+
+      /* ---------- ۳. اجرای دوباره انیمیشن‌های تک‌ضرب (لرزش و جهش) ---------- */
+      document.querySelectorAll('.js-anim-replay').forEach(function (el) {
+        var cls = el.getAttribute('data-anim');
+        function replay() {
+          el.classList.remove(cls);
+          void el.offsetWidth; // بازخوانی چیدمان برای ریست انیمیشن
+          el.classList.add(cls);
+        }
+        el.addEventListener('click', replay);
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            replay();
+          }
+        });
+      });
+
+      /* ---------- ۴ و ۵. هاورها و تایپ‌رایتر فقط با CSS / مقداردهی خودکار ---------- */
+    })();
+  </script>
+</body>
+</html>

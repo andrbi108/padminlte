@@ -34,10 +34,25 @@
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script>
-    PAdminLTE.on('pa:otp:complete', function () {
-      PAdminLTE.toast({ kind: 'success', title: 'موفق', message: 'ایمیل شما با موفقیت تأیید شد.' });
-      setTimeout(function () { window.location.href = 'login.html'; }, 1000);
-    });
+    (function () {
+      var DEMO_CODE = '123456';
+      var card = document.querySelector('.pa-auth-card');
+      function fail(msg) {
+        PAdminLTE.toast({ kind: 'danger', title: 'کد نامعتبر', message: msg });
+        card.classList.remove('pa-anim-shake'); void card.offsetWidth;
+        card.classList.add('pa-anim-shake');
+        var group = document.querySelector('[data-pa-otp]');
+        if (group && group._clear) group._clear();
+      }
+      PAdminLTE.on('pa:otp:complete', function (e) {
+        if (e.value === DEMO_CODE) {
+          PAdminLTE.toast({ kind: 'success', title: 'موفق', message: 'ایمیل شما با موفقیت تأیید شد.' });
+          setTimeout(function () { window.location.href = 'login.html'; }, 1100);
+        } else {
+          fail('کد تأیید صحیح نیست. برای نمایش، کد ۱۲۳۴۵۶ را وارد کنید.');
+        }
+      });
+    })();
   </script>
 </body>
 </html>

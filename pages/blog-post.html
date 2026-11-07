@@ -15,8 +15,8 @@
       <main class="pa-content" id="pa-main-content">
         <div class="pa-page-header">
           <div>
-            <h1>آموزش طراحی رابط کاربری مدرن</h1>
-            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="blog-list.html">وبلاگ</a><span class="pa-sep">›</span><span>مطلب</span></div>
+            <h1 id="post-title">آموزش طراحی رابط کاربری مدرن</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="blog-list.html">وبلاگ</a><span class="pa-sep">›</span><span id="post-crumb">مطلب</span></div>
           </div>
         </div>
 
@@ -24,26 +24,27 @@
           <!-- Main article -->
           <div class="pa-col-8">
             <div class="pa-card pa-anim-slide-up" id="pa-article-top">
-              <div class="pa-blog-thumb" style="aspect-ratio:21/9; border-radius:0"><span class="pa-blog-cat">طراحی</span></div>
+              <div class="pa-blog-thumb" id="post-cover" style="aspect-ratio:21/9; border-radius:0"><span class="pa-blog-cat" id="post-cat">طراحی</span></div>
               <div class="pa-card-body">
                 <!-- Article meta -->
                 <div class="pa-d-flex pa-align-center pa-gap-2 pa-mb-2" style="flex-wrap:wrap">
-                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">س</span>
+                  <span class="pa-avatar pa-avatar-md" id="post-avatar" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">س</span>
                   <div>
-                    <div class="pa-fw-600">سارا کریمی</div>
-                    <div class="pa-fs-sm pa-text-muted">طراح ارشد محصول</div>
+                    <div class="pa-fw-600" id="post-author">سارا کریمی</div>
+                    <div class="pa-fs-sm pa-text-muted" id="post-author-role">طراح ارشد محصول</div>
                   </div>
                   <div class="pa-flex-1"></div>
-                  <span class="pa-badge pa-badge-primary">طراحی UI/UX</span>
-                  <span class="pa-fs-sm pa-text-muted"><span data-pa-icon="calendar" data-pa-icon-size="14"></span> ۱۴۰۳/۰۸/۱۲</span>
-                  <span class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="14"></span> ۸ دقیقه مطالعه</span>
-                  <span class="pa-fs-sm pa-text-muted"><span data-pa-icon="eye" data-pa-icon-size="14"></span> ۱٬۲۴۵ بازدید</span>
+                  <span class="pa-badge pa-badge-primary" id="post-badge">طراحی UI/UX</span>
+                  <span class="pa-fs-sm pa-text-muted"><span data-pa-icon="calendar" data-pa-icon-size="14"></span> <span id="post-date">۱۴۰۳/۰۸/۱۲</span></span>
+                  <span class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="14"></span> <span id="post-read">۸</span> دقیقه مطالعه</span>
+                  <span class="pa-fs-sm pa-text-muted"><span data-pa-icon="eye" data-pa-icon-size="14"></span> <span id="post-views">۱٬۲۴۵</span> بازدید</span>
+                  <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" id="post-like"><span data-pa-icon="heart" data-pa-icon-size="14"></span> پسندیدم (<span id="post-likes">۹۶</span>)</button>
                 </div>
 
                 <hr>
 
                 <!-- Article body -->
-                <div class="pa-article">
+                <div class="pa-article" id="post-article">
                   <p>طراحی رابط کاربری مدرن دیگر تنها به معنای چیدن چند دکمه و رنگ روی صفحه نیست؛ بلکه هنری است که در آن نیاز کاربر، اهداف تجاری و محدودیت‌های فنی به تعادل می‌رسند. در این مطلب با پنج اصل اساسی طراحی رابط کاربری مدرن آشنا می‌شویم که می‌توانید همان امروز آن‌ها را در پروژه‌های خود به کار ببندید.</p>
 
                   <p>رابط کاربری خوب، رابطی است که کاربر اصلاً متوجه وجود آن نمی‌شود؛ یعنی همه‌چیز در جای درست خود قرار دارد، هیچ عنصر اضافه‌ای وجود ندارد و کاربر بدون فکر کردن به مقصد می‌رسد. برای رسیدن به این سطح از سادگی، باید اصول زیر را در هر مرحله از فرایند طراحی در ذهن نگه دارید.</p>
@@ -92,7 +93,7 @@
 
                 <!-- Tags -->
                 <hr>
-                <div class="pa-tag-cloud pa-mt-2">
+                <div class="pa-tag-cloud pa-mt-2" id="post-tags">
                   <a href="tags.html" class="pa-tag pa-tag-size-md">#طراحی</a>
                   <a href="tags.html" class="pa-tag pa-tag-size-md">#UI</a>
                   <a href="tags.html" class="pa-tag pa-tag-size-sm">#UX</a>
@@ -123,60 +124,9 @@
 
             <!-- Comments -->
             <div class="pa-card pa-mt-2 pa-anim-slide-up">
-              <div class="pa-card-header"><h3>دیدگاه‌ها (۳)</h3></div>
-              <div class="pa-card-body">
-                <div class="pa-forum-post">
-                  <div class="pa-post-aside">
-                    <span class="pa-avatar pa-post-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">ا</span>
-                    <div class="pa-post-author">امیر رضایی</div>
-                    <div class="pa-post-role">عضو فعال</div>
-                    <div class="pa-post-badges"><span class="pa-badge pa-badge-success">تأیید شده</span></div>
-                  </div>
-                  <div class="pa-post-body">
-                    <div class="pa-post-header"><span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۲ ساعت پیش</span><span class="pa-badge pa-badge-primary">۱۲ پسند</span></div>
-                    <div class="pa-post-content">مطلب بسیار کاملی بود. نکته‌ای که برای من بسیار کاربردی شد، بحث سیستم فاصله بر پایه‌ی ۸ پیکسل بود. آیا برای پروژه‌های موبایل هم همین سیستم پیشنهاد می‌شود یا باید مقیاس متفاوتی در نظر گرفت؟</div>
-                    <div class="pa-post-actions">
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="heart" data-pa-icon-size="14"></span> پسندیدم</button>
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="pa-forum-post">
-                  <div class="pa-post-aside">
-                    <span class="pa-avatar pa-post-avatar" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">ن</span>
-                    <div class="pa-post-author">نگار محمدی</div>
-                    <div class="pa-post-role">عضو</div>
-                  </div>
-                  <div class="pa-post-body">
-                    <div class="pa-post-header"><span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۵ ساعت پیش</span><span class="pa-badge pa-badge-primary">۸ پسند</span></div>
-                    <div class="pa-post-content">عالی بود! من همیشه با تایپوگرافی مشکل داشتم. مثال عمودی و افقی فاصله‌ی خطوط خیلی کمک کرد. خواستم بپرسم برای متون فارسی چه فونت‌هایی پیشنهاد می‌کنید؟</div>
-                    <div class="pa-post-actions">
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="heart" data-pa-icon-size="14"></span> پسندیدم</button>
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="pa-forum-post" style="margin-bottom:0">
-                  <div class="pa-post-aside">
-                    <span class="pa-avatar pa-post-avatar" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">م</span>
-                    <div class="pa-post-author">مریم صادقی</div>
-                    <div class="pa-post-role">مدیر انجمن</div>
-                    <div class="pa-post-badges"><span class="pa-badge pa-badge-warning">مدیر</span></div>
-                  </div>
-                  <div class="pa-post-body">
-                    <div class="pa-post-header"><span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> دیروز</span><span class="pa-badge pa-badge-primary">۲۱ پسند</span></div>
-                    <div class="pa-post-content">بخش دسترسی‌پذیری و کنتراست واقعاً حیاتی است. متأسفانه بسیاری از سایت‌های فارسی هنوز نسبت ۴.۵ به ۱ را رعایت نمی‌کنند. ممنون از توضیح روشن. منتظر مطلب بعدی درباره‌ی طراحی برای حالت تاریک هستیم!</div>
-                    <div class="pa-post-actions">
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="heart" data-pa-icon-size="14"></span> پسندیدم</button>
-                      <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                    </div>
-                  </div>
-                </div>
+              <div class="pa-card-header"><h3>دیدگاه‌ها (<span id="comment-count">۰</span>)</h3></div>
+              <div class="pa-card-body" id="comments-list">
+                <p class="pa-text-muted pa-fs-sm">در حال بارگذاری دیدگاه‌ها…</p>
               </div>
             </div>
 
@@ -184,11 +134,10 @@
             <div class="pa-card pa-mt-2 pa-anim-slide-up">
               <div class="pa-card-header"><h3>ثبت دیدگاه</h3></div>
               <div class="pa-card-body">
-                <form>
-                  <div class="pa-form-group"><label>نام</label><input class="pa-input" placeholder="نام شما"></div>
-                  <div class="pa-form-group"><label>ایمیل</label><input class="pa-input" type="email" placeholder="email@example.com"></div>
-                  <div class="pa-form-group"><label>دیدگاه شما</label><textarea class="pa-textarea" rows="4" placeholder="دیدگاه خود را بنویسید…"></textarea></div>
-                  <button type="submit" class="pa-btn pa-btn-primary" onclick="event.preventDefault(); PAdminLTE.toast({kind:'success',title:'ثبت شد',message:'دیدگاه شما پس از تأیید نمایش داده می‌شود.'});"><span data-pa-icon="send" data-pa-icon-size="16"></span> ارسال دیدگاه</button>
+                <form id="comment-form">
+                  <div class="pa-form-group"><label for="comment-name">نام</label><input class="pa-input" id="comment-name" placeholder="نام شما" data-pa-validate="required"><div class="pa-form-feedback"></div></div>
+                  <div class="pa-form-group"><label for="comment-body">دیدگاه شما</label><textarea class="pa-textarea" id="comment-body" rows="4" placeholder="دیدگاه خود را بنویسید…" data-pa-validate="required"></textarea><div class="pa-form-feedback"></div></div>
+                  <button type="submit" class="pa-btn pa-btn-primary"><span data-pa-icon="send" data-pa-icon-size="16"></span> ارسال دیدگاه</button>
                 </form>
               </div>
             </div>
@@ -225,22 +174,7 @@
 
             <div class="pa-card pa-anim-slide-up pa-anim-delay-2">
               <div class="pa-card-header"><h3>مطالب مرتبط</h3></div>
-              <div class="pa-card-body" style="padding:.5rem">
-                <a href="blog-post.html" class="pa-d-flex pa-gap-2 pa-hover-lift" style="padding:.5rem; border-radius:var(--pa-radius); text-decoration:none; color:var(--pa-text)">
-                  <span style="width:64px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#198754,#20c997)"></span>
-                  <div style="min-width:0"><div class="pa-fw-600 pa-fs-sm">۱۰ نکته برای بهینه‌سازی Performance</div><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۲ دقیقه</div></div>
-                </a>
-                <hr>
-                <a href="blog-post.html" class="pa-d-flex pa-gap-2 pa-hover-lift" style="padding:.5rem; border-radius:var(--pa-radius); text-decoration:none; color:var(--pa-text)">
-                  <span style="width:64px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#fd7e14,#ffc107)"></span>
-                  <div style="min-width:0"><div class="pa-fw-600 pa-fs-sm">معرفی CSS Grid</div><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۶ دقیقه</div></div>
-                </a>
-                <hr>
-                <a href="blog-post.html" class="pa-d-flex pa-gap-2 pa-hover-lift" style="padding:.5rem; border-radius:var(--pa-radius); text-decoration:none; color:var(--pa-text)">
-                  <span style="width:64px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#6f42c1,#0dcaf0)"></span>
-                  <div style="min-width:0"><div class="pa-fw-600 pa-fs-sm">دسترسی‌پذیری در وب</div><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۰ دقیقه</div></div>
-                </a>
-              </div>
+              <div class="pa-card-body" style="padding:.5rem" id="related-list"></div>
             </div>
           </div>
         </div>
@@ -252,5 +186,191 @@
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
+  <script>
+    // Store-backed article: renders by ?id=, persists views/likes/comments.
+    (function () {
+      var SEED = [
+        { id: 'b1', title: 'آموزش طراحی رابط کاربری مدرن', category: 'طراحی', cover: 'linear-gradient(135deg,#0d6efd,#6610f2)', author: 'سارا کریمی', role: 'طراح ارشد محصول', date: '۱۴۰۳/۰۸/۱۲', readTime: '۸ دقیقه', views: 1245, likes: 96,
+          tags: ['#طراحی', '#UI', '#UX', '#تایپوگرافی', '#دسترسی‌پذیری', '#رنگ'], full: true },
+        { id: 'b2', title: '۱۰ نکته برای بهینه‌سازی Performance', category: 'عملکرد', cover: 'linear-gradient(135deg,#198754,#20c997)', author: 'امیر رضایی', role: 'مدیر سیستم', date: '۱۴۰۳/۰۸/۱۰', readTime: '۱۲ دقیقه', views: 2130, likes: 158,
+          tags: ['#عملکرد', '#Web Vitals', '#سرعت'], excerpt: 'بهبود سرعت بارگذاری صفحات وب یکی از مهم‌ترین فاکتورهای تجربه کاربری و سئوست. در این مطلب ۱۰ تکنیک کاربردی شامل بارگذاری تنبل تصاویر، کوچک‌سازی منابع و کش مرورگر را مرور می‌کنیم.' },
+        { id: 'b3', title: 'معرفی CSS Grid', category: 'طراحی', cover: 'linear-gradient(135deg,#fd7e14,#ffc107)', author: 'نگار محمدی', role: 'طراح رابط', date: '۱۴۰۳/۰۸/۰۸', readTime: '۶ دقیقه', views: 870, likes: 64,
+          tags: ['#CSS', '#Grid', '#چیدمان'], excerpt: 'CSS Grid قدرتمندترین سیستم چیدمان وب است. در این مطلب با مفاهیم اصلی، خطوط شبکه، نواحی قالب و ترفندهای چیدمان دو-بعدی آشنا می‌شوید.' },
+        { id: 'b4', title: 'الگوهای طراحی در JavaScript', category: 'برنامه‌نویسی', cover: 'linear-gradient(135deg,#dc3545,#d63384)', author: 'علی نوری', role: 'مهندس نرم‌افزار', date: '۱۴۰۳/۰۸/۰۵', readTime: '۱۵ دقیقه', views: 2890, likes: 201,
+          tags: ['#JavaScript', '#الگوها', '#معماری'], excerpt: 'الگوهای طراحی راه‌حل‌های اثبات‌شده برای مسائل رایج برنامه‌نویسی هستند. در این مطلب الگوهای Singleton، Observer و Module را با مثال‌های عملی بررسی می‌کنیم.' },
+        { id: 'b5', title: 'دسترسی‌پذیری در وب', category: 'دسترسی‌پذیری', cover: 'linear-gradient(135deg,#6f42c1,#0dcaf0)', author: 'مریم صادقی', role: 'مدیر انجمن', date: '۱۴۰۳/۰۸/۰۲', readTime: '۱۰ دقیقه', views: 1120, likes: 87,
+          tags: ['#a11y', '#WCAG', '#ARIA'], excerpt: 'ساختن وبی برای همه وظیفه‌ی هر توسعه‌دهنده‌ای است. در این مطلب اصول WCAG و تکنیک‌های ARIA را به زبان ساده توضیح می‌دهیم.' },
+        { id: 'b6', title: 'ساختار پروژه‌های مقیاس‌پذیر', category: 'برنامه‌نویسی', cover: 'linear-gradient(135deg,#20c997,#0d6efd)', author: 'محمد قاسمی', role: 'معمار نرم‌افزار', date: '۱۴۰۳/۰۷/۲۸', readTime: '۱۴ دقیقه', views: 1650, likes: 133,
+          tags: ['#معماری', '#MonoRepo', '#ماژول'], excerpt: 'معماری مناسب پایه‌ی هر پروژه‌ی موفقی است. در این مطلب ساختار MonoRepo، تقسیم ماژول‌ها و مدیریت وابستگی‌ها را بررسی می‌کنیم.' }
+      ];
+      var posts = PAdminLTE.store.get('pa-blog-posts', SEED);
+      var id = new URLSearchParams(location.search).get('id') || 'b1';
+      var post = PAdminLTE.store.find('pa-blog-posts', id, SEED) || posts[0] || SEED[0];
+      var seedPost = SEED.filter(function (p) { return p.id === post.id; })[0];
+      var colors = { 'طراحی': 'var(--pa-primary-soft)|var(--pa-primary)', 'عملکرد': 'var(--pa-success-soft)|var(--pa-success)', 'برنامه‌نویسی': 'var(--pa-danger-soft)|var(--pa-danger)', 'دسترسی‌پذیری': 'var(--pa-info-soft)|var(--pa-info)', 'فناوری': 'var(--pa-primary-soft)|var(--pa-primary)', 'اخبار': 'var(--pa-warning-soft)|var(--pa-warning)', 'آموزش': 'var(--pa-info-soft)|var(--pa-info)' };
+
+      function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+      function faSep(n) { return fa(String(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '٬'); }
+      function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+      function colorPair(cat) { return (colors[cat] || 'var(--pa-primary-soft)|var(--pa-primary)').split('|'); }
+
+      // ---- Header / meta ----
+      document.title = 'PAdminLTE — ' + post.title;
+      document.getElementById('post-title').textContent = post.title;
+      document.getElementById('post-crumb').textContent = post.title;
+      document.getElementById('post-cat').textContent = post.category || 'عمومی';
+      document.getElementById('post-cover').style.background = post.cover || 'linear-gradient(135deg,#0d6efd,#6610f2)';
+      var av = document.getElementById('post-avatar');
+      var cp = colorPair(post.category);
+      av.textContent = (post.author || '؟').charAt(0);
+      av.style.background = cp[0]; av.style.color = cp[1];
+      document.getElementById('post-author').textContent = post.author || 'مهمان';
+      document.getElementById('post-author-role').textContent = (seedPost && seedPost.role) || 'نویسنده مهمان';
+      document.getElementById('post-badge').textContent = post.category || 'عمومی';
+      document.getElementById('post-date').textContent = post.date || '';
+      document.getElementById('post-read').textContent = fa(String(post.readTime || '۵ دقیقه').replace(/[^0-9۰-۹]/g, '') || '۵');
+
+      // ---- Views (increment once per session per post) ----
+      var vKey = 'pa-viewed-' + post.id;
+      var viewed = null;
+      try { viewed = sessionStorage.getItem(vKey); } catch (e) {}
+      if (!viewed) {
+        post.views = (post.views || 0) + 1;
+        PAdminLTE.store.update('pa-blog-posts', post.id, { views: post.views }, SEED);
+        try { sessionStorage.setItem(vKey, '1'); } catch (e) {}
+      }
+      document.getElementById('post-views').textContent = faSep(post.views || 0);
+
+      // ---- Likes ----
+      var likesShown = post.likes || 0;
+      document.getElementById('post-likes').textContent = fa(likesShown);
+      var liked = false;
+      try { liked = localStorage.getItem('pa-liked-' + post.id) === '1'; } catch (e) {}
+      var likeBtn = document.getElementById('post-like');
+      if (liked) likeBtn.classList.add('is-on');
+      likeBtn.addEventListener('click', function () {
+        liked = !liked;
+        likesShown += liked ? 1 : -1;
+        try { localStorage.setItem('pa-liked-' + post.id, liked ? '1' : '0'); } catch (e) {}
+        PAdminLTE.store.update('pa-blog-posts', post.id, { likes: likesShown }, SEED);
+        likeBtn.classList.toggle('is-on', liked);
+        document.getElementById('post-likes').textContent = fa(likesShown);
+        PAdminLTE.toast({ kind: liked ? 'success' : 'info', message: liked ? 'پسندیدید. ممنون!' : 'پسندیدن لغو شد.' });
+      });
+
+      // ---- Tags ----
+      if (post.tags && post.tags.length) {
+        document.getElementById('post-tags').innerHTML = post.tags.map(function (t) {
+          return '<a href="tags.html" class="pa-tag pa-tag-size-md">' + esc(String(t).charAt(0) === '#' ? t : '#' + t) + '</a>';
+        }).join('');
+      }
+
+      // ---- Article body ----
+      var article = document.getElementById('post-article');
+      if (seedPost && seedPost.full) {
+        // keep the built-in long-form demo article
+      } else if (post.body) {
+        var paras = String(post.body).split(/\n+/).filter(Boolean);
+        article.innerHTML = paras.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+      } else {
+        article.innerHTML =
+          '<p>' + esc(post.excerpt || 'این مطلب هنوز متن کاملی ندارد.') + '</p>' +
+          '<div class="pa-alert pa-alert-info"><span data-pa-icon="info" data-pa-icon-size="20"></span>' +
+          '<div class="pa-alert-body">متن کامل این مطلب در نسخهٔ نمایشی خلاصه شده است. برای مشاهدهٔ ساختار کامل مقاله، مطلب «آموزش طراحی رابط کاربری مدرن» را ببینید.</div></div>' +
+          '<p>شما می‌توانید با صفحهٔ «نوشتن مطلب»، مقالهٔ خودتان را ثبت کنید؛ متن کامل، برچسب‌ها و کاور دلخواه بگیرید و همین‌جا نمایش داده می‌شود.</p>' +
+          '<p><a class="pa-btn pa-btn-primary" href="blog-compose.html"><span data-pa-icon="pen" data-pa-icon-size="16"></span> نوشتن مطلب جدید</a></p>';
+        PAdminLTE.injectIcons(article);
+      }
+
+      // ---- Comments (store-backed, per post) ----
+      var COMMENT_SEED = [
+        { id: 'c1', postId: 'b1', name: 'امیر رضایی', role: 'عضو فعال', badge: 'تأیید شده', badgeKind: 'success', color: 'var(--pa-success-soft)|var(--pa-success)', time: '۲ ساعت پیش', likes: 12, text: 'مطلب بسیار کاملی بود. نکته‌ای که برای من بسیار کاربردی شد، بحث سیستم فاصله بر پایه‌ی ۸ پیکسل بود. آیا برای پروژه‌های موبایل هم همین سیستم پیشنهاد می‌شود یا باید مقیاس متفاوتی در نظر گرفت؟' },
+        { id: 'c2', postId: 'b1', name: 'نگار محمدی', role: 'عضو', badge: '', badgeKind: '', color: 'var(--pa-warning-soft)|var(--pa-warning)', time: '۵ ساعت پیش', likes: 8, text: 'عالی بود! من همیشه با تایپوگرافی مشکل داشتم. مثال عمودی و افقی فاصله‌ی خطوط خیلی کمک کرد. خواستم بپرسم برای متون فارسی چه فونت‌هایی پیشنهاد می‌کنید؟' },
+        { id: 'c3', postId: 'b1', name: 'مریم صادقی', role: 'مدیر انجمن', badge: 'مدیر', badgeKind: 'warning', color: 'var(--pa-info-soft)|var(--pa-info)', time: 'دیروز', likes: 21, text: 'بخش دسترسی‌پذیری و کنتراست واقعاً حیاتی است. متأسفانه بسیاری از سایت‌های فارسی هنوز نسبت ۴.۵ به ۱ را رعایت نمی‌کنند. ممنون از توضیح روشن. منتظر مطلب بعدی درباره‌ی طراحی برای حالت تاریک هستیم!' }
+      ];
+      var allComments = PAdminLTE.store.get('pa-blog-comments', COMMENT_SEED);
+      var comments = allComments.filter(function (c) { return String(c.postId) === String(post.id); });
+
+      function renderComments() {
+        var list = document.getElementById('comments-list');
+        document.getElementById('comment-count').textContent = fa(comments.length);
+        if (!comments.length) {
+          list.innerHTML = '<p class="pa-text-muted">هنوز دیدگاهی ثبت نشده — اولین نفر باشید!</p>';
+          return;
+        }
+        list.innerHTML = comments.map(function (c, i) {
+          var pair = (c.color || 'var(--pa-primary-soft)|var(--pa-primary)').split('|');
+          return '<div class="pa-forum-post' + (i === comments.length - 1 ? '" style="margin-bottom:0' : '') + '">' +
+            '<div class="pa-post-aside">' +
+              '<span class="pa-avatar pa-post-avatar" style="background:' + pair[0] + '; color:' + pair[1] + '; display:grid; place-items:center; font-weight:700">' + esc((c.name || '؟').charAt(0)) + '</span>' +
+              '<div class="pa-post-author">' + esc(c.name) + '</div>' +
+              '<div class="pa-post-role">' + esc(c.role || 'عضو') + '</div>' +
+              (c.badge ? '<div class="pa-post-badges"><span class="pa-badge pa-badge-' + (c.badgeKind || 'primary') + '">' + esc(c.badge) + '</span></div>' : '') +
+            '</div>' +
+            '<div class="pa-post-body">' +
+              '<div class="pa-post-header"><span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ' + esc(c.time || 'همین حالا') + '</span><span class="pa-badge pa-badge-primary">' + fa(c.likes || 0) + ' پسند</span></div>' +
+              '<div class="pa-post-content">' + esc(c.text) + '</div>' +
+              '<div class="pa-post-actions">' +
+                '<button type="button" class="pa-link-btn pa-text-muted" data-like="' + c.id + '"><span data-pa-icon="heart" data-pa-icon-size="14"></span> پسندیدم</button>' +
+                '<button type="button" class="pa-link-btn pa-text-muted" data-share="' + c.id + '"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        PAdminLTE.injectIcons(list);
+      }
+      renderComments();
+
+      document.getElementById('comments-list').addEventListener('click', function (e) {
+        var like = e.target.closest('[data-like]');
+        if (like) {
+          var c = comments.filter(function (x) { return String(x.id) === like.getAttribute('data-like'); })[0];
+          if (c) { c.likes = (c.likes || 0) + 1; PAdminLTE.store.save('pa-blog-comments', allComments); renderComments(); }
+          return;
+        }
+        var sh = e.target.closest('[data-share]');
+        if (sh) PAdminLTE.copyToClipboard(location.href, { message: 'لینک این مطلب کپی شد.' });
+      });
+
+      var form = document.getElementById('comment-form');
+      var sessionUser = null;
+      try { sessionUser = PAdminLTE.auth.currentUser(); } catch (e) {}
+      if (sessionUser) document.getElementById('comment-name').value = sessionUser.name;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!PAdminLTE.validateForm(form)) return;
+        var name = document.getElementById('comment-name').value.trim();
+        var text = document.getElementById('comment-body').value.trim();
+        var c = {
+          id: 'c-' + Date.now(),
+          postId: String(post.id),
+          name: name,
+          role: sessionUser ? (sessionUser.role || 'عضو') : 'مهمان',
+          badge: sessionUser ? 'عضو' : '',
+          badgeKind: 'primary',
+          color: sessionUser && sessionUser.color ? sessionUser.color + '|#fff' : 'var(--pa-primary-soft)|var(--pa-primary)',
+          time: 'همین حالا',
+          likes: 0,
+          text: text
+        };
+        PAdminLTE.store.add('pa-blog-comments', c, COMMENT_SEED);
+        comments.unshift(c);
+        document.getElementById('comment-body').value = '';
+        renderComments();
+        PAdminLTE.toast({ kind: 'success', title: 'ثبت شد', message: 'دیدگاه شما با موفقیت ثبت شد.' });
+      });
+
+      // ---- Related posts ----
+      var related = posts.filter(function (p) { return String(p.id) !== String(post.id); }).slice(0, 3);
+      document.getElementById('related-list').innerHTML = related.map(function (p, i) {
+        return (i ? '<hr>' : '') +
+          '<a href="blog-post.html?id=' + encodeURIComponent(p.id) + '" class="pa-d-flex pa-gap-2 pa-hover-lift" style="padding:.5rem; border-radius:var(--pa-radius); text-decoration:none; color:var(--pa-text)">' +
+            '<span style="width:64px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:' + (p.cover || '#0d6efd') + '"></span>' +
+            '<div style="min-width:0"><div class="pa-fw-600 pa-fs-sm">' + esc(p.title) + '</div>' +
+            '<div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ' + esc(p.readTime || '۵ دقیقه') + '</div></div>' +
+          '</a>';
+      }).join('');
+    })();
+  </script>
 </body>
 </html>

@@ -27,15 +27,15 @@
               <span class="pa-input-addon"><span data-pa-icon="search" data-pa-icon-size="16"></span></span>
               <input id="blog-search" class="pa-input" type="search" placeholder="جستجو در مطالب وبلاگ…" data-pa-searchable-list="#blog-grid" aria-label="جستجو در مطالب">
             </div>
-            <select class="pa-select" style="flex:0 0 200px" aria-label="فیلتر دسته‌بندی">
-              <option>همه دسته‌ها</option>
+            <select id="blog-cat" class="pa-select" style="flex:0 0 200px" aria-label="فیلتر دسته‌بندی">
+              <option value="all">همه دسته‌ها</option>
               <option>فناوری</option>
               <option>طراحی</option>
               <option>برنامه‌نویسی</option>
               <option>دسترسی‌پذیری</option>
               <option>عملکرد</option>
             </select>
-            <button class="pa-btn pa-btn-primary" onclick="PAdminLTE.toast({kind:'success',title:'وبلاگ',message:'فرم نوشتن مطلب جدید آماده است.'});"><span data-pa-icon="pen" data-pa-icon-size="16"></span> نوشتن مطلب جدید</button>
+            <a class="pa-btn pa-btn-primary" href="blog-compose.html"><span data-pa-icon="pen" data-pa-icon-size="16"></span> نوشتن مطلب جدید</a>
           </div>
         </div>
 
@@ -45,11 +45,11 @@
             <div class="pa-card pa-mb-2 pa-anim-slide-up">
               <div class="pa-card-header"><h3>دسته‌بندی‌ها</h3></div>
               <div class="pa-card-body" style="padding:0">
-                <div class="pa-category-list" style="padding:.75rem">
-                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="list" data-pa-icon-size="18"></span><span class="pa-cat-name">همه مطلب‌ها</span><span class="pa-cat-count">۲۴ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
-                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="cpu" data-pa-icon-size="18"></span><span class="pa-cat-name">فناوری</span><span class="pa-cat-count">۸ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
-                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="palette" data-pa-icon-size="18"></span><span class="pa-cat-name">طراحی</span><span class="pa-cat-count">۶ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
-                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="code" data-pa-icon-size="18"></span><span class="pa-cat-name">برنامه‌نویسی</span><span class="pa-cat-count">۱۰ مطلب</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                <div class="pa-category-list" style="padding:.75rem" id="cat-list">
+                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="list" data-pa-icon-size="18"></span><span class="pa-cat-name">همه مطلب‌ها</span><span class="pa-cat-count" id="cat-count-all">—</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="cpu" data-pa-icon-size="18"></span><span class="pa-cat-name">فناوری</span><span class="pa-cat-count" id="cat-count-فناوری">—</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="palette" data-pa-icon-size="18"></span><span class="pa-cat-name">طراحی</span><span class="pa-cat-count" id="cat-count-طراحی">—</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
+                  <a href="categories.html" class="pa-category-item"><span class="pa-cat-icon" data-pa-icon="code" data-pa-icon-size="18"></span><span class="pa-cat-name">برنامه‌نویسی</span><span class="pa-cat-count" id="cat-count-برنامه‌نویسی">—</span><span class="pa-chevron" data-pa-icon="chevron_left" data-pa-icon-size="14"></span></a>
                 </div>
               </div>
             </div>
@@ -77,124 +77,17 @@
             <div class="pa-card pa-anim-slide-up pa-anim-delay-2">
               <div class="pa-card-header"><h3>مطالب اخیر</h3></div>
               <div class="pa-card-body" style="padding:0">
-                <ul style="list-style:none; margin:0; padding:0">
-                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
-                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#0d6efd,#6610f2)"></span>
-                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">آموزش طراحی رابط کاربری مدرن</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲</div></div>
-                  </li>
-                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
-                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#198754,#20c997)"></span>
-                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">۱۰ نکته برای بهینه‌سازی Performance</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۰</div></div>
-                  </li>
-                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
-                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#fd7e14,#ffc107)"></span>
-                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">معرفی CSS Grid</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۸</div></div>
-                  </li>
-                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">
-                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#dc3545,#d63384)"></span>
-                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">الگوهای طراحی در JavaScript</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۵</div></div>
-                  </li>
-                  <li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem">
-                    <span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:linear-gradient(135deg,#6f42c1,#0dcaf0)"></span>
-                    <div style="min-width:0"><a href="blog-post.html" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">دسترسی‌پذیری در وب</a><div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۲</div></div>
-                  </li>
-                </ul>
+                <ul style="list-style:none; margin:0; padding:0" id="recent-list"></ul>
               </div>
             </div>
           </div>
 
           <!-- Main blog grid -->
           <div class="pa-col-9">
-            <div class="pa-row" id="blog-grid">
-              <div class="pa-col-4">
-                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up" data-pa-search-item>
-                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#0d6efd,#6610f2)"><span class="pa-blog-cat">طراحی</span></div>
-                  <div class="pa-blog-body">
-                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> سارا کریمی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۸ دقیقه</span></div>
-                    <h3 class="pa-blog-title"><a href="blog-post.html">آموزش طراحی رابط کاربری مدرن</a></h3>
-                    <p class="pa-blog-excerpt">در این مطلب با اصول طراحی رابط کاربری مدرن، استفاده از فضای سفید، تایپوگرافی مناسب و انتخاب پالت رنگی آشنا می‌شوید.</p>
-                  </div>
-                  <div class="pa-blog-footer">
-                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">س</span> سارا کریمی</span>
-                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۱۸</span>
-                  </div>
-                </article>
-              </div>
-
-              <div class="pa-col-4">
-                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1" data-pa-search-item>
-                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#198754,#20c997)"><span class="pa-blog-cat">عملکرد</span></div>
-                  <div class="pa-blog-body">
-                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۰</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> امیر رضایی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۲ دقیقه</span></div>
-                    <h3 class="pa-blog-title"><a href="blog-post.html">۱۰ نکته برای بهینه‌سازی Performance</a></h3>
-                    <p class="pa-blog-excerpt">بهبود سرعت بارگذاری صفحات وب یکی از مهم‌ترین فاکتورهای تجربه کاربری و سئوست. در این مطلب ۱۰ تکنیک کاربردی را مرور می‌کنیم.</p>
-                  </div>
-                  <div class="pa-blog-footer">
-                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">ا</span> امیر رضایی</span>
-                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۲۴</span>
-                  </div>
-                </article>
-              </div>
-
-              <div class="pa-col-4">
-                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2" data-pa-search-item>
-                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#fd7e14,#ffc107)"><span class="pa-blog-cat">فناوری</span></div>
-                  <div class="pa-blog-body">
-                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۸</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> نگار محمدی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۶ دقیقه</span></div>
-                    <h3 class="pa-blog-title"><a href="blog-post.html">معرفی CSS Grid</a></h3>
-                    <p class="pa-blog-excerpt">CSS Grid قدرتمندترین سیستم چیدمان وب است. در این مطلب با مفاهیم اصلی، خطوط شبکه و نواحی قالب آشنا می‌شوید.</p>
-                  </div>
-                  <div class="pa-blog-footer">
-                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">ن</span> نگار محمدی</span>
-                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۹</span>
-                  </div>
-                </article>
-              </div>
-
-              <div class="pa-col-4">
-                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up" data-pa-search-item>
-                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#dc3545,#d63384)"><span class="pa-blog-cat">برنامه‌نویسی</span></div>
-                  <div class="pa-blog-body">
-                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۵</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> علی نوری</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۵ دقیقه</span></div>
-                    <h3 class="pa-blog-title"><a href="blog-post.html">الگوهای طراحی در JavaScript</a></h3>
-                    <p class="pa-blog-excerpt">الگوهای طراحی راه‌حل‌های اثبات‌شده برای مسائل رایج برنامه‌نویسی هستند. در این مطلب الگوهای Singleton، Observer و Module را بررسی می‌کنیم.</p>
-                  </div>
-                  <div class="pa-blog-footer">
-                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ع</span> علی نوری</span>
-                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۳۲</span>
-                  </div>
-                </article>
-              </div>
-
-              <div class="pa-col-4">
-                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-1" data-pa-search-item>
-                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#6f42c1,#0dcaf0)"><span class="pa-blog-cat">دسترسی‌پذیری</span></div>
-                  <div class="pa-blog-body">
-                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۰۲</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> مریم صادقی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۰ دقیقه</span></div>
-                    <h3 class="pa-blog-title"><a href="blog-post.html">دسترسی‌پذیری در وب</a></h3>
-                    <p class="pa-blog-excerpt">ساختن وبی برای همه وظیفه‌ی هر توسعه‌دهنده‌ای است. در این مطلب اصول WCAG و تکنیک‌های ARIA را به زبان ساده توضیح می‌دهیم.</p>
-                  </div>
-                  <div class="pa-blog-footer">
-                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">م</span> مریم صادقی</span>
-                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۱۴</span>
-                  </div>
-                </article>
-              </div>
-
-              <div class="pa-col-4">
-                <article class="pa-blog-card pa-hover-lift pa-anim-slide-up pa-anim-delay-2" data-pa-search-item>
-                  <div class="pa-blog-thumb" style="background:linear-gradient(135deg,#20c997,#0d6efd)"><span class="pa-blog-cat">برنامه‌نویسی</span></div>
-                  <div class="pa-blog-body">
-                    <div class="pa-blog-meta"><span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ۱۴۰۳/۰۷/۲۸</span><span><span data-pa-icon="user" data-pa-icon-size="12"></span> محمد قاسمی</span><span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴ دقیقه</span></div>
-                    <h3 class="pa-blog-title"><a href="blog-post.html">ساختار پروژه‌های مقیاس‌پذیر</a></h3>
-                    <p class="pa-blog-excerpt">معماری مناسب پایه‌ی هر پروژه‌ی موفقی است. در این مطلب ساختار MonoRepo، تقسیم ماژول‌ها و مدیریت وابستگی‌ها را بررسی می‌کنیم.</p>
-                  </div>
-                  <div class="pa-blog-footer">
-                    <span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">م</span> محمد قاسمی</span>
-                    <span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ۲۱</span>
-                  </div>
-                </article>
-              </div>
+            <div class="pa-row" id="blog-grid"></div>
+            <div class="pa-g-empty" id="blog-empty">
+              <div data-pa-icon="book" data-pa-icon-size="42" style="opacity:.4"></div>
+              <p>مطلبی مطابق فیلتر یا جستجوی شما پیدا نشد.</p>
             </div>
 
             <!-- Pagination -->
@@ -217,5 +110,95 @@
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
+  <script>
+    // Store-backed blog: reads 'pa-blog-posts' (seeded on first run).
+    // New posts written in blog-compose.html appear here automatically.
+    (function () {
+      var SEED = [
+        { id: 'b1', title: 'آموزش طراحی رابط کاربری مدرن', category: 'طراحی', cover: 'linear-gradient(135deg,#0d6efd,#6610f2)', author: 'سارا کریمی', color: 'var(--pa-primary)', date: '۱۴۰۳/۰۸/۱۲', readTime: '۸ دقیقه', comments: 18, views: 1240, likes: 96, excerpt: 'در این مطلب با اصول طراحی رابط کاربری مدرن، استفاده از فضای سفید، تایپوگرافی مناسب و انتخاب پالت رنگی آشنا می‌شوید.' },
+        { id: 'b2', title: '۱۰ نکته برای بهینه‌سازی Performance', category: 'عملکرد', cover: 'linear-gradient(135deg,#198754,#20c997)', author: 'امیر رضایی', color: 'var(--pa-success)', date: '۱۴۰۳/۰۸/۱۰', readTime: '۱۲ دقیقه', comments: 24, views: 2130, likes: 158, excerpt: 'بهبود سرعت بارگذاری صفحات وب یکی از مهم‌ترین فاکتورهای تجربه کاربری و سئوست. در این مطلب ۱۰ تکنیک کاربردی را مرور می‌کنیم.' },
+        { id: 'b3', title: 'معرفی CSS Grid', category: 'طراحی', cover: 'linear-gradient(135deg,#fd7e14,#ffc107)', author: 'نگار محمدی', color: 'var(--pa-warning)', date: '۱۴۰۳/۰۸/۰۸', readTime: '۶ دقیقه', comments: 9, views: 870, likes: 64, excerpt: 'CSS Grid قدرتمندترین سیستم چیدمان وب است. در این مطلب با مفاهیم اصلی، خطوط شبکه و نواحی قالب آشنا می‌شوید.' },
+        { id: 'b4', title: 'الگوهای طراحی در JavaScript', category: 'برنامه‌نویسی', cover: 'linear-gradient(135deg,#dc3545,#d63384)', author: 'علی نوری', color: 'var(--pa-danger)', date: '۱۴۰۳/۰۸/۰۵', readTime: '۱۵ دقیقه', comments: 32, views: 2890, likes: 201, excerpt: 'الگوهای طراحی راه‌حل‌های اثبات‌شده برای مسائل رایج برنامه‌نویسی هستند. در این مطلب الگوهای Singleton، Observer و Module را بررسی می‌کنیم.' },
+        { id: 'b5', title: 'دسترسی‌پذیری در وب', category: 'دسترسی‌پذیری', cover: 'linear-gradient(135deg,#6f42c1,#0dcaf0)', author: 'مریم صادقی', color: 'var(--pa-info)', date: '۱۴۰۳/۰۸/۰۲', readTime: '۱۰ دقیقه', comments: 14, views: 1120, likes: 87, excerpt: 'ساختن وبی برای همه وظیفه‌ی هر توسعه‌دهنده‌ای است. در این مطلب اصول WCAG و تکنیک‌های ARIA را به زبان ساده توضیح می‌دهیم.' },
+        { id: 'b6', title: 'ساختار پروژه‌های مقیاس‌پذیر', category: 'برنامه‌نویسی', cover: 'linear-gradient(135deg,#20c997,#0d6efd)', author: 'محمد قاسمی', color: 'var(--pa-primary)', date: '۱۴۰۳/۰۷/۲۸', readTime: '۱۴ دقیقه', comments: 21, views: 1650, likes: 133, excerpt: 'معماری مناسب پایه‌ی هر پروژه‌ی موفقی است. در این مطلب ساختار MonoRepo، تقسیم ماژول‌ها و مدیریت وابستگی‌ها را بررسی می‌کنیم.' }
+      ];
+      var posts = PAdminLTE.store.get('pa-blog-posts', SEED);
+      var grid = document.getElementById('blog-grid');
+      var empty = document.getElementById('blog-empty');
+      var recent = document.getElementById('recent-list');
+
+      function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+      function initial(name) { return (name || '؟').trim().charAt(0); }
+
+      function cardHtml(p) {
+        return '' +
+        '<div class="pa-col-4" data-pa-search-item data-cat="' + (p.category || '') + '">' +
+          '<article class="pa-blog-card pa-hover-lift">' +
+            '<a class="pa-blog-thumb pa-img-zoom" href="blog-post.html?id=' + encodeURIComponent(p.id) + '" style="background:' + (p.cover || 'linear-gradient(135deg,#0d6efd,#6610f2)') + '">' +
+              '<span class="pa-blog-cat">' + (p.category || 'عمومی') + '</span>' +
+              (p.draft ? '<span class="pa-badge pa-badge-warning" style="position:absolute; top:.6rem; inset-inline-start:.6rem;">پیش‌نویس</span>' : '') +
+            '</a>' +
+            '<div class="pa-blog-body">' +
+              '<div class="pa-blog-meta">' +
+                '<span><span data-pa-icon="calendar" data-pa-icon-size="12"></span> ' + (p.date || '') + '</span>' +
+                '<span><span data-pa-icon="user" data-pa-icon-size="12"></span> ' + (p.author || 'مهمان') + '</span>' +
+                '<span><span data-pa-icon="clock" data-pa-icon-size="12"></span> ' + (p.readTime || '۵ دقیقه') + '</span>' +
+              '</div>' +
+              '<h3 class="pa-blog-title"><a href="blog-post.html?id=' + encodeURIComponent(p.id) + '">' + p.title + '</a></h3>' +
+              '<p class="pa-blog-excerpt">' + (p.excerpt || '') + '</p>' +
+            '</div>' +
+            '<div class="pa-blog-footer">' +
+              '<span class="pa-d-flex pa-align-center pa-gap-1"><span class="pa-avatar pa-avatar-sm" style="background:' + (p.color || 'var(--pa-primary-soft)') + '; color:#fff; display:grid; place-items:center; font-weight:700">' + initial(p.author) + '</span> ' + (p.author || 'مهمان') + '</span>' +
+              '<span class="pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="14"></span> ' + fa(p.comments || 0) + '</span>' +
+            '</div>' +
+          '</article>' +
+        '</div>';
+      }
+
+      function render() {
+        grid.innerHTML = posts.map(cardHtml).join('');
+        PAdminLTE.injectIcons(grid);
+        applyFilter();
+        // Recent sidebar: top 5
+        recent.innerHTML = posts.slice(0, 5).map(function (p) {
+          return '<li class="pa-d-flex pa-gap-2" style="padding:.65rem 1rem; border-bottom:1px solid var(--pa-border)">' +
+            '<span style="width:48px; height:48px; border-radius:var(--pa-radius); flex-shrink:0; background:' + (p.cover || '#0d6efd') + '"></span>' +
+            '<div style="min-width:0"><a href="blog-post.html?id=' + encodeURIComponent(p.id) + '" style="font-weight:600; font-size:.85rem; color:var(--pa-text)">' + p.title + '</a>' +
+            '<div class="pa-fs-sm pa-text-muted"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ' + (p.date || '') + '</div></div>' +
+          '</li>';
+        }).join('');
+        PAdminLTE.injectIcons(recent);
+        // Category counts
+        var counts = {};
+        posts.forEach(function (p) { counts[p.category] = (counts[p.category] || 0) + 1; });
+        Object.keys(counts).forEach(function (c) {
+          var el = document.getElementById('cat-count-' + c);
+          if (el) el.textContent = fa(counts[c]) + ' مطلب';
+        });
+        var all = document.getElementById('cat-count-all');
+        if (all) all.textContent = fa(posts.length) + ' مطلب';
+      }
+
+      function applyFilter() {
+        var sel = document.getElementById('blog-cat');
+        var cat = sel ? sel.value : 'all';
+        var q = (document.getElementById('blog-search').value || '').toLowerCase().trim();
+        var shown = 0;
+        grid.querySelectorAll('[data-pa-search-item]').forEach(function (item) {
+          var okCat = cat === 'all' || item.getAttribute('data-cat') === cat;
+          var okQ = !q || item.textContent.toLowerCase().indexOf(q) !== -1;
+          var ok = okCat && okQ;
+          item.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        empty.style.display = shown ? 'none' : 'block';
+      }
+
+      var sel = document.getElementById('blog-cat');
+      if (sel) sel.addEventListener('change', applyFilter);
+      document.getElementById('blog-search').addEventListener('input', applyFilter);
+      render();
+    })();
+  </script>
 </body>
 </html>

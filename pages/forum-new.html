@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — موضوع جدید</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* الحقات کوچک مخصوص این صفحه (خارج از کتابخانه) */
+    .pa-topic-wrap { max-width: 760px; margin-inline: auto; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>موضوع جدید</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="forum-list.html">انجمن</a><span class="pa-sep">›</span><span>موضوع جدید</span></div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a href="forum-list.html" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="comments" data-pa-icon-size="14"> فهرست انجمن</a>
+          </div>
+        </div>
+
+        <div class="pa-topic-wrap" data-pa-stagger="80">
+
+          <!-- هشدار قوانین انجمن -->
+          <div class="pa-alert pa-alert-warning" data-pa-reveal>
+            <span data-pa-icon="warning"></span>
+            <div class="pa-alert-body">
+              <strong>قوانین انجمن.</strong>
+              <ul class="pa-mt-1" style="margin:0; padding-inline-start:1.1rem; font-size:.85rem">
+                <li>به سایر اعضا احترام بگذارید؛ از توهین و بحث‌های بی‌نتیجه پرهیز کنید.</li>
+                <li>پیش از پرسیدن، موضوعات مشابه را در انجمن جست‌وجو کنید.</li>
+                <li>عنوان شفاف بنویسید و کدها را داخل بلوک کد قرار دهید.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- کارت اصلی ایجاد موضوع -->
+          <div class="pa-card" data-pa-reveal>
+            <div class="pa-card-header">
+              <h3>ایجاد موضوع جدید</h3>
+              <small class="pa-text-muted">پرسش خوب، نصف پاسخ است</small>
+            </div>
+            <div class="pa-card-body">
+              <form id="pa-forum-form" novalidate>
+                <div class="pa-form-group">
+                  <label for="pa-topic-title">عنوان موضوع <span class="pa-text-danger">*</span></label>
+                  <input id="pa-topic-title" class="pa-input" type="text" placeholder="مثلاً بهترین روش یادگیری React در ۲۰۲۴ چیست؟" data-pa-validate="required">
+                  <div class="pa-form-feedback"></div>
+                </div>
+
+                <div class="pa-form-row">
+                  <div class="pa-form-group">
+                    <label for="pa-topic-category">انجمن</label>
+                    <select id="pa-topic-category" class="pa-select">
+                      <option value="عمومی" selected>عمومی</option>
+                      <option value="پرسش و پاسخ">پرسش و پاسخ</option>
+                      <option value="نمایش‌گاه پروژه">نمایش‌گاه پروژه</option>
+                      <option value="اخبار و اطلاعیه">اخبار و اطلاعیه</option>
+                    </select>
+                  </div>
+                  <div class="pa-form-group">
+                    <label for="pa-topic-tags">برچسب‌ها <span class="pa-text-muted">(با ویرگول جدا کنید)</span></label>
+                    <input id="pa-topic-tags" class="pa-input" type="text" placeholder="مثلاً react، فرانت‌اند، یادگیری">
+                    <div class="pa-hint">برچسب‌ها به‌صورت خودکار زیر فیلد ساخته می‌شوند.</div>
+                  </div>
+                </div>
+
+                <div class="pa-form-group">
+                  <div id="pa-topic-chips" class="pa-d-flex pa-gap-2 pa-flex-wrap"></div>
+                </div>
+
+                <div class="pa-form-group">
+                  <label for="pa-topic-body">متن پست <span class="pa-text-danger">*</span></label>
+                  <textarea id="pa-topic-body" class="pa-textarea" rows="7" placeholder="پرسش یا موضوع خود را کامل توضیح دهید…" data-pa-validate="required"></textarea>
+                  <div class="pa-form-feedback"></div>
+                  <div class="pa-fs-sm pa-text-muted pa-mt-1" id="pa-topic-counter">۰ کاراکتر — حداقل ۱۵ کاراکتر لازم است</div>
+                </div>
+
+                <div class="pa-form-group">
+                  <div class="pa-form-check pa-mb-0">
+                    <input type="checkbox" id="pa-topic-notify">
+                    <label for="pa-topic-notify"><span data-pa-icon="bell" data-pa-icon-size="14"></span> اطلاع در صورت پاسخ</label>
+                  </div>
+                </div>
+
+                <div class="pa-d-flex pa-gap-2 pa-flex-wrap">
+                  <button type="submit" class="pa-btn pa-btn-primary" id="pa-topic-submit" data-pa-icon="message_square" data-pa-icon-size="16"> انتشار موضوع</button>
+                  <button type="button" class="pa-btn pa-btn-outline" id="pa-topic-cancel" data-pa-icon="x" data-pa-icon-size="16"> انصراف</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه «موضوع جدید»
+       ذخیره در PAdminLTE.store با کلید 'pa-forum-topics'
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      var TOPICS_KEY = 'pa-forum-topics';
+      var MIN_BODY = 15;
+      var FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+
+      var form = document.getElementById('pa-forum-form');
+      var titleEl = document.getElementById('pa-topic-title');
+      var bodyEl = document.getElementById('pa-topic-body');
+      var categoryEl = document.getElementById('pa-topic-category');
+      var tagsEl = document.getElementById('pa-topic-tags');
+      var chipsEl = document.getElementById('pa-topic-chips');
+      var counterEl = document.getElementById('pa-topic-counter');
+      var submitBtn = document.getElementById('pa-topic-submit');
+      var cancelBtn = document.getElementById('pa-topic-cancel');
+
+      var tags = [];
+
+      /* ---------- ابزارهای کمکی ---------- */
+      function faNum(n) {
+        return String(n).replace(/\d/g, function (d) { return FA_DIGITS[+d]; });
+      }
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function currentAuthor() {
+        var u = PAdminLTE.auth.currentUser();
+        return (u && u.name) ? u.name : 'مهمان';
+      }
+      function parseTags(raw) {
+        var seen = {}, out = [];
+        raw.split(/[,،؛\n]+/).forEach(function (t) {
+          t = t.trim();
+          if (t && !seen[t]) { seen[t] = true; out.push(t); }
+        });
+        return out;
+      }
+      function feedbackOf(field) {
+        return field.parentElement.querySelector('.pa-form-feedback') ||
+               (field.closest('.pa-form-group') && field.closest('.pa-form-group').querySelector('.pa-form-feedback'));
+      }
+
+      /* ---------- چیپس برچسب‌ها (زنده) ---------- */
+      function renderChips() {
+        if (!tags.length) {
+          chipsEl.innerHTML = '<span class="pa-fs-sm pa-text-muted">هنوز برچسبی اضافه نشده است…</span>';
+          return;
+        }
+        chipsEl.innerHTML = tags.map(function (t, i) {
+          return '<span class="pa-chip is-primary">' + esc(t) +
+            ' <button type="button" class="pa-chip-x" data-tag-index="' + i + '" aria-label="حذف برچسب ' + esc(t) + '">' +
+            PAdminLTE.icon('x', 12) + '</button></span>';
+        }).join('');
+      }
+      tagsEl.addEventListener('input', function () {
+        tags = parseTags(tagsEl.value);
+        renderChips();
+      });
+      chipsEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('.pa-chip-x');
+        if (!btn) return;
+        tags.splice(+btn.getAttribute('data-tag-index'), 1);
+        tagsEl.value = tags.join('، ');
+        renderChips();
+      });
+
+      /* ---------- شمارنده زنده متن پست ---------- */
+      function updateCounter() {
+        var n = bodyEl.value.length;
+        if (n >= MIN_BODY) {
+          counterEl.textContent = faNum(n) + ' کاراکتر — حد نصاب تکمیل شد ✓';
+          counterEl.classList.add('pa-text-success');
+        } else {
+          counterEl.textContent = faNum(n) + ' کاراکتر — حداقل ۱۵ کاراکتر لازم است';
+          counterEl.classList.remove('pa-text-success');
+        }
+      }
+      bodyEl.addEventListener('input', updateCounter);
+
+      /* ---------- اعتبارسنجی دستی ---------- */
+      function validate() {
+        var ok = PAdminLTE.validateForm(form);
+        var bodyLen = bodyEl.value.trim().length;
+        if (bodyLen < MIN_BODY) {
+          bodyEl.classList.remove('is-valid');
+          bodyEl.classList.add('is-invalid');
+          var fb = feedbackOf(bodyEl);
+          if (fb) {
+            fb.classList.add('is-invalid');
+            fb.classList.remove('is-valid');
+            fb.textContent = bodyLen ? 'حداقل ۱۵ کاراکتر برای متن پست لازم است.' : 'این فیلد اجباری است.';
+          }
+          ok = false;
+        }
+        return ok;
+      }
+
+      /* ---------- انتشار موضوع ---------- */
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validate()) {
+          PAdminLTE.toast({ kind: 'danger', title: 'خطا', message: 'لطفاً خطاهای فرم را اصلاح کنید.' });
+          return;
+        }
+        PAdminLTE.btnLoading(submitBtn, true, 'در حال انتشار…');
+        setTimeout(function () {
+          var item = PAdminLTE.store.add(TOPICS_KEY, {
+            title: titleEl.value.trim(),
+            category: categoryEl.value,
+            body: bodyEl.value.trim(),
+            tags: tags.slice(),
+            author: currentAuthor(),
+            date: new Date().toLocaleDateString('fa-IR'),
+            replies: 0,
+            views: 0,
+            pinned: false,
+            locked: false
+          });
+          PAdminLTE.btnLoading(submitBtn, false);
+          PAdminLTE.toast({ kind: 'success', title: 'موضوع منتشر شد', message: 'موضوع شما در انجمن ثبت شد.' });
+          setTimeout(function () {
+            location.href = 'forum-topic.html?id=' + encodeURIComponent(item.id);
+          }, 800);
+        }, 900);
+      });
+
+      /* ---------- انصراف ---------- */
+      cancelBtn.addEventListener('click', function () {
+        history.back();
+      });
+
+      /* ---------- مقداردهی اولیه ---------- */
+      renderChips();
+      updateCounter();
+    })();
+  </script>
+</body>
+</html>

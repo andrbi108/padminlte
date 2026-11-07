@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — حساب من</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* کمک‌استایل کوچک مخصوص همین صفحه — سواچ‌های انتخاب رنگ آواتار */
+    .pa-swatch-group input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+    .pa-swatch {
+      width: 34px; height: 34px; border-radius: 50%; display: inline-block;
+      cursor: pointer; border: 0; box-shadow: 0 0 0 1px var(--pa-border);
+      transition: transform .15s ease;
+    }
+    .pa-swatch:hover { transform: scale(1.08); }
+    .pa-swatch-group input[type="radio"]:checked + .pa-swatch {
+      outline: 2px solid var(--pa-text); outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>حساب من</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>حساب من</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- هشدار حالت نمایشی (فقط وقتی نشستی وجود ندارد) -->
+        <div class="pa-alert pa-alert-warning" id="pa-demo-alert" style="display:none">
+          <span data-pa-icon="alert_triangle" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">شما وارد نشده‌اید — حالت نمایشی با حساب نمونه. تغییرات در این حالت ذخیره نمی‌شوند.</div>
+        </div>
+
+        <!-- کارت سربرگ پروفایل -->
+        <div class="pa-card" data-pa-reveal>
+          <div class="pa-card-body">
+            <div class="pa-d-flex pa-align-center pa-gap-2" style="flex-wrap:wrap">
+              <span class="pa-avatar pa-avatar-lg" id="pa-banner-avatar"
+                    style="width:96px; height:96px; display:grid; place-items:center; font-size:2.2rem; font-weight:700; color:#fff; background:#4f6df5">ا</span>
+              <div style="flex:1; min-width:220px">
+                <div class="pa-d-flex pa-align-center pa-gap-2" style="flex-wrap:wrap">
+                  <h2 id="pa-banner-name" style="margin:0">امیر رضایی</h2>
+                  <span class="pa-badge pa-badge-primary" id="pa-banner-role">مدیر</span>
+                </div>
+                <p class="pa-text-muted pa-mt-1" style="margin-bottom:0">
+                  <span data-pa-icon="envelope" data-pa-icon-size="14"></span>
+                  <span id="pa-banner-email" dir="ltr">admin@example.com</span>
+                </p>
+                <p class="pa-text-muted pa-fs-sm" style="margin:.25rem 0 0">
+                  <span data-pa-icon="calendar" data-pa-icon-size="14"></span>
+                  عضویت از <span id="pa-banner-joined">۱۴۰۳/۰۱/۱۵</span>
+                </p>
+              </div>
+              <div class="pa-d-flex pa-gap-2" style="flex-wrap:wrap">
+                <button type="button" class="pa-btn pa-btn-primary" id="pa-edit-btn"
+                        data-pa-icon="edit" data-pa-icon-size="14"> ویرایش پروفایل</button>
+                <button type="button" class="pa-btn pa-btn-outline" id="pa-logout-btn"
+                        data-pa-icon="logout" data-pa-icon-size="14"> خروج</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- کارت تب‌ها -->
+        <div class="pa-card" id="pa-tabs-card" data-pa-reveal data-pa-delay="80">
+          <div class="pa-card-body" style="padding:0">
+            <div class="pa-tabs" data-pa-tabs style="padding:0 1rem">
+              <button type="button" class="pa-tab is-active" data-pa-tab="tab-profile">اطلاعات پروفایل</button>
+              <button type="button" class="pa-tab" data-pa-tab="tab-security">امنیت</button>
+              <button type="button" class="pa-tab" data-pa-tab="tab-sessions">نشست‌های فعال</button>
+            </div>
+            <div class="pa-card-body">
+
+              <!-- تب ۱: اطلاعات پروفایل -->
+              <div id="tab-profile" class="pa-tab-panel is-active" data-pa-panel="tab-profile">
+                <form id="pa-profile-form" novalidate>
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="pa-name">نام و نام خانوادگی</label>
+                      <input id="pa-name" class="pa-input" type="text" data-pa-validate="required" value="امیر رضایی">
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="pa-email">ایمیل</label>
+                      <input id="pa-email" class="pa-input" type="email" readonly dir="ltr"
+                             data-pa-validate="email" value="admin@example.com">
+                      <div class="pa-hint">ایمیل شناسه ورود شماست و پس از ثبت قابل تغییر نیست.</div>
+                    </div>
+                  </div>
+                  <div class="pa-form-group">
+                    <label for="pa-bio">بیوگرافی</label>
+                    <textarea id="pa-bio" class="pa-textarea" rows="3">مدیر سیستم PAdminLTE — عاشق کد تمیز و طراحی بی‌وابستگی.</textarea>
+                  </div>
+                  <div class="pa-form-group">
+                    <span class="pa-label">رنگ آواتار</span>
+                    <div class="pa-d-flex pa-align-center pa-gap-2 pa-swatch-group" style="flex-wrap:wrap">
+                      <input type="radio" name="pa-avatar-color" id="pa-color-1" value="#4f6df5" checked>
+                      <label for="pa-color-1" class="pa-swatch" style="background:#4f6df5" title="آبی — #4f6df5"></label>
+                      <input type="radio" name="pa-avatar-color" id="pa-color-2" value="#0aa6c2">
+                      <label for="pa-color-2" class="pa-swatch" style="background:#0aa6c2" title="فیروزه‌ای — #0aa6c2"></label>
+                      <input type="radio" name="pa-avatar-color" id="pa-color-3" value="#12895a">
+                      <label for="pa-color-3" class="pa-swatch" style="background:#12895a" title="سبز — #12895a"></label>
+                      <input type="radio" name="pa-avatar-color" id="pa-color-4" value="#d39e00">
+                      <label for="pa-color-4" class="pa-swatch" style="background:#d39e00" title="کهربایی — #d39e00"></label>
+                      <input type="radio" name="pa-avatar-color" id="pa-color-5" value="#b02a37">
+                      <label for="pa-color-5" class="pa-swatch" style="background:#b02a37" title="قرمز — #b02a37"></label>
+                    </div>
+                    <div class="pa-hint">رنگ پس‌زمینه آواتار شما در سربرگ حساب و منوی کاربری.</div>
+                  </div>
+                  <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="save" data-pa-icon-size="14"> ذخیره تغییرات</button>
+                </form>
+              </div>
+
+              <!-- تب ۲: امنیت -->
+              <div id="tab-security" class="pa-tab-panel" data-pa-panel="tab-security">
+                <form id="pa-pass-form" novalidate>
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="pa-pass-current">رمز فعلی</label>
+                      <input id="pa-pass-current" class="pa-input" type="password"
+                             data-pa-validate="required" autocomplete="current-password">
+                    </div>
+                    <div class="pa-form-group"></div>
+                  </div>
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="pa-pass-new">رمز جدید</label>
+                      <input id="pa-pass-new" class="pa-input" type="password"
+                             data-pa-validate="minlen" data-pa-minlen="6" autocomplete="new-password">
+                      <div class="pa-hint">رمز جدید باید حداقل ۶ کاراکتر باشد.</div>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="pa-pass-confirm">تکرار رمز جدید</label>
+                      <input id="pa-pass-confirm" class="pa-input" type="password"
+                             data-pa-validate="required" autocomplete="new-password">
+                      <div class="pa-form-feedback" id="pa-pass-confirm-fb"></div>
+                    </div>
+                  </div>
+                  <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="lock" data-pa-icon-size="14"> تغییر رمز عبور</button>
+                </form>
+
+                <div class="pa-divider" style="margin:1.25rem 0"></div>
+
+                <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; flex-wrap:wrap">
+                  <div>
+                    <strong>ورود دو مرحله‌ای</strong>
+                    <p class="pa-text-muted pa-fs-sm" style="margin:.15rem 0 0">لایه امنیتی دوم هنگام ورود با کد یک‌بارمصرف.</p>
+                  </div>
+                  <div class="pa-form-check" style="margin:0">
+                    <input id="pa-2fa" type="checkbox">
+                    <label for="pa-2fa">فعال</label>
+                  </div>
+                </div>
+                <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; flex-wrap:wrap; margin-top:.75rem">
+                  <span class="pa-text-muted pa-fs-sm">در صورت در دسترس نبودن گوشی، از کدهای بازیابی برای ورود استفاده کنید.</span>
+                  <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-modal-open="pa-recovery-modal"
+                          data-pa-icon="key_round" data-pa-icon-size="14"> کدهای بازیابی</button>
+                </div>
+              </div>
+
+              <!-- تب ۳: نشست‌های فعال -->
+              <div id="tab-sessions" class="pa-tab-panel" data-pa-panel="tab-sessions">
+                <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; flex-wrap:wrap; margin-bottom:.75rem">
+                  <p class="pa-text-muted pa-fs-sm" style="margin:0">دستگاه‌هایی که اخیراً وارد حساب شما شده‌اند.</p>
+                  <button type="button" class="pa-btn pa-btn-danger pa-btn-sm" data-pa-modal-open="pa-logout-all-modal"
+                          data-pa-icon="power" data-pa-icon-size="14"> خروج از همه نشست‌ها</button>
+                </div>
+                <div class="pa-table-wrap">
+                  <table class="pa-table">
+                    <thead>
+                      <tr><th>دستگاه</th><th>موقعیت مکان</th><th>آخرین فعالیت</th><th>وضعیت</th><th>عملکرد</th></tr>
+                    </thead>
+                    <tbody id="pa-sessions-body">
+                      <tr>
+                        <td><span class="pa-d-flex pa-align-center pa-gap-2"><span data-pa-icon="monitor" data-pa-icon-size="16"></span> کروم روی ویندوز ۱۱</span></td>
+                        <td>تهران، ایران</td>
+                        <td>همین حالا</td>
+                        <td><span class="pa-badge pa-badge-success">فعال</span></td>
+                        <td><button type="button" class="pa-btn pa-btn-ghost pa-btn-sm" disabled
+                                    title="نشست فعلی از این‌جا قابل بستن نیست" aria-label="نشست فعلی">
+                              <span data-pa-icon="power" data-pa-icon-size="14"></span></button></td>
+                      </tr>
+                      <tr data-other>
+                        <td><span class="pa-d-flex pa-align-center pa-gap-2"><span data-pa-icon="smartphone" data-pa-icon-size="16"></span> سافاری روی آیفون</span></td>
+                        <td>مشهد، ایران</td>
+                        <td>۲ ساعت پیش</td>
+                        <td><span class="pa-badge pa-badge-secondary">سابقه</span></td>
+                        <td><button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-exit-session" data-name="سافاری روی آیفون"
+                                    aria-label="خروج از نشست سافاری روی آیفون">
+                              <span data-pa-icon="power" data-pa-icon-size="14"></span></button></td>
+                      </tr>
+                      <tr data-other>
+                        <td><span class="pa-d-flex pa-align-center pa-gap-2"><span data-pa-icon="compass" data-pa-icon-size="16"></span> فایرفاکس روی لینوکس</span></td>
+                        <td>شیراز، ایران</td>
+                        <td>دیروز</td>
+                        <td><span class="pa-badge pa-badge-secondary">سابقه</span></td>
+                        <td><button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-exit-session" data-name="فایرفاکس روی لینوکس"
+                                    aria-label="خروج از نشست فایرفاکس روی لینوکس">
+                              <span data-pa-icon="power" data-pa-icon-size="14"></span></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- مودال کدهای بازیابی -->
+  <div class="pa-modal-backdrop" id="pa-recovery-modal" role="dialog" aria-modal="true" aria-labelledby="pa-recovery-title">
+    <div class="pa-modal pa-modal-sm">
+      <div class="pa-modal-header">
+        <h3 id="pa-recovery-title">کدهای بازیابی</h3>
+        <button class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <p class="pa-text-muted pa-fs-sm">هر کد فقط یک‌بار قابل استفاده است. آن‌ها را در جای امن نگه دارید.</p>
+        <div id="pa-recovery-list">
+          <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; padding:.45rem 0; border-bottom:1px dashed var(--pa-border)">
+            <code dir="ltr">PADM-7K2Q-9XZ4</code>
+            <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-copy-code" data-code="PADM-7K2Q-9XZ4" aria-label="کپی کد اول"><span data-pa-icon="copy" data-pa-icon-size="14"></span></button>
+          </div>
+          <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; padding:.45rem 0; border-bottom:1px dashed var(--pa-border)">
+            <code dir="ltr">PADM-M3V8-TQ6C</code>
+            <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-copy-code" data-code="PADM-M3V8-TQ6C" aria-label="کپی کد دوم"><span data-pa-icon="copy" data-pa-icon-size="14"></span></button>
+          </div>
+          <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; padding:.45rem 0; border-bottom:1px dashed var(--pa-border)">
+            <code dir="ltr">PADM-Z9DN-4WJH</code>
+            <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-copy-code" data-code="PADM-Z9DN-4WJH" aria-label="کپی کد سوم"><span data-pa-icon="copy" data-pa-icon-size="14"></span></button>
+          </div>
+          <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; padding:.45rem 0; border-bottom:1px dashed var(--pa-border)">
+            <code dir="ltr">PADM-K5RP-8YBX</code>
+            <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-copy-code" data-code="PADM-K5RP-8YBX" aria-label="کپی کد چهارم"><span data-pa-icon="copy" data-pa-icon-size="14"></span></button>
+          </div>
+          <div class="pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between; padding:.45rem 0">
+            <code dir="ltr">PADM-Q2FT-7LGM</code>
+            <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-copy-code" data-code="PADM-Q2FT-7LGM" aria-label="کپی کد پنجم"><span data-pa-icon="copy" data-pa-icon-size="14"></span></button>
+          </div>
+        </div>
+      </div>
+      <div class="pa-modal-footer">
+        <button class="pa-btn pa-btn-outline" data-pa-modal-close>بستن</button>
+        <button class="pa-btn pa-btn-primary" id="pa-copy-codes" data-pa-icon="copy" data-pa-icon-size="14"> کپی همه کدها</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مودال تأیید خروج از همه نشست‌ها -->
+  <div class="pa-modal-backdrop" id="pa-logout-all-modal" role="dialog" aria-modal="true" aria-labelledby="pa-logout-all-title">
+    <div class="pa-modal pa-modal-sm">
+      <div class="pa-modal-header">
+        <h3 id="pa-logout-all-title">خروج از همه نشست‌ها</h3>
+        <button class="pa-close" data-pa-modal-close aria-label="بستن">&times;</button>
+      </div>
+      <div class="pa-modal-body">
+        <div class="pa-d-flex pa-align-center pa-gap-2">
+          <span data-pa-icon="alert_triangle" data-pa-icon-size="22" style="color:var(--pa-warning); flex-shrink:0"></span>
+          <p style="margin:0">همه نشست‌های فعال روی دستگاه‌های دیگر بسته می‌شوند و کاربران باید دوباره وارد شوند. نشست فعلی شما حفظ می‌شود.</p>
+        </div>
+      </div>
+      <div class="pa-modal-footer">
+        <button class="pa-btn pa-btn-outline" data-pa-modal-close>انصراف</button>
+        <button class="pa-btn pa-btn-danger" id="pa-logout-all-confirm" data-pa-icon="power" data-pa-icon-size="14"> خروج از همه</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه «حساب من»
+       ============================================================ */
+    (function () {
+      'use strict';
+      var PAL = window.PAdminLTE;
+
+      /* --- کاربر فعلی یا حساب نمونه در حالت نمایشی --- */
+      var seeded = PAL.auth.users()[0];
+      var session = PAL.auth.currentUser();
+      var demoMode = !session;
+      var user = session || seeded;
+
+      function faNum(n) {
+        return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; });
+      }
+
+      /* --- هشدار حالت نمایشی --- */
+      if (demoMode) document.getElementById('pa-demo-alert').style.display = '';
+
+      /* --- پر کردن سربرگ پروفایل --- */
+      var bannerAvatar = document.getElementById('pa-banner-avatar');
+      bannerAvatar.textContent = (user.name || '؟').trim().charAt(0);
+      bannerAvatar.style.background = user.color || '#4f6df5';
+      document.getElementById('pa-banner-name').textContent = user.name;
+      document.getElementById('pa-banner-role').textContent = user.role;
+      document.getElementById('pa-banner-email').textContent = user.email;
+      document.getElementById('pa-banner-joined').textContent = user.joined;
+
+      /* --- پر کردن فرم پروفایل --- */
+      document.getElementById('pa-name').value = user.name || '';
+      document.getElementById('pa-email').value = user.email || '';
+      document.getElementById('pa-bio').value = user.bio || '';
+      var colorRadios = document.querySelectorAll('input[name="pa-avatar-color"]');
+      var matched = false;
+      colorRadios.forEach(function (r) {
+        if (r.value === (user.color || '').toLowerCase()) { r.checked = true; matched = true; }
+      });
+      if (!matched && colorRadios.length) colorRadios[0].checked = true;
+
+      /* --- دکمه ویرایش پروفایل: فعال‌سازی تب + اسکرول --- */
+      document.getElementById('pa-edit-btn').addEventListener('click', function () {
+        var tabBtn = document.querySelector('.pa-tab[data-pa-tab="tab-profile"]');
+        if (tabBtn) tabBtn.click();
+        document.getElementById('pa-tabs-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      /* --- دکمه خروج --- */
+      document.getElementById('pa-logout-btn').addEventListener('click', function () {
+        if (demoMode) {
+          PAL.toast({ kind: 'warning', title: 'حالت نمایشی', message: 'شما وارد نشده‌اید — خروجی انجام نشد.' });
+          return;
+        }
+        PAL.auth.logout();
+        PAL.toast({ kind: 'success', title: 'خروج', message: 'با موفقیت خارج شدید. در حال انتقال به صفحه ورود…' });
+        setTimeout(function () { window.location.href = 'login.html'; }, 700);
+      });
+
+      /* --- ذخیره اطلاعات پروفایل --- */
+      var profileForm = document.getElementById('pa-profile-form');
+      profileForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = profileForm.querySelector('button[type="submit"]');
+        if (!PAL.validateForm(profileForm)) {
+          PAL.toast({ kind: 'danger', title: 'خطا', message: 'لطفاً خطاهای فرم را اصلاح کنید.' });
+          return;
+        }
+        var name = document.getElementById('pa-name').value.trim();
+        var bio = document.getElementById('pa-bio').value.trim();
+        var checkedColor = profileForm.querySelector('input[name="pa-avatar-color"]:checked');
+        var color = checkedColor ? checkedColor.value : user.color;
+
+        PAL.btnLoading(btn, true, 'در حال ذخیره…');
+        setTimeout(function () {
+          PAL.btnLoading(btn, false);
+          if (demoMode) {
+            PAL.toast({ kind: 'warning', title: 'حالت نمایشی', message: 'شما وارد نشده‌اید — تغییرات ذخیره نمی‌شود.' });
+            return;
+          }
+          var updated = PAL.auth.updateProfile({ name: name, bio: bio, color: color });
+          if (updated) {
+            /* به‌روزرسانی زنده سربرگ */
+            bannerAvatar.textContent = (updated.name || '؟').trim().charAt(0);
+            bannerAvatar.style.background = updated.color || '#4f6df5';
+            document.getElementById('pa-banner-name').textContent = updated.name;
+            PAL.toast({ kind: 'success', title: 'موفق', message: 'اطلاعات پروفایل با موفقیت به‌روزرسانی شد.' });
+          } else {
+            PAL.toast({ kind: 'danger', title: 'خطا', message: 'به‌روزرسانی پروفایل ممکن نشد.' });
+          }
+        }, 500);
+      });
+
+      /* --- تغییر رمز عبور --- */
+      var passForm = document.getElementById('pa-pass-form');
+      passForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = passForm.querySelector('button[type="submit"]');
+        var currentEl = document.getElementById('pa-pass-current');
+        var newEl = document.getElementById('pa-pass-new');
+        var confirmEl = document.getElementById('pa-pass-confirm');
+        var confirmFb = document.getElementById('pa-pass-confirm-fb');
+
+        if (!PAL.validateForm(passForm)) {
+          PAL.toast({ kind: 'danger', title: 'خطا', message: 'لطفاً خطاهای فرم را اصلاح کنید.' });
+          return;
+        }
+        /* بررسی یکسان بودن تکرار رمز (قاعده سفارشی) */
+        if (newEl.value !== confirmEl.value) {
+          confirmEl.classList.add('is-invalid');
+          confirmEl.classList.remove('is-valid');
+          confirmFb.textContent = 'تکرار رمز با رمز جدید یکسان نیست.';
+          confirmFb.classList.add('is-invalid');
+          PAL.toast({ kind: 'danger', title: 'خطا', message: 'تکرار رمز با رمز جدید یکسان نیست.' });
+          return;
+        }
+
+        PAL.btnLoading(btn, true, 'در حال بررسی…');
+        setTimeout(function () {
+          PAL.btnLoading(btn, false);
+          var res = PAL.auth.changePassword(currentEl.value, newEl.value);
+          if (res && res.ok) {
+            PAL.toast({ kind: 'success', title: 'موفق', message: 'رمز عبور با موفقیت تغییر کرد.' });
+            passForm.reset();
+            passForm.querySelectorAll('.is-valid, .is-invalid').forEach(function (f) { f.classList.remove('is-valid', 'is-invalid'); });
+            confirmFb.textContent = '';
+            confirmFb.classList.remove('is-invalid', 'is-valid');
+          } else if (res && res.error === 'wrong') {
+            PAL.toast({ kind: 'danger', title: 'خطا', message: 'رمز فعلی اشتباه است.' });
+            currentEl.classList.add('is-invalid');
+            currentEl.classList.remove('is-valid');
+          } else if (res && res.error === 'short') {
+            PAL.toast({ kind: 'danger', title: 'خطا', message: 'رمز جدید حداقل ۶ کاراکتر است.' });
+          } else {
+            PAL.toast({ kind: 'danger', title: 'خطا', message: 'برای تغییر رمز ابتدا وارد حساب شوید.' });
+          }
+        }, 500);
+      });
+
+      /* --- ورود دو مرحله‌ای (نمایشی) --- */
+      document.getElementById('pa-2fa').addEventListener('change', function () {
+        PAL.toast({
+          kind: this.checked ? 'success' : 'info',
+          title: 'ورود دو مرحله‌ای',
+          message: this.checked ? 'ورود دو مرحله‌ای فعال شد (نمایشی).' : 'ورود دو مرحله‌ای غیرفعال شد.'
+        });
+      });
+
+      /* --- کپی کدهای بازیابی --- */
+      document.getElementById('pa-recovery-list').addEventListener('click', function (e) {
+        var btn = e.target.closest('.pa-copy-code');
+        if (!btn) return;
+        PAL.copyToClipboard(btn.getAttribute('data-code'), { title: 'کپی شد', message: 'کد بازیابی در کلیپ‌بورد کپی شد.' });
+      });
+      document.getElementById('pa-copy-codes').addEventListener('click', function () {
+        var codes = [];
+        document.querySelectorAll('#pa-recovery-list .pa-copy-code').forEach(function (b) {
+          codes.push(b.getAttribute('data-code'));
+        });
+        PAL.copyToClipboard(codes.join('\n'), { title: 'کپی شد', message: 'همه کدهای بازیابی کپی شدند.' });
+      });
+
+      /* --- خروج از یک نشست --- */
+      document.getElementById('pa-sessions-body').addEventListener('click', function (e) {
+        var btn = e.target.closest('.pa-exit-session');
+        if (!btn || btn.disabled) return;
+        var row = btn.closest('tr');
+        var deviceName = btn.getAttribute('data-name') || 'نشست';
+        if (row) row.remove();
+        PAL.toast({ kind: 'success', title: 'نشست بسته شد', message: 'نشست «' + deviceName + '» با موفقیت بسته شد.' });
+      });
+
+      /* --- خروج از همه نشست‌ها (با تأیید) --- */
+      document.getElementById('pa-logout-all-confirm').addEventListener('click', function () {
+        PAL.closeModal('pa-logout-all-modal');
+        var removed = 0;
+        document.querySelectorAll('#pa-sessions-body tr[data-other]').forEach(function (tr) {
+          tr.remove();
+          removed++;
+        });
+        if (removed) {
+          PAL.toast({ kind: 'warning', title: 'خروج از همه نشست‌ها', message: faNum(removed) + ' نشست دیگر با موفقیت بسته شد.' });
+        } else {
+          PAL.toast({ kind: 'info', title: 'خروج از همه نشست‌ها', message: 'نشست دیگری برای بستن وجود نداشت.' });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

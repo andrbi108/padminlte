@@ -28,6 +28,8 @@
               <div class="pa-gallery-view" role="group" aria-label="حالت نمایش">
                 <button type="button" data-view="grid" class="is-active" data-pa-tip="نمای شبکه‌ای" data-pa-icon="grid" data-pa-icon-size="16"></button>
                 <button type="button" data-view="masonry" data-pa-tip="نمای ماسونری" data-pa-icon="columns" data-pa-icon-size="16"></button>
+                <button type="button" data-view="flex" data-pa-tip="نمای فلکس" data-pa-icon="layout" data-pa-icon-size="16"></button>
+                <button type="button" data-view="card" data-pa-tip="نمای کارت" data-pa-icon="image" data-pa-icon-size="16"></button>
                 <button type="button" data-view="list" data-pa-tip="نمای فهرستی" data-pa-icon="list" data-pa-icon-size="16"></button>
               </div>
               <div class="pa-d-flex pa-gap-2 pa-flex-wrap" id="gallery-filters">
@@ -49,6 +51,14 @@
           </div>
         </div>
 
+        <!-- نکته: بارگذاری تنبل -->
+        <div class="pa-alert pa-alert-info" style="margin-top:1rem;">
+          <span data-pa-icon="zap" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">
+            تصاویر این گالری با <strong>بارگذاری تنبل (Lazy Loading)</strong> نمایش داده می‌شوند: تصویر فقط هنگام نزدیک شدن به دید کاربر بارگذاری و با محو شدن تدریجی ظاهر می‌شود.
+          </div>
+        </div>
+
         <div data-pa-layout="footer"></div>
       </main>
     </div>
@@ -58,7 +68,8 @@
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
   <script>
-    // Multi-view gallery with filters, search and lightbox.
+    // Multi-view gallery (grid / masonry / flex / card / list) with
+    // lazy-loaded images, filters, search, likes and lightbox.
     (function () {
       var grid = document.getElementById('gallery-grid');
       var empty = document.getElementById('gallery-empty');
@@ -93,64 +104,111 @@
       ];
       var catNames = { nature: 'طبیعت', city: 'شهر', animal: 'حیوانات', tech: 'فناوری' };
 
+      // Inline SVG "photo" as a data URI (keeps the template offline & file:// safe)
+      function svgPhoto(colors, label, w, h) {
+        var svg =
+          '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + h + '">' +
+          '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0" stop-color="' + colors[0] + '"/>' +
+          '<stop offset="1" stop-color="' + colors[1] + '"/></linearGradient></defs>' +
+          '<rect width="' + w + '" height="' + h + '" fill="url(#g)"/>' +
+          '<circle cx="' + (w * 0.78) + '" cy="' + (h * 0.24) + '" r="' + Math.round(h * 0.11) + '" fill="rgba(255,255,255,.35)"/>' +
+          '<path d="M0 ' + Math.round(h * 0.72) + ' L' + Math.round(w * 0.3) + ' ' + Math.round(h * 0.5) +
+          ' L' + Math.round(w * 0.62) + ' ' + Math.round(h * 0.8) + ' L' + w + ' ' + Math.round(h * 0.58) +
+          ' L' + w + ' ' + h + ' L0 ' + h + ' Z" fill="rgba(255,255,255,.22)"/>' +
+          '<text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle" ' +
+          'font-family="sans-serif" font-size="' + Math.round(h * 0.11) + '" fill="rgba(255,255,255,.85)" font-weight="700">' + label + '</text>' +
+          '</svg>';
+        return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+      }
+
       data.forEach(function (d, i) {
         var pal = palettes[i % palettes.length];
+        var gradient = 'linear-gradient(135deg, ' + pal[0] + ', ' + pal[1] + ')';
         var btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'pa-g-item';
         btn.setAttribute('data-cat', d.cat);
         btn.setAttribute('data-pa-search-item', '');
-        btn.style.background = 'linear-gradient(135deg, ' + pal[0] + ', ' + pal[1] + ')';
-        btn.style.height = d.h + 'px';
         btn.innerHTML =
-          '<span class="pa-g-badge">' + catNames[d.cat] + '</span>' +
-          '<span class="pa-g-zoom" data-pa-icon="maximize" data-pa-icon-size="14"></span>' +
-          '<span>' + d.label + '</span>' +
-          '<span class="pa-g-overlay"><span class="pa-g-caption">' +
-            '<span data-pa-icon="eye" data-pa-icon-size="14"></span> بزرگ‌نمایی</span></span>';
-        btn.addEventListener('click', function () {
-          PAdminLTE.lightbox.open(visibleItems().map(function (it) {
-            return { title: it.label + ' — گالری PAdminLTE', gradient: it.gradient, icon: it.label };
-          }), btnIndex(btn));
+          '<span class="pa-g-media" style="background:' + gradient + '; height:' + d.h + 'px;">' +
+            '<img data-pa-lazy src="' + svgPhoto(pal, d.label, 480, 360) + '" alt="' + d.label + '">' +
+            '<span class="pa-g-badge">' + catNames[d.cat] + '</span>' +
+            '<span class="pa-g-zoom" data-pa-icon="maximize" data-pa-icon-size="14"></span>' +
+            '<span class="pa-g-overlay"><span class="pa-g-caption">' +
+              '<span data-pa-icon="eye" data-pa-icon-size="14"></span> بزرگ‌نمایی</span></span>' +
+          '</span>' +
+          '<span class="pa-g-body">' +
+            '<span class="pa-g-title">' + d.label + '</span>' +
+            '<span class="pa-g-meta"><span data-pa-icon="image" data-pa-icon-size="12"></span> ' + catNames[d.cat] + ' · JPG · ' + (d.h * 8) + 'KB</span>' +
+            '<span class="pa-g-actions">' +
+              '<button type="button" data-act="like" title="پسندیدن" data-pa-icon="heart" data-pa-icon-size="14"></button>' +
+              '<button type="button" data-act="zoom" title="بزرگ‌نمایی" data-pa-icon="maximize" data-pa-icon-size="14"></button>' +
+              '<button type="button" data-act="download" title="دانلود" data-pa-icon="download" data-pa-icon-size="14"></button>' +
+            '</span>' +
+          '</span>';
+
+        btn.querySelector('.pa-g-media').addEventListener('click', function () {
+          openLb(btn);
         });
+
+        btn.querySelector('[data-act="like"]').addEventListener('click', function (e) {
+          e.stopPropagation();
+          var on = this.classList.toggle('is-on');
+          PAdminLTE.toast({ kind: on ? 'success' : 'info', message: on ? 'به پسندیده‌ها اضافه شد.' : 'از پسندیده‌ها حذف شد.' });
+        });
+        btn.querySelector('[data-act="zoom"]').addEventListener('click', function (e) {
+          e.stopPropagation();
+          openLb(btn);
+        });
+        btn.querySelector('[data-act="download"]').addEventListener('click', function (e) {
+          e.stopPropagation();
+          PAdminLTE.toast({ kind: 'info', message: 'دانلود «' + d.label + '» آغاز شد (نمونه).' });
+        });
+
         grid.appendChild(btn);
-        items.push({ el: btn, label: d.label, cat: d.cat, gradient: btn.style.background });
+        items.push({ el: btn, label: d.label, cat: d.cat, gradient: gradient });
       });
       PAdminLTE.injectIcons(grid);
 
+      function openLb(el) {
+        var vis = visibleItems();
+        var idx = 0;
+        for (var i = 0; i < vis.length; i++) if (vis[i].el === el) idx = i;
+        PAdminLTE.lightbox.open(vis.map(function (it) {
+          return { title: it.label + ' — گالری PAdminLTE', gradient: it.gradient, icon: it.label };
+        }), idx);
+      }
       function visibleItems() {
         return items.filter(function (it) { return it.el.style.display !== 'none'; });
       }
-      function btnIndex(el) {
-        var vis = visibleItems();
-        for (var i = 0; i < vis.length; i++) if (vis[i].el === el) return i;
-        return 0;
-      }
 
-      // ---- View switcher ----
+      // ---- View switcher (grid / masonry / flex / card / list) ----
       document.querySelectorAll('.pa-gallery-view button').forEach(function (b) {
         b.addEventListener('click', function () {
           document.querySelectorAll('.pa-gallery-view button').forEach(function (x) { x.classList.remove('is-active'); });
           b.classList.add('is-active');
-          grid.classList.remove('is-masonry', 'is-list');
-          if (b.getAttribute('data-view') === 'masonry') grid.classList.add('is-masonry');
-          if (b.getAttribute('data-view') === 'list') grid.classList.add('is-list');
+          grid.classList.remove('is-masonry', 'is-flex', 'is-card', 'is-list');
+          var v = b.getAttribute('data-view');
+          if (v !== 'grid') grid.classList.add('is-' + v);
         });
       });
 
       // ---- Category filter ----
+      function applyFilter(f) {
+        var shown = 0;
+        items.forEach(function (it) {
+          var ok = f === 'all' || it.cat === f;
+          it.el.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        empty.style.display = shown ? 'none' : 'block';
+      }
       document.querySelectorAll('#gallery-filters .pa-chip').forEach(function (chip) {
         chip.addEventListener('click', function () {
           document.querySelectorAll('#gallery-filters .pa-chip').forEach(function (c) { c.classList.remove('is-primary'); });
           chip.classList.add('is-primary');
-          var f = chip.getAttribute('data-filter');
-          var shown = 0;
-          items.forEach(function (it) {
-            var ok = f === 'all' || it.cat === f;
-            it.el.style.display = ok ? '' : 'none';
-            if (ok) shown++;
-          });
-          empty.style.display = shown ? 'none' : 'block';
+          applyFilter(chip.getAttribute('data-filter'));
         });
       });
 

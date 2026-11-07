@@ -15,7 +15,7 @@
       <main class="pa-content" id="pa-main-content">
         <div class="pa-page-header">
           <div>
-            <h1>بهترین روش یادگیری React در ۲۰۲۴؟</h1>
+            <h1 id="topic-title">بهترین روش یادگیری React در ۲۰۲۴؟</h1>
             <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="forum-list.html">انجمن</a><span class="pa-sep">›</span><span>موضوع</span></div>
           </div>
         </div>
@@ -27,226 +27,41 @@
             <div class="pa-card pa-mb-2 pa-anim-slide-up">
               <div class="pa-card-body">
                 <div class="pa-d-flex pa-align-center pa-gap-2 pa-mb-1" style="flex-wrap:wrap">
-                  <span data-pa-icon="flame" data-pa-icon-size="20" style="color:var(--pa-danger)"></span>
-                  <h2 class="pa-mb-0" style="font-size:1.3rem; flex:1; min-width:200px">بهترین روش یادگیری React در ۲۰۲۴؟</h2>
-                  <span class="pa-badge pa-badge-primary">فرانت‌اند</span>
-                  <span class="pa-badge pa-badge-warning">داغ</span>
+                  <span id="topic-flame" data-pa-icon="flame" data-pa-icon-size="20" style="color:var(--pa-danger)"></span>
+                  <h2 class="pa-mb-0" id="topic-h2" style="font-size:1.3rem; flex:1; min-width:200px">بهترین روش یادگیری React در ۲۰۲۴؟</h2>
+                  <span class="pa-badge pa-badge-primary" id="topic-cat">فرانت‌اند</span>
+                  <span class="pa-badge pa-badge-warning" id="topic-hot">داغ</span>
                 </div>
                 <div class="pa-fs-sm pa-text-muted pa-mb-1">
-                  شروع‌شده توسط <strong>امیر رضایی</strong> در ۱۴۰۳/۰۸/۱۲ ساعت ۱۰:۳۰ •
-                  <span data-pa-icon="comments" data-pa-icon-size="12"></span> ۲۴ پاسخ •
-                  <span data-pa-icon="eye" data-pa-icon-size="12"></span> ۱٬۲۴۵ بازدید •
-                  آخرین پاسخ ۲ ساعت پیش
+                  شروع‌شده توسط <strong id="topic-author">امیر رضایی</strong> در <span id="topic-date">۱۴۰۳/۰۸/۱۲</span> •
+                  <span data-pa-icon="comments" data-pa-icon-size="12"></span> <span id="topic-replies">۲۴</span> پاسخ •
+                  <span data-pa-icon="eye" data-pa-icon-size="12"></span> <span id="topic-views">۱٬۲۴۵</span> بازدید
                 </div>
-                <div class="pa-tag-cloud">
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs"><span data-pa-icon="hashtag" data-pa-icon-size="12"></span> React</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs"><span data-pa-icon="hashtag" data-pa-icon-size="12"></span> JavaScript</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs"><span data-pa-icon="hashtag" data-pa-icon-size="12"></span> frontend</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs"><span data-pa-icon="hashtag" data-pa-icon-size="12"></span> Hooks</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs"><span data-pa-icon="hashtag" data-pa-icon-size="12"></span> آموزش</a>
-                </div>
+                <div class="pa-tag-cloud" id="topic-tags"></div>
               </div>
             </div>
 
-            <!-- Original post -->
-            <div class="pa-forum-post pa-anim-slide-up pa-anim-delay-1">
-              <div class="pa-post-aside">
-                <span class="pa-avatar pa-post-avatar" style="background:linear-gradient(135deg,var(--pa-danger),var(--pa-warning)); color:#fff; display:grid; place-items:center; font-weight:700; font-size:1.5rem">ا</span>
-                <div class="pa-post-author">امیر رضایی</div>
-                <div class="pa-post-role">عضو فعال</div>
-                <div class="pa-post-badges">
-                  <span class="pa-badge pa-badge-primary">سطح ۸</span>
-                  <span class="pa-badge pa-badge-success">تأیید شده</span>
-                </div>
-                <div class="pa-fs-sm pa-text-muted pa-mt-1">
-                  <div>۸۹۰ پست</div>
-                  <div>عضو از ۱۳۹۸</div>
-                </div>
-              </div>
-              <div class="pa-post-body">
-                <div class="pa-post-header">
-                  <span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲ - ۱۰:۳۰</span>
-                  <span class="pa-badge pa-badge-primary">#۱</span>
-                </div>
-                <div class="pa-post-content">
-                  <p>سلام به همه‌ی دوستان عزیز،</p>
-                  <p>مدت زیادی است که با JavaScript کار می‌کنم و حالا می‌خواهم وارد دنیای React شوم. با توجه به تغییرات زیاد اکوسیستم در سال ۲۰۲۴ (Next.js 14، Server Components، React 19 و…) کمی سردرگم شده‌ام. خواستم از تجربه‌ی شما بپرسم که بهترین مسیر یادگیری React در حال حاضر چیست؟</p>
-                  <p>سوالات مشخصی که دارم:</p>
-                  <ul>
-                    <li>آیا بهتر است ابتدا با Create React App شروع کنم یا مستقیم به Next.js بروم؟</li>
-                    <li>منابع آموزشی به‌روز و فارسی پیشنهادی شما چیست؟</li>
-                    <li>چقدر باید روی TypeScript تمرکز کنم؟</li>
-                    <li>پروژه‌های تمرینی خوب برای شروع چه هستند؟</li>
-                  </ul>
-                  <p>ممنون می‌شوم اگر تجربه‌ها و منابع خود را به اشتراک بگذارید. هدفم این است که در ۳ ماه آینده به سطح قابل‌قبولی برسم.</p>
-                </div>
-                <div class="pa-post-actions">
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="quote" data-pa-icon-size="14"></span> نقل‌قول</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                  <button type="button" class="pa-link-btn pa-text-primary"><span data-pa-icon="heart" data-pa-icon-size="14"></span> ۳۲ پسند</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Reply 1 -->
-            <div class="pa-forum-post pa-anim-slide-up pa-anim-delay-1">
-              <div class="pa-post-aside">
-                <span class="pa-avatar pa-post-avatar" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700; font-size:1.5rem">س</span>
-                <div class="pa-post-author">سارا کریمی</div>
-                <div class="pa-post-role">طراح ارشد محصول</div>
-                <div class="pa-post-badges"><span class="pa-badge pa-badge-warning">مدیر</span></div>
-                <div class="pa-fs-sm pa-text-muted pa-mt-1"><div>۵۳۲ پست</div><div>عضو از ۱۳۹۷</div></div>
-              </div>
-              <div class="pa-post-body">
-                <div class="pa-post-header">
-                  <span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲ - ۱۱:۱۵</span>
-                  <span class="pa-badge pa-badge-primary">#۲</span>
-                </div>
-                <div class="pa-post-content">
-                  <p>سلام امیر، خوش‌آمدی به دنیای React!</p>
-                  <p>پیشنهاد من این است که <strong>مستقیم با Next.js 14 شروع کنی</strong>. امروزه Create React App تقریباً منسوخ شده و جامعه‌ی React به‌سمت فریم‌ورک‌های مبتنی بر آن حرکت کرده. با Next.js هم می‌توانی صفحات ساده بسازی و هم به‌تدریج با Server Components و App Router آشنا شوی.</p>
-                  <p>برای منابع فارسی، مستندات رسمی React (react.dev) ترجمه‌ی خوبی دارد و بسیار به‌روز است. برای پروژه‌ی تمرینی هم ساخت یک اپلیکیشن لیست کارها با امکان فیلتر و جستجو، شروع عالی‌ای خواهد بود.</p>
-                </div>
-                <div class="pa-post-actions">
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="quote" data-pa-icon-size="14"></span> نقل‌قول</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                  <button type="button" class="pa-link-btn pa-text-primary"><span data-pa-icon="heart" data-pa-icon-size="14"></span> ۱۸ پسند</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Reply 2 -->
-            <div class="pa-forum-post pa-anim-slide-up pa-anim-delay-2">
-              <div class="pa-post-aside">
-                <span class="pa-avatar pa-post-avatar" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700; font-size:1.5rem">ع</span>
-                <div class="pa-post-author">علی نوری</div>
-                <div class="pa-post-role">توسعه‌دهنده ارشد</div>
-                <div class="pa-post-badges"><span class="pa-badge pa-badge-primary">سطح ۶</span></div>
-                <div class="pa-fs-sm pa-text-muted pa-mt-1"><div>۴۱۵ پست</div><div>عضو از ۱۳۹۹</div></div>
-              </div>
-              <div class="pa-post-body">
-                <div class="pa-post-header">
-                  <span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲ - ۱۲:۴۰</span>
-                  <span class="pa-badge pa-badge-primary">#۳</span>
-                </div>
-                <div class="pa-post-content">
-                  <p>موافقم با سارا. یک نکته‌ی مهم دیگر: <strong>TypeScript را از همان روز اول یاد بگیر</strong>. امروزه بیش از ۸۰٪ موقعیت‌های شغلی React نیازمند TypeScript هستند و یادگیری آن بعداً سخت‌تر می‌شود.</p>
-                  <p>برای منابع انگلیسی هم پیشنهاد می‌کنم دوره‌ی Epic React از Kent C. Dodds و ویدیوهای Theo (t3.gg) روی YouTube را ببینی. هر دو بسیار کاربردی و به‌روز هستند.</p>
-                </div>
-                <div class="pa-post-actions">
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="quote" data-pa-icon-size="14"></span> نقل‌قول</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                  <button type="button" class="pa-link-btn pa-text-primary"><span data-pa-icon="heart" data-pa-icon-size="14"></span> ۲۴ پسند</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Reply 3 -->
-            <div class="pa-forum-post pa-anim-slide-up pa-anim-delay-2">
-              <div class="pa-post-aside">
-                <span class="pa-avatar pa-post-avatar" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700; font-size:1.5rem">ن</span>
-                <div class="pa-post-author">نگار محمدی</div>
-                <div class="pa-post-role">عضو</div>
-                <div class="pa-fs-sm pa-text-muted pa-mt-1"><div>۱۸۷ پست</div><div>عضو از ۱۴۰۱</div></div>
-              </div>
-              <div class="pa-post-body">
-                <div class="pa-post-header">
-                  <span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲ - ۱۴:۰۵</span>
-                  <span class="pa-badge pa-badge-primary">#۴</span>
-                </div>
-                <div class="pa-post-content">
-                  <p>من خودم همین مسیر را ۶ ماه پیش طی کردم. تجربه‌ام این بود که ابتدا ۲ هفته فقط روی مفاهیم پایه‌ی React (Components، Props، State، useEffect) متمرکز شدم و بعد وارد Next.js شدم.</p>
-                  <p>یک توصیه: حتماً با یک پروژه‌ی واقعی کار کن، نه فقط تمرین‌های جزئی. من یک کلون کوچک از توییتر ساختم و چیزهای زیادی یاد گرفتم. موفق باشی!</p>
-                </div>
-                <div class="pa-post-actions">
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="quote" data-pa-icon-size="14"></span> نقل‌قول</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                  <button type="button" class="pa-link-btn pa-text-primary"><span data-pa-icon="heart" data-pa-icon-size="14"></span> ۹ پسند</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Reply 4 -->
-            <div class="pa-forum-post pa-anim-slide-up pa-anim-delay-3">
-              <div class="pa-post-aside">
-                <span class="pa-avatar pa-post-avatar" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700; font-size:1.5rem">م</span>
-                <div class="pa-post-author">مریم صادقی</div>
-                <div class="pa-post-role">مدیر انجمن</div>
-                <div class="pa-post-badges"><span class="pa-badge pa-badge-warning">مدیر</span><span class="pa-badge pa-badge-success">تأیید شده</span></div>
-                <div class="pa-fs-sm pa-text-muted pa-mt-1"><div>۶۸۰ پست</div><div>عضو از ۱۳۹۶</div></div>
-              </div>
-              <div class="pa-post-body">
-                <div class="pa-post-header">
-                  <span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲ - ۱۶:۲۰</span>
-                  <span class="pa-badge pa-badge-primary">#۵</span>
-                </div>
-                <div class="pa-post-content">
-                  <p>یک نکته‌ی مهم که دوستان نگفتند: <strong>مفاهیم JavaScript مدرن را قبل از ورود به React تسلط داشته باش</strong>. مخصوصاً:</p>
-                  <ul>
-                    <li> destructuring و spread/rest operators</li>
-                    <li>arrow functions و closure</li>
-                    <li>Promise و async/await</li>
-                    <li>متدهای آرایه (map، filter، reduce)</li>
-                  </ul>
-                  <p>بدون این پایه‌ها، یادگیری React دردناک خواهد بود. موفق باشی!</p>
-                </div>
-                <div class="pa-post-actions">
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="quote" data-pa-icon-size="14"></span> نقل‌قول</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                  <button type="button" class="pa-link-btn pa-text-primary"><span data-pa-icon="heart" data-pa-icon-size="14"></span> ۲۷ پسند</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Reply 5 -->
-            <div class="pa-forum-post pa-anim-slide-up pa-anim-delay-3">
-              <div class="pa-post-aside">
-                <span class="pa-avatar pa-post-avatar" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700; font-size:1.5rem">م</span>
-                <div class="pa-post-author">محمد قاسمی</div>
-                <div class="pa-post-role">عضو جدید</div>
-                <div class="pa-fs-sm pa-text-muted pa-mt-1"><div>۴۲ پست</div><div>عضو از ۱۴۰۲</div></div>
-              </div>
-              <div class="pa-post-body">
-                <div class="pa-post-header">
-                  <span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ۱۴۰۳/۰۸/۱۲ - ۱۸:۴۵</span>
-                  <span class="pa-badge pa-badge-primary">#۶</span>
-                </div>
-                <div class="pa-post-content">
-                  <p>من هم دقیقاً همین سوال را داشتم! ممنون از همه‌ی دوستان بابت پاسخ‌های عالی.</p>
-                  <p>یک سوال دیگر: برای مدیریت state آیا از ابتدا با Zustand یا Jotai کار کنم یا فقط با Context API شروع کنم؟</p>
-                </div>
-                <div class="pa-post-actions">
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="quote" data-pa-icon-size="14"></span> نقل‌قول</button>
-                  <button type="button" class="pa-link-btn pa-text-muted"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>
-                  <button type="button" class="pa-link-btn pa-text-primary"><span data-pa-icon="heart" data-pa-icon-size="14"></span> ۵ پسند</button>
-                </div>
-              </div>
-            </div>
+            <!-- OP + replies (store-backed) -->
+            <div id="posts-list"></div>
 
             <!-- Quick reply -->
             <div class="pa-card pa-mt-2 pa-anim-slide-up pa-anim-delay-4">
               <div class="pa-card-header"><h3>پاسخ سریع</h3></div>
               <div class="pa-card-body">
                 <div class="pa-d-flex pa-gap-2 pa-mb-1" style="align-items:flex-start">
-                  <span class="pa-avatar pa-avatar-md" style="background:linear-gradient(135deg,var(--pa-primary),var(--pa-info)); color:#fff; display:grid; place-items:center; font-weight:700">ش</span>
+                  <span class="pa-avatar pa-avatar-md" id="reply-avatar" style="background:linear-gradient(135deg,var(--pa-primary),var(--pa-info)); color:#fff; display:grid; place-items:center; font-weight:700">ش</span>
                   <div class="pa-flex-1">
-                    <textarea class="pa-textarea" rows="4" placeholder="پاسخ خود را بنویسید… (شما می‌توانید از Markdown استفاده کنید)"></textarea>
+                    <textarea class="pa-textarea" id="reply-text" rows="4" placeholder="پاسخ خود را بنویسید…" data-pa-validate="required"></textarea>
+                    <div class="pa-form-feedback"></div>
                   </div>
                 </div>
                 <div class="pa-d-flex pa-align-center pa-gap-1">
-                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن کد"><span data-pa-icon="code" data-pa-icon-size="14"></span></button>
-                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن لینک"><span data-pa-icon="link" data-pa-icon-size="14"></span></button>
-                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن تصویر"><span data-pa-icon="image" data-pa-icon-size="14"></span></button>
-                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن نقل‌قول"><span data-pa-icon="quote" data-pa-icon-size="14"></span></button>
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن کد" type="button"><span data-pa-icon="code" data-pa-icon-size="14"></span></button>
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن لینک" type="button"><span data-pa-icon="link" data-pa-icon-size="14"></span></button>
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن تصویر" type="button"><span data-pa-icon="image" data-pa-icon-size="14"></span></button>
+                  <button class="pa-btn pa-btn-ghost pa-btn-sm" aria-label="افزودن نقل‌قول" type="button"><span data-pa-icon="quote" data-pa-icon-size="14"></span></button>
                   <div class="pa-flex-1"></div>
-                  <button class="pa-btn pa-btn-outline pa-btn-sm">پیش‌نمایش</button>
-                  <button class="pa-btn pa-btn-primary" onclick="PAdminLTE.toast({kind:'success',title:'ارسال شد',message:'پاسخ شما ثبت شد.'});"><span data-pa-icon="send" data-pa-icon-size="14"></span> ارسال پاسخ</button>
+                  <button class="pa-btn pa-btn-primary" id="reply-send" type="button"><span data-pa-icon="send" data-pa-icon-size="14"></span> ارسال پاسخ</button>
                 </div>
               </div>
             </div>
@@ -257,54 +72,28 @@
             <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-1">
               <div class="pa-card-header"><h3>اطلاعات موضوع</h3></div>
               <div class="pa-card-body pa-fs-sm">
-                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">ایجاد شده</span><strong>۱۴۰۳/۰۸/۱۲</strong></div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">آخرین پاسخ</span><strong>۲ ساعت پیش</strong></div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">دسته‌بندی</span><a href="forum-list.html" style="color:var(--pa-primary)">فرانت‌اند</a></div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">پاسخ‌ها</span><strong>۲۴</strong></div>
-                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">بازدیدها</span><strong>۱٬۲۴۵</strong></div>
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">ایجاد شده</span><strong id="info-date">۱۴۰۳/۰۸/۱۲</strong></div>
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">پاسخ‌ها</span><strong id="info-replies">۲۴</strong></div>
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">بازدیدها</span><strong id="info-views">۱٬۲۴۵</strong></div>
+                <div class="pa-d-flex pa-justify-between pa-mb-1"><span class="pa-text-muted">دسته‌بندی</span><a href="forum-list.html" id="info-cat" style="color:var(--pa-primary)">فرانت‌اند</a></div>
                 <hr>
                 <div class="pa-text-muted pa-mb-1">برچسب‌ها:</div>
-                <div class="pa-tag-cloud">
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs">React</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs">JavaScript</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs">frontend</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs">Hooks</a>
-                  <a href="tags.html" class="pa-tag pa-tag-size-xs">آموزش</a>
-                </div>
+                <div class="pa-tag-cloud" id="info-tags"></div>
               </div>
             </div>
 
             <div class="pa-card pa-mb-2 pa-anim-slide-up pa-anim-delay-2">
               <div class="pa-card-header"><h3>مشارکت‌کنندگان</h3></div>
               <div class="pa-card-body">
-                <div class="pa-avatar-list pa-mb-1">
-                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-danger-soft); color:var(--pa-danger); display:grid; place-items:center; font-weight:700">ا</span>
-                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-success-soft); color:var(--pa-success); display:grid; place-items:center; font-weight:700">س</span>
-                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-primary-soft); color:var(--pa-primary); display:grid; place-items:center; font-weight:700">ع</span>
-                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-info-soft); color:var(--pa-info); display:grid; place-items:center; font-weight:700">ن</span>
-                  <span class="pa-avatar pa-avatar-md" style="background:var(--pa-warning-soft); color:var(--pa-warning); display:grid; place-items:center; font-weight:700">م</span>
-                </div>
-                <div class="pa-fs-sm pa-text-muted">۶ نفر در این گفتگو مشارکت دارند.</div>
+                <div class="pa-avatar-list pa-mb-1" id="participants"></div>
+                <div class="pa-fs-sm pa-text-muted" id="participants-note">—</div>
               </div>
             </div>
 
             <div class="pa-card pa-anim-slide-up pa-anim-delay-3">
               <div class="pa-card-header"><h3>موضوعات مشابه</h3></div>
               <div class="pa-card-body" style="padding:0">
-                <ul style="list-style:none; margin:0; padding:0">
-                  <li style="padding:.75rem 1rem; border-bottom:1px solid var(--pa-border)">
-                    <a href="forum-topic.html" class="pa-fw-600 pa-fs-sm" style="color:var(--pa-text)">انتخاب بین React و Vue در ۲۰۲۴</a>
-                    <div class="pa-fs-sm pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="12"></span> ۱۸ پاسخ • <span data-pa-icon="eye" data-pa-icon-size="12"></span> ۸۹۰ بازدید</div>
-                  </li>
-                  <li style="padding:.75rem 1rem; border-bottom:1px solid var(--pa-border)">
-                    <a href="forum-topic.html" class="pa-fw-600 pa-fs-sm" style="color:var(--pa-text)">بهترین کتابخانه‌های فرم در React</a>
-                    <div class="pa-fs-sm pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="12"></span> ۱۲ پاسخ • <span data-pa-icon="eye" data-pa-icon-size="12"></span> ۵۴۰ بازدید</div>
-                  </li>
-                  <li style="padding:.75rem 1rem">
-                    <a href="forum-topic.html" class="pa-fw-600 pa-fs-sm" style="color:var(--pa-text)">آیا Redux هنوز ارزش یادگیری دارد؟</a>
-                    <div class="pa-fs-sm pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="12"></span> ۳۶ پاسخ • <span data-pa-icon="eye" data-pa-icon-size="12"></span> ۱٬۵۲۰ بازدید</div>
-                  </li>
-                </ul>
+                <ul style="list-style:none; margin:0; padding:0" id="similar-topics"></ul>
               </div>
             </div>
           </div>
@@ -317,5 +106,216 @@
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
+  <script>
+    // Store-backed topic view: renders by ?id=, persists replies + likes.
+    (function () {
+      var TOPIC_SEED = [
+        { id: 'f1', title: 'بهترین روش یادگیری React در ۲۰۲۴؟', author: 'امیر رضایی', category: 'فرانت‌اند', badgeKind: 'primary', time: '۲ ساعت پیش', date: '۱۴۰۳/۰۸/۱۲', replies: 24, views: 1245, solved: false, pinned: false,
+          tags: ['React', 'JavaScript', 'frontend', 'Hooks', 'آموزش'],
+          body: 'سلام به همه‌ی دوستان عزیز،\nمدت زیادی است که با JavaScript کار می‌کنم و حالا می‌خواهم وارد دنیای React شوم. با توجه به تغییرات زیاد اکوسیستم در سال ۲۰۲۴ (Next.js 14، Server Components، React 19 و…) کمی سردرگم شده‌ام. خواستم از تجربه‌ی شما بپرسم که بهترین مسیر یادگیری React در حال حاضر چیست؟\nسوالات مشخصی که دارم:\n• آیا بهتر است ابتدا با Create React App شروع کنم یا مستقیم به Next.js بروم؟\n• منابع آموزشی به‌روز و فارسی پیشنهادی شما چیست؟\n• چقدر باید روی TypeScript تمرکز کنم؟\n• پروژه‌های تمرینی خوب برای شروع چه هستند؟\nممنون می‌شوم اگر تجربه‌ها و منابع خود را به اشتراک بگذارید. هدفم این است که در ۳ ماه آینده به سطح قابل‌قبولی برسم.',
+          opMeta: { role: 'عضو فعال', level: 'سطح ۸', verified: true, posts: '۸۹۰', since: '۱۳۹۸' }, hot: true },
+        { id: 'f2', title: 'مشکل در اجرای Docker روی ویندوز', author: 'محمد قاسمی', category: 'دواپس', badgeKind: 'warning', time: '۴ ساعت پیش', date: '۱۴۰۳/۰۸/۱۱', replies: 8, views: 320, solved: false, pinned: false,
+          tags: ['Docker', 'ویندوز', 'WSL2'], body: 'هنگام اجرای docker-compose روی ویندوز ۱۱ با خطای WSL2 مواجه می‌شوم. WSL را نصب کرده‌ام و ویژگی مجازی‌سازی هم فعال است. از دوستان کسی راه‌حلی دارد؟' },
+        { id: 'f3', title: 'ساخت API با Node.js و Express', author: 'سارا کریمی', category: 'بک‌اند', badgeKind: 'success', time: '۶ ساعت پیش', date: '۱۴۰۳/۰۸/۱۱', replies: 15, views: 680, solved: true, pinned: false,
+          tags: ['Node.js', 'Express', 'API'], body: 'قصد دارم یک REST API با Node.js و Express بسازم. به‌عنوان بهترین ساختار پوشه‌بندی و الگوی مدیریت خطا چه پیشنهادی دارید؟ تجربه‌های خودتان را بگویید.' },
+        { id: 'f4', title: 'بهینه‌سازی کوئری‌های SQL', author: 'علی نوری', category: 'پایگاه داده', badgeKind: 'info', time: 'دیروز', date: '۱۴۰۳/۰۸/۱۰', replies: 32, views: 1890, solved: false, pinned: false,
+          tags: ['SQL', 'Index', 'Performance'], body: 'یک جدول با ۱۰ میلیون رکورد داریم و کوئری‌های گزارش‌گیری خیلی کند شده‌اند. از INDEX و EXPLAIN استفاده کرده‌ام اما باز هم کند است. راه‌حل‌های پیشرفته‌تر چیست؟', hot: true },
+        { id: 'f5', title: 'انتخاب فریم‌ورک فرانت‌اند', author: 'نگار محمدی', category: 'فرانت‌اند', badgeKind: 'primary', time: 'دیروز', date: '۱۴۰۳/۰۸/۱۰', replies: 20, views: 980, solved: true, pinned: false,
+          tags: ['React', 'Vue', 'Svelte'], body: 'برای یک پروژه‌ی متوسط سازمانی، بین React و Vue و Svelte کدام را پیشنهاد می‌کنید؟ معیارها: جامعه‌ی کاربری، استخدام نیرو و ماندگاری بلندمدت.' },
+        { id: 'f6', title: 'تفاوت TypeScript و JavaScript', author: 'مریم صادقی', category: 'ثابت‌شده', badgeKind: 'warning', time: '۲ روز پیش', date: '۱۴۰۳/۰۸/۰۹', replies: 41, views: 2340, solved: false, pinned: true,
+          tags: ['TypeScript', 'JavaScript'], body: 'برای تازه‌کارها سؤال پرتکرار: تفاوت اصلی TypeScript با JavaScript چیست و از کجا شروع کنیم؟ منابع فارسی معرفی کنید.' },
+        { id: 'f7', title: 'امنیت در اپلیکیشن‌های موبایل', author: 'رضا فلاح', category: 'امنیت', badgeKind: 'danger', time: '۳ روز پیش', date: '۱۴۰۳/۰۸/۰۸', replies: 3, views: 120, solved: false, pinned: false,
+          tags: ['امنیت', 'موبایل', 'OWASP'], body: 'چک‌لیست امنیتی اپلیکیشن موبایل (اندروید/iOS) بر پایه OWASP را کجا می‌توانم پیدا کنم و مهم‌ترین بندها کدام‌اند؟' },
+        { id: 'f8', title: 'معرفی ابزارهای توسعه', author: 'زهرا موسوی', category: 'ابزارها', badgeKind: 'primary', time: '۴ روز پیش', date: '۱۴۰۳/۰۸/۰۷', replies: 18, views: 560, solved: true, pinned: false,
+          tags: ['ابزارها', 'DevTools'], body: 'ابزارهای روزمره‌ی توسعه‌دهندگان (ویرایشگر، ترمینال، دیباگ و…) را که بیشترین بهره‌وری را برای شما داشته معرفی کنید.' },
+        { id: 'f9', title: 'مشکل در تنظیمات NGINX', author: 'حسین رستمی', category: 'شبکه', badgeKind: 'info', time: '۵ روز پیش', date: '۱۴۰۳/۰۸/۰۶', replies: 2, views: 85, solved: false, pinned: false,
+          tags: ['NGINX', 'Reverse Proxy'], body: 'در تنظیم reverse-proxy روی NGINX خطای 502 می‌گیرم. upstream صحیح تنظیم شده اما اتصال برقرار نمی‌شود. لاگ‌ها چه می‌گویند؟' },
+        { id: 'f10', title: 'آموزش Git پیشرفته', author: 'پویا احمدی', category: 'آموزش', badgeKind: 'warning', time: '۱ هفته پیش', date: '۱۴۰۳/۰۸/۰۲', replies: 56, views: 3210, solved: true, pinned: true,
+          tags: ['Git', 'Rebase', 'آموزش'], body: 'منابع خوب برای یادگیری قابلیت‌های پیشرفته Git (rebase، cherry-pick، bisect و…) چه هستند؟ تمرین عملی هم داشته باشد.' }
+      ];
+      var REPLY_SEED = [
+        { id: 'r1', topicId: 'f1', isOp: true, author: 'امیر رضایی', role: 'عضو فعال', level: 'سطح ۸', verified: true, color: 'linear-gradient(135deg,var(--pa-danger),var(--pa-warning))|#fff', posts: '۸۹۰', since: '۱۳۹۸', time: '۱۴۰۳/۰۸/۱۲ - ۱۰:۳۰', likes: 32,
+          text: 'سلام به همه‌ی دوستان عزیز،\nمدت زیادی است که با JavaScript کار می‌کنم و حالا می‌خواهم وارد دنیای React شوم. با توجه به تغییرات زیاد اکوسیستم در سال ۲۰۲۴ کمی سردرگم شده‌ام. بهترین مسیر یادگیری React در حال حاضر چیست؟' },
+        { id: 'r2', topicId: 'f1', author: 'سارا کریمی', role: 'طراح ارشد محصول', level: 'مدیر', color: 'var(--pa-success-soft)|var(--pa-success)', posts: '۵۳۲', since: '۱۳۹۷', time: '۱۴۰۳/۰۸/۱۲ - ۱۱:۱۵', likes: 18,
+          text: 'سلام امیر، خوش‌آمدی به دنیای React!\nپیشنهاد من این است که مستقیم با Next.js 14 شروع کنی. امروزه Create React App تقریباً منسوخ شده و جامعه‌ی React به‌سمت فریم‌ورک‌های مبتنی بر آن حرکت کرده.\nبرای منابع فارسی، مستندات رسمی React (react.dev) ترجمه‌ی خوبی دارد. برای پروژه‌ی تمرینی هم ساخت یک اپلیکیشن لیست کارها شروع عالی‌ای خواهد بود.' },
+        { id: 'r3', topicId: 'f1', author: 'علی نوری', role: 'توسعه‌دهنده ارشد', level: 'سطح ۶', color: 'var(--pa-primary-soft)|var(--pa-primary)', posts: '۴۱۵', since: '۱۳۹۹', time: '۱۴۰۳/۰۸/۱۲ - ۱۲:۴۰', likes: 24,
+          text: 'موافقم با سارا. یک نکته‌ی مهم دیگر: TypeScript را از همان روز اول یاد بگیر. امروزه بیش از ۸۰٪ موقعیت‌های شغلی React نیازمند TypeScript هستند.\nبرای منابع انگلیسی هم دوره‌ی Epic React از Kent C. Dodds و ویدیوهای Theo (t3.gg) عالی هستند.' },
+        { id: 'r4', topicId: 'f1', author: 'نگار محمدی', role: 'عضو', color: 'var(--pa-info-soft)|var(--pa-info)', posts: '۱۸۷', since: '۱۴۰۱', time: '۱۴۰۳/۰۸/۱۲ - ۱۴:۰۵', likes: 9,
+          text: 'من خودم همین مسیر را ۶ ماه پیش طی کردم. تجربه‌ام این بود که ابتدا ۲ هفته فقط روی مفاهیم پایه‌ی React (Components، Props، State، useEffect) متمرکز شدم.\nیک توصیه: حتماً با یک پروژه‌ی واقعی کار کن، نه فقط تمرین‌های جزئی. موفق باشی!' },
+        { id: 'r5', topicId: 'f1', author: 'مریم صادقی', role: 'مدیر انجمن', level: 'مدیر', verified: true, color: 'var(--pa-warning-soft)|var(--pa-warning)', posts: '۶۸۰', since: '۱۳۹۶', time: '۱۴۰۳/۰۸/۱۲ - ۱۶:۲۰', likes: 27,
+          text: 'یک نکته‌ی مهم که دوستان نگفتند: بر مفاهیم JavaScript مدرن تسلط داشته باش. مخصوصاً:\n• destructuring و spread/rest operators\n• arrow functions و closure\n• Promise و async/await\n• متدهای آرایه (map، filter، reduce)\nبدون این پایه‌ها، یادگیری React دردناک خواهد بود. موفق باشی!' },
+        { id: 'r6', topicId: 'f1', author: 'محمد قاسمی', role: 'عضو جدید', color: 'var(--pa-danger-soft)|var(--pa-danger)', posts: '۴۲', since: '۱۴۰۲', time: '۱۴۰۳/۰۸/۱۲ - ۱۸:۴۵', likes: 5,
+          text: 'من هم دقیقاً همین سوال را داشتم! ممنون از همه‌ی دوستان بابت پاسخ‌های عالی.\nیک سوال دیگر: برای مدیریت state آیا از ابتدا با Zustand یا Jotai کار کنم یا فقط با Context API شروع کنم؟' }
+      ];
+
+      var topics = PAdminLTE.store.get('pa-forum-topics', TOPIC_SEED);
+      var id = new URLSearchParams(location.search).get('id') || 'f1';
+      var topic = PAdminLTE.store.find('pa-forum-topics', id, TOPIC_SEED) || topics[0] || TOPIC_SEED[0];
+      var allReplies = PAdminLTE.store.get('pa-forum-replies', REPLY_SEED);
+      var replies = allReplies.filter(function (r) { return String(r.topicId) === String(topic.id); });
+      if (!replies.length) {
+        // Build an OP from the topic body so every topic is viewable
+        replies = [{
+          id: 'r-op-' + topic.id, topicId: String(topic.id), isOp: true,
+          author: topic.author || 'مهمان', role: 'شروع‌کننده موضوع',
+          color: 'linear-gradient(135deg,var(--pa-primary),var(--pa-info))|#fff',
+          time: (topic.date || '') + ' - ۱۰:۳۰', likes: 0, text: topic.body || topic.title
+        }];
+      }
+
+      function fa(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+      function faSep(n) { return fa(String(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '٬'); }
+      function esc(s) { var d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+      // ---- Views (once per session) ----
+      var vKey = 'pa-fview-' + topic.id;
+      var viewed = null;
+      try { viewed = sessionStorage.getItem(vKey); } catch (e) {}
+      if (!viewed) {
+        topic.views = (topic.views || 0) + 1;
+        PAdminLTE.store.update('pa-forum-topics', topic.id, { views: topic.views }, TOPIC_SEED);
+        try { sessionStorage.setItem(vKey, '1'); } catch (e) {}
+      }
+
+      // ---- Header / sidebar ----
+      document.title = 'PAdminLTE — ' + topic.title;
+      document.getElementById('topic-title').textContent = topic.title;
+      document.getElementById('topic-h2').textContent = topic.title;
+      document.getElementById('topic-cat').textContent = topic.category || 'عمومی';
+      document.getElementById('topic-author').textContent = topic.author || 'مهمان';
+      document.getElementById('topic-date').textContent = topic.date || '';
+      document.getElementById('topic-views').textContent = faSep(topic.views || 0);
+      document.getElementById('info-date').textContent = topic.date || '—';
+      document.getElementById('info-views').textContent = faSep(topic.views || 0);
+      document.getElementById('info-cat').textContent = topic.category || 'عمومی';
+      var flame = document.getElementById('topic-flame');
+      var hot = document.getElementById('topic-hot');
+      if (!(topic.views >= 1000)) { flame.style.display = 'none'; hot.style.display = 'none'; }
+      var tagsHtml = (topic.tags && topic.tags.length ? topic.tags : ['عمومی']).map(function (t) {
+        return '<a href="tags.html" class="pa-tag pa-tag-size-xs"><span data-pa-icon="hashtag" data-pa-icon-size="12"></span> ' + esc(t) + '</a>';
+      }).join('');
+      document.getElementById('topic-tags').innerHTML = tagsHtml;
+      document.getElementById('info-tags').innerHTML = (topic.tags && topic.tags.length ? topic.tags : ['عمومی']).map(function (t) {
+        return '<a href="tags.html" class="pa-tag pa-tag-size-xs">' + esc(t) + '</a>';
+      }).join('');
+
+      // ---- Posts rendering ----
+      var list = document.getElementById('posts-list');
+      function postHtml(r, idx) {
+        var pair = (r.color || 'var(--pa-primary-soft)|var(--pa-primary)').split('|');
+        var paras = String(r.text || '').split(/\n+/).filter(Boolean).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+        var badges = '';
+        if (r.level) badges += '<span class="pa-badge pa-badge-' + (r.isOp ? 'primary' : 'warning') + '">' + esc(r.level) + '</span> ';
+        if (r.verified) badges += '<span class="pa-badge pa-badge-success">تأیید شده</span>';
+        return '<div class="pa-forum-post pa-anim-slide-up' + (idx % 2 ? ' pa-anim-delay-1' : '') + '" data-reply-id="' + r.id + '">' +
+          '<div class="pa-post-aside">' +
+            '<span class="pa-avatar pa-post-avatar" style="background:' + pair[0] + '; color:' + pair[1] + '; display:grid; place-items:center; font-weight:700; font-size:1.5rem">' + esc((r.author || '؟').charAt(0)) + '</span>' +
+            '<div class="pa-post-author">' + esc(r.author || 'مهمان') + '</div>' +
+            '<div class="pa-post-role">' + esc(r.role || 'عضو') + '</div>' +
+            (badges ? '<div class="pa-post-badges">' + badges + '</div>' : '') +
+            (r.posts ? '<div class="pa-fs-sm pa-text-muted pa-mt-1"><div>' + esc(r.posts) + ' پست</div><div>عضو از ' + esc(r.since || '—') + '</div></div>' : '') +
+          '</div>' +
+          '<div class="pa-post-body">' +
+            '<div class="pa-post-header">' +
+              '<span class="pa-post-time"><span data-pa-icon="clock" data-pa-icon-size="12"></span> ' + esc(r.time || '') + '</span>' +
+              '<span class="pa-badge pa-badge-primary">' + (r.isOp ? '#۱ — پست اصلی' : '#' + fa(idx + 1)) + '</span>' +
+            '</div>' +
+            '<div class="pa-post-content">' + paras + '</div>' +
+            '<div class="pa-post-actions">' +
+              '<button type="button" class="pa-link-btn pa-text-muted" data-act="reply"><span data-pa-icon="reply" data-pa-icon-size="14"></span> پاسخ</button>' +
+              '<button type="button" class="pa-link-btn pa-text-muted" data-act="share"><span data-pa-icon="paper_plane" data-pa-icon-size="14"></span> اشتراک</button>' +
+              '<button type="button" class="pa-link-btn ' + (r.likes ? 'pa-text-primary' : 'pa-text-muted') + '" data-act="like"><span data-pa-icon="heart" data-pa-icon-size="14"></span> <span data-likes>' + fa(r.likes || 0) + '</span> پسند</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+      function renderPosts() {
+        list.innerHTML = replies.map(postHtml).join('');
+        PAdminLTE.injectIcons(list);
+        document.getElementById('topic-replies').textContent = fa(Math.max((topic.replies || 0), Math.max(replies.length - 1, 0)));
+        document.getElementById('info-replies').textContent = document.getElementById('topic-replies').textContent;
+        // participants
+        var seen = {};
+        var uniq = replies.filter(function (r) { var k = r.author; if (seen[k]) return false; seen[k] = 1; return true; });
+        var pal = ['var(--pa-danger-soft)|var(--pa-danger)', 'var(--pa-success-soft)|var(--pa-success)', 'var(--pa-primary-soft)|var(--pa-primary)', 'var(--pa-info-soft)|var(--pa-info)', 'var(--pa-warning-soft)|var(--pa-warning)'];
+        document.getElementById('participants').innerHTML = uniq.slice(0, 5).map(function (r, i) {
+          var pair = pal[i % pal.length].split('|');
+          return '<span class="pa-avatar pa-avatar-md" style="background:' + pair[0] + '; color:' + pair[1] + '; display:grid; place-items:center; font-weight:700">' + esc((r.author || '؟').charAt(0)) + '</span>';
+        }).join('');
+        document.getElementById('participants-note').textContent = fa(uniq.length) + ' نفر در این گفتگو مشارکت دارند.';
+      }
+      renderPosts();
+
+      // ---- Post actions (like / share) ----
+      list.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-act]');
+        if (!btn) return;
+        var wrap = btn.closest('[data-reply-id]');
+        var r = replies.filter(function (x) { return String(x.id) === wrap.getAttribute('data-reply-id'); })[0];
+        if (!r) return;
+        var act = btn.getAttribute('data-act');
+        if (act === 'like') {
+          r.likes = (r.likes || 0) + 1;
+          PAdminLTE.store.save('pa-forum-replies', allReplies);
+          btn.querySelector('[data-likes]').textContent = fa(r.likes);
+          btn.classList.add('pa-text-primary');
+        } else if (act === 'share') {
+          PAdminLTE.copyToClipboard(location.href, { message: 'لینک این گفتگو کپی شد.' });
+        } else if (act === 'reply') {
+          document.getElementById('reply-text').focus();
+        }
+      });
+
+      // ---- Quick reply ----
+      var sessionUser = null;
+      try { sessionUser = PAdminLTE.auth.currentUser(); } catch (e) {}
+      var replyAvatar = document.getElementById('reply-avatar');
+      if (sessionUser) {
+        replyAvatar.textContent = (sessionUser.name || 'ش').charAt(0);
+        replyAvatar.style.background = sessionUser.color || 'linear-gradient(135deg,var(--pa-primary),var(--pa-info))';
+      }
+      document.getElementById('reply-send').addEventListener('click', function () {
+        var ta = document.getElementById('reply-text');
+        var val = ta.value.trim();
+        if (!val) {
+          ta.classList.add('is-invalid');
+          PAdminLTE.toast({ kind: 'warning', message: 'متن پاسخ را بنویسید.' });
+          return;
+        }
+        ta.classList.remove('is-invalid');
+        var btn = this;
+        PAdminLTE.btnLoading(btn, true, 'در حال ارسال…');
+        setTimeout(function () {
+          var r = {
+            id: 'r-' + Date.now(),
+            topicId: String(topic.id),
+            author: sessionUser ? sessionUser.name : 'مهمان',
+            role: sessionUser ? (sessionUser.role || 'عضو') : 'مهمان',
+            color: sessionUser && sessionUser.color ? sessionUser.color + '|#fff' : 'var(--pa-primary-soft)|var(--pa-primary)',
+            time: 'همین حالا', likes: 0,
+            text: val
+          };
+          PAdminLTE.store.add('pa-forum-replies', r, REPLY_SEED);
+          replies.push(r);
+          topic.replies = Math.max((topic.replies || 0) + 1, replies.length - 1);
+          PAdminLTE.store.update('pa-forum-topics', topic.id, { replies: topic.replies }, TOPIC_SEED);
+          renderPosts();
+          ta.value = '';
+          PAdminLTE.btnLoading(btn, false);
+          PAdminLTE.toast({ kind: 'success', title: 'ارسال شد', message: 'پاسخ شما با موفقیت ثبت شد.' });
+          list.lastElementChild && list.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 800);
+      });
+
+      // ---- Similar topics ----
+      var similar = topics.filter(function (t) { return String(t.id) !== String(topic.id); }).slice(0, 3);
+      document.getElementById('similar-topics').innerHTML = similar.map(function (t) {
+        return '<li style="padding:.75rem 1rem; border-bottom:1px solid var(--pa-border)">' +
+          '<a href="forum-topic.html?id=' + encodeURIComponent(t.id) + '" class="pa-fw-600 pa-fs-sm" style="color:var(--pa-text)">' + esc(t.title) + '</a>' +
+          '<div class="pa-fs-sm pa-text-muted"><span data-pa-icon="comments" data-pa-icon-size="12"></span> ' + fa(t.replies || 0) + ' پاسخ • <span data-pa-icon="eye" data-pa-icon-size="12"></span> ' + faSep(t.views || 0) + ' بازدید</div>' +
+        '</li>';
+      }).join('');
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — آیکون‌ها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* کمک‌استایل کوچک مخصوص همین صفحه */
+    .pa-icons-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: .6rem;
+    }
+    .pa-icon-cell {
+      display: flex; flex-direction: column; align-items: center; gap: .45rem;
+      padding: .85rem .4rem .65rem; border: 1px solid var(--pa-border);
+      border-radius: var(--pa-radius); background: var(--pa-surface);
+      cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      user-select: none;
+    }
+    .pa-icon-cell:hover {
+      transform: translateY(-3px);
+      border-color: var(--pa-primary);
+      box-shadow: var(--pa-shadow);
+    }
+    .pa-icon-cell .pa-icon { color: var(--pa-primary); }
+    .pa-icon-cell small {
+      font-size: .62rem; color: var(--pa-text-muted);
+      max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      direction: ltr;
+    }
+    .pa-icon-cell.is-copied { border-color: var(--pa-success); box-shadow: 0 0 0 3px rgba(18,137,90,.15); }
+    .pa-icon-size-demo { display: flex; align-items: flex-end; gap: 1.25rem; flex-wrap: wrap; }
+    .pa-icon-size-demo > div { display: flex; flex-direction: column; align-items: center; gap: .35rem; color: var(--pa-text-muted); font-size: .72rem; }
+    .pa-icon-color-demo { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <div class="pa-page-header">
+          <div>
+            <h1>آیکون‌ها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>آیکون‌ها</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <span class="pa-badge pa-badge-primary" id="icon-count">۰ آیکون</span>
+          </div>
+        </div>
+
+        <!-- نحوه استفاده -->
+        <div class="pa-row" data-pa-stagger="90">
+          <div class="pa-col-12 pa-card" data-pa-reveal>
+            <div class="pa-card-header"><span data-pa-icon="code" data-pa-icon-size="16"></span> نحوه استفاده</div>
+            <div class="pa-card-body">
+              <p class="pa-fs-sm pa-text-muted" style="margin-top:0;">
+                همه آیکون‌ها به‌صورت SVG درون‌خطی رندر می‌شوند — بدون فونت آیکون و بدون درخواست شبکه.
+                روی هر آیکون کلیک کنید تا نام آن کپی شود.
+              </p>
+              <div class="pa-d-flex pa-align-center pa-gap-2 pa-flex-wrap">
+                <code>&lt;span data-pa-icon="rocket" data-pa-icon-size="18"&gt;&lt;/span&gt;</code>
+                <code>PAdminLTE.icon('rocket', 18)</code>
+              </div>
+              <hr class="pa-divider">
+              <div class="pa-icon-size-demo">
+                <div><span data-pa-icon="rocket" data-pa-icon-size="14"></span>۱۴</div>
+                <div><span data-pa-icon="rocket" data-pa-icon-size="18"></span>۱۸</div>
+                <div><span data-pa-icon="rocket" data-pa-icon-size="24"></span>۲۴</div>
+                <div><span data-pa-icon="rocket" data-pa-icon-size="32"></span>۳۲</div>
+                <div><span data-pa-icon="rocket" data-pa-icon-size="44"></span>۴۴</div>
+              </div>
+              <hr class="pa-divider">
+              <div class="pa-icon-color-demo">
+                <span data-pa-icon="heart" data-pa-icon-size="22" style="color:var(--pa-danger)"></span>
+                <span data-pa-icon="star" data-pa-icon-size="22" style="color:var(--pa-warning)"></span>
+                <span data-pa-icon="check_circle" data-pa-icon-size="22" style="color:var(--pa-success)"></span>
+                <span data-pa-icon="info" data-pa-icon-size="22" style="color:var(--pa-info)"></span>
+                <span data-pa-icon="bell" data-pa-icon-size="22" style="color:var(--pa-primary)"></span>
+                <span class="pa-fs-sm pa-text-muted">رنگ آیکون‌ها از currentColor پیروی می‌کند.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- جستجو و شبکه آیکون‌ها -->
+        <div class="pa-card" data-pa-reveal>
+          <div class="pa-card-header pa-d-flex pa-justify-between pa-flex-wrap pa-gap-2">
+            <span><span data-pa-icon="sparkles" data-pa-icon-size="16"></span> کتابخانه آیکون‌ها</span>
+            <div class="pa-input-group" style="max-width:260px;">
+              <span class="pa-input-addon" data-pa-icon="search" data-pa-icon-size="14"></span>
+              <input type="search" id="icon-search" class="pa-input" placeholder="جستجوی آیکون…" aria-label="جستجوی آیکون">
+            </div>
+          </div>
+          <div class="pa-card-body">
+            <div class="pa-icons-grid" id="icons-grid" aria-label="فهرست آیکون‌ها"></div>
+            <div class="pa-g-empty" id="icons-empty">آیکونی با این نام پیدا نشد.</div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    (function () {
+      'use strict';
+      var grid = document.getElementById('icons-grid');
+      var empty = document.getElementById('icons-empty');
+      var counter = document.getElementById('icon-count');
+      var search = document.getElementById('icon-search');
+      var names = Object.keys(PAdminLTE.ICONS || {});
+      if (counter) counter.textContent = names.length.toLocaleString('fa-IR') + ' آیکون';
+
+      function faDigits(n) { return String(n).replace(/\d/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[d]; }); }
+
+      function build() {
+        grid.innerHTML = names.map(function (name) {
+          return '<button type="button" class="pa-icon-cell" data-name="' + name + '" title="کپی: ' + name + '">' +
+            PAdminLTE.icon(name, 22) +
+            '<small>' + name + '</small>' +
+          '</button>';
+        }).join('');
+        filter();
+      }
+
+      function filter() {
+        var q = (search.value || '').toLowerCase().trim();
+        var shown = 0;
+        grid.querySelectorAll('.pa-icon-cell').forEach(function (cell) {
+          var name = cell.getAttribute('data-name');
+          var ok = !q || name.indexOf(q) !== -1;
+          cell.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        empty.style.display = shown ? 'none' : 'block';
+        if (counter && q) counter.textContent = faDigits(shown) + ' نتیجه';
+        else if (counter) counter.textContent = faDigits(names.length) + ' آیکون';
+      }
+
+      grid.addEventListener('click', function (e) {
+        var cell = e.target.closest('.pa-icon-cell');
+        if (!cell) return;
+        var name = cell.getAttribute('data-name');
+        PAdminLTE.copyToClipboard('<span data-pa-icon="' + name + '" data-pa-icon-size="18"></span>', {
+          title: 'کپی شد',
+          message: 'کد آیکون «' + name + '» در کلیپ‌بورد قرار گرفت.'
+        });
+        cell.classList.add('is-copied');
+        setTimeout(function () { cell.classList.remove('is-copied'); }, 900);
+      });
+
+      if (search) search.addEventListener('input', filter);
+      build();
+    })();
+  </script>
+</body>
+</html>

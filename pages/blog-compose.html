@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — نوشتن مطلب</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* الحقات کوچک مخصوص این صفحه (خارج از کتابخانه) */
+    .pa-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0 0 1rem; }
+    .pa-btn-outline-danger { background: transparent; border-color: var(--pa-danger); color: var(--pa-danger); }
+    .pa-btn-outline-danger:hover { background: var(--pa-danger); color: #fff; }
+    .pa-cover-swatch {
+      position: relative; width: 100%; aspect-ratio: 16 / 9; padding: 0;
+      border: 2px solid transparent; border-radius: var(--pa-radius); cursor: pointer;
+      display: grid; place-items: center; transition: all .15s ease;
+    }
+    .pa-cover-swatch:hover { transform: translateY(-2px); }
+    .pa-cover-swatch.is-selected {
+      border-color: var(--pa-primary);
+      box-shadow: 0 0 0 .2rem rgba(13,110,253,.18);
+    }
+    .pa-cover-swatch .pa-swatch-check {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: rgba(0,0,0,.4); color: #fff;
+      display: grid; place-items: center;
+      opacity: 0; transform: scale(.6); transition: all .15s ease;
+    }
+    .pa-cover-swatch.is-selected .pa-swatch-check { opacity: 1; transform: scale(1); }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>نوشتن مطلب</h1>
+            <div class="pa-breadcrumb"><a href="../index.html">خانه</a><span class="pa-sep">›</span><a href="blog-list.html">وبلاگ</a><span class="pa-sep">›</span><span>نوشتن مطلب</span></div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <a href="blog-list.html" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="list" data-pa-icon-size="14"> فهرست وبلاگ</a>
+          </div>
+        </div>
+
+        <div class="pa-grid" data-pa-stagger="80">
+
+          <!-- ستون اصلی: ویرایشگر مطلب -->
+          <div class="pa-col-8">
+            <div class="pa-card" data-pa-reveal>
+              <div class="pa-card-header">
+                <h3>ویرایشگر مطلب</h3>
+                <small class="pa-text-muted">فیلدهای ستاره‌دار اجباری هستند</small>
+              </div>
+              <div class="pa-card-body">
+                <form id="pa-blog-form" novalidate>
+                  <div class="pa-form-group">
+                    <label for="pa-title">عنوان مطلب <span class="pa-text-danger">*</span></label>
+                    <input id="pa-title" class="pa-input" type="text" placeholder="مثلاً آموزش طراحی رابط کاربری مدرن" data-pa-validate="required">
+                    <div class="pa-form-feedback"></div>
+                  </div>
+
+                  <div class="pa-form-row">
+                    <div class="pa-form-group">
+                      <label for="pa-category">دسته‌بندی</label>
+                      <select id="pa-category" class="pa-select">
+                        <option value="فناوری" selected>فناوری</option>
+                        <option value="طراحی">طراحی</option>
+                        <option value="برنامه‌نویسی">برنامه‌نویسی</option>
+                        <option value="اخبار">اخبار</option>
+                        <option value="آموزش">آموزش</option>
+                      </select>
+                    </div>
+                    <div class="pa-form-group">
+                      <label for="pa-tags">برچسب‌ها <span class="pa-text-muted">(با ویرگول جدا کنید)</span></label>
+                      <input id="pa-tags" class="pa-input" type="text" placeholder="مثلاً جاوااسکریپت، css، دسترسی‌پذیری">
+                      <div class="pa-hint">برچسب‌ها به‌صورت خودکار زیر فیلد ساخته می‌شوند.</div>
+                    </div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <div id="pa-tag-chips" class="pa-d-flex pa-gap-2 pa-flex-wrap"></div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label for="pa-excerpt">خلاصه مطلب <span class="pa-text-danger">*</span></label>
+                    <textarea id="pa-excerpt" class="pa-textarea" rows="2" placeholder="۲ تا ۳ خط درباره مطلب — این خلاصه در فهرست وبلاگ نمایش داده می‌شود" data-pa-validate="required"></textarea>
+                    <div class="pa-form-feedback"></div>
+                  </div>
+
+                  <div class="pa-form-group">
+                    <label for="pa-body">متن کامل مطلب <span class="pa-text-danger">*</span></label>
+                    <textarea id="pa-body" class="pa-textarea" rows="10" placeholder="متن کامل مطلب را اینجا بنویسید…" data-pa-validate="required"></textarea>
+                    <div class="pa-form-feedback"></div>
+                    <div class="pa-fs-sm pa-text-muted pa-mt-1" id="pa-body-counter">۰ کاراکتر — حداقل ۲۰ کاراکتر لازم است</div>
+                  </div>
+
+                  <div class="pa-d-flex pa-gap-2 pa-flex-wrap">
+                    <button type="submit" class="pa-btn pa-btn-primary" id="pa-publish-btn" data-pa-icon="pen" data-pa-icon-size="16"> انتشار مطلب</button>
+                    <button type="button" class="pa-btn pa-btn-outline" id="pa-draft-btn" data-pa-icon="save" data-pa-icon-size="16"> ذخیره پیش‌نویس</button>
+                    <button type="button" class="pa-btn pa-btn-outline-danger" id="pa-clear-btn" data-pa-icon="refresh" data-pa-icon-size="16"> پاک‌کردن فرم</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- ستون کناری: پیش‌نمایش، کاور، وضعیت و راهنما -->
+          <div class="pa-col-4">
+
+            <!-- پیش‌نمایش زنده -->
+            <div class="pa-card" data-pa-reveal>
+              <div class="pa-card-header">
+                <h3>پیش‌نمایش زنده</h3>
+                <small class="pa-text-muted">همان‌طور که می‌نویسید به‌روز می‌شود</small>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-blog-thumb" id="pa-preview-cover" style="aspect-ratio:16/9; background:linear-gradient(135deg,#4f6df5,#0aa6c2)">
+                  <span class="pa-blog-cat" id="pa-preview-cat">فناوری</span>
+                </div>
+                <h4 id="pa-preview-title" class="pa-mt-2 pa-mb-1">عنوان مطلب شما…</h4>
+                <div class="pa-d-flex pa-align-center pa-gap-2 pa-fs-sm pa-text-muted" style="flex-wrap:wrap">
+                  <span><span data-pa-icon="user" data-pa-icon-size="14"></span> <span id="pa-preview-author">—</span></span>
+                  <span><span data-pa-icon="clock" data-pa-icon-size="14"></span> <span id="pa-preview-read">۱ دقیقه</span></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- تصویر کاور -->
+            <div class="pa-card" data-pa-reveal>
+              <div class="pa-card-header">
+                <h3>تصویر کاور</h3>
+                <small class="pa-text-muted">یکی از گرادیان‌های آماده را انتخاب کنید</small>
+              </div>
+              <div class="pa-card-body">
+                <div id="pa-cover-swatches" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:.6rem">
+                  <button type="button" class="pa-cover-swatch is-selected" data-cover="linear-gradient(135deg,#4f6df5,#0aa6c2)" style="background:linear-gradient(135deg,#4f6df5,#0aa6c2)" aria-label="کاور آبی فیروزه‌ای"><span class="pa-swatch-check"><span data-pa-icon="check" data-pa-icon-size="14"></span></span></button>
+                  <button type="button" class="pa-cover-swatch" data-cover="linear-gradient(135deg,#6f42c1,#d63384)" style="background:linear-gradient(135deg,#6f42c1,#d63384)" aria-label="کاور بنفش صورتی"><span class="pa-swatch-check"><span data-pa-icon="check" data-pa-icon-size="14"></span></span></button>
+                  <button type="button" class="pa-cover-swatch" data-cover="linear-gradient(135deg,#198754,#20c997)" style="background:linear-gradient(135deg,#198754,#20c997)" aria-label="کاور سبز فیروزه‌ای"><span class="pa-swatch-check"><span data-pa-icon="check" data-pa-icon-size="14"></span></span></button>
+                  <button type="button" class="pa-cover-swatch" data-cover="linear-gradient(135deg,#fd7e14,#ffc107)" style="background:linear-gradient(135deg,#fd7e14,#ffc107)" aria-label="کاور نارنجی طلایی"><span class="pa-swatch-check"><span data-pa-icon="check" data-pa-icon-size="14"></span></span></button>
+                  <button type="button" class="pa-cover-swatch" data-cover="linear-gradient(135deg,#0d6efd,#6610f2)" style="background:linear-gradient(135deg,#0d6efd,#6610f2)" aria-label="کاور آبی بنفش"><span class="pa-swatch-check"><span data-pa-icon="check" data-pa-icon-size="14"></span></span></button>
+                  <button type="button" class="pa-cover-swatch" data-cover="linear-gradient(135deg,#dc3545,#fd7e14)" style="background:linear-gradient(135deg,#dc3545,#fd7e14)" aria-label="کاور قرمز نارنجی"><span class="pa-swatch-check"><span data-pa-icon="check" data-pa-icon-size="14"></span></span></button>
+                </div>
+              </div>
+            </div>
+
+            <!-- وضعیت انتشار -->
+            <div class="pa-card" data-pa-reveal>
+              <div class="pa-card-header">
+                <h3>وضعیت انتشار</h3>
+                <small class="pa-text-muted">نحوه ذخیره مطلب را تعیین کنید</small>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-form-check">
+                  <input type="radio" id="pa-status-publish" name="pa-status" value="publish" checked>
+                  <label for="pa-status-publish"><span data-pa-icon="upload" data-pa-icon-size="14"></span> انتشار فوری</label>
+                </div>
+                <div class="pa-form-check pa-mb-0">
+                  <input type="radio" id="pa-status-draft" name="pa-status" value="draft">
+                  <label for="pa-status-draft"><span data-pa-icon="file_text" data-pa-icon-size="14"></span> پیش‌نویس</label>
+                </div>
+                <div class="pa-hint pa-mt-1">اگر «پیش‌نویس» انتخاب شود، مطلب ذخیره اما منتشر نمی‌شود.</div>
+              </div>
+            </div>
+
+            <!-- راهنما -->
+            <div class="pa-card" data-pa-reveal>
+              <div class="pa-card-header"><h3>راهنما</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-alert pa-alert-info" style="margin-bottom:0">
+                  <span data-pa-icon="info"></span>
+                  <div class="pa-alert-body">
+                    <strong>سه نکته برای نوشتن بهتر.</strong>
+                    <ul class="pa-mt-1" style="margin:0; padding-inline-start:1.1rem; font-size:.85rem">
+                      <li>عنوان را کوتاه، روشن و جذاب بنویسید (حداکثر ۶۰ کاراکتر).</li>
+                      <li>خلاصهٔ ۲ تا ۳ خطی، چهرهٔ مطلب شما در فهرست وبلاگ است.</li>
+                      <li>از برچسب‌ها استفاده کنید تا جست‌وجو و دسته‌بندی آسان‌تر شود.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه «نوشتن مطلب»
+       ذخیره در PAdminLTE.store با کلید 'pa-blog-posts'
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      var POSTS_KEY = 'pa-blog-posts';
+      var MIN_BODY = 20;
+      var FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+
+      var form = document.getElementById('pa-blog-form');
+      var titleEl = document.getElementById('pa-title');
+      var excerptEl = document.getElementById('pa-excerpt');
+      var bodyEl = document.getElementById('pa-body');
+      var categoryEl = document.getElementById('pa-category');
+      var tagsEl = document.getElementById('pa-tags');
+      var chipsEl = document.getElementById('pa-tag-chips');
+      var counterEl = document.getElementById('pa-body-counter');
+      var publishBtn = document.getElementById('pa-publish-btn');
+      var draftBtn = document.getElementById('pa-draft-btn');
+      var clearBtn = document.getElementById('pa-clear-btn');
+      var swatchesEl = document.getElementById('pa-cover-swatches');
+      var previewCover = document.getElementById('pa-preview-cover');
+      var previewTitle = document.getElementById('pa-preview-title');
+      var previewCat = document.getElementById('pa-preview-cat');
+      var previewAuthor = document.getElementById('pa-preview-author');
+      var previewRead = document.getElementById('pa-preview-read');
+
+      var tags = [];
+      var selectedCover = 'linear-gradient(135deg,#4f6df5,#0aa6c2)';
+
+      /* ---------- ابزارهای کمکی ---------- */
+      function faNum(n) {
+        return String(n).replace(/\d/g, function (d) { return FA_DIGITS[+d]; });
+      }
+      function esc(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function currentAuthor() {
+        var u = PAdminLTE.auth.currentUser();
+        return (u && u.name) ? u.name : 'مهمان';
+      }
+      function calcReadTime(text) {
+        var words = text.trim().split(/\s+/).filter(Boolean).length;
+        var mins = Math.max(1, Math.round(words / 200));
+        return faNum(mins) + ' دقیقه';
+      }
+      function parseTags(raw) {
+        var seen = {}, out = [];
+        raw.split(/[,،؛\n]+/).forEach(function (t) {
+          t = t.trim();
+          if (t && !seen[t]) { seen[t] = true; out.push(t); }
+        });
+        return out;
+      }
+      function feedbackOf(field) {
+        return field.parentElement.querySelector('.pa-form-feedback') ||
+               (field.closest('.pa-form-group') && field.closest('.pa-form-group').querySelector('.pa-form-feedback'));
+      }
+
+      /* ---------- چیپس برچسب‌ها (زنده) ---------- */
+      function renderChips() {
+        if (!tags.length) {
+          chipsEl.innerHTML = '<span class="pa-fs-sm pa-text-muted">هنوز برچسبی اضافه نشده است…</span>';
+          return;
+        }
+        chipsEl.innerHTML = tags.map(function (t, i) {
+          return '<span class="pa-chip is-primary">' + esc(t) +
+            ' <button type="button" class="pa-chip-x" data-tag-index="' + i + '" aria-label="حذف برچسب ' + esc(t) + '">' +
+            PAdminLTE.icon('x', 12) + '</button></span>';
+        }).join('');
+      }
+      tagsEl.addEventListener('input', function () {
+        tags = parseTags(tagsEl.value);
+        renderChips();
+        updatePreview();
+      });
+      chipsEl.addEventListener('click', function (e) {
+        var btn = e.target.closest('.pa-chip-x');
+        if (!btn) return;
+        tags.splice(+btn.getAttribute('data-tag-index'), 1);
+        tagsEl.value = tags.join('، ');
+        renderChips();
+      });
+
+      /* ---------- شمارنده زنده متن کامل ---------- */
+      function updateCounter() {
+        var n = bodyEl.value.length;
+        if (n >= MIN_BODY) {
+          counterEl.textContent = faNum(n) + ' کاراکتر — حد نصاب تکمیل شد ✓';
+          counterEl.classList.add('pa-text-success');
+        } else {
+          counterEl.textContent = faNum(n) + ' کاراکتر — حداقل ۲۰ کاراکتر لازم است';
+          counterEl.classList.remove('pa-text-success');
+        }
+      }
+      bodyEl.addEventListener('input', function () { updateCounter(); updatePreview(); });
+
+      /* ---------- پیش‌نمایش زنده ---------- */
+      function updatePreview() {
+        previewTitle.textContent = titleEl.value.trim() || 'عنوان مطلب شما…';
+        previewCat.textContent = categoryEl.value;
+        previewRead.textContent = calcReadTime(bodyEl.value || '');
+      }
+      titleEl.addEventListener('input', updatePreview);
+      categoryEl.addEventListener('change', updatePreview);
+      previewAuthor.textContent = currentAuthor();
+
+      /* ---------- انتخاب کاور ---------- */
+      swatchesEl.addEventListener('click', function (e) {
+        var sw = e.target.closest('.pa-cover-swatch');
+        if (!sw) return;
+        swatchesEl.querySelectorAll('.pa-cover-swatch').forEach(function (b) { b.classList.remove('is-selected'); });
+        sw.classList.add('is-selected');
+        selectedCover = sw.getAttribute('data-cover');
+        previewCover.style.background = selectedCover;
+      });
+
+      /* ---------- اعتبارسنجی دستی ---------- */
+      function validate() {
+        var ok = PAdminLTE.validateForm(form);
+        var bodyLen = bodyEl.value.trim().length;
+        if (bodyLen < MIN_BODY) {
+          bodyEl.classList.remove('is-valid');
+          bodyEl.classList.add('is-invalid');
+          var fb = feedbackOf(bodyEl);
+          if (fb) {
+            fb.classList.add('is-invalid');
+            fb.classList.remove('is-valid');
+            fb.textContent = bodyLen ? 'حداقل ۲۰ کاراکتر برای متن کامل لازم است.' : 'این فیلد اجباری است.';
+          }
+          ok = false;
+        }
+        return ok;
+      }
+
+      /* ---------- ساخت آیتم و ذخیره ---------- */
+      function buildItem(isDraft) {
+        return {
+          title: titleEl.value.trim(),
+          category: categoryEl.value,
+          tags: tags.slice(),
+          cover: selectedCover,
+          excerpt: excerptEl.value.trim(),
+          body: bodyEl.value.trim(),
+          author: currentAuthor(),
+          date: new Date().toLocaleDateString('fa-IR'),
+          readTime: calcReadTime(bodyEl.value),
+          views: 0,
+          likes: 0,
+          draft: !!isDraft
+        };
+      }
+
+      function saveDraft(btn) {
+        if (!titleEl.value.trim()) {
+          PAdminLTE.toast({ kind: 'warning', title: 'عنوان لازم است', message: 'برای ذخیرهٔ پیش‌نویس، دست‌کم عنوان مطلب را بنویسید.' });
+          titleEl.classList.add('is-invalid');
+          return;
+        }
+        PAdminLTE.btnLoading(btn, true, 'در حال ذخیره…');
+        setTimeout(function () {
+          PAdminLTE.store.add(POSTS_KEY, buildItem(true));
+          PAdminLTE.btnLoading(btn, false);
+          PAdminLTE.toast({ kind: 'success', title: 'پیش‌نویس ذخیره شد', message: 'پیش‌نویس مطلب در انبار محلی ذخیره شد.' });
+        }, 900);
+      }
+
+      /* ---------- انتشار (دکمهٔ submit) ---------- */
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validate()) {
+          PAdminLTE.toast({ kind: 'danger', title: 'خطا', message: 'لطفاً خطاهای فرم را اصلاح کنید.' });
+          return;
+        }
+        var isDraft = document.querySelector('input[name="pa-status"]:checked').value === 'draft';
+        PAdminLTE.btnLoading(publishBtn, true, 'در حال انتشار…');
+        setTimeout(function () {
+          var item = PAdminLTE.store.add(POSTS_KEY, buildItem(isDraft));
+          PAdminLTE.btnLoading(publishBtn, false);
+          if (isDraft) {
+            PAdminLTE.toast({ kind: 'info', title: 'پیش‌نویس ذخیره شد', message: 'مطلب به‌صورت پیش‌نویس ذخیره شد.' });
+          } else {
+            PAdminLTE.toast({ kind: 'success', title: 'منتشر شد', message: 'مطلب شما با موفقیت منتشر شد.' });
+            setTimeout(function () {
+              location.href = 'blog-post.html?id=' + encodeURIComponent(item.id);
+            }, 800);
+          }
+        }, 900);
+      });
+
+      draftBtn.addEventListener('click', function () { saveDraft(draftBtn); });
+
+      clearBtn.addEventListener('click', function () {
+        form.reset();
+        tags = [];
+        tagsEl.value = '';
+        renderChips();
+        selectedCover = 'linear-gradient(135deg,#4f6df5,#0aa6c2)';
+        swatchesEl.querySelectorAll('.pa-cover-swatch').forEach(function (b, i) {
+          b.classList.toggle('is-selected', i === 0);
+        });
+        previewCover.style.background = selectedCover;
+        [titleEl, excerptEl, bodyEl].forEach(function (f) {
+          f.classList.remove('is-valid', 'is-invalid');
+          var fb = feedbackOf(f);
+          if (fb) { fb.classList.remove('is-valid', 'is-invalid'); fb.textContent = ''; }
+        });
+        updateCounter();
+        updatePreview();
+        PAdminLTE.toast({ kind: 'info', title: 'فرم پاک شد', message: 'همهٔ فیلدها به حالت اولیه بازگشتند.' });
+      });
+
+      /* ---------- مقداردهی اولیه ---------- */
+      renderChips();
+      updateCounter();
+      updatePreview();
+    })();
+  </script>
+</body>
+</html>

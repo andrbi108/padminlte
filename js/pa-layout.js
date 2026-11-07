@@ -95,6 +95,9 @@
           { href: 'pages/tables.html', icon: 'table', label: 'جداول' },
           { href: 'pages/forms.html', icon: 'form', label: 'فرم‌ها' },
           { href: 'pages/components.html', icon: 'cube', label: 'کامپوننت‌ها' },
+          { href: 'pages/loaders.html', icon: 'spinner', label: 'لودرها و اسکلتون' },
+          { href: 'pages/animations.html', icon: 'wand', label: 'انیمیشن‌ها' },
+          { href: 'pages/icons.html', icon: 'sparkles', label: 'آیکون‌ها' },
           { href: 'pages/live-edit.html', icon: 'code', label: 'ویرایشگر زنده' },
           { href: 'pages/file-upload.html', icon: 'cloud_upload', label: 'بارگذاری فایل' }
         ]
@@ -111,8 +114,10 @@
         title: 'مدیریت کاربر',
         tree: [
           { name: 'حساب کاربری', icon: 'user', items: [
+            { href: 'pages/account.html', icon: 'user_cog', label: 'حساب من' },
             { href: 'pages/profile.html', icon: 'user', label: 'پروفایل' },
             { href: 'pages/users.html', icon: 'users', label: 'لیست کاربران' },
+            { href: 'pages/roles.html', icon: 'shield_alt', label: 'نقش‌ها و مجوزها' },
             { href: 'pages/user-panel.html', icon: 'user_cog', label: 'پنل کاربری' },
             { href: 'pages/settings.html', icon: 'cog', label: 'تنظیمات' }
           ]},
@@ -130,12 +135,14 @@
         tree: [
           { name: 'وبلاگ', icon: 'book_open', items: [
             { href: 'pages/blog-list.html', icon: 'book', label: 'لیست مطالب' },
+            { href: 'pages/blog-compose.html', icon: 'pen', label: 'نوشتن مطلب' },
             { href: 'pages/blog-post.html', icon: 'file_text', label: 'مطلب نمونه' },
             { href: 'pages/categories.html', icon: 'folder', label: 'دسته‌بندی‌ها' },
             { href: 'pages/tags.html', icon: 'hashtag', label: 'برچسب‌ها' }
           ]},
           { name: 'انجمن', icon: 'comments', items: [
             { href: 'pages/forum-list.html', icon: 'message_square', label: 'لیست گفتگوها' },
+            { href: 'pages/forum-new.html', icon: 'message_circle', label: 'موضوع جدید' },
             { href: 'pages/forum-topic.html', icon: 'message_circle', label: 'موضوع نمونه' }
           ]}
         ]
@@ -219,13 +226,20 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۱.۲.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۱.۳.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
   function header(opts) {
     opts = opts || {};
     var title = opts.title || 'داشبورد';
+    // Session-aware user widget (mock auth, see PAdminLTE.auth)
+    var u = null;
+    try { u = PAdminLTE.auth && PAdminLTE.auth.currentUser && PAdminLTE.auth.currentUser(); } catch (e) {}
+    var uwName = (u && u.name) || 'امیر رضایی';
+    var uwRole = (u && u.role) || 'مدیر';
+    var uwInitial = (uwName || 'A').trim().charAt(0);
+    var uwColor = (u && u.color) ? ' style="background:' + u.color + '"' : '';
     return '' +
       '<header class="pa-header" role="banner">' +
         '<button class="pa-icon-btn" data-pa-sidebar-toggle aria-label="باز/بسته کردن منو">' +
@@ -280,20 +294,20 @@
         // User dropdown
         '<div class="pa-dropdown">' +
           '<button class="pa-user-widget" data-pa-dropdown-toggle aria-label="حساب کاربری">' +
-            '<span class="pa-avatar pa-avatar-md">A</span>' +
+            '<span class="pa-avatar pa-avatar-md"' + uwColor + '>' + uwInitial + '</span>' +
             '<span class="pa-uw-text">' +
-              '<span class="pa-uw-name">امیر رضایی</span>' +
-              '<span class="pa-uw-role">مدیر</span>' +
+              '<span class="pa-uw-name">' + uwName + '</span>' +
+              '<span class="pa-uw-role">' + uwRole + '</span>' +
             '</span>' +
             icon('chevron_down', 14) +
           '</button>' +
           '<div class="pa-dropdown-menu" role="menu">' +
             '<div class="pa-dropdown-header">حساب کاربری</div>' +
+            '<a class="pa-dropdown-item" href="' + resolve('pages/account.html') + '">' + icon('user_cog', 16) + 'حساب من</a>' +
             '<a class="pa-dropdown-item" href="' + resolve('pages/profile.html') + '">' + icon('user', 16) + 'پروفایل</a>' +
             '<a class="pa-dropdown-item" href="' + resolve('pages/settings.html') + '">' + icon('cog', 16) + 'تنظیمات</a>' +
-            '<a class="pa-dropdown-item" href="' + resolve('pages/user-panel.html') + '">' + icon('star', 16) + 'نشانه‌ها</a>' +
             '<div class="pa-dropdown-divider"></div>' +
-            '<a class="pa-dropdown-item" href="' + resolve('pages/login.html') + '">' + icon('logout', 16) + 'خروج</a>' +
+            '<button type="button" class="pa-dropdown-item pa-link-btn" data-pa-logout>' + icon('logout', 16) + 'خروج از حساب</button>' +
           '</div>' +
         '</div>' +
       '</header>';
@@ -304,7 +318,7 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۲.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۱.۳.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';

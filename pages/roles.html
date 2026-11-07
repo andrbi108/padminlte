@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — نقش‌ها و مجوزها</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+  <style>
+    /* کمک‌استایل کوچک مخصوص همین صفحه — خانه‌های قابل کلیک ماتریس مجوزها */
+    .pa-perm-cell { cursor: pointer; text-align: center; user-select: none; }
+    .pa-perm-cell:hover { background: var(--pa-surface-2); }
+    .pa-perm-cell .pa-icon { vertical-align: middle; }
+  </style>
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>نقش‌ها و مجوزها</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>نقش‌ها و مجوزها</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-primary pa-btn-sm" id="pa-add-role-btn"
+                    data-pa-icon="plus" data-pa-icon-size="14"> نقش جدید</button>
+          </div>
+        </div>
+
+        <!-- هشدار اطلاعات -->
+        <div class="pa-alert pa-alert-info">
+          <span data-pa-icon="info" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">این بخش نمایشی است و داده‌ها فقط در مرورگر ذخیره می‌شوند.</div>
+        </div>
+
+        <!-- جعبه‌های آماری -->
+        <div class="pa-row" data-pa-stagger="90">
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between">
+                <div>
+                  <h2 data-pa-counter="4" style="margin:0; font-weight:700; color:var(--pa-primary)">۴</h2>
+                  <p class="pa-text-muted pa-fs-sm" style="margin:.15rem 0 0">تعداد نقش‌ها</p>
+                </div>
+                <span class="pa-d-flex pa-align-center" style="width:48px; height:48px; border-radius:12px; background:var(--pa-primary-soft); color:var(--pa-primary); justify-content:center; flex-shrink:0">
+                  <span data-pa-icon="shield" data-pa-icon-size="22"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between">
+                <div>
+                  <h2 data-pa-counter="268" style="margin:0; font-weight:700; color:var(--pa-info)">۲۶۸</h2>
+                  <p class="pa-text-muted pa-fs-sm" style="margin:.15rem 0 0">کاربران فعال</p>
+                </div>
+                <span class="pa-d-flex pa-align-center" style="width:48px; height:48px; border-radius:12px; background:var(--pa-info-soft); color:var(--pa-info); justify-content:center; flex-shrink:0">
+                  <span data-pa-icon="users" data-pa-icon-size="22"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-d-flex pa-align-center pa-gap-2" style="justify-content:space-between">
+                <div>
+                  <h2 data-pa-counter="18" style="margin:0; font-weight:700; color:var(--pa-success)">۱۸</h2>
+                  <p class="pa-text-muted pa-fs-sm" style="margin:.15rem 0 0">مجوزها</p>
+                </div>
+                <span class="pa-d-flex pa-align-center" style="width:48px; height:48px; border-radius:12px; background:var(--pa-success-soft); color:var(--pa-success); justify-content:center; flex-shrink:0">
+                  <span data-pa-icon="key_alt" data-pa-icon-size="22"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- جدول نقش‌ها -->
+        <div class="pa-card" data-pa-reveal data-pa-delay="120">
+          <div class="pa-card-header"><h3>نقش‌های سامانه</h3></div>
+          <div class="pa-card-body">
+            <div class="pa-table-wrap">
+              <table class="pa-table">
+                <thead>
+                  <tr><th>نقش</th><th>توضیح</th><th>تعداد کاربران</th><th>رنگ/بج</th><th>عملکردها</th></tr>
+                </thead>
+                <tbody id="pa-roles-body">
+                  <tr>
+                    <td><strong>مدیر کل</strong></td>
+                    <td>دسترسی کامل به همه بخش‌های سامانه</td>
+                    <td>۲</td>
+                    <td><span class="pa-badge" style="background:#b02a37; color:#fff">مدیر کل</span></td>
+                    <td class="pa-d-flex pa-gap-1">
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-edit" data-name="مدیر کل" aria-label="ویرایش نقش مدیر کل" data-pa-tip="ویرایش نقش"><span data-pa-icon="edit" data-pa-icon-size="14"></span></button>
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-del" data-name="مدیر کل" aria-label="حذف نقش مدیر کل" data-pa-tip="حذف نقش"><span data-pa-icon="trash" data-pa-icon-size="14"></span></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>مدیر محتوا</strong></td>
+                    <td>مدیریت مطالب، دسته‌ها و دیدگاه‌ها</td>
+                    <td>۱۲</td>
+                    <td><span class="pa-badge" style="background:#0aa6c2; color:#fff">مدیر محتوا</span></td>
+                    <td class="pa-d-flex pa-gap-1">
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-edit" data-name="مدیر محتوا" aria-label="ویرایش نقش مدیر محتوا" data-pa-tip="ویرایش نقش"><span data-pa-icon="edit" data-pa-icon-size="14"></span></button>
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-del" data-name="مدیر محتوا" aria-label="حذف نقش مدیر محتوا" data-pa-tip="حذف نقش"><span data-pa-icon="trash" data-pa-icon-size="14"></span></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>نویسنده</strong></td>
+                    <td>نوشتن و ویرایش مطالب اختصاصی</td>
+                    <td>۹۶</td>
+                    <td><span class="pa-badge" style="background:#12895a; color:#fff">نویسنده</span></td>
+                    <td class="pa-d-flex pa-gap-1">
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-edit" data-name="نویسنده" aria-label="ویرایش نقش نویسنده" data-pa-tip="ویرایش نقش"><span data-pa-icon="edit" data-pa-icon-size="14"></span></button>
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-del" data-name="نویسنده" aria-label="حذف نقش نویسنده" data-pa-tip="حذف نقش"><span data-pa-icon="trash" data-pa-icon-size="14"></span></button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>مشاهد‌گر</strong></td>
+                    <td>دسترسی فقط‌خواندنی به گزارش‌ها و داشبورد</td>
+                    <td>۱۵۸</td>
+                    <td><span class="pa-badge" style="background:#d39e00; color:#fff">مشاهد‌گر</span></td>
+                    <td class="pa-d-flex pa-gap-1">
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-edit" data-name="مشاهد‌گر" aria-label="ویرایش نقش مشاهد‌گر" data-pa-tip="ویرایش نقش"><span data-pa-icon="edit" data-pa-icon-size="14"></span></button>
+                      <button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-del" data-name="مشاهد‌گر" aria-label="حذف نقش مشاهد‌گر" data-pa-tip="حذف نقش"><span data-pa-icon="trash" data-pa-icon-size="14"></span></button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ماتریس مجوزها -->
+        <div class="pa-card" data-pa-reveal data-pa-delay="200">
+          <div class="pa-card-header"><h3>ماتریس مجوزها</h3></div>
+          <div class="pa-card-body">
+            <p class="pa-text-muted pa-fs-sm">برای فعال یا لغو کردن هر مجوز، روی خانه‌های جدول کلیک کنید.</p>
+            <div class="pa-table-wrap">
+              <table class="pa-table">
+                <thead>
+                  <tr><th>مجوز</th><th style="text-align:center">مدیر کل</th><th style="text-align:center">مدیر محتوا</th><th style="text-align:center">نویسنده</th><th style="text-align:center">مشاهد‌گر</th></tr>
+                </thead>
+                <tbody id="pa-perm-body">
+                  <tr>
+                    <td><strong>مشاهده داشبورد</strong></td>
+                    <td class="pa-perm-cell" data-perm="مشاهده داشبورد" data-role="مدیر کل" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مشاهده داشبورد" data-role="مدیر محتوا" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مشاهده داشبورد" data-role="نویسنده" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مشاهده داشبورد" data-role="مشاهد‌گر" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>مدیریت کاربران</strong></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت کاربران" data-role="مدیر کل" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت کاربران" data-role="مدیر محتوا" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت کاربران" data-role="نویسنده" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت کاربران" data-role="مشاهد‌گر" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>نوشتن مطلب</strong></td>
+                    <td class="pa-perm-cell" data-perm="نوشتن مطلب" data-role="مدیر کل" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="نوشتن مطلب" data-role="مدیر محتوا" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="نوشتن مطلب" data-role="نویسنده" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="نوشتن مطلب" data-role="مشاهد‌گر" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>انتشار مطلب</strong></td>
+                    <td class="pa-perm-cell" data-perm="انتشار مطلب" data-role="مدیر کل" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="انتشار مطلب" data-role="مدیر محتوا" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="انتشار مطلب" data-role="نویسنده" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="انتشار مطلب" data-role="مشاهد‌گر" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>مدیریت فروشگاه</strong></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت فروشگاه" data-role="مدیر کل" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت فروشگاه" data-role="مدیر محتوا" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت فروشگاه" data-role="نویسنده" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="مدیریت فروشگاه" data-role="مشاهد‌گر" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>تنظیمات سیستم</strong></td>
+                    <td class="pa-perm-cell" data-perm="تنظیمات سیستم" data-role="مدیر کل" data-on="1"><span data-pa-icon="check_circle" data-pa-icon-size="18" style="color:var(--pa-success)"></span></td>
+                    <td class="pa-perm-cell" data-perm="تنظیمات سیستم" data-role="مدیر محتوا" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="تنظیمات سیستم" data-role="نویسنده" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                    <td class="pa-perm-cell" data-perm="تنظیمات سیستم" data-role="مشاهد‌گر" data-on="0"><span data-pa-icon="x" data-pa-icon-size="18" style="color:var(--pa-text-muted)"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- افزودن نقش جدید -->
+        <div class="pa-card" id="pa-new-role-card" data-pa-reveal data-pa-delay="280">
+          <div class="pa-card-header"><h3>افزودن نقش جدید</h3></div>
+          <div class="pa-card-body">
+            <form id="pa-role-form" novalidate>
+              <div class="pa-form-row">
+                <div class="pa-form-group">
+                  <label for="pa-role-name">نام نقش</label>
+                  <input id="pa-role-name" class="pa-input" type="text" placeholder="مثلاً: ویراستار" data-pa-validate="required">
+                </div>
+                <div class="pa-form-group">
+                  <label for="pa-role-color">رنگ بج</label>
+                  <select id="pa-role-color" class="pa-select">
+                    <option value="#4f6df5" selected>آبی</option>
+                    <option value="#0aa6c2">فیروزه‌ای</option>
+                    <option value="#12895a">سبز</option>
+                    <option value="#d39e00">کهربایی</option>
+                    <option value="#b02a37">قرمز</option>
+                  </select>
+                </div>
+              </div>
+              <div class="pa-form-group">
+                <label for="pa-role-desc">توضیح</label>
+                <input id="pa-role-desc" class="pa-input" type="text" placeholder="توضیح کوتاه درباره حوزه دسترسی نقش">
+              </div>
+              <button type="submit" class="pa-btn pa-btn-primary" data-pa-icon="plus" data-pa-icon-size="14"> افزودن نقش</button>
+            </form>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه «نقش‌ها و مجوزها»
+       ============================================================ */
+    (function () {
+      'use strict';
+      var PAL = window.PAdminLTE;
+
+      /* فرار دادن متن کاربر قبل از درج در HTML */
+      function esc(s) {
+        return String(s || '')
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+      }
+
+      /* --- دکمه «نقش جدید» سربرگ: اسکرول به فرم --- */
+      document.getElementById('pa-add-role-btn').addEventListener('click', function () {
+        document.getElementById('pa-new-role-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      /* --- عملکردهای جدول نقش‌ها (به‌صورت تفویضی، برای ردیف‌های پویا هم کار می‌کند) --- */
+      document.getElementById('pa-roles-body').addEventListener('click', function (e) {
+        var editBtn = e.target.closest('.pa-role-edit');
+        var delBtn = e.target.closest('.pa-role-del');
+        if (editBtn) {
+          PAL.toast({ kind: 'info', title: 'ویرایش نقش', message: 'ویرایش نقش «' + editBtn.getAttribute('data-name') + '» در این نسخه نمایشی است.' });
+        } else if (delBtn) {
+          PAL.toast({ kind: 'danger', title: 'حذف نقش', message: 'نقش «' + delBtn.getAttribute('data-name') + '» حذف شد (نمایشی).' });
+        }
+      });
+
+      /* --- ماتریس مجوزها: تغییر وضعیت با کلیک --- */
+      document.getElementById('pa-perm-body').addEventListener('click', function (e) {
+        var cell = e.target.closest('.pa-perm-cell');
+        if (!cell) return;
+        var wasOn = cell.getAttribute('data-on') === '1';
+        cell.setAttribute('data-on', wasOn ? '0' : '1');
+        var icon = cell.querySelector('span');
+        if (icon) {
+          icon.setAttribute('data-pa-icon', wasOn ? 'x' : 'check_circle');
+          icon.style.color = wasOn ? 'var(--pa-text-muted)' : 'var(--pa-success)';
+          PAL.injectIcons(cell);
+        }
+        var perm = cell.getAttribute('data-perm');
+        var role = cell.getAttribute('data-role');
+        PAL.toast({
+          kind: wasOn ? 'info' : 'success',
+          title: 'مجوزها',
+          message: wasOn
+            ? 'مجوز «' + perm + '» از نقش «' + role + '» لغو شد.'
+            : 'مجوز «' + perm + '» برای نقش «' + role + '» فعال شد.'
+        });
+      });
+
+      /* --- افزودن نقش جدید --- */
+      var roleForm = document.getElementById('pa-role-form');
+      roleForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = roleForm.querySelector('button[type="submit"]');
+        if (!PAL.validateForm(roleForm)) {
+          PAL.toast({ kind: 'danger', title: 'خطا', message: 'لطفاً خطاهای فرم را اصلاح کنید.' });
+          return;
+        }
+        var name = document.getElementById('pa-role-name').value.trim();
+        var desc = document.getElementById('pa-role-desc').value.trim();
+        var color = document.getElementById('pa-role-color').value;
+
+        PAL.btnLoading(btn, true, 'در حال افزودن…');
+        setTimeout(function () {
+          PAL.btnLoading(btn, false);
+          var tbody = document.getElementById('pa-roles-body');
+          var tr = document.createElement('tr');
+          tr.setAttribute('data-pa-reveal', '');
+          tr.innerHTML =
+            '<td><strong>' + esc(name) + '</strong></td>' +
+            '<td>' + (esc(desc) || '—') + '</td>' +
+            '<td>۰</td>' +
+            '<td><span class="pa-badge" style="background:' + esc(color) + '; color:#fff">' + esc(name) + '</span></td>' +
+            '<td class="pa-d-flex pa-gap-1">' +
+              '<button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-edit" data-name="' + esc(name) + '" aria-label="ویرایش نقش ' + esc(name) + '"><span data-pa-icon="edit" data-pa-icon-size="14"></span></button>' +
+              '<button type="button" class="pa-btn pa-btn-ghost pa-btn-sm pa-role-del" data-name="' + esc(name) + '" aria-label="حذف نقش ' + esc(name) + '"><span data-pa-icon="trash" data-pa-icon-size="14"></span></button>' +
+            '</td>';
+          tbody.insertBefore(tr, tbody.firstChild);
+          PAL.injectIcons(tr);
+          PAL.initReveals(tr);
+          PAL.toast({ kind: 'success', title: 'نقش جدید', message: 'نقش «' + name + '» با موفقیت اضافه شد.' });
+          roleForm.reset();
+          roleForm.querySelectorAll('.is-valid, .is-invalid').forEach(function (f) { f.classList.remove('is-valid', 'is-invalid'); });
+        }, 450);
+      });
+    })();
+  </script>
+</body>
+</html>

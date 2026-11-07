@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — لودرها و اسکلتون</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+
+        <!-- سربرگ صفحه -->
+        <div class="pa-page-header">
+          <div>
+            <h1>لودرها و اسکلتون</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>لودرها و اسکلتون</span>
+            </div>
+          </div>
+          <div class="pa-d-flex pa-gap-2">
+            <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" data-pa-icon="spinner" data-pa-icon-size="14"
+                    onclick="PAdminLTE.toast({kind:'info',message:'همه لودرهای PAdminLTE با CSS خالص ساخته شده‌اند و رنگ را از currentColor به ارث می‌برند.'})">درباره لودرها</button>
+          </div>
+        </div>
+
+        <!-- ۱. نمایش حالت‌های اسپینر -->
+        <div class="pa-row" data-pa-stagger="90">
+
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-text-center">
+                <div style="height:86px; display:grid; place-items:center; color:var(--pa-primary)">
+                  <span class="pa-spinner pa-spinner-border pa-spinner-lg"></span>
+                </div>
+                <h3 style="font-size:1rem; margin:.5rem 0 .3rem">چرخان</h3>
+                <p class="pa-mb-1"><code>pa-spinner-border</code></p>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">حالت پیش‌فرض؛ قطر بزرگ با <code>pa-spinner-lg</code></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-text-center">
+                <div style="height:86px; display:grid; place-items:center; color:var(--pa-success)">
+                  <span class="pa-spinner pa-spinner-dual pa-spinner-lg"></span>
+                </div>
+                <h3 style="font-size:1rem; margin:.5rem 0 .3rem">دولایه</h3>
+                <p class="pa-mb-1"><code>pa-spinner-dual</code></p>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">دو حلقه با سرعت متفاوت؛ مناسب صفحات سنگین</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-text-center">
+                <div style="height:86px; display:grid; place-items:center; color:var(--pa-warning)">
+                  <span class="pa-spinner pa-spinner-dots pa-spinner-lg"><i></i><i></i><i></i></span>
+                </div>
+                <h3 style="font-size:1rem; margin:.5rem 0 .3rem">نقطه‌ای</h3>
+                <p class="pa-mb-1"><code>pa-spinner-dots</code></p>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">سه نقطه با تأخیر پلکانی؛ شامل سه عنصر <code>&lt;i&gt;</code></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-text-center">
+                <div style="height:86px; display:grid; place-items:center; color:var(--pa-danger)">
+                  <span class="pa-spinner pa-spinner-bars pa-spinner-lg"><i></i><i></i><i></i><i></i></span>
+                </div>
+                <h3 style="font-size:1rem; margin:.5rem 0 .3rem">میله‌ای</h3>
+                <p class="pa-mb-1"><code>pa-spinner-bars</code></p>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">چهار میله با موج عمودی؛ شامل چهار عنصر <code>&lt;i&gt;</code></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-text-center">
+                <div style="height:86px; display:grid; place-items:center; color:var(--pa-info)">
+                  <span class="pa-spinner pa-spinner-pulse pa-spinner-lg"></span>
+                </div>
+                <h3 style="font-size:1rem; margin:.5rem 0 .3rem">تپنده</h3>
+                <p class="pa-mb-1"><code>pa-spinner-pulse</code></p>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">دایره توپر با افکت نبض؛ سبک و کم‌حجم</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-4" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-body pa-text-center">
+                <div style="height:86px; display:grid; place-items:center; color:var(--pa-purple)">
+                  <span class="pa-spinner pa-spinner-flip pa-spinner-lg"></span>
+                </div>
+                <h3 style="font-size:1rem; margin:.5rem 0 .3rem">معکوس</h3>
+                <p class="pa-mb-1"><code>pa-spinner-flip</code></p>
+                <p class="pa-text-muted pa-fs-sm pa-mb-0">مربع چرخان سه‌بعدی؛ جذاب برای دکمه‌ها و کارت‌ها</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ۲ و ۳. بارگذاری دکمه + لودر بلوکی -->
+        <div class="pa-row" data-pa-stagger="120">
+
+          <!-- بارگذاری دکمه -->
+          <div class="pa-col-6" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>بارگذاری دکمه</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">روی هر دکمه بزنید تا حالت بارگذاری برای ۱٫۵ ثانیه فعال شود؛ سپس نتیجه با یک اعلان موفقیت نمایش داده می‌شود.</p>
+                <div class="pa-d-flex pa-gap-2" style="flex-wrap:wrap">
+                  <button type="button" class="pa-btn pa-btn-primary" data-pa-demo-busy="در حال ذخیره…" data-pa-demo-name="ذخیره اطلاعات">
+                    <span data-pa-icon="save" data-pa-icon-size="16"></span> ذخیره اطلاعات
+                  </button>
+                  <button type="button" class="pa-btn pa-btn-outline" data-pa-demo-busy="در حال همگام‌سازی…" data-pa-demo-name="همگام‌سازی داده‌ها">
+                    <span data-pa-icon="refresh" data-pa-icon-size="16"></span> همگام‌سازی
+                  </button>
+                  <button type="button" class="pa-btn pa-btn-outline" data-pa-demo-busy="در حال پردازش تصویر…" data-pa-demo-name="پردازش تصویر">
+                    <span data-pa-icon="wand" data-pa-icon-size="16"></span> پردازش تصویر
+                  </button>
+                </div>
+                <div class="pa-alert pa-alert-info pa-mt-2 pa-mb-0">
+                  <span data-pa-icon="info" data-pa-icon-size="20"></span>
+                  <div class="pa-alert-body pa-fs-sm">
+                    فراخوانی <code>PAdminLTE.btnLoading(btn, true, 'متن…')</code> دکمه را غیرفعال کرده و اسپینر داخل آن می‌گذارد؛ با <code>PAdminLTE.btnLoading(btn, false)</code> حالت قبلی برمی‌گردد.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- لودر بلوکی -->
+          <div class="pa-col-6" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>لودر بلوکی</h3></div>
+              <div class="pa-card-body">
+                <div id="block-loader-demo">
+                  <div class="pa-d-flex pa-gap-2 pa-mb-1" style="align-items:center">
+                    <span data-pa-icon="database" data-pa-icon-size="18" style="color:var(--pa-primary)"></span>
+                    <strong class="pa-flex-1">گزارش فروش سه‌ماهه</strong>
+                    <span class="pa-badge pa-badge-success">به‌روز</span>
+                  </div>
+                  <div class="pa-d-flex pa-gap-2 pa-mb-1" style="align-items:center">
+                    <span data-pa-icon="server" data-pa-icon-size="18" style="color:var(--pa-info)"></span>
+                    <strong class="pa-flex-1">پشتیبان‌گیری خودکار بانک اطلاعاتی</strong>
+                    <span class="pa-badge pa-badge-info">زمان‌بندی‌شده</span>
+                  </div>
+                  <div class="pa-d-flex pa-gap-2" style="align-items:center">
+                    <span data-pa-icon="cpu" data-pa-icon-size="18" style="color:var(--pa-danger)"></span>
+                    <strong class="pa-flex-1">پردازش تصاویر محصول</strong>
+                    <span class="pa-badge pa-badge-warning">۲۸٪ باقی‌مانده</span>
+                  </div>
+                </div>
+                <div class="pa-d-flex pa-gap-2 pa-mt-2" style="flex-wrap:wrap">
+                  <button type="button" class="pa-btn pa-btn-primary pa-btn-sm" id="btn-block-light">نمایش لودر روشن</button>
+                  <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" id="btn-block-dark">نمایش لودر تیره</button>
+                  <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" id="btn-block-hide">بستن لودر</button>
+                </div>
+                <p class="pa-text-muted pa-fs-sm pa-mt-1 pa-mb-0">بعد از ۲٫۴ ثانیه لودر به‌صورت خودکار بسته می‌شود؛ با <code>PAdminLTE.loader.show(el, {dark:true})</code> حالت تیره فعال می‌شود.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ۴ و ۶. پری‌لودر صفحه + نوار پیشرفت -->
+        <div class="pa-row" data-pa-stagger="120">
+
+          <!-- پری‌لودر صفحه -->
+          <div class="pa-col-6" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>پری‌لودر صفحه</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">پری‌لودر تمام‌صفحه با نشان برند و اسپینر، برای پوشاندن لحظه اول بارگذاری صفحه. برای آزمایش، دکمه زیر را بزنید؛ پس از ۱٫۶ ثانیه به‌طور خودکار محو می‌شود.</p>
+<pre>&lt;div class="pa-preloader"&gt;
+  &lt;div class="pa-preloader-box"&gt;
+    &lt;span class="pa-brand-mark pa-preloader-mark"&gt;P&lt;/span&gt;
+    &lt;span class="pa-spinner pa-spinner-border"&gt;&lt;/span&gt;
+    &lt;span class="pa-preloader-label"&gt;متن&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+PAdminLTE.pageLoader.show('متن');
+PAdminLTE.pageLoader.hide();</pre>
+                <div class="pa-d-flex pa-gap-2">
+                  <button type="button" class="pa-btn pa-btn-primary" id="btn-pageloader">
+                    <span data-pa-icon="rocket" data-pa-icon-size="16"></span> نمایش پری‌لودر
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- نوار پیشرفت -->
+          <div class="pa-col-6" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>نوار پیشرفت</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-form-group">
+                  <div class="pa-d-flex pa-justify-between"><span class="pa-label">طراحی رابط کاربری</span><span class="pa-text-muted pa-fs-sm" data-pa-pct>۰٪</span></div>
+                  <div class="pa-progress"><div class="pa-progress-bar" data-pa-target="72" style="width:0%"></div></div>
+                </div>
+                <div class="pa-form-group">
+                  <div class="pa-d-flex pa-justify-between"><span class="pa-label">توسعه بک‌اند</span><span class="pa-text-muted pa-fs-sm" data-pa-pct>۰٪</span></div>
+                  <div class="pa-progress"><div class="pa-progress-bar pa-success" data-pa-target="45" style="width:0%"></div></div>
+                </div>
+                <div class="pa-form-group">
+                  <div class="pa-d-flex pa-justify-between"><span class="pa-label">تست و استقرار</span><span class="pa-text-muted pa-fs-sm" data-pa-pct>۰٪</span></div>
+                  <div class="pa-progress"><div class="pa-progress-bar pa-danger" data-pa-target="90" style="width:0%"></div></div>
+                </div>
+                <button type="button" class="pa-btn pa-btn-outline pa-btn-sm" id="btn-progress-replay">
+                  <span data-pa-icon="refresh" data-pa-icon-size="14"></span> پخش دوباره
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ۵. اسکلتون -->
+        <div class="pa-row" data-pa-stagger="120">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>اسکلتون (بارگذاری محتوا)</h3></div>
+              <div class="pa-card-body">
+                <p class="pa-text-muted pa-fs-sm">بلوک اسکلتون با <code>data-pa-skeleton="مدت"</code> و بلوک محتوای واقعیِ بلافاصله بعد از آن با <code>data-pa-skeleton-content</code> ساخته می‌شود؛ پس از پایان مدت، اسکلتون محو و محتوا نمایان می‌شود. دو نمونه زیر با تأخیر ۱٬۴۰۰ و ۲٬۲۰۰ میلی‌ثانیه کار می‌کنند.</p>
+
+                <div class="pa-row">
+                  <!-- نمونه ۱: کارت محصول -->
+                  <div class="pa-col-6">
+                    <h4 class="pa-mb-1" style="font-size:.95rem">نمونه ۱ — کارت محصول (۱٬۴۰۰ میلی‌ثانیه)</h4>
+                    <div data-pa-skeleton="1400">
+                      <div class="pa-skeleton pa-skeleton-img"></div>
+                      <div class="pa-skeleton pa-skeleton-title"></div>
+                      <div class="pa-skeleton pa-skeleton-text"></div>
+                      <div class="pa-skeleton pa-skeleton-text w-75"></div>
+                      <div class="pa-skeleton pa-skeleton-text w-50"></div>
+                      <div class="pa-d-flex pa-gap-2 pa-mt-1">
+                        <div class="pa-skeleton pa-skeleton-chip"></div>
+                        <div class="pa-skeleton pa-skeleton-chip"></div>
+                      </div>
+                    </div>
+                    <div data-pa-skeleton-content class="pa-hidden">
+                      <img data-pa-lazy
+                           src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='360'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='.55' stop-color='%230ea5e9'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='640' height='360' fill='url(%23g)'/%3E%3Ccircle cx='320' cy='180' r='70' fill='rgba(255,255,255,.25)'/%3E%3C/svg%3E"
+                           alt="تصویر گرادیانی نمونه محصول" style="width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:var(--pa-radius-lg)">
+                      <h4 class="pa-mt-1 pa-mb-1" style="font-size:1rem">مانیتور حرفه‌ای ۲۷ اینچی</h4>
+                      <p class="pa-text-muted pa-fs-sm pa-mb-1">پنل IPS با پوشش ۹۹ درصد رنگ sRGB، نرخ نوسازی ۱۴۴ هرتز و پایه قابل تنظیم؛ مناسب طراحی و بازی.</p>
+                      <div class="pa-d-flex pa-gap-2" style="flex-wrap:wrap">
+                        <span class="pa-badge pa-badge-success">موجود در انبار</span>
+                        <span class="pa-badge pa-badge-info">ارسال رایگان</span>
+                        <span class="pa-badge pa-badge-primary">۱۲٬۵۰۰٬۰۰۰ تومان</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- نمونه ۲: فهرست کاربران -->
+                  <div class="pa-col-6">
+                    <h4 class="pa-mb-1" style="font-size:.95rem">نمونه ۲ — فهرست کاربران (۲٬۲۰۰ میلی‌ثانیه)</h4>
+                    <div data-pa-skeleton="2200">
+                      <div class="pa-d-flex pa-gap-2 pa-mb-2" style="align-items:center">
+                        <div class="pa-skeleton pa-skeleton-circle"></div>
+                        <div class="pa-flex-1">
+                          <div class="pa-skeleton pa-skeleton-text w-50"></div>
+                          <div class="pa-skeleton pa-skeleton-text w-33 pa-mb-0"></div>
+                        </div>
+                      </div>
+                      <div class="pa-d-flex pa-gap-2 pa-mb-2" style="align-items:center">
+                        <div class="pa-skeleton pa-skeleton-circle"></div>
+                        <div class="pa-flex-1">
+                          <div class="pa-skeleton pa-skeleton-text w-50"></div>
+                          <div class="pa-skeleton pa-skeleton-text w-33 pa-mb-0"></div>
+                        </div>
+                      </div>
+                      <div class="pa-d-flex pa-gap-2" style="align-items:center">
+                        <div class="pa-skeleton pa-skeleton-circle"></div>
+                        <div class="pa-flex-1">
+                          <div class="pa-skeleton pa-skeleton-text w-50"></div>
+                          <div class="pa-skeleton pa-skeleton-text w-33 pa-mb-0"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div data-pa-skeleton-content class="pa-hidden">
+                      <div class="pa-d-flex pa-gap-2 pa-mb-2" style="align-items:center">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#6366f1,#a855f7); color:#fff; display:grid; place-items:center; font-weight:700">م</div>
+                        <div class="pa-flex-1">
+                          <strong>مریم احمدی</strong>
+                          <div class="pa-text-muted pa-fs-sm">طراح ارسال رابط کاربری — آخرین بازدید: امروز ۰۹:۱۵</div>
+                        </div>
+                        <span class="pa-badge pa-badge-success">آنلاین</span>
+                      </div>
+                      <div class="pa-d-flex pa-gap-2 pa-mb-2" style="align-items:center">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#0ea5e9,#22d3ee); color:#fff; display:grid; place-items:center; font-weight:700">س</div>
+                        <div class="pa-flex-1">
+                          <strong>سعید کریمی</strong>
+                          <div class="pa-text-muted pa-fs-sm">توسعه‌دهنده بک‌اند — آخرین بازدید: دیروز ۱۸:۴۰</div>
+                        </div>
+                        <span class="pa-badge pa-badge-secondary">آفلاین</span>
+                      </div>
+                      <div class="pa-d-flex pa-gap-2" style="align-items:center">
+                        <div style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,#f59e0b,#ef4444); color:#fff; display:grid; place-items:center; font-weight:700">ن</div>
+                        <div class="pa-flex-1">
+                          <strong>نگار موسوی</strong>
+                          <div class="pa-text-muted pa-fs-sm">مدیر محصول — آخرین بازدید: امروز ۱۱:۰۲</div>
+                        </div>
+                        <span class="pa-badge pa-badge-success">آنلاین</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ۷. حلقه‌های پیشرفت -->
+        <div class="pa-row" data-pa-stagger="120">
+          <div class="pa-col-12" data-pa-reveal>
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>حلقه‌های پیشرفت</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-d-flex pa-gap-2" style="gap:2.25rem; align-items:center; flex-wrap:wrap">
+                  <div data-pa-ring="25" data-pa-size="96"></div>
+                  <div data-pa-ring="60" data-pa-size="96" data-pa-color="var(--pa-success)"></div>
+                  <div data-pa-ring="85" data-pa-size="96" data-pa-color="var(--pa-danger)"></div>
+                </div>
+                <p class="pa-text-muted pa-fs-sm pa-mt-2 pa-mb-0">حلقه‌ها با SVG ساخته و درصد آن‌ها به‌صورت انیمیشنی شمرده می‌شود؛ کافی است ویژگی <code>data-pa-ring="25"</code> را بنویسید. رنگ با <code>data-pa-color</code> و اندازه با <code>data-pa-size</code> تنظیم می‌شود.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-pa-layout="footer"></div>
+      </main>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* ============================================================
+       منطق صفحه لودرها و اسکلتون
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      // تبدیل ارقام لاتین به فارسی برای متن درصد
+      var FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+      function faNum(n) {
+        return String(n).replace(/\d/g, function (d) { return FA_DIGITS[+d]; });
+      }
+
+      /* ---------- ۲. بارگذاری دکمه ---------- */
+      document.querySelectorAll('[data-pa-demo-busy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var label = btn.getAttribute('data-pa-demo-busy') || 'در حال پردازش…';
+          var name = btn.getAttribute('data-pa-demo-name') || 'عملیات';
+          PAdminLTE.btnLoading(btn, true, label);
+          window.setTimeout(function () {
+            PAdminLTE.btnLoading(btn, false);
+            PAdminLTE.toast({ kind: 'success', title: 'انجام شد', message: 'عملیات «' + name + '» با موفقیت شبیه‌سازی شد.' });
+          }, 1500);
+        });
+      });
+
+      /* ---------- ۳. لودر بلوکی ---------- */
+      var blockDemo = document.getElementById('block-loader-demo');
+      var blockTimer = null;
+      function showBlockLoader(opts) {
+        PAdminLTE.loader.show(blockDemo, opts);
+        window.clearTimeout(blockTimer);
+        blockTimer = window.setTimeout(function () { PAdminLTE.loader.hide(blockDemo); }, 2400);
+      }
+      document.getElementById('btn-block-light').addEventListener('click', function () {
+        showBlockLoader({ label: 'در حال دریافت داده‌ها…' });
+      });
+      document.getElementById('btn-block-dark').addEventListener('click', function () {
+        showBlockLoader({ label: 'پردازش سنگین سمت سرور…', dark: true });
+      });
+      document.getElementById('btn-block-hide').addEventListener('click', function () {
+        window.clearTimeout(blockTimer);
+        PAdminLTE.loader.hide(blockDemo);
+      });
+
+      /* ---------- ۴. پری‌لودر صفحه ---------- */
+      document.getElementById('btn-pageloader').addEventListener('click', function () {
+        PAdminLTE.pageLoader.show('در حال بارگذاری صفحه…');
+        window.setTimeout(function () { PAdminLTE.pageLoader.hide(); }, 1600);
+      });
+
+      /* ---------- ۶. نوارهای پیشرفت متحرک ---------- */
+      function runProgressBars() {
+        document.querySelectorAll('.pa-progress-bar[data-pa-target]').forEach(function (bar) {
+          var target = parseInt(bar.getAttribute('data-pa-target'), 10) || 0;
+          var group = bar.closest('.pa-form-group');
+          var label = group ? group.querySelector('[data-pa-pct]') : null;
+          var start = null, dur = 1400;
+          bar.style.transition = 'none';
+          bar.style.width = '0%';
+          function step(ts) {
+            if (start === null) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            var v = Math.round(target * eased);
+            bar.style.width = v + '%';
+            if (label) label.textContent = faNum(v) + '٪';
+            if (p < 1) requestAnimationFrame(step);
+            else bar.style.transition = '';
+          }
+          requestAnimationFrame(step);
+        });
+      }
+      window.setTimeout(runProgressBars, 450);
+      document.getElementById('btn-progress-replay').addEventListener('click', runProgressBars);
+
+      /* ---------- ۵ و ۷. اسکلتون‌ها و حلقه‌ها به‌صورت خودکار مقداردهی می‌شوند ---------- */
+    })();
+  </script>
+</body>
+</html>

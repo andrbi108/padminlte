@@ -20,7 +20,7 @@
 - 🧩 **کامپوننت‌های کامل**: کارت، جدول، فرم، مودال، توست، تب، آلرت، بج، آواتار، dropdown، صفحه‌بندی
 - 🔍 **جدول داده‌ی پویا** با جستجو، مرتب‌سازی و صفحه‌بندی — بدون DataTables
 - ✅ **اعتبارسنجی فرم** با قواعد required/email/minlen/number
-- 🧰 **۵۶ صفحه‌ی آماده** در دسته‌های: داشبورد × ۳، ویجت، نمودار، جدول، فرم، پروفایل، کاربران، تنظیمات، فاکتور، تقویم، گالری، گفتگو، سؤالات متداول، ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP، وبلاگ، انجمن، دسته‌بندی، برچسب، فروشگاه، محصول، سبد خرید، تسویه حساب، صفحه فرود، درباره ما، تماس با ما، قیمت‌گذاری، در حال تعمیر، ایمیل، مدیریت فایل، کانبان، اعلان‌ها، پنل کاربری، نتایج جستجو، ویرایشگر زنده، بارگذاری فایل، CRUD محصولات، CRUD کاربران، سفارش‌ها، کامپوننت‌ها، تایم‌لاین، تیم، پروژه‌ها، به‌زودی، حریم خصوصی، شرایط استفاده، ۴۰۴، ۵۰۰، صفحهٔ خالی
+- 🧰 **۶۰ صفحه‌ی آماده** در دسته‌های: داشبورد × ۳، ویجت، نمودار، جدول، فرم، پروفایل، کاربران، حساب من، نقش‌ها، تنظیمات، فاکتور، تقویم، گالری، گفتگو، سؤالات متداول، ورود، ثبت‌نام، فراموشی رمز، تایید ایمیل، OTP، وبلاگ، نوشتن مطلب، انجمن، موضوع جدید، دسته‌بندی، برچسب، فروشگاه، محصول، سبد خرید، تسویه حساب، صفحه فرود، درباره ما، تماس با ما، قیمت‌گذاری، در حال تعمیر، ایمیل، مدیریت فایل، کانبان، اعلان‌ها، پنل کاربری، نتایج جستجو، ویرایشگر زنده، بارگذاری فایل، CRUD محصولات، CRUD کاربران، سفارش‌ها، کامپوننت‌ها، لودرها، انیمیشن‌ها، آیکون‌ها، تایم‌لاین، تیم، پروژه‌ها، به‌زودی، حریم خصوصی، شرایط استفاده، ۴۰۴، ۵۰۰، صفحهٔ خالی
 - 🎬 **۱۵ انیمیشن آماده** (slide, zoom, bounce, pulse, shake, spin, tada, flash, heartbeat, shimmer, float, glow, ripple) و ۷ الگوی hover
 - 🎨 **طیف گسترده رنگ‌بندی**: ۱۳ رنگ برند با gradient، badge، button و progress bar variants
 - 📝 **LiveEdit playground** برای ویرایش زنده HTML/CSS/JS با پیش‌نمایش در iframe
@@ -132,12 +132,19 @@ php -S localhost:8000
 | `pages/settings.html` | تنظیمات حساب + تنظیمات ظاهری (تم، منو، جهت) |
 | `pages/invoice.html` | فاکتور قابل چاپ |
 | `pages/faq.html` | سؤالات متداول با آکاردئون |
-| `pages/gallery.html` | گالری تصاویر با lightbox |
+| `pages/gallery.html` | گالری تصاویر با ۵ حالت نمایش (شبکه‌ای، ماسونری، فلکس، کارت، فهرستی) + بارگذاری تنبل + lightbox |
 | `pages/chat.html` | پنل گفتگو با پاسخ خودکار نمونه |
 | `pages/calendar.html` | تقویم ماهانه با رویداد |
 | `pages/blank.html` | صفحهٔ خالی برای شروع توسعهٔ صفحهٔ جدید |
-| `pages/login.html` | صفحهٔ ورود با اعتبارسنجی |
-| `pages/register.html` | صفحهٔ ثبت‌نام |
+| `pages/login.html` | ورود فعال با حساب نمونه (`admin@example.com / admin123`) |
+| `pages/register.html` | ثبت‌نام فعال + ورود خودکار |
+| `pages/account.html` | حساب من: ویرایش پروفایل، تغییر رمز، نشست‌های فعال |
+| `pages/roles.html` | نقش‌ها و مجوزها با ماتریس تعاملی |
+| `pages/blog-compose.html` | نوشتن مطلب با ذخیرهٔ واقعی در localStorage |
+| `pages/forum-new.html` | ایجاد موضوع انجمن با ذخیرهٔ واقعی |
+| `pages/loaders.html` | نمایشگاه اسپینرها، پری‌لودر، اسکلتون و نوارهای پیشرفت |
+| `pages/animations.html` | نمایشگاه ۱۲ حالت reveal، شمارنده‌ها، تایپ‌رایتر و هاورها |
+| `pages/icons.html` | نمایشگاه ۲۸۰ آیکون با جستجو و کپی با یک کلیک |
 | `pages/404.html` | صفحهٔ خطای ۴۰۴ |
 | `pages/500.html` | صفحهٔ خطای ۵۰۰ |
 
@@ -251,8 +258,10 @@ MIT — آزاد برای استفادهٔ تجاری و غیرتجاری. بر�
 - Full component set: cards, tables, forms, modals, toasts, tabs, alerts, badges, avatars, dropdowns, pagination
 - Datatable with search/sort/pagination — no DataTables.js
 - Form validation (required / email / minlen / number)
-- 18 ready-to-use demo pages
-- Accessibility: skip links, ARIA, keyboard support, focus-visible
+- 60 ready-to-use pages — 3 dashboards, CRUD, user management, auth flows, blog & forum (localStorage-backed), gallery with 5 view modes, loaders/skeletons, animations showcase, icon gallery and more
+- Mock auth (`PAdminLTE.auth`) with localStorage sessions + content store (`PAdminLTE.store`)
+- Lazy-loaded images, spinner/skeleton/preloader toolkit, scroll-reveal animations (12 modes), typewriter
+- Accessibility: skip links, ARIA, keyboard support, focus-visible, prefers-reduced-motion
 - MIT licensed
 
 ### Docs

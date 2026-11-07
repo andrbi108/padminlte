@@ -1726,6 +1726,368 @@
     });
   }
 
+  /* =============================================================
+     v1.3 — Lazy loading, advanced animations, loaders, mock auth,
+     content store (localStorage), typewriter
+     ============================================================= */
+
+  /* ---------- Lazy images (IntersectionObserver, fade-in) ----------
+     Usage:
+       <img data-pa-lazy data-pa-src="photo.jpg" alt="…">  → src set when visible
+       <img data-pa-lazy src="photo.jpg">                  → fade-in only
+     Optional: data-pa-lazy-class="pa-fade-up" (extra entrance)   */
+  function initLazyImages(root) {
+    var imgs = (root || document).querySelectorAll('img[data-pa-lazy]');
+    if (!imgs.length) return;
+    function reveal(img) {
+      img.classList.add('is-lazy-loaded');
+    }
+    function load(img) {
+      var src = img.getAttribute('data-pa-src');
+      if (src && !img.getAttribute('src')) img.setAttribute('src', src);
+      if (img.complete && img.naturalWidth) reveal(img);
+      else img.addEventListener('load', function () { reveal(img); }, { once: true });
+      img.addEventListener('error', function () { reveal(img); }, { once: true });
+    }
+    if (!('IntersectionObserver' in global)) {
+      imgs.forEach(load);
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) {
+          load(en.target);
+          io.unobserve(en.target);
+        }
+      });
+    }, { rootMargin: '120px 0px' });
+    imgs.forEach(function (img) {
+      if (img.__paLazy) return;
+      img.__paLazy = true;
+      io.observe(img);
+    });
+  }
+
+  /* ---------- Stagger helper (data-pa-stagger on a container) ----------
+     Children with [data-pa-reveal] receive incremental delays.       */
+  function initStagger(root) {
+    (root || document).querySelectorAll('[data-pa-stagger]').forEach(function (box) {
+      if (box.__paStagger) return;
+      box.__paStagger = true;
+      var step = parseInt(box.getAttribute('data-pa-stagger') || '90', 10);
+      var kids = box.querySelectorAll('[data-pa-reveal]');
+      kids.forEach(function (k, i) {
+        if (!k.getAttribute('data-pa-delay')) k.setAttribute('data-pa-delay', String(i * step));
+      });
+    });
+  }
+
+  /* ---------- Loader overlays (PAdminLTE.loader) ----------
+     loader.show(target, opts)  → overlay with spinner on any block
+     loader.hide(target)        → remove overlay
+     target: element | selector. opts.label = optional text.      */
+  var loader = {
+    show: function (target, opts) {
+      opts = opts || {};
+      var el = typeof target === 'string' ? document.querySelector(target) : target;
+      if (!el) return null;
+      if (el.__paLoader) return el.__paLoader;
+      var ov = document.createElement('div');
+      ov.className = 'pa-loader-overlay' + (opts.dark ? ' is-dark' : '');
+      ov.innerHTML =
+        '<span class="pa-spinner pa-spinner-border"></span>' +
+        (opts.label ? '<span class="pa-loader-label"></span>' : '');
+      if (opts.label) ov.querySelector('.pa-loader-label').textContent = opts.label;
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      el.appendChild(ov);
+      el.__paLoader = ov;
+      requestAnimationFrame(function () { ov.classList.add('is-visible'); });
+      return ov;
+    },
+    hide: function (target) {
+      var el = typeof target === 'string' ? document.querySelector(target) : target;
+      if (!el || !el.__paLoader) return;
+      var ov = el.__paLoader;
+      ov.classList.remove('is-visible');
+      delete el.__paLoader;
+      setTimeout(function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }, 240);
+    }
+  };
+
+  /* ---------- Full-page preloader ----------
+     Static markup: <div class="pa-preloader"><span class="pa-spinner pa-spinner-border"></span></div>
+     Auto-hides after boot; or control via PAdminLTE.pageLoader.     */
+  function pageLoaderShow(label) {
+    var p = document.querySelector('.pa-preloader');
+    if (!p) {
+      p = document.createElement('div');
+      p.className = 'pa-preloader';
+      p.innerHTML =
+        '<div class="pa-preloader-box">' +
+          '<span class="pa-brand-mark pa-preloader-mark">P</span>' +
+          '<span class="pa-spinner pa-spinner-border"></span>' +
+          (label ? '<span class="pa-preloader-label"></span>' : '') +
+        '</div>';
+      if (label) p.querySelector('.pa-preloader-label').textContent = label;
+      document.body.appendChild(p);
+    }
+    requestAnimationFrame(function () { p.classList.add('is-active'); });
+    return p;
+  }
+  function pageLoaderHide() {
+    var p = document.querySelector('.pa-preloader');
+    if (!p) return;
+    p.classList.remove('is-active');
+    p.classList.add('is-done');
+    setTimeout(function () { if (p.parentNode) p.parentNode.removeChild(p); }, 420);
+  }
+  function initPreloaders() {
+    // Auto-dismiss any static preloader shortly after boot
+    var p = document.querySelector('.pa-preloader');
+    if (p) setTimeout(pageLoaderHide, 350);
+  }
+
+  /* ---------- Button loading state ----------
+     btnLoading(btn, true [, label]) → spinner inside button       */
+  function btnLoading(btn, on, label) {
+    if (!btn) return;
+    if (on) {
+      if (btn.__paBusy) return;
+      btn.__paBusy = true;
+      btn.__paPrev = btn.innerHTML;
+      btn.disabled = true;
+      btn.classList.add('is-loading');
+      var tmp = document.createElement('div');
+      tmp.innerHTML = btn.__paPrev || '';
+      var txt = (label !== undefined) ? label : tmp.textContent.trim();
+      btn.innerHTML = '<span class="pa-spinner pa-spinner-border pa-spinner-sm"></span>' +
+        (txt ? '<span>' + txt + '</span>' : '');
+    } else {
+      if (!btn.__paBusy) return;
+      btn.__paBusy = false;
+      btn.disabled = false;
+      btn.classList.remove('is-loading');
+      btn.innerHTML = btn.__paPrev || btn.innerHTML;
+    }
+  }
+
+  /* ---------- Skeletons (data-pa-skeleton="ms") ----------
+     <div data-pa-skeleton="1400">skeleton pieces…</div>
+     <div data-pa-skeleton-content class="pa-hidden">real content</div>
+     After the delay the skeleton fades out and the content shows. */
+  function initSkeletons(root) {
+    (root || document).querySelectorAll('[data-pa-skeleton]').forEach(function (sk) {
+      if (sk.__paBound) return;
+      sk.__paBound = true;
+      var ms = parseInt(sk.getAttribute('data-pa-skeleton') || '1400', 10);
+      var content = null;
+      var sib = sk.nextElementSibling;
+      while (sib) {
+        if (sib.hasAttribute && sib.hasAttribute('data-pa-skeleton-content')) { content = sib; break; }
+        sib = sib.nextElementSibling;
+      }
+      setTimeout(function () {
+        sk.classList.add('is-done');
+        setTimeout(function () { sk.classList.add('is-gone'); }, 320);
+        if (content) {
+          content.classList.remove('pa-hidden');
+          content.classList.add('is-revealed');
+          // re-run icons/bindings for revealed content
+          if (PAdminLTE.injectIcons) PAdminLTE.injectIcons(content);
+        }
+      }, ms);
+    });
+  }
+
+  /* ---------- Typewriter (data-pa-typewriter) ----------
+     <span data-pa-typewriter data-pa-text="…|…|…" data-pa-speed="70"></span>
+     data-pa-text: pipe-separated phrases looped forever.            */
+  function initTypewriters(root) {
+    (root || document).querySelectorAll('[data-pa-typewriter]').forEach(function (el) {
+      if (el.__paBound) return;
+      el.__paBound = true;
+      var phrases = (el.getAttribute('data-pa-text') || el.textContent || '').split('|');
+      var speed = parseInt(el.getAttribute('data-pa-speed') || '70', 10);
+      var hold = parseInt(el.getAttribute('data-pa-hold') || '1600', 10);
+      el.textContent = '';
+      var caret = document.createElement('span');
+      caret.className = 'pa-type-caret';
+      el.appendChild(caret);
+      var pi = 0;
+      function type() {
+        var word = phrases[pi % phrases.length] || '';
+        var i = 0;
+        (function tick() {
+          if (i <= word.length) {
+            caret.insertAdjacentText('beforebegin', word.charAt(i - 1) || '');
+            var prev = caret.previousSibling;
+            i++;
+            if (i > word.length) {
+              setTimeout(erase, hold);
+            } else setTimeout(tick, speed);
+          } else setTimeout(erase, hold);
+        })();
+      }
+      function erase() {
+        (function tick() {
+          var prev = caret.previousSibling;
+          if (prev && prev.nodeType === 3) {
+            prev.textContent = prev.textContent.slice(0, -1);
+            if (prev.textContent.length) setTimeout(tick, speed / 2);
+            else { pi++; setTimeout(type, 240); }
+          } else { pi++; setTimeout(type, 240); }
+        })();
+      }
+      type();
+    });
+  }
+
+  /* ---------- Mock auth (localStorage; demo only — NOT real security) ----------
+     Accounts live in 'pa-users', the active session in 'pa-session'.
+     A demo manager account is seeded on first run so every flow works
+     offline out of the box.                                          */
+  var STORAGE_USERS = 'pa-users';
+  var STORAGE_SESSION = 'pa-session';
+  function _seedUsers() {
+    var users = _lsGet(STORAGE_USERS, null);
+    if (!users || !users.length) {
+      users = [{
+        id: 'u-admin',
+        name: 'امیر رضایی',
+        email: 'admin@example.com',
+        pass: 'admin123',
+        role: 'مدیر',
+        color: '#4f6df5',
+        bio: 'مدیر سیستم PAdminLTE — عاشور کد تمیز و طراحی بی‌وابستگی.',
+        joined: '۱۴۰۳/۰۱/۱۵'
+      }];
+      _lsSet(STORAGE_USERS, users);
+    }
+    return users;
+  }
+  function authUsers() { return _seedUsers(); }
+  function authCurrentUser() {
+    var id = _lsGet(STORAGE_SESSION, null);
+    if (!id) return null;
+    var u = authUsers().filter(function (x) { return x.id === id; })[0];
+    return u || null;
+  }
+  function authLogin(email, pass, remember) {
+    var users = authUsers();
+    var u = users.filter(function (x) {
+      return x.email.toLowerCase() === String(email || '').toLowerCase().trim();
+    })[0];
+    if (!u || u.pass !== pass) {
+      emit('pa:auth:error', { reason: 'credentials' });
+      return null;
+    }
+    _lsSet(STORAGE_SESSION, u.id);
+    if (remember === false) { /* demo: session kept either way */ }
+    emit('pa:auth:login', { user: u });
+    return u;
+  }
+  function authRegister(o) {
+    o = o || {};
+    var users = authUsers();
+    var exists = users.some(function (x) {
+      return x.email.toLowerCase() === String(o.email || '').toLowerCase().trim();
+    });
+    if (exists) { emit('pa:auth:error', { reason: 'exists' }); return null; }
+    var u = {
+      id: 'u-' + Date.now(),
+      name: o.name || 'کاربر جدید',
+      email: String(o.email || '').toLowerCase().trim(),
+      pass: o.pass || '',
+      role: o.role || 'نویسنده',
+      color: o.color || '#0aa6c2',
+      bio: o.bio || '',
+      joined: new Date().toLocaleDateString('fa-IR')
+    };
+    users.push(u);
+    _lsSet(STORAGE_USERS, users);
+    _lsSet(STORAGE_SESSION, u.id);
+    emit('pa:auth:register', { user: u });
+    return u;
+  }
+  function authLogout() {
+    _lsSet(STORAGE_SESSION, null);
+    emit('pa:auth:logout', {});
+  }
+  function authUpdateProfile(patch) {
+    var id = _lsGet(STORAGE_SESSION, null);
+    if (!id) return null;
+    var users = authUsers();
+    var u = users.filter(function (x) { return x.id === id; })[0];
+    if (!u) return null;
+    Object.keys(patch || {}).forEach(function (k) {
+      if (k !== 'id' && k !== 'pass') u[k] = patch[k];
+    });
+    _lsSet(STORAGE_USERS, users);
+    emit('pa:auth:update', { user: u });
+    return u;
+  }
+  function authChangePassword(oldPass, newPass) {
+    var id = _lsGet(STORAGE_SESSION, null);
+    if (!id) return { ok: false, error: 'session' };
+    var users = authUsers();
+    var u = users.filter(function (x) { return x.id === id; })[0];
+    if (!u) return { ok: false, error: 'session' };
+    if (u.pass !== oldPass) return { ok: false, error: 'wrong' };
+    if (!newPass || String(newPass).length < 6) return { ok: false, error: 'short' };
+    u.pass = newPass;
+    _lsSet(STORAGE_USERS, users);
+    emit('pa:auth:password', {});
+    return { ok: true };
+  }
+
+  /* ---------- Tiny content store (localStorage collections) ---------- */
+  function _lsGet(k, fb) {
+    try {
+      var v = JSON.parse(localStorage.getItem(k));
+      return v === null || v === undefined ? fb : v;
+    } catch (e) { return fb; }
+  }
+  function _lsSet(k, v) {
+    try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {}
+  }
+  function IN_PAGES_DIR() {
+    var segs = (global.location && global.location.pathname || '').split('/');
+    for (var i = 0; i < segs.length - 1; i++) if (segs[i] === 'pages') return true;
+    return false;
+  }
+  var store = {
+    get: function (key, seed) {
+      var v = _lsGet(key, null);
+      if (v === null) { v = seed || []; _lsSet(key, v); }
+      return v;
+    },
+    save: function (key, val) { _lsSet(key, val); },
+    find: function (key, id, seed) {
+      return store.get(key, seed).filter(function (x) { return String(x.id) === String(id); })[0] || null;
+    },
+    add: function (key, item, seed) {
+      var arr = store.get(key, seed);
+      item.id = item.id || ('i-' + Date.now() + '-' + Math.floor(Math.random() * 999));
+      arr.unshift(item);
+      store.save(key, arr);
+      return item;
+    },
+    update: function (key, id, patch, seed) {
+      var arr = store.get(key, seed);
+      var it = null;
+      arr.forEach(function (x) {
+        if (String(x.id) === String(id)) { Object.keys(patch).forEach(function (k) { x[k] = patch[k]; }); it = x; }
+      });
+      store.save(key, arr);
+      return it;
+    },
+    remove: function (key, id, seed) {
+      var arr = store.get(key, seed).filter(function (x) { return String(x.id) !== String(id); });
+      store.save(key, arr);
+      return arr;
+    }
+  };
+
   /* ---------- Auto-init everything ---------- */
   var _origBoot = boot;
   function fullBoot(root) {
@@ -1744,6 +2106,22 @@
     initReveals(root);
     initRings(root);
     initRipples(root);
+    initLazyImages(root);
+    initStagger(root);
+    initSkeletons(root);
+    initTypewriters(root);
+    initPreloaders();
+    // Bind logout buttons (mock auth)
+    (root || document).querySelectorAll('[data-pa-logout]').forEach(function (btn) {
+      if (btn.__paBound) return;
+      btn.__paBound = true;
+      btn.addEventListener('click', function () {
+        PAdminLTE.auth.logout();
+        toast({ kind: 'info', title: 'خروج', message: 'از حساب خود خارج شدید (نمونه).' });
+        var login = IN_PAGES_DIR() ? 'login.html' : 'pages/login.html';
+        setTimeout(function () { global.location.href = login; }, 650);
+      });
+    });
     // Bind copy buttons
     (root || document).querySelectorAll('[data-pa-copy]').forEach(function (btn) {
       if (btn.__paBound) return;
@@ -1810,5 +2188,27 @@
     open: openLightbox,
     close: closeLightbox,
     go: function (i) { lightboxGo(i); }
+  };
+
+  /* ---------- Public API additions (v1.3) ---------- */
+  PAdminLTE.initLazyImages = initLazyImages;
+  PAdminLTE.initStagger = initStagger;
+  PAdminLTE.loader = loader;
+  PAdminLTE.pageLoader = {
+    show: pageLoaderShow,
+    hide: pageLoaderHide
+  };
+  PAdminLTE.btnLoading = btnLoading;
+  PAdminLTE.initSkeletons = initSkeletons;
+  PAdminLTE.initTypewriters = initTypewriters;
+  PAdminLTE.store = store;
+  PAdminLTE.auth = {
+    users: authUsers,
+    currentUser: authCurrentUser,
+    login: authLogin,
+    register: authRegister,
+    logout: authLogout,
+    updateProfile: authUpdateProfile,
+    changePassword: authChangePassword
   };
 })(typeof window !== 'undefined' ? window : this);

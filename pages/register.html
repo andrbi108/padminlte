@@ -12,7 +12,7 @@
     <h1>ایجاد حساب جدید</h1>
     <p class="pa-sub">برای استفاده از امکانات، ثبت‌نام کنید</p>
 
-    <form data-pa-validate-form onsubmit="return false">
+    <form id="register-form">
       <div class="pa-form-row">
         <div class="pa-form-group">
           <label for="firstname">نام</label>
@@ -61,5 +61,41 @@
   </div>
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
+  <script>
+    (function () {
+      var form = document.getElementById('register-form');
+      var btn = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!PAdminLTE.validateForm(form)) return;
+        var pass = document.getElementById('password').value;
+        var confirm = document.getElementById('confirm').value;
+        if (pass !== confirm) {
+          PAdminLTE.toast({ kind: 'danger', title: 'خطا', message: 'رمز عبور و تکرار آن یکسان نیستند.' });
+          document.getElementById('confirm').classList.add('is-invalid');
+          return;
+        }
+        var first = document.getElementById('firstname').value.trim();
+        var last = document.getElementById('lastname').value.trim();
+        PAdminLTE.btnLoading(btn, true, 'در حال ایجاد حساب…');
+        setTimeout(function () {
+          var u = PAdminLTE.auth.register({
+            name: (first + ' ' + last).trim(),
+            email: document.getElementById('email').value,
+            pass: pass,
+            role: 'نویسنده',
+            color: '#0aa6c2'
+          });
+          PAdminLTE.btnLoading(btn, false);
+          if (u) {
+            PAdminLTE.toast({ kind: 'success', title: 'ثبت‌نام موفق', message: 'حساب شما ساخته شد؛ وارد شدید. خوش آمدید ' + u.name + '!' });
+            setTimeout(function () { location.href = '../index.html'; }, 800);
+          } else {
+            PAdminLTE.toast({ kind: 'danger', title: 'خطا', message: 'این ایمیل قبلاً ثبت شده است. ایمیل دیگری وارد کنید.' });
+          }
+        }, 1000);
+      });
+    })();
+  </script>
 </body>
 </html>

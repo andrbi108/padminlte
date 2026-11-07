@@ -652,3 +652,81 @@ PAdminLTE.injectIcons(newContainer);
 - همهٔ نمودارها هنگام لود **انیمیشن** دارند و هنگام **هاور** tooltip نشان می‌دهند.
 - با تغییر تم یا resize صفحه به‌صورت خودکار دوباره رسم می‌شوند.
 - غیرفعال‌سازی: `PAdminLTE.lineChart(canvas, data, {animate:false})`.
+
+---
+
+## v1.3 — بارگذاری تنبل، لودرها، انیمیشن‌ها، احراز هویت و ذخیره‌گاه محتوا
+
+### Lazy loading (بارگذاری تنبل تصاویر)
+
+| الگو | توضیح |
+|---|---|
+| `<img data-pa-lazy data-pa-src="photo.jpg">` | `src` هنگام نزدیک شدن به دید (IntersectionObserver با rootMargin ۱۲۰px) تنظیم و تصویر با محو تدریجی ظاهر می‌شود |
+| `<img data-pa-lazy src="...">` | فقط افکت ظهور (fade-in) اعمال می‌شود |
+
+تا لحظهٔ بارگذاری، شیمر (پس‌زمینهٔ متحرک) نمایش داده می‌شود. با `prefers-reduced-motion` همهٔ افکت‌ها خاموش می‌شوند.
+
+### Loaders
+
+| API | کار |
+|---|---|
+| `PAdminLTE.loader.show(target, {label, dark})` | اورلی لودر روی هر بلوک (المان یا سلکتور) |
+| `PAdminLTE.loader.hide(target)` | حذف اورلی |
+| `PAdminLTE.pageLoader.show('متن…')` / `.hide()` | پری‌لودر تمام‌صفحه |
+| `PAdminLTE.btnLoading(btn, true\|false, 'متن…')` | حالت بارگذاری دکمه با اسپینر |
+
+مارک‌آپ اسپینرها: `<span class="pa-spinner pa-spinner-border|dual|dots|bars|pulse|flip">` + `pa-spinner-sm/lg`. برای اسکلتون: `.pa-skeleton` + `pa-skeleton-text/title/img/circle/chip` و تعویض خودکار:
+
+```html
+<div data-pa-skeleton="1400"><!-- اسکلتون‌ها --></div>
+<div data-pa-skeleton-content class="pa-hidden"><!-- محتوای واقعی --></div>
+```
+
+### انیمیشن‌ها
+
+| Attribute | مقادیر |
+|---|---|
+| `data-pa-reveal` | پیش‌فرض fade-up؛ مقادیر: `down`, `right`, `left`, `start`, `end`, `zoom`, `zoom-out`, `blur`, `flip-x`, `flip-y`, `rotate`, `bounce` |
+| `data-pa-delay="ms"` | تأخیر نمایش |
+| `data-pa-stagger="90"` | روی ظرف — به فرزندان `data-pa-reveal` تأخیر پله‌ای می‌دهد |
+| `data-pa-typewriter` + `data-pa-text="الف|ب|ج"` | تایپ‌رایتر حلقه‌ای؛ `data-pa-speed`, `data-pa-hold` |
+
+کلاس‌های کمکی بی‌پایان: `.pa-anim-pulse / float / shake / spin / bounce / heartbeat / wiggle / gradient`.
+کلاس‌های هاور: `.pa-hover-zoom / lift / rotate / glow / ring`.
+
+### Mock auth (نمونه — امنیت واقعی نیست)
+
+```js
+PAdminLTE.auth.login(email, pass)        // → user | null  (حساب نمونه: admin@example.com / admin123)
+PAdminLTE.auth.register({name,email,pass,role,color})
+PAdminLTE.auth.logout()
+PAdminLTE.auth.currentUser()             // → user | null
+PAdminLTE.auth.updateProfile({name, bio, color})
+PAdminLTE.auth.changePassword(oldPass, newPass) // → {ok} | {ok:false, error}
+PAdminLTE.auth.users()
+```
+داده‌ها در `localStorage` با کلیدهای `pa-users` و `pa-session` ذخیره می‌شوند. رویدادها: `pa:auth:login`, `pa:auth:register`, `pa:auth:logout`, `pa:auth:update`, `pa:auth:password`, `pa:auth:error`.
+
+### Content store (ذخیره‌گاه محتوا)
+
+```js
+PAdminLTE.store.get(key, seed)         // آرایه (در اولین اجرا seed ذخیره می‌شود)
+PAdminLTE.store.find(key, id, seed)
+PAdminLTE.store.add(key, item, seed)   // id خودکار؛ آیتم به ابتدای آرایه اضافه می‌شود
+PAdminLTE.store.update(key, id, patch, seed)
+PAdminLTE.store.remove(key, id, seed)
+```
+کلیدهای استفاده‌شده: `pa-blog-posts`، `pa-blog-comments`، `pa-forum-topics`، `pa-forum-replies`.
+
+### خروج از حساب
+
+هر دکمهٔ `data-pa-logout` در `fullBoot` به `auth.logout()` + توست + ریدایرکت به صفحهٔ ورود متصل می‌شود.
+
+### Attributeهای v1.3 (یک‌نگاه)
+
+| Attribute | المان | کار |
+|---|---|---|
+| `data-pa-lazy` (+`data-pa-src`) | `<img>` | بارگذاری تنبل با fade-in |
+| `data-pa-skeleton="ms"` | ظرف اسکلتون | تعویض خودکار با `data-pa-skeleton-content` |
+| `data-pa-typewriter` | المان متنی | تایپ‌رایتر |
+| `data-pa-logout` | دکمه | خروج از حساب |
