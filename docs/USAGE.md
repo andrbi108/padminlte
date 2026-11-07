@@ -984,10 +984,18 @@ PAdminLTE.net.override(null);      // بازگشت به وضعیت واقعی
 ```css
 .pa-small-box .pa-icon-bg {
   position: absolute;
-  inset-inline-end: 0;   /* RTL: چسبیده به چپ‌ترین نقطه — LTR: راست‌ترین نقطه */
-  bottom: 2.25rem;
-  transform: scale(2.2); /* خون‌ریزی تزئینی؛ overflow:hidden جعبه برش می‌زند */
+  inset-inline-end: 0;        /* لنگر روی لبهٔ پایان سطر */
+  margin-inline-end: 2.75rem; /* فاصلهٔ ۴۴px از همان لبه — RTL: margin-left، LTR: margin-right */
+  bottom: 2rem;
+  transform: scale(2.2);      /* خون‌ریزی تزئینی؛ overflow:hidden جعبه برش می‌زند */
 }
+```
+
+همان یک قاعده دقیقاً معادل دو بلوک فیزیکی زیر است — بدون هیچ تکرار:
+
+```css
+/* RTL  →  */ left: 0;  margin-left: 2.75rem;
+/* LTR  →  */ right: 0; margin-right: 2.75rem;
 ```
 
 ### حالت‌های سایدبار
@@ -1002,3 +1010,44 @@ PAdminLTE.net.override(null);      // بازگشت به وضعیت واقعی
 **قاعدهٔ سرانگشتی برای کد جدید:** هر جا خواستید چیزی «به سمت شروع/پایانِ خواندن»
 بچسبد، از خواص منطقی استفاده کنید؛ ترنسفورم‌های فیزیکی (لغزش off-canvas) را با
 دوقلوی `[dir="rtl"]` بنویسید.
+
+## WYSIWYG — ویرایشگر متن غنی (v2.1)
+
+ویرایشگر متن غنیِ کاملاً بومی (`js/pa-editor.js`) — بدون هیچ کتابخانه یا CDN،
+سازگار با `file://`. فایل آن **تنبل** بارگذاری می‌شود: فقط وقتی صفحه‌ای
+`data-pa-editor` داشته باشد، `initEditors` در `fullBoot` اسکریپت را با تزریق
+`<script>` (نه fetch) می‌خواند و پس از لود همهٔ نمونه‌ها را می‌سازد.
+
+```html
+<!-- پیش‌تنظیم full (پیش‌فرض) -->
+<textarea data-pa-editor></textarea>
+
+<!-- پیش‌تنظیم basic — مناسب پاسخ/ایمیل -->
+<textarea data-pa-editor="basic"></textarea>
+
+<!-- پیش‌تنظیم minimal — مناسب نظر -->
+<textarea data-pa-editor="minimal"></textarea>
+
+<!-- گزینه‌ها -->
+<textarea data-pa-editor
+          data-pa-editor-height="300"
+          data-pa-editor-placeholder="اینجا بنویسید…"
+          data-pa-editor-no-source></textarea>
+```
+
+### همگامی با فرم
+
+`textarea` اصلی از دید حذف نمی‌شود (فقط مخفیِ بصری است) و در هر ورودی، مقدار
+HTML همگام می‌شود؛ پس ارسال فرم، اعتبارسنجی `data-pa-validate`، پیش‌نویس
+خودکار `data-pa-autosave` و `reset` فرم همه بدون تغییر کار می‌کنند. صفحهٔ
+«نوشتن مطلب»، «موضوع جدید انجمن» و «نگارش ایمیل» همین ویرایشگر را فعال دارند.
+
+### نکته‌های رفتاری
+
+- دکمه‌های «آغاز/پایان سطر» جهت‌آگاه‌اند: در RTL راست‌چین/چپ‌چین و در LTR برعکس.
+- چسباندن محتوا به‌صورت خودکار پاک‌سازی می‌شود (حذف `script`/`style`/`iframe` و
+  رویدادهای `on*` و `href="javascript:"`).
+- تصویر محلی با `FileReader` به base64 تبدیل می‌شود — بدون سرور؛ برای فایل‌های
+  بالای ۱٫۵MB هشدار می‌دهد.
+- دکمهٔ «تغییر جهت نوشتار» `dir` را فقط روی محتوا همان ویرایشگر عوض می‌کند.
+- خروجی HTML سمت سرور هم باید پاک‌سازی شود (پاک‌سازی سمت کلاینت فقط لایهٔ اول است).

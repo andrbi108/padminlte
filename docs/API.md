@@ -1057,3 +1057,60 @@ returned  → نکتهٔ قرمز مرجوعی (بدون پیشروی مراحل
   در هر بار قطع نمایش داده می‌شود و تا بازگشت اتصال می‌ماند؛
 - حالت پارک‌شدهٔ بنر اکنون `visibility:hidden` است تا در ضبط صفحه‌کامل یا
   اسکرین‌شات‌ها به‌صورت نوار سبز ثابت در لبهٔ دیدگاه ظاهر نشود.
+
+## WYSIWYG editor — `PAdminLTE.editor` (v2.1)
+
+ویرایشگر متن غنی بومی در فایل جداگانهٔ `js/pa-editor.js` است و **تنبل** بارگذاری
+می‌شود: `initEditors(root)` در `fullBoot` فقط وقتی `[data-pa-editor]` در صفحه
+هست، اسکریپت را با تزریق `<script>` (سازگار با `file://`) می‌خواند.
+
+```js
+// راه‌اندازی دستی
+PAdminLTE.editor.create(document.querySelector('#my-textarea'), { preset: 'full' });
+PAdminLTE.editor.scan();              // همهٔ [data-pa-editor]های صفحه
+var ed = PAdminLTE.editor.get('my-textarea');  // با id فیلد پشتیبان یا خودِ المان
+
+// API نمونه
+ed.getHTML();        // خروجی HTML (محتوای خالی → '')
+ed.setHTML('<p>…</p>'); // جایگزینی کامل (با پاک‌سازی)
+ed.getText();        // متن ساده
+ed.insertHTML('<ul><li>…</li></ul>');
+ed.focus(); ed.clear();
+ed.isSource(); ed.toggleSource();   // نمای کد HTML
+ed.toggleFullscreen();              // تمام‌صفحه (با قفل اسکرول body)
+ed.toggleDir();                     // تغییر جهت نوشتار محتوا (rtl/ltr)
+ed.destroy();                       // حذف ویرایشگر و بازگرداندن textarea
+```
+
+### رویدادها (CustomEvent روی ریشهٔ ویرایشگر، `bubbles: true`)
+
+| رویداد                  | detail              | زمان رخداد |
+| ----------------------- | ------------------- | ---------- |
+| `pa:editor:init`        | `{id}`              | پس از ساخت نمونه |
+| `pa:editor:input`       | `{html}`            | هر تغییر محتوا (همگام با `textarea`) |
+| `pa:editor:focus/blur`  | `{}`                | فوکوس/ترک ناحیهٔ ویرایش |
+| `pa:editor:command`     | `{cmd, arg}`        | هر فرمان execCommand / تغییر جهت |
+| `pa:editor:source`      | `{on}`              | ورود/خروج از نمای کد |
+| `pa:editor:fullscreen`  | `{on}`              | ورود/خروج از تمام‌صفحه |
+
+```js
+document.querySelector('.pa-editor').addEventListener('pa:editor:input', function (e) {
+  console.log('HTML جدید:', e.detail.html);
+});
+```
+
+### نکته‌های پیاده‌سازی
+
+- `textarea` پشتیبان مخفیِ بصری می‌ماند (کلاس `pa-editor-backing`) و در هر ورودی
+  `value` آن همگام و رویداد بومی `input` (با `bubbles:true`) روی آن dispatch
+  می‌شود — بنابراین اعتبارسنجی، پیش‌نویس خودکار و serializeForm بدون تغییر کار می‌کنند.
+- پاک‌سازی چسبانده‌ها: `PAdminLTE.editor.sanitizeHTML(html)` عمومی است (حذف
+  `script/style/iframe/object/embed/base/form…`، همهٔ ویژگی‌های `on*` و
+  `href/src` با `javascript:`).
+- فرمان‌های هم‌ترازی «آغاز/پایان سطر» بر اساس جهت مؤثر محتوا به
+  `justifyRight/justifyLeft` نگاشت می‌شوند.
+- در تمام‌صفحه ریشهٔ ویرایشگر موقتاً به `<body>` منتقل می‌شود تا ترنسفورم
+  ancestorها (انیمیشن reveal و…) `position:fixed` را نشکند؛ پس از خروج به
+  جایگاه اصلی برمی‌گردد.
+- امنیت: پاک‌سازی سمت کلاینت فقط لایهٔ اول است؛ HTML دریافتی از کاربر را قبل از
+  ذخیره/نمایش سمت سرور هم پاک‌سازی کنید.

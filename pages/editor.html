@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-pa-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PAdminLTE — ویرایشگر متن غنی (WYSIWYG)</title>
+  <link rel="stylesheet" href="../css/padminlte.css">
+</head>
+<body>
+  <a class="pa-skip-link" href="#pa-main-content">پرش به محتوا</a>
+  <div class="pa-app">
+    <div data-pa-layout="sidebar"></div>
+    <div class="pa-main">
+      <div data-pa-layout="header"></div>
+      <main class="pa-content" id="pa-main-content">
+        <div class="pa-page-header">
+          <div>
+            <h1>ویرایشگر متن غنی (WYSIWYG)</h1>
+            <div class="pa-breadcrumb">
+              <a href="../index.html">خانه</a>
+              <span class="pa-sep">›</span>
+              <span>ابزارها</span>
+              <span class="pa-sep">›</span>
+              <span>ویرایشگر متن</span>
+            </div>
+          </div>
+          <span class="pa-badge pa-badge-primary">v2.1 — صفر وابستگی</span>
+        </div>
+
+        <div class="pa-alert pa-alert-info pa-mb-3">
+          <span data-pa-icon="info" data-pa-icon-size="20"></span>
+          <div class="pa-alert-body">
+            ویرایشگر WYSIWYG کاملاً بومی است (<code>contenteditable</code> + <code>document.execCommand</code>)؛
+            بدون هیچ کتابخانه یا CDN، و آفلاین از مسیر <code>file://</code> اجرا می‌شود. فایل آن
+            (<code>js/pa-editor.js</code>) فقط وقتی صفحه‌ای از <code>data-pa-editor</code> استفاده کند بارگذاری می‌شود.
+          </div>
+        </div>
+
+        <div class="pa-row">
+          <!-- Full editor + form integration -->
+          <div class="pa-col-12">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>ویرایشگر کامل + اتصال به فرم</h3>
+                <small class="pa-text-muted">پیش‌تنظیم <code>data-pa-editor</code> (پیش‌فرض full) — مقدار نهایی در <code>&lt;textarea&gt;</code> پنهان همگام می‌ماند و اعتبارسنجی/ارسال فرم بدون تغییر کار می‌کند</small>
+              </div>
+              <div class="pa-card-body">
+                <form id="ed-demo-form" data-pa-validate-form>
+                  <div class="pa-form-group">
+                    <label for="ed-full">متن مقاله</label>
+                    <textarea id="ed-full" data-pa-editor data-pa-editor-height="280"
+                              placeholder="اینجا بنویسید… ابزارهای بالا همه بومی و آفلاین هستند"></textarea>
+                    <div class="pa-form-feedback"></div>
+                  </div>
+                  <div class="pa-d-flex pa-gap-2" style="flex-wrap:wrap">
+                    <button type="submit" class="pa-btn pa-btn-primary"><span data-pa-icon="save" data-pa-icon-size="16"></span> ارسال فرم</button>
+                    <button type="button" class="pa-btn pa-btn-outline" id="ed-show-html"><span data-pa-icon="code" data-pa-icon-size="16"></span> نمایش HTML ثبت‌شده</button>
+                    <button type="button" class="pa-btn pa-btn-outline" id="ed-set-html"><span data-pa-icon="wand" data-pa-icon-size="16"></span> تزریق HTML با API</button>
+                  </div>
+                </form>
+                <pre class="pa-code pa-mt-2" data-pa-code="HTML" hidden id="ed-output"><code></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Basic editor -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>پیش‌تنظیم basic</h3>
+                <small class="pa-text-muted"><code>data-pa-editor="basic"</code> — برای پاسخ‌ها و ایمیل</small>
+              </div>
+              <div class="pa-card-body">
+                <textarea id="ed-basic" data-pa-editor="basic" data-pa-editor-height="180"
+                          data-pa-editor-placeholder="پاسخ خود را بنویسید…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Minimal editor -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>پیش‌تنظیم minimal</h3>
+                <small class="pa-text-muted"><code>data-pa-editor="minimal"</code> — برای نظرها و توضیح کوتاه</small>
+              </div>
+              <div class="pa-card-body">
+                <textarea id="ed-minimal" data-pa-editor="minimal" data-pa-editor-height="110"
+                          data-pa-editor-placeholder="دیدگاه خود را بنویسید…"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature list -->
+          <div class="pa-col-12">
+            <div class="pa-card">
+              <div class="pa-card-header"><h3>امکانات و میان‌برها</h3></div>
+              <div class="pa-card-body">
+                <div class="pa-row">
+                  <div class="pa-col-6">
+                    <ul>
+                      <li>۲۵ دکمه ابزار: واگرد/انجام دوباره، سبک پاراگراف (P تا بلوک کد)، ضخیم/مورب/زیرخط/خط‌خورده، ۴ هم‌ترازی (آغاز/وسط/پایان/کامل — جهت‌آگاه)، فهرست‌ها، تودرتویی، پیوند (با «در تب جدید»)، حذف پیوند، تصویر (URL یا فایل محلی → base64)، خط افقی، جدول، رنگ متن/پس‌زمینه، پاک‌کن قالب‌بندی، تغییر جهت نوشتار، مشاهده کد HTML و تمام‌صفحه</li>
+                      <li>شمارنده زنده واژه/نویسه با ارقام فارسی در حالت RTL</li>
+                      <li>نمای کد HTML: ویرایش دستی و اعمال به محتوا</li>
+                      <li>درج تصویر محلی بدون سرور (FileReader → base64)</li>
+                      <li>پاک‌سازی خودکار HTML هنگام چسباندن (حذف اسکریپت/استایل/رویدادهای درون‌خطی)</li>
+                      <li>همگامی با فرم: <code>textarea</code> اصلی مقدار HTML را می‌گیرد؛ اعتبارسنجی <code>data-pa-validate</code>، پیش‌نویس خودکار <code>data-pa-autosave</code> و reset فرم همه کار می‌کنند</li>
+                    </ul>
+                  </div>
+                  <div class="pa-col-6">
+                    <ul>
+                      <li>میان‌برها: <code>Ctrl+B/I/U</code> ضخیم/مورب/زیرخط · <code>Ctrl+K</code> پیوند · <code>Ctrl+Z/Y</code> واگرد/انجام دوباره · <code>Esc</code> بستن پاپ‌آور/خروج از تمام‌صفحه</li>
+                      <li>دکمه‌های هم‌ترازی «آغاز/پایان سطر» جهت‌آگاه هستند: در RTL همان راست‌چین و در LTR همان چپ‌چین می‌شوند</li>
+                      <li>رابط کامندی: <code>PAdminLTE.editor.get('ed-full').getHTML()</code>، <code>setHTML()</code>، <code>insertHTML()</code>، <code>toggleSource()</code>، <code>toggleFullscreen()</code>، <code>toggleDir()</code>، <code>destroy()</code></li>
+                      <li>رویدادها: <code>pa:editor:input</code>، <code>pa:editor:focus/blur</code>، <code>pa:editor:source</code>، <code>pa:editor:fullscreen</code>، <code>pa:editor:command</code></li>
+                      <li>در «نوشتن مطلب»، «موضوع جدید انجمن» و «نگارش ایمیل» همین ویرایشگر فعال است</li>
+                      <li>همیشه خروجی HTML سمت سرور را پاک‌سازی کنید (نکته امنیتی در مستندات API)</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div data-pa-layout="footer"></div>
+    </div>
+  </div>
+
+  <script src="../js/pa-icons.js"></script>
+  <script src="../js/padminlte.js"></script>
+  <script src="../js/pa-layout.js"></script>
+  <script>
+    /* demo-only wiring: show the HTML that would be submitted */
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('ed-show-html').addEventListener('click', function () {
+        var out = document.getElementById('ed-output');
+        var inst = PAdminLTE.editor.get('ed-full');
+        out.hidden = false;
+        out.querySelector('code').textContent = inst ? inst.getHTML() : '';
+      });
+      document.getElementById('ed-set-html').addEventListener('click', function () {
+        var inst = PAdminLTE.editor.get('ed-full');
+        if (!inst) return;
+        inst.setHTML('<h2>مصنوعی با API</h2><p>این محتوا با <strong>PAdminLTE.editor.get("ed-full").setHTML()</strong> تزریق شد.</p><blockquote>پشتیبانی از نقل قول، فهرست و جدول.</blockquote>');
+      });
+    });
+  </script>
+</body>
+</html>

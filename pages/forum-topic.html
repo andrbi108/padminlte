@@ -200,7 +200,13 @@
       var list = document.getElementById('posts-list');
       function postHtml(r, idx) {
         var pair = (r.color || 'var(--pa-primary-soft)|var(--pa-primary)').split('|');
-        var paras = String(r.text || '').split(/\n+/).filter(Boolean).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+        /* v2.1 — posts/replies written with the WYSIWYG editor store rich
+           HTML; plain-text posts keep the escaped paragraph-split path. */
+        var rawText = String(r.text || '');
+        var looksHtml = /<\s*(p|h[1-6]|ul|ol|li|blockquote|pre|img|table|div|strong|em|b|i|u|a|br|hr)\b/i.test(rawText);
+        var paras = looksHtml
+          ? rawText
+          : rawText.split(/\n+/).filter(Boolean).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
         var badges = '';
         if (r.level) badges += '<span class="pa-badge pa-badge-' + (r.isOp ? 'primary' : 'warning') + '">' + esc(r.level) + '</span> ';
         if (r.verified) badges += '<span class="pa-badge pa-badge-success">تأیید شده</span>';

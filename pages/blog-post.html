@@ -268,8 +268,16 @@
       if (seedPost && seedPost.full) {
         // keep the built-in long-form demo article
       } else if (post.body) {
-        var paras = String(post.body).split(/\n+/).filter(Boolean);
-        article.innerHTML = paras.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+        /* v2.1 — posts written with the WYSIWYG editor store rich HTML;
+           older plain-text posts (no block-level markup) keep the
+           paragraph-split + escaped rendering path. */
+        var looksHtml = /<\s*(p|h[1-6]|ul|ol|li|blockquote|pre|img|table|div|strong|em|b|i|u|a|br|hr)\b/i.test(String(post.body));
+        if (looksHtml) {
+          article.innerHTML = String(post.body);
+        } else {
+          var paras = String(post.body).split(/\n+/).filter(Boolean);
+          article.innerHTML = paras.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
+        }
       } else {
         article.innerHTML =
           '<p>' + esc(post.excerpt || 'این مطلب هنوز متن کاملی ندارد.') + '</p>' +

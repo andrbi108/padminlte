@@ -2818,6 +2818,27 @@
     });
   }
 
+  /* ---------- WYSIWYG editor (v2.1) — lazy loader ----------
+     The editor lives in js/pa-editor.js and is only downloaded when a
+     page actually declares [data-pa-editor] — plain <script> injection,
+     which works offline under file:// (no fetch/XHR involved). */
+  function initEditors(root) {
+    var scope = root || document;
+    var nodes = scope.querySelectorAll('[data-pa-editor]');
+    if (!nodes.length) return;
+    if (PAdminLTE.editor) { PAdminLTE.editor.scan(scope); return; }
+    if (document.querySelector('script[data-pa-editor-loader]')) return; /* load in flight */
+    var src = (IN_PAGES_DIR() ? '../js/' : 'js/') + 'pa-editor.js';
+    var s = document.createElement('script');
+    s.src = src;
+    s.async = false;
+    s.setAttribute('data-pa-editor-loader', '1');
+    s.addEventListener('load', function () {
+      if (PAdminLTE.editor) PAdminLTE.editor.scan(scope);
+    });
+    (document.head || document.body).appendChild(s);
+  }
+
   /* ---------- Keyboard shortcuts sheet (« ? » key) ---------- */
   function initShortcutsSheet() {
     if (initShortcutsSheet.__done) return;
@@ -2915,6 +2936,8 @@
     initAutosave(root);
     initSortables(root);
     initCodeBlocks(root);
+    /* v2.1 — WYSIWYG editor (lazy-loaded only when [data-pa-editor] exists) */
+    initEditors(root);
     initNetStatus();
     initShortcutsSheet();
     injectSkipLink();
@@ -3033,6 +3056,8 @@
   PAdminLTE.initWizards = initWizards;
   PAdminLTE.initAutosave = initAutosave;
   PAdminLTE.initSortables = initSortables;
+  /* v2.1 — WYSIWYG editor */
+  PAdminLTE.initEditors = initEditors;
   PAdminLTE.initNetStatus = initNetStatus;
   PAdminLTE.initCodeBlocks = initCodeBlocks;
   PAdminLTE.initShortcutsSheet = initShortcutsSheet;

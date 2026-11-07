@@ -105,6 +105,7 @@
           { href: 'pages/animations.html', icon: 'wand', label: 'انیمیشن‌ها' },
           { href: 'pages/icons.html', icon: 'sparkles', label: 'آیکون‌ها' },
           { href: 'pages/live-edit.html', icon: 'code', label: 'ویرایشگر زنده' },
+          { href: 'pages/editor.html', icon: 'pen_tool', label: 'ویرایشگر متن غنی' },
           { href: 'pages/file-upload.html', icon: 'cloud_upload', label: 'بارگذاری فایل' }
         ]
       },
@@ -232,7 +233,7 @@
           '<span class="pa-label">' + brand + '</span>' +
         '</a>' +
         '<nav class="pa-sidebar-nav" aria-label="ناوبری">' + nav + '</nav>' +
-        '<div class="pa-sidebar-footer">نسخه ۲.۰.۰ — بدون وابستگی</div>' +
+        '<div class="pa-sidebar-footer">نسخه ۲.۱.۰ — بدون وابستگی</div>' +
       '</aside>';
   }
 
@@ -330,7 +331,7 @@
     var year = new Date().getFullYear();
     return '' +
       '<footer class="pa-card-footer" style="text-align:center; margin-top:1rem;">' +
-        '<strong>PAdminLTE</strong> — نسخهٔ ۲.۰.۰ &copy; ' + year + ' &middot; ' +
+        '<strong>PAdminLTE</strong> — نسخهٔ ۲.۱.۰ &copy; ' + year + ' &middot; ' +
         'بدون وابستگی خارجی &middot; قابل اجرا با file:// &middot; ' +
         '<a href="https://github.com/andrbi108/padminlte/blob/main/README.md" target="_blank" rel="noopener">مستندات</a>' +
       '</footer>';
