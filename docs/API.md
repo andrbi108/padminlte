@@ -1114,3 +1114,42 @@ document.querySelector('.pa-editor').addEventListener('pa:editor:input', functio
   جایگاه اصلی برمی‌گردد.
 - امنیت: پاک‌سازی سمت کلاینت فقط لایهٔ اول است؛ HTML دریافتی از کاربر را قبل از
   ذخیره/نمایش سمت سرور هم پاک‌سازی کنید.
+
+## Form interaction pack (v2.2)
+
+### `PAdminLTE.confirm(opts) → Promise<boolean>`
+
+| گزینه        | نوع    | پیش‌فرض              | توضیح |
+| ------------ | ------ | -------------------- | ----- |
+| `title`      | string | «تأیید عملیات»       | عنوان هدر مودال |
+| `message`    | string | «آیا مطمئن هستید؟»   | متن بدنه (textContent — امن در برابر HTML) |
+| `kind`       | string | `'danger'`           | `danger` \| `warning` \| `primary` — رنگ آیکون و دکمهٔ تأیید |
+| `confirmText`| string | «حذف» / «تأیید»      | متن دکمهٔ تأیید |
+| `cancelText` | string | «انصراف»             | متن دکمهٔ انصراف |
+
+```js
+PAdminLTE.confirm({ title: 'خالی کردن سبد', message: '…', kind: 'danger', confirmText: 'خالی کن' })
+  .then(function (ok) { if (ok) PAdminLTE.cart.clear(); });
+```
+
+- Promise با `true` (تأیید) یا `false` (انصراف/Esc/کلیک بیرون) resolve می‌شود؛
+- رویداد `pa:confirm` با `{result, title}` هم منتشر می‌شود (`PAdminLTE.on`)؛
+- اسکرول body فقط وقتی مودال دیگری باز نیست آزاد می‌شود.
+
+### `PAdminLTE.initMasks(root)` — ماسک‌ها
+
+`data-pa-mask="phone|card|price|date"` (مترادف `tel`). ارقام فارسی/عربی → انگلیسی؛
+رشتهٔ خام در `data-pa-raw`؛ اعتبارسنج `number` جداکنندهٔ هزارگان را می‌پذیرد.
+
+### `PAdminLTE.initStrength(root)` — قوت رمز
+
+`data-pa-strength` روی `input[type=password]` → دکمهٔ چشم (نمایش/پنهان) + نوار ۴بخشی
+(ضعیف/متوسط/خوب/قوی). رویداد `pa:strength` با `{el, score}`.
+
+### `PAdminLTE.initTagInputs(root)` — ورودی برچسب
+
+`data-pa-tags` (+ اختیاری `data-pa-tags-max`) → چیپس‌های قابل حذف بالای فیلد؛
+Enter افزودن، Backspace خالی حذفِ آخرین؛ مقدار فیلد کانونیکال (جداشده با «،») می‌ماند؛
+رویداد `pa:tags:change` با `{el, tags}`.
+
+هر سه تابع در `fullBoot` خودکار اجرا می‌شوند و برای محتوای پویا قابل فراخوانی دستی‌اند.

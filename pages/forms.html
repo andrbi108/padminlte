@@ -55,7 +55,7 @@
                     </div>
                     <div class="pa-form-group">
                       <label for="f-phone">تلفن همراه</label>
-                      <input id="f-phone" class="pa-input" type="text" placeholder="۰۹۱۲۳۴۵۶۷۸۹" data-pa-validate="number">
+                      <input id="f-phone" class="pa-input" type="text" inputmode="tel" placeholder="۰۹۱۲ ۳۴۵ ۶۷۸۹" data-pa-mask="phone" data-pa-validate="number">
                       <div class="pa-form-feedback"></div>
                     </div>
                   </div>
@@ -180,7 +180,7 @@
                       </div>
                       <div class="pa-form-group">
                         <label for="w-pass">گذرواژه</label>
-                        <input id="w-pass" name="password" class="pa-input" type="password" placeholder="حداقل ۶ کاراکتر" minlength="6" required>
+                        <input id="w-pass" name="password" class="pa-input" type="password" placeholder="حداقل ۶ کاراکتر" minlength="6" required data-pa-strength>
                       </div>
                     </div>
                     <p class="pa-text-muted pa-mb-0" style="font-size:.85rem">گذرواژه باید حداقل ۶ کاراکتر باشد؛ ایمیل باید قالب معتبر داشته باشد.</p>
@@ -263,6 +263,62 @@
           </div>
         </div>
 
+        <div class="pa-row">
+          <!-- Form interaction pack (v2.2): masks / tags / confirm -->
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>ماسک ورودی‌ها</h3>
+                <small class="pa-text-muted">با <code>data-pa-mask</code> — ارقام فارسی تایپ‌شده خودکار انگلیسی و گروه‌بندی می‌شوند؛ رشتهٔ خام در <code>data-pa-raw</code> نگه داشته می‌شود</small>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-form-row">
+                  <div class="pa-form-group">
+                    <label for="m-card">شماره کارت</label>
+                    <input id="m-card" class="pa-input" type="text" inputmode="numeric" placeholder="۶۰۳۷ ۹۹۷۰ ۱۲۳۴ ۵۶۷۸" data-pa-mask="card">
+                    <div class="pa-hint">گروه‌های ۴تایی — حداکثر ۱۶ رقم</div>
+                  </div>
+                  <div class="pa-form-group">
+                    <label for="m-price">مبلغ (تومان)</label>
+                    <input id="m-price" class="pa-input" type="text" inputmode="numeric" placeholder="۲٬۵۰۰٬۰۰۰" data-pa-mask="price" data-pa-validate="number">
+                    <div class="pa-hint">جداکنندهٔ هزارگان — اعتبارسنجی number آن را می‌پذیرد</div>
+                  </div>
+                </div>
+                <div class="pa-form-row">
+                  <div class="pa-form-group">
+                    <label for="m-date">تاریخ (شمسی)</label>
+                    <input id="m-date" class="pa-input" type="text" inputmode="numeric" placeholder="۱۴۰۳/۰۸/۱۲" data-pa-mask="date">
+                    <div class="pa-hint">الگوی ۴/۲/۲ با اسلش خودکار</div>
+                  </div>
+                  <div class="pa-form-group">
+                    <label for="m-phone2">تلفن همراه</label>
+                    <input id="m-phone2" class="pa-input" type="text" inputmode="tel" placeholder="۰۹۱۲ ۳۴۵ ۶۷۸۹" data-pa-mask="phone">
+                    <div class="pa-hint">الگوی ۴/۳/۴</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-col-6">
+            <div class="pa-card">
+              <div class="pa-card-header">
+                <h3>ورودی برچسب (Tags)</h3>
+                <small class="pa-text-muted">با <code>data-pa-tags</code> — مقدارِ فیلد همان فهرستِ جداشده با «،» می‌ماند (سازگار با submit فرم)؛ Enter افزودن، Backspace روی فیلد خالی حذف آخری، روی چیپس × حذف تک‌تک</small>
+              </div>
+              <div class="pa-card-body">
+                <div class="pa-form-group">
+                  <label for="t-demo">برچسب‌های مهارت</label>
+                  <input id="t-demo" class="pa-input" type="text" value="طراحی رابط، CSS، دسترسی‌پذیری" data-pa-tags data-pa-tags-max="8">
+                  <div class="pa-hint">حداکثر ۸ برچسب — رویداد <code>pa:tags:change</code> با <code>PAdminLTE.on</code> گوش دهید</div>
+                </div>
+                <button type="button" class="pa-btn pa-btn-outline" data-pa-icon="warning" data-pa-icon-size="16" id="confirm-demo"> نمونهٔ دیالوگ تأیید</button>
+                <div class="pa-hint pa-mt-1">این دکمه <code>PAdminLTE.confirm()</code> را با kind=danger نشان می‌دهد — در حذف پروژه‌ها، خالی‌کردن سبد و پاک‌کردن علاقه‌مندی‌ها فعال است.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div data-pa-layout="footer"></div>
       </main>
     </div>
@@ -296,5 +352,21 @@
   <script src="../js/pa-icons.js"></script>
   <script src="../js/padminlte.js"></script>
   <script src="../js/pa-layout.js"></script>
+  <script>
+    /* v2.2 demo — styled confirm dialog */
+    document.addEventListener('DOMContentLoaded', function () {
+      var demo = document.getElementById('confirm-demo');
+      if (demo) demo.addEventListener('click', function () {
+        PAdminLTE.confirm({
+          title: 'حذف آیتم نمونه',
+          message: 'این فقط یک نمایش از دیالوگ تأیید است؛ چیزی حذف نمی‌شود.',
+          kind: 'danger',
+          confirmText: 'حذف'
+        }).then(function (ok) {
+          PAdminLTE.toast({ kind: ok ? 'info' : 'warning', message: ok ? 'تأیید شد (نمونه).' : 'انصراف داده شد.' });
+        });
+      });
+    });
+  </script>
 </body>
 </html>

@@ -298,13 +298,20 @@
         render();
       }
 
-      // حذف پروژه با تأیید کاربر
+      // حذف پروژه با تأیید کاربر (v2.2 — دیالوگ استایل‌شده به‌جای confirm بومی)
       function del(p) {
-        if (!window.confirm('پروژه «' + p.name + '» حذف شود؟')) return;
-        projects = projects.filter(function (x) { return x.id !== p.id; });
-        save();
-        render();
-        PAdminLTE.toast({ kind: 'danger', title: 'حذف شد', message: 'پروژه «' + p.name + '» حذف شد.' });
+        PAdminLTE.confirm({
+          title: 'حذف پروژه',
+          message: 'پروژه «' + p.name + '» برای همیشه حذف می‌شود. این عملیات قابل بازگشت نیست.',
+          kind: 'danger',
+          confirmText: 'حذف'
+        }).then(function (ok) {
+          if (!ok) return;
+          projects = projects.filter(function (x) { return x.id !== p.id; });
+          save();
+          render();
+          PAdminLTE.toast({ kind: 'danger', title: 'حذف شد', message: 'پروژه «' + p.name + '» حذف شد.' });
+        });
       }
 
       // راه‌اندازی صفحه

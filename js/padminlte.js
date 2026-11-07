@@ -430,7 +430,9 @@
         valid = val.length >= n;
         if (!valid && val) msg = 'حداقل ' + n + ' کاراکتر لازم است.';
       } else if (rule === 'number') {
-        valid = !val || !isNaN(parseFloat(val));
+        /* v2.2 — tolerate the thousand separators the price mask produces */
+        var norm = val.replace(/[,\u066C\s]/g, '');
+        valid = !norm || !isNaN(parseFloat(norm));
         if (!valid) msg = 'مقدار عددی وارد کنید.';
       }
       field.classList.toggle('is-invalid', !valid);
@@ -2201,8 +2203,17 @@
     document.addEventListener('click', function (e) {
       var btn = e.target && e.target.closest ? e.target.closest('[data-pa-cart-clear]') : null;
       if (!btn) return;
-      cartClear();
-      toast({ kind: 'info', message: 'سبد خرید خالی شد.' });
+      /* v2.2 — styled confirm instead of instant wipe */
+      confirmDialog({
+        title: 'خالی کردن سبد خرید',
+        message: 'همهٔ اقلام سبد خرید حذف می‌شوند. این عملیات قابل بازگشت نیست.',
+        kind: 'danger',
+        confirmText: 'خالی کن'
+      }).then(function (ok) {
+        if (!ok) return;
+        cartClear();
+        toast({ kind: 'info', message: 'سبد خرید خالی شد.' });
+      });
     });
   }
 
@@ -2839,6 +2850,274 @@
     (document.head || document.body).appendChild(s);
   }
 
+  /* ---------- Confirm dialog (v2.2) — promise-based styled confirm ----------
+     PAdminLTE.confirm({ title, message, kind, confirmText, cancelText })
+       kind: 'danger' (default) | 'warning' | 'primary'
+     Resolves true on confirm, false on cancel / backdrop / Esc. */
+  function confirmDialog(opts) {
+    opts = opts || {};
+    return new Promise(function (resolve) {
+      var kind = opts.kind || 'danger';
+      var iconName = { danger: 'warning', warning: 'warning', primary: 'question' }[kind] || 'warning';
+      var btnClass = { danger: 'pa-btn-danger', warning: 'pa-btn-warning', primary: 'pa-btn-primary' }[kind] || 'pa-btn-danger';
+
+      var backdrop = document.createElement('div');
+      backdrop.className = 'pa-modal-backdrop pa-confirm-backdrop';
+      backdrop.setAttribute('role', 'alertdialog');
+      backdrop.setAttribute('aria-modal', 'true');
+      backdrop.setAttribute('aria-label', opts.title || 'تأیید عملیات');
+
+      var modal = document.createElement('div');
+      modal.className = 'pa-modal pa-modal-sm pa-confirm pa-confirm-' + kind;
+
+      var head = document.createElement('div');
+      head.className = 'pa-modal-header pa-confirm-head';
+      var hIcon = document.createElement('span');
+      hIcon.className = 'pa-confirm-icon';
+      hIcon.innerHTML = PAdminLTE.icon(iconName, 22);
+      var hTitle = document.createElement('h3');
+      hTitle.textContent = opts.title || 'تأیید عملیات';
+      head.appendChild(hIcon);
+      head.appendChild(hTitle);
+
+      var body = document.createElement('div');
+      body.className = 'pa-modal-body pa-confirm-body';
+      var msg = document.createElement('div');
+      msg.className = 'pa-confirm-msg';
+      msg.textContent = opts.message || 'آیا مطمئن هستید؟';
+      body.appendChild(msg);
+
+      var foot = document.createElement('div');
+      foot.className = 'pa-modal-footer';
+      var cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'pa-btn pa-btn-outline';
+      cancelBtn.textContent = opts.cancelText || 'انصراف';
+      var okBtn = document.createElement('button');
+      okBtn.type = 'button';
+      okBtn.className = 'pa-btn ' + btnClass;
+      okBtn.textContent = opts.confirmText || (kind === 'danger' ? 'حذف' : 'تأیید');
+      foot.appendChild(cancelBtn);
+      foot.appendChild(okBtn);
+
+      modal.appendChild(head);
+      modal.appendChild(body);
+      modal.appendChild(foot);
+      backdrop.appendChild(modal);
+      document.body.appendChild(backdrop);
+
+      var done = false;
+      function finish(result) {
+        if (done) return;
+        done = true;
+        backdrop.classList.remove('is-open');
+        document.removeEventListener('keydown', onKey);
+        setTimeout(function () {
+          if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+          /* restore scroll only if no other modal/backdrop is still open */
+          if (!document.querySelector('.pa-modal-backdrop.is-open')) document.body.style.overflow = '';
+        }, 150);
+        emit('pa:confirm', { result: result, title: opts.title || '' });
+        resolve(result);
+      }
+      function onKey(e) { if (e.key === 'Escape') finish(false); }
+
+      okBtn.addEventListener('click', function () { finish(true); });
+      cancelBtn.addEventListener('click', function () { finish(false); });
+      backdrop.addEventListener('mousedown', function (e) { if (e.target === backdrop) finish(false); });
+      document.addEventListener('keydown', onKey);
+
+      /* open on the next frame so the CSS open-transition plays */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { backdrop.classList.add('is-open'); });
+      });
+      document.body.style.overflow = 'hidden';
+      setTimeout(function () { cancelBtn.focus(); }, 60);
+    });
+  }
+
+  /* ---------- Input masks (v2.2) — data-pa-mask="phone|card|price|date" ----------
+     Normalizes Persian/Arabic digits to ASCII, groups visually and keeps the
+     raw digit string in data-pa-raw. The number validator accepts the
+     thousand separators the price mask produces. */
+  function initMasks(root) {
+    (root || document).querySelectorAll('[data-pa-mask]').forEach(function (input) {
+      if (input.__paMask) return;
+      input.__paMask = true;
+      var kind = input.getAttribute('data-pa-mask');
+      if (kind === 'tel') kind = 'phone';
+
+      function toEn(s) {
+        return String(s)
+          .replace(/[۰-۹]/g, function (d) { return String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)); })
+          .replace(/[٠-٩]/g, function (d) { return String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)); });
+      }
+      function digits(s) { return toEn(s).replace(/\D/g, ''); }
+      function format(v) {
+        var d;
+        if (kind === 'phone') {
+          d = digits(v).slice(0, 11);
+          return [d.slice(0, 4), d.slice(4, 7), d.slice(7, 11)].filter(Boolean).join(' ');
+        }
+        if (kind === 'card') {
+          d = digits(v).slice(0, 16);
+          return d.replace(/(\d{4})(?=\d)/g, '$1 ').trim();
+        }
+        if (kind === 'price') {
+          d = digits(v).slice(0, 15);
+          return d ? Number(d).toLocaleString('en-US') : '';
+        }
+        if (kind === 'date') { /* ۱۴۰۳/۰۸/۱۲ — 4/2/2 */
+          d = digits(v).slice(0, 8);
+          var out = d.slice(0, 4);
+          if (d.length > 4) out += '/' + d.slice(4, 6);
+          if (d.length > 6) out += '/' + d.slice(6, 8);
+          return out;
+        }
+        return v;
+      }
+      function apply() {
+        var f = format(input.value);
+        if (f !== input.value) input.value = f;
+        var raw = digits(input.value);
+        if (raw) input.setAttribute('data-pa-raw', raw);
+        else input.removeAttribute('data-pa-raw');
+      }
+      input.addEventListener('input', apply);
+      if (input.value) apply();
+    });
+  }
+
+  /* ---------- Password strength + visibility (v2.2) — data-pa-strength ----------
+     Wraps the password input with an eye toggle and a 4-bar meter
+     (ضعیف / متوسط / خوب / قوی). Emits pa:strength via PAdminLTE.on. */
+  function initStrength(root) {
+    (root || document).querySelectorAll('input[type="password"][data-pa-strength], input[type="text"][data-pa-strength]').forEach(function (input) {
+      if (input.__paStrength) return;
+      input.__paStrength = true;
+
+      var wrap = document.createElement('div');
+      wrap.className = 'pa-pass-wrap';
+      input.parentNode.insertBefore(wrap, input);
+      wrap.appendChild(input);
+      input.classList.add('pa-has-eye');
+
+      var eye = document.createElement('button');
+      eye.type = 'button';
+      eye.className = 'pa-pass-eye';
+      eye.setAttribute('aria-label', 'نمایش/پنهان‌سازی رمز');
+      eye.setAttribute('title', 'نمایش/پنهان‌سازی رمز');
+      eye.innerHTML = PAdminLTE.icon('eye', 16);
+      wrap.appendChild(eye);
+
+      var meter = document.createElement('div');
+      meter.className = 'pa-pass-meter';
+      meter.setAttribute('aria-live', 'polite');
+      meter.innerHTML = '<div class="pa-pass-bars"><i></i><i></i><i></i><i></i></div><span class="pa-pass-label"></span>';
+      wrap.parentNode.insertBefore(meter, wrap.nextSibling);
+
+      eye.addEventListener('click', function () {
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        eye.innerHTML = PAdminLTE.icon(show ? 'eye_off' : 'eye', 16);
+        eye.classList.toggle('is-on', show);
+        input.focus();
+      });
+
+      function score(v) {
+        if (!v) return 0;
+        var s = 0;
+        if (v.length >= 6) s++;
+        if (v.length >= 10) s++;
+        if ((/[a-z]/.test(v) && /[A-Z]/.test(v)) || (/\d/.test(v) && /[a-zA-Z]/.test(v))) s++;
+        if (/[^a-zA-Z0-9]/.test(v)) s++;
+        return Math.max(1, Math.min(4, s));
+      }
+      var LABELS = ['', 'ضعیف', 'متوسط', 'خوب', 'قوی'];
+      input.addEventListener('input', function () {
+        var s = score(input.value);
+        meter.className = 'pa-pass-meter' + (s ? ' s' + s : '');
+        meter.querySelector('.pa-pass-label').textContent = LABELS[s] || '';
+        emit('pa:strength', { el: input, score: s });
+      });
+      /* restore after a form reset */
+      var form = input.closest('form');
+      if (form) form.addEventListener('reset', function () {
+        setTimeout(function () {
+          meter.className = 'pa-pass-meter';
+          meter.querySelector('.pa-pass-label').textContent = '';
+        }, 0);
+      });
+    });
+  }
+
+  /* ---------- Tag chips input (v2.2) — <input data-pa-tags> ----------
+     The input keeps the canonical comma/«،»-joined value (form-submit
+     friendly); chips render above it — click × to remove, Enter to add,
+     Backspace on an empty field pops the last chip. */
+  function initTagInputs(root) {
+    (root || document).querySelectorAll('input[data-pa-tags]').forEach(function (input) {
+      if (input.__paTags) return;
+      input.__paTags = true;
+      var max = parseInt(input.getAttribute('data-pa-tags-max'), 10) || 0;
+
+      var chips = document.createElement('div');
+      chips.className = 'pa-tags-input';
+      input.parentNode.insertBefore(chips, input);
+
+      function tags() {
+        return input.value.split(/[،,]/).map(function (t) { return t.trim(); }).filter(Boolean);
+      }
+      function sync() { emit('pa:tags:change', { el: input, tags: tags() }); }
+      function render() {
+        var arr = tags();
+        chips.innerHTML = '';
+        arr.forEach(function (t) {
+          var chip = document.createElement('span');
+          chip.className = 'pa-tag pa-tag-size-sm';
+          chip.textContent = t;
+          var x = document.createElement('button');
+          x.type = 'button';
+          x.className = 'pa-tag-x';
+          x.setAttribute('aria-label', 'حذف برچسب ' + t);
+          x.innerHTML = '&times;';
+          x.addEventListener('click', function () {
+            input.value = tags().filter(function (v) { return v !== t; }).join('، ');
+            render();
+            sync();
+          });
+          chip.appendChild(x);
+          chips.appendChild(chip);
+        });
+        chips.classList.toggle('is-empty', !arr.length);
+      }
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          var t = input.value.replace(/[،,]+/g, '،').split(/[،]/).map(function (s) { return s.trim(); }).filter(Boolean);
+          var arr = tags();
+          t.forEach(function (one) {
+            if (arr.indexOf(one) === -1 && (!max || arr.length < max)) arr.push(one);
+          });
+          input.value = arr.join('، ');
+          render();
+          sync();
+        } else if (e.key === 'Backspace' && !input.value) {
+          var arr2 = tags();
+          if (arr2.length) { arr2.pop(); input.value = arr2.join('، '); render(); sync(); }
+        }
+      });
+      input.addEventListener('blur', function (e) {
+        /* clicking a chip's × moves focus into the chips container — re-rendering
+           here would destroy the button between mousedown and click */
+        if (chips.contains(e.relatedTarget)) return;
+        input.value = tags().join('، ');
+        render();
+      });
+      render();
+    });
+  }
+
   /* ---------- Keyboard shortcuts sheet (« ? » key) ---------- */
   function initShortcutsSheet() {
     if (initShortcutsSheet.__done) return;
@@ -2938,6 +3217,10 @@
     initCodeBlocks(root);
     /* v2.1 — WYSIWYG editor (lazy-loaded only when [data-pa-editor] exists) */
     initEditors(root);
+    /* v2.2 — form interaction pack */
+    initMasks(root);
+    initStrength(root);
+    initTagInputs(root);
     initNetStatus();
     initShortcutsSheet();
     injectSkipLink();
@@ -3061,6 +3344,11 @@
   PAdminLTE.initNetStatus = initNetStatus;
   PAdminLTE.initCodeBlocks = initCodeBlocks;
   PAdminLTE.initShortcutsSheet = initShortcutsSheet;
+  /* v2.2 — form interaction pack */
+  PAdminLTE.confirm = confirmDialog;
+  PAdminLTE.initMasks = initMasks;
+  PAdminLTE.initStrength = initStrength;
+  PAdminLTE.initTagInputs = initTagInputs;
 
   /* ---------- Public API additions (v1.4) ---------- */
   PAdminLTE.palette = {

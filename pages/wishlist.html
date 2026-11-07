@@ -143,9 +143,18 @@
 
     /* Clear all */
     document.getElementById('wish-clear').addEventListener('click', function () {
-      PAdminLTE.wishlist.ids().forEach(function (id) { PAdminLTE.wishlist.remove(id); });
-      PAdminLTE.toast({ kind: 'info', message: 'فهرست علاقه‌مندی‌ها خالی شد.' });
-      render();
+      /* v2.2 — styled confirm before wiping the whole list */
+      PAdminLTE.confirm({
+        title: 'حذف همهٔ علاقه‌مندی‌ها',
+        message: 'همهٔ کالاهای فهرست علاقه‌مندی‌ها حذف می‌شوند. این عملیات قابل بازگشت نیست.',
+        kind: 'danger',
+        confirmText: 'حذف همه'
+      }).then(function (ok) {
+        if (!ok) return;
+        PAdminLTE.wishlist.ids().forEach(function (id) { PAdminLTE.wishlist.remove(id); });
+        PAdminLTE.toast({ kind: 'info', message: 'فهرست علاقه‌مندی‌ها خالی شد.' });
+        render();
+      });
     });
 
     /* Keep card state in sync if wishlist changes elsewhere */
